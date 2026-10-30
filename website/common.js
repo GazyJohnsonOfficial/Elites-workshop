@@ -166,12 +166,21 @@ document.addEventListener("DOMContentLoaded", () => {
   $$("[data-socials]").forEach((box) => {
     socialDefs.forEach(([key, label, icon]) => {
       const href = key === "whatsapp" ? waUrl : safeUrl(CONFIG.SOCIALS[key] || "");
-      if (!href) return;
+      if (!href) {
+        if (["facebook", "linkedin", "x"].includes(key)) {
+          box.appendChild(etsEl("span", {
+            class: "social-placeholder",
+            role: "img",
+            "aria-label": label + " profile link not configured",
+            title: label + " profile link not configured",
+          }, etsIcon(icon)));
+        }
+        return;
+      }
       const a = etsEl("a", { href, target: "_blank", rel: "noopener noreferrer", "aria-label": label + " (opens in a new tab)", title: label }, etsIcon(icon));
       box.appendChild(a);
     });
   });
-
   /* =====================================================
      Cookie consent
      - Essential storage is always on (remembers this choice, spam protection for forms).

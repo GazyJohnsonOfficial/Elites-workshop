@@ -100,13 +100,9 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); }
 .brand { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; color: var(--navy); }
-.brand-icon {
-  display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px;
-  background: linear-gradient(135deg, var(--blue), var(--cyan)); color: #fff;
-}
-.brand-icon .ico { width: 22px; height: 22px; stroke-width: 2.4; }
-.brand-text { font-weight: 800; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; line-height: 1.1; }
-.brand-text small { color: var(--blue); font-size: 1em; }
+.brand-logo { display: block; width: 64px; height: 64px; object-fit: contain; }
+.brand-name { font-weight: 800; font-size: .88rem; letter-spacing: .04em; text-transform: uppercase; line-height: 1.1; }
+.brand-name small { color: var(--blue); font-size: 1em; }
 
 .main-nav { display: flex; align-items: center; gap: clamp(1.2rem, 2.4vw, 2.6rem); }
 .main-nav a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 600; font-size: .98rem; padding: .4rem 0; border-bottom: 2px solid transparent; }
@@ -399,7 +395,6 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
 .site-footer { background: var(--navy-deep); color: #cdd7f2; padding-top: clamp(48px, 6vw, 88px); }
 .footer-grid { display: grid; grid-template-columns: 1.6fr .8fr .9fr 1.4fr; gap: 40px clamp(28px, 4vw, 96px); padding-bottom: 48px; }
 .site-footer .brand { color: #fff; }
-.site-footer .brand-text small { color: var(--cyan); }
 .footer-brand p { margin: 1.2em 0 0; max-width: 36ch; color: #aebbe0; }
 .site-footer h3 { color: #fff; font-size: 1rem; letter-spacing: .04em; margin-bottom: 1em; }
 .footer-links { display: grid; gap: 10px; align-content: start; justify-items: start; }
@@ -509,12 +504,14 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
 
 /* socials */
 .socials { display: flex; flex-wrap: wrap; gap: 10px; }
-.socials a { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--blue-soft); color: var(--blue); transition: background .15s, color .15s, transform .2s; }
-.socials a:hover { background: var(--navy); color: #fff; transform: translateY(-3px); }
+.socials a, .socials .social-placeholder { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: var(--blue-soft); color: var(--blue); }
+.socials a, .socials .social-placeholder { transition: background .15s, color .15s, transform .2s; }
+.socials a:hover, .socials .social-placeholder:hover { background: var(--navy); color: #fff; transform: translateY(-3px); }
+.socials .social-placeholder { opacity: .7; cursor: default; }
 .socials .ico { width: 22px; height: 22px; }
 .site-footer .socials { margin-top: 20px; }
-.site-footer .socials a { background: rgba(255, 255, 255, .09); color: #fff; }
-.site-footer .socials a:hover { background: var(--gold); color: var(--navy-deep); }
+.site-footer .socials a, .site-footer .socials .social-placeholder { background: rgba(255, 255, 255, .09); color: #fff; }
+.site-footer .socials a:hover, .site-footer .socials .social-placeholder:hover { background: var(--gold); color: var(--navy-deep); }
 
 /* cookie banner + preferences */
 .cookie-banner { position: fixed; left: 50%; bottom: 16px; z-index: 80; width: min(780px, calc(100% - 32px)); transform: translateX(-50%); display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; justify-content: space-between; background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 22px; padding: 20px 24px; box-shadow: 0 24px 64px rgba(10, 26, 64, .28); opacity: 0; translate: 0 24px; transition: opacity .3s, translate .3s; }
@@ -619,8 +616,8 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
 @media (max-width: 640px) {
   :root { --header-h: 68px; }
   body { font-size: 1rem; }
-  .brand-text { font-size: .74rem; }
-  .brand-icon { width: 38px; height: 38px; }
+  .brand-logo { width: 48px; height: 48px; }
+  .brand-name { font-size: .7rem; }
   .modules { grid-template-columns: 1fr; }
   .glance-grid { grid-template-columns: repeat(2, 1fr); }
   .field-row { grid-template-columns: 1fr; }

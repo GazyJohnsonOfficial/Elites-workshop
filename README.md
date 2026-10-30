@@ -48,7 +48,7 @@ Upload the **contents** of `website/` (so `index.html` sits at the top level) to
 
 ## 4. Things for the client to confirm or supply
 
-- **Logo:** replace the placeholder icon (marked `LOGO PLACEHOLDER` in `index.html`) and `favicon.svg`.
+- **Logo:** `website/logo.png` is used in the site header, footer and as the favicon.
 - **Curriculum:** the four modules and week ranges are a draft (marked `CLIENT:` in `index.html`).
 - **About section:** the company text is general. Add a real company profile and instructor details.
 - **Session time:** the flyer gives a start date but no time, so the countdown counts to the start of Nov 10 and the calendar button adds an all-day entry. Add the time in `config.js` once confirmed.
