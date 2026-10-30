@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.emailjs.com; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="theme-color" content="#0f2557" />
+  <title>Data Analysis Programme | Elites Tech Solutions LLC</title>
+  <meta name="description" content="A practical, hands-on 3-month Data Analysis programme for working professionals: SQL, Python, Excel and VBA, Alteryx, Tableau and Power BI. Starts November 10. Online via Zoom. Register now." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Data Analysis Programme | Elites Tech Solutions LLC" />
+  <meta property="og:description" content="From messy data to decision-ready insights in three months. SQL, Python, Excel and VBA, Alteryx, Tableau and Power BI. Starts November 10, online on Zoom." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="config.js"></script>
+  <script src="common.js"></script>
+  <script src="vendor/emailjs.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Icon sprite -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+    <symbol id="i-cal-plus" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M12 13v6M9 16h6"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8l-5 4 5 4M16 8l5 4-5 4M14 4l-4 16"/></symbol>
+    <symbol id="i-workflow" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M9 6h3a3 3 0 0 1 3 3v6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 20h20"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.8-.4-1.6-1.2-2-2l.8-.8-1-2z"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M22.5 6.4a2.8 2.8 0 0 0-1.9-2C18.9 4 12 4 12 4s-6.9 0-8.6.4a2.8 2.8 0 0 0-1.9 2A29 29 0 0 0 1 11.8a29 29 0 0 0 .5 5.3 2.8 2.8 0 0 0 1.9 2c1.7.4 8.6.4 8.6.4s6.9 0 8.6-.4a2.8 2.8 0 0 0 1.9-2 29 29 0 0 0 .5-5.3 29 29 0 0 0-.5-5.4z"/><path d="M9.8 15l5.7-3.3L9.8 8.5z"/></symbol>
+    <symbol id="i-xsocial" viewBox="0 0 24 24"><path d="M4 4h4l12 16h-4z"/><path d="M20 4l-7 7.5M4 20l7-7.5"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="Elites Tech Solutions LLC home">
+        <!-- LOGO PLACEHOLDER: replace this block with <img src="logo.png" alt="Elites Tech Solutions LLC" height="40"> -->
+        <span class="brand-icon" aria-hidden="true"><svg class="ico"><use href="#i-chart"/></svg></span>
+        <span class="brand-text">Elites Tech Solutions <small>LLC</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="main-nav" class="main-nav" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#before-you-enrol">Before you enrol</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="#register" class="btn btn-gold btn-sm">Register now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="hero-bg" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="kicker">Elites Tech Solutions LLC</p>
+            <h1><span>Data</span><span>Analysis</span></h1>
+            <p class="lead">A practical, hands-on programme that takes working professionals from messy data to clear, decision-ready insights across four tools over three months.</p>
+
+            <div class="hero-actions">
+              <a href="#register" class="btn btn-gold btn-lg">Register now</a>
+              <a href="#curriculum" class="btn btn-outline btn-lg">View curriculum</a>
+            </div>
+
+            <ul class="hero-meta">
+              <li>
+                <span class="meta-ico"><svg class="ico"><use href="#i-calendar"/></svg></span>
+                <div><strong>Starts November 10</strong><em>3 months · 3×week · 1 hr</em></div>
+              </li>
+              <li>
+                <span class="meta-ico"><svg class="ico"><use href="#i-video"/></svg></span>
+                <div><strong>Online</strong><em>Zoom meeting</em></div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Decorative composition: dashboard + code, built in HTML/SVG -->
+          <div class="stage" aria-hidden="true">
+            <span class="dots"></span>
+
+            <div class="circle circle-a">
+              <div class="dash">
+                <p class="dash-title">Sales Overview</p>
+                <div class="kpis">
+                  <div class="kpi"><small>Total Sales</small><b>$482,321</b><i>▲ 12.4%</i></div>
+                  <div class="kpi"><small>Total Orders</small><b>8,642</b><i>▲ 9.1%</i></div>
+                  <div class="kpi"><small>Avg. Order</small><b>$55.82</b><i>▲ 4.8%</i></div>
+                </div>
+                <div class="dash-row">
+                  <div class="panel">
+                    <svg viewBox="0 0 120 50" preserveAspectRatio="none">
+                      <defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#19b5e8"/><stop offset="1" stop-color="#2d4fd6"/></linearGradient></defs>
+                      <g fill="url(#gb)" class="bars">
+                        <rect x="2" y="38" width="6" height="12" rx="1"/><rect x="11.6" y="32" width="6" height="18" rx="1"/><rect x="21.2" y="35" width="6" height="15" rx="1"/><rect x="30.8" y="26" width="6" height="24" rx="1"/>
+                        <rect x="40.4" y="30" width="6" height="20" rx="1"/><rect x="50" y="20" width="6" height="30" rx="1"/><rect x="59.6" y="24" width="6" height="26" rx="1"/><rect x="69.2" y="16" width="6" height="34" rx="1"/>
+                        <rect x="78.8" y="20" width="6" height="30" rx="1"/><rect x="88.4" y="10" width="6" height="40" rx="1"/><rect x="98" y="14" width="6" height="36" rx="1"/><rect x="107.6" y="4" width="6" height="46" rx="1"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="panel donut">
+                    <svg viewBox="0 0 42 42">
+                      <circle cx="21" cy="21" r="15.9" fill="none" stroke="#2d4fd6" stroke-width="6" stroke-dasharray="42 58" stroke-dashoffset="25"/>
+                      <circle cx="21" cy="21" r="15.9" fill="none" stroke="#19b5e8" stroke-width="6" stroke-dasharray="28 72" stroke-dashoffset="-17"/>
+                      <circle cx="21" cy="21" r="15.9" fill="none" stroke="#f5b82e" stroke-width="6" stroke-dasharray="18 82" stroke-dashoffset="-45"/>
+                      <circle cx="21" cy="21" r="15.9" fill="none" stroke="#0f2557" stroke-width="6" stroke-dasharray="12 88" stroke-dashoffset="-63"/>
+                    </svg>
+                    <ul><li><s class="dot-a"></s>A 42%</li><li><s class="dot-b"></s>B 28%</li><li><s class="dot-c"></s>C 18%</li></ul>
+                  </div>
+                </div>
+                <div class="panel">
+                  <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#19b5e8" stop-opacity=".45"/><stop offset="1" stop-color="#19b5e8" stop-opacity="0"/></linearGradient></defs>
+                    <polygon points="0,28 12,25 24,27 36,20 48,22 60,15 72,17 84,10 96,12 108,5 120,2 120,34 0,34" fill="url(#ga)"/>
+                    <polyline points="0,28 12,25 24,27 36,20 48,22 60,15 72,17 84,10 96,12 108,5 120,2" fill="none" stroke="#2d4fd6" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="circle circle-b">
+              <div class="code">
+                <div class="code-bar"><i></i><i></i><i></i><span>analysis.py</span></div>
+<pre><code><span class="k">import</span> pandas <span class="k">as</span> pd
+df = pd.<span class="f">read_csv</span>(<span class="s">"data.csv"</span>)
+
+<span class="c"># Data analysis</span>
+summary = (df
+  .<span class="f">groupby</span>(<span class="s">"region"</span>)
+  .<span class="f">agg</span>({<span class="s">"sales"</span>: <span class="s">"sum"</span>}))
+<span class="f">print</span>(summary)</code></pre>
+                <hr />
+<pre><code><span class="k">SELECT</span> region,
+  <span class="f">SUM</span>(sales) <span class="k">AS</span> total_sales
+<span class="k">FROM</span> sales
+<span class="k">GROUP BY</span> region
+<span class="k">ORDER BY</span> total_sales <span class="k">DESC</span>;</code></pre>
+              </div>
+            </div>
+
+            <span class="chip c1"><svg class="ico"><use href="#i-chart"/></svg>Power BI</span>
+            <span class="chip c2"><svg class="ico"><use href="#i-code"/></svg>Python</span>
+            <span class="chip c3"><svg class="ico"><use href="#i-db"/></svg>SQL</span>
+          </div>
+        </div>
+
+        <!-- Countdown bar -->
+        <div class="hero-bar">
+          <div class="bar-text">
+            <strong>Programme starts in</strong>
+            <span>Registration only. No payment is taken on this website.</span>
+          </div>
+          <div class="countdown" id="countdown" role="timer" aria-live="off">
+            <div><span id="cd-days">--</span><small>Days</small></div>
+            <div><span id="cd-hours">--</span><small>Hours</small></div>
+            <div><span id="cd-mins">--</span><small>Mins</small></div>
+            <div><span id="cd-secs">--</span><small>Secs</small></div>
+          </div>
+          <p class="countdown-done" id="countdown-done" hidden>The programme has started. Contact us to ask about joining.</p>
+          <a href="#register" class="btn btn-gold">Reserve your place</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TOOLS ============ -->
+    <section class="tools" aria-label="Tools covered">
+      <div class="container tools-inner">
+        <p>Tools you'll work with</p>
+        <ul>
+          <li><svg class="ico"><use href="#i-db"/></svg>SQL</li>
+          <li><svg class="ico"><use href="#i-code"/></svg>Python</li>
+          <li><svg class="ico"><use href="#i-table"/></svg>Excel &amp; VBA</li>
+          <li><svg class="ico"><use href="#i-workflow"/></svg>Alteryx</li>
+          <li><svg class="ico"><use href="#i-chart"/></svg>Tableau</li>
+          <li><svg class="ico"><use href="#i-chart"/></svg>Power BI</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <!-- CLIENT: please add a short company profile (who you are, years in operation, instructor profiles) to replace or extend this section. -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="ov-grid">
+          <div class="ov-intro reveal">
+            <h2>About Elites Tech Solutions</h2>
+            <p>Elites Tech Solutions LLC delivers practical, hands-on technology training for working professionals. Our Data Analysis Programme is built on one idea: you learn a tool best by using it on realistic data, then connecting it to the next tool in a real workflow.</p>
+            <p>The result is a complete path from raw, messy data to clear insights that other people can act on.</p>
+            <a href="#register" class="btn btn-navy">Reserve your place</a>
+          </div>
+          <ul class="ov-list">
+            <li class="reveal">
+              <span class="ov-ico"><svg class="ico"><use href="#i-target"/></svg></span>
+              <div><h3>Hands-on, not theory-heavy</h3><p>Every session is built around realistic datasets, so you practise each skill as you learn it.</p></div>
+            </li>
+            <li class="reveal">
+              <span class="ov-ico"><svg class="ico"><use href="#i-briefcase"/></svg></span>
+              <div><h3>Built for working professionals</h3><p>One-hour live sessions, three times a week, online, so it fits around your job.</p></div>
+            </li>
+            <li class="reveal">
+              <span class="ov-ico"><svg class="ico"><use href="#i-workflow"/></svg></span>
+              <div><h3>Four tools, one workflow</h3><p>See how databases, scripting, ETL and dashboards connect into a single end-to-end analysis process.</p></div>
+            </li>
+            <li class="reveal">
+              <span class="ov-ico"><svg class="ico"><use href="#i-award"/></svg></span>
+              <div><h3>A project you can show</h3><p>Finish with a capstone dashboard you can share with employers or your team.</p></div>
+            </li>
+          </ul>
+        </div>
+
+        <ul class="stats" aria-label="The programme in numbers">
+          <li class="reveal"><strong><span data-count="12">12</span></strong><span>Weeks of training</span></li>
+          <li class="reveal"><strong><span data-count="36">36</span></strong><span>Live sessions</span></li>
+          <li class="reveal"><strong><span data-count="4">4</span></strong><span>Core modules</span></li>
+          <li class="reveal"><strong><span data-count="7">7</span></strong><span>Tools and languages</span></li>
+        </ul>
+
+        <div class="duo">
+          <div class="panel-soft reveal">
+            <h3>Who it's for</h3>
+            <ul class="check-list">
+              <li>Analysts, administrators and managers who want to work with data more confidently</li>
+              <li>Finance, operations, marketing and sales professionals who live in spreadsheets</li>
+              <li>Career changers moving into data and business intelligence roles</li>
+              <li>Anyone who wants to turn raw data into reports leaders can use</li>
+            </ul>
+          </div>
+          <div class="panel-navy reveal">
+            <h3>What you'll walk away with</h3>
+            <ul class="check-list">
+              <li>Confidence writing SQL queries against real databases</li>
+              <li>Python and Excel/VBA skills to clean and automate repetitive work</li>
+              <li>The ability to build ETL workflows in Alteryx</li>
+              <li>Interactive dashboards in Tableau and Power BI</li>
+              <li>A portfolio-ready capstone project</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AT A GLANCE ============ -->
+    <section class="glance" aria-label="Programme at a glance">
+      <div class="container glance-grid">
+        <div class="reveal"><svg class="ico"><use href="#i-calendar"/></svg><strong>Nov 10</strong><span>Start date</span></div>
+        <div class="reveal"><svg class="ico"><use href="#i-clock"/></svg><strong>3 months</strong><span>12 weeks in total</span></div>
+        <div class="reveal"><svg class="ico"><use href="#i-repeat"/></svg><strong>3× a week</strong><span>36 live sessions</span></div>
+        <div class="reveal"><svg class="ico"><use href="#i-clock"/></svg><strong>1 hour</strong><span>Each session</span></div>
+        <div class="reveal"><svg class="ico"><use href="#i-video"/></svg><strong>Zoom</strong><span>Fully online</span></div>
+      </div>
+    </section>
+
+    <!-- ============ CURRICULUM ============ -->
+    <!-- CLIENT: the module outlines below are a draft. Please confirm or adjust topics and week ranges. -->
+    <section class="section section-tint" id="curriculum">
+      <div class="container">
+        <div class="head-row reveal">
+          <h2>What you'll learn</h2>
+          <p>Four modules across 12 weeks. Each module has nine live sessions and ends with a hands-on exercise, so every tool is used before you move on.</p>
+        </div>
+
+        <ol class="modules">
+          <li class="module m1 reveal">
+            <div class="module-top">
+              <span class="module-ico"><svg class="ico"><use href="#i-db"/></svg></span>
+              <span class="tag">Weeks 1–3</span>
+            </div>
+            <h3>Databases &amp; SQL</h3>
+            <p>Learn how data is stored and how to ask databases the right questions.</p>
+            <ul class="check-list compact">
+              <li>Relational database concepts</li>
+              <li>SELECT, WHERE and ORDER BY</li>
+              <li>Aggregations and GROUP BY</li>
+              <li>JOINs across tables</li>
+              <li>Subqueries and CTEs</li>
+              <li>Cleaning data with SQL</li>
+            </ul>
+          </li>
+          <li class="module m2 reveal">
+            <div class="module-top">
+              <span class="module-ico"><svg class="ico"><use href="#i-code"/></svg></span>
+              <span class="tag">Weeks 4–6</span>
+            </div>
+            <h3>Python, Excel &amp; VBA</h3>
+            <p>Clean, transform and automate your analysis with scripting and spreadsheet power tools.</p>
+            <ul class="check-list compact">
+              <li>Python basics for analysts</li>
+              <li>pandas for data wrangling</li>
+              <li>Advanced formulas and PivotTables</li>
+              <li>Power Query</li>
+              <li>VBA macros and automation</li>
+              <li>Exploratory data analysis</li>
+            </ul>
+          </li>
+          <li class="module m3 reveal">
+            <div class="module-top">
+              <span class="module-ico"><svg class="ico"><use href="#i-workflow"/></svg></span>
+              <span class="tag">Weeks 7–9</span>
+            </div>
+            <h3>ETL with Alteryx</h3>
+            <p>Build repeatable workflows that extract, transform and load data without manual rework.</p>
+            <ul class="check-list compact">
+              <li>ETL concepts</li>
+              <li>Connecting to multiple data sources</li>
+              <li>Data preparation and blending</li>
+              <li>Building and scheduling workflows</li>
+              <li>Data quality checks</li>
+            </ul>
+          </li>
+          <li class="module m4 reveal">
+            <div class="module-top">
+              <span class="module-ico"><svg class="ico"><use href="#i-chart"/></svg></span>
+              <span class="tag">Weeks 10–12</span>
+            </div>
+            <h3>Tableau &amp; Power BI</h3>
+            <p>Turn analysis into interactive dashboards and a clear story for decision-makers.</p>
+            <ul class="check-list compact">
+              <li>Visual design principles</li>
+              <li>Charts, maps and KPIs</li>
+              <li>Interactive dashboards</li>
+              <li>DAX and calculated fields</li>
+              <li>Data storytelling</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="capstone reveal">
+          <span class="capstone-ico"><svg class="ico"><use href="#i-award"/></svg></span>
+          <div>
+            <h3>Capstone project</h3>
+            <p>In the final weeks you take a real dataset from raw files to a finished dashboard, using SQL, Python or Excel, Alteryx and a BI tool, then present your findings.</p>
+          </div>
+          <a href="#register" class="btn btn-gold">Register now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BEFORE YOU ENROL ============ -->
+    <section class="section" id="before-you-enrol">
+      <div class="container">
+        <div class="head-row reveal">
+          <h2>Before you enrol</h2>
+          <p>Everything to check so you can start on day one.</p>
+        </div>
+
+        <div class="enrol-grid">
+          <dl class="spec">
+            <div class="spec-row reveal">
+              <dt><svg class="ico"><use href="#i-check"/></svg>Prerequisites</dt>
+              <dd>
+                <ul class="dash-list">
+                  <li>No programming experience needed. We start from the basics.</li>
+                  <li>Comfort using a computer and basic spreadsheet skills.</li>
+                  <li>Willingness to practise between sessions.</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="spec-row reveal">
+              <dt><svg class="ico"><use href="#i-laptop"/></svg>What to have ready</dt>
+              <dd>
+                <ul class="dash-list">
+                  <li>A laptop or desktop. Windows is recommended because some tools are Windows-only.</li>
+                  <li>A stable internet connection.</li>
+                  <li>The Zoom app, installed and tested.</li>
+                  <li>Free space for the course software. Setup guidance is sent before the start date.</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="spec-row reveal">
+              <dt><svg class="ico"><use href="#i-clock"/></svg>Time commitment</dt>
+              <dd>
+                <ul class="dash-list">
+                  <li>Three one-hour live sessions every week for 12 weeks.</li>
+                  <li>Plan a few extra hours a week for practice and exercises.</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="spec-row reveal">
+              <dt><svg class="ico"><use href="#i-shield"/></svg>Your data and rights</dt>
+              <dd>
+                <ul class="dash-list">
+                  <li>We use your details only to manage your registration and the programme. Read our <a href="privacy.html">Privacy Policy</a>.</li>
+                  <li>Enrolment terms are set out in the <a href="terms.html">Terms of Enrolment</a>.</li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+
+          <aside class="tuition reveal">
+            <p class="tuition-label">Tuition</p>
+            <p class="price">$1,000</p>
+            <p>For the full 3-month programme.</p>
+            <ul class="check-list">
+              <li>36 live Zoom sessions</li>
+              <li>Four tools in one workflow</li>
+              <li>Capstone project</li>
+            </ul>
+            <p class="tuition-note">No payment is taken on this website. Register and our team will contact you with next steps.</p>
+            <a href="#register" class="btn btn-gold btn-block">Register now</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section-tint" id="faq">
+      <div class="container faq-grid">
+        <div class="faq-intro reveal">
+          <h2>Common questions</h2>
+          <p>Can't find your answer? Reach us directly.</p>
+          <ul class="faq-contact">
+            <li><svg class="ico"><use href="#i-phone"/></svg><a href="tel:+233533534687">+233 53 353 4687</a></li>
+            <li><svg class="ico"><use href="#i-mail"/></svg><a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="faq">
+          <details class="reveal">
+            <summary>When does the programme start?</summary>
+            <p>The programme starts on November 10 and runs for three months.</p>
+          </details>
+          <details class="reveal">
+            <summary>Is it online or in person?</summary>
+            <p>It is fully online. Sessions are live on Zoom, and the link is sent to registered participants by email.</p>
+          </details>
+          <details class="reveal">
+            <summary>Do I need prior experience?</summary>
+            <p>No. The programme starts from the basics. If you are comfortable with a computer and basic spreadsheets, you can join.</p>
+          </details>
+          <details class="reveal">
+            <summary>I work full time. Can I still take part?</summary>
+            <p>Yes. The programme is designed for working professionals: three live one-hour sessions a week, plus a few hours of practice. Session times are confirmed by email before the start date.</p>
+          </details>
+          <details class="reveal">
+            <summary>Which computer do I need?</summary>
+            <p>A laptop or desktop with a stable internet connection. Windows is recommended because some tools are Windows-only. We send software setup guidance before the programme starts.</p>
+          </details>
+          <details class="reveal">
+            <summary>How much does it cost?</summary>
+            <p>Tuition is $1,000 for the full programme. No payment is taken through this website. After you register, our team will contact you about the next steps. Please confirm payment instructions through the official contact details on this website before paying.</p>
+          </details>
+          <details class="reveal">
+            <summary>What happens after I register?</summary>
+            <p>You receive a formal confirmation email with your reference number straight away. Our team then follows up with onboarding details, software setup guidance and the Zoom link.</p>
+          </details>
+          <details class="reveal">
+            <summary>I didn't get my confirmation email. What should I do?</summary>
+            <p>Check your spam or junk folder first, and make sure you typed your email address correctly. If it is not there, contact us at <a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a> or call +233 53 353 4687 and quote your reference number if you have it.</p>
+          </details>
+          <details class="reveal">
+            <summary>Can I change or cancel my registration?</summary>
+            <p>Yes, contact us by email or phone and we will update your registration. Terms such as withdrawals and refunds are confirmed by our team when your place is confirmed. See the <a href="terms.html">Terms of Enrolment</a>.</p>
+          </details>
+          <details class="reveal">
+            <summary>How is my personal information used?</summary>
+            <p>Only to manage your registration, to contact you about the programme and, if you opt in, to send news about future programmes. We do not sell your data. Details are in our <a href="privacy.html">Privacy Policy</a>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REGISTER ============ -->
+    <section class="register" id="register">
+      <div class="container reg-grid">
+        <div class="reg-intro reveal">
+          <h2>Reserve your place</h2>
+          <p>Fill in your details and we'll email you a formal confirmation straight away.</p>
+
+          <h3 class="steps-title">How registration works</h3>
+          <ol class="steps">
+            <li><span class="step-ico"><svg class="ico"><use href="#i-edit"/></svg></span><div><strong>Register online</strong><span>Complete the short form. It takes about two minutes.</span></div></li>
+            <li><span class="step-ico"><svg class="ico"><use href="#i-mail"/></svg></span><div><strong>Receive your confirmation</strong><span>A formal email with your reference number and programme details arrives in your inbox.</span></div></li>
+            <li><span class="step-ico"><svg class="ico"><use href="#i-phone"/></svg></span><div><strong>Our team contacts you</strong><span>We confirm your place and explain payment and onboarding.</span></div></li>
+            <li><span class="step-ico"><svg class="ico"><use href="#i-video"/></svg></span><div><strong>Get set up</strong><span>You receive software setup guidance and the Zoom link before the start.</span></div></li>
+            <li><span class="step-ico"><svg class="ico"><use href="#i-calendar"/></svg></span><div><strong>Start on November 10</strong><span>Join the first live session and begin.</span></div></li>
+          </ol>
+        </div>
+
+        <div class="reg-card reveal">
+          <noscript><p class="noscript">JavaScript is needed for online registration. Please call <a href="tel:+233533534687">+233 53 353 4687</a> or email <a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a> to register.</p></noscript>
+          <form id="reg-form" novalidate autocomplete="on">
+            <!-- Honeypot field to catch bots. Keep hidden. -->
+            <div class="hp" aria-hidden="true">
+              <label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="fullName">Full name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="fullName" name="fullName" autocomplete="name" maxlength="80" required aria-required="true" data-rule="fullName" />
+                <p class="error" id="err-fullName" data-for="fullName"></p>
+              </div>
+              <div class="field">
+                <label for="email">Email address <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" autocomplete="email" inputmode="email" maxlength="120" required aria-required="true" data-rule="email" />
+                <p class="error" id="err-email" data-for="email"></p>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="phone">Phone / WhatsApp <span class="req" aria-hidden="true">*</span></label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="+233 ..." required aria-required="true" data-rule="phone" />
+                <p class="error" id="err-phone" data-for="phone"></p>
+              </div>
+              <div class="field">
+                <label for="country">Country <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="country" name="country" autocomplete="country-name" maxlength="60" placeholder="e.g. Ghana" required aria-required="true" data-rule="country" />
+                <p class="error" id="err-country" data-for="country"></p>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="jobTitle">Job title <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="jobTitle" name="jobTitle" autocomplete="organization-title" maxlength="80" required aria-required="true" data-rule="jobTitle" />
+                <p class="error" id="err-jobTitle" data-for="jobTitle"></p>
+              </div>
+              <div class="field">
+                <label for="organisation">Organisation <span class="opt">(optional)</span></label>
+                <input type="text" id="organisation" name="organisation" autocomplete="organization" maxlength="100" data-rule="organisation" />
+                <p class="error" id="err-organisation" data-for="organisation"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="experience">Your experience with data <span class="req" aria-hidden="true">*</span></label>
+              <select id="experience" name="experience" required aria-required="true" data-rule="experience">
+                <option value="">Select one</option>
+                <option>Beginner: I'm new to data analysis</option>
+                <option>Some experience: I use Excel regularly</option>
+                <option>Intermediate: I've used SQL, Python or BI tools</option>
+                <option>Advanced: I want to sharpen specific skills</option>
+              </select>
+              <p class="error" id="err-experience" data-for="experience"></p>
+            </div>
+
+            <fieldset class="field">
+              <legend>Tools you already use <span class="opt">(optional)</span></legend>
+              <div class="checks">
+                <label><input type="checkbox" name="tools" value="Excel" /> Excel</label>
+                <label><input type="checkbox" name="tools" value="SQL" /> SQL</label>
+                <label><input type="checkbox" name="tools" value="Python" /> Python</label>
+                <label><input type="checkbox" name="tools" value="Power BI" /> Power BI</label>
+                <label><input type="checkbox" name="tools" value="Tableau" /> Tableau</label>
+                <label><input type="checkbox" name="tools" value="Alteryx" /> Alteryx</label>
+              </div>
+            </fieldset>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="goals">What do you hope to achieve? <span class="opt">(optional)</span></label>
+                <textarea id="goals" name="goals" rows="3" maxlength="500" data-rule="goals"></textarea>
+                <p class="error" id="err-goals" data-for="goals"></p>
+              </div>
+              <div class="field">
+                <label for="source">How did you hear about us? <span class="opt">(optional)</span></label>
+                <select id="source" name="source">
+                  <option value="">Select one</option>
+                  <option>Flyer</option>
+                  <option>WhatsApp</option>
+                  <option>Facebook / Instagram</option>
+                  <option>LinkedIn</option>
+                  <option>Friend or colleague</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field consent">
+              <label>
+                <input type="checkbox" id="privacy" name="privacy" required aria-required="true" data-rule="privacy" />
+                <span>I have read the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and the <a href="terms.html" target="_blank" rel="noopener">Terms of Enrolment</a>, and I agree that Elites Tech Solutions LLC may use my details to process my registration and contact me about this programme by email and phone. <span class="req" aria-hidden="true">*</span></span>
+              </label>
+              <p class="error" id="err-privacy" data-for="privacy"></p>
+            </div>
+            <div class="field consent">
+              <label>
+                <input type="checkbox" id="marketing" name="marketing" />
+                <span>Optional: send me news about future programmes. I can unsubscribe at any time.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg btn-block" id="submit-btn">
+              <span class="btn-label">Submit registration</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            <p class="form-foot"><svg class="ico"><use href="#i-lock"/></svg>Your details are sent securely and used only for this programme.</p>
+          </form>
+
+          <div class="success" id="success" hidden>
+            <div class="success-icon" aria-hidden="true"><svg class="ico"><use href="#i-check"/></svg></div>
+            <h3>Registration received</h3>
+            <p>Thank you, <strong id="success-name"></strong>. Your registration for the <strong>Data Analysis Programme</strong> has been received.</p>
+            <p class="ref">Your reference number<strong id="success-ref"></strong></p>
+            <p id="success-ok">A formal confirmation has been sent to <strong id="success-email"></strong>. Please check your spam folder if you do not see it within a few minutes.</p>
+            <p id="success-warn" class="notice" hidden>We could not deliver the confirmation email, so please check the address you entered. Our team has your registration and will contact you. Keep your reference number.</p>
+            <p id="demo-note" class="notice" hidden>Demo mode: the email keys are not set yet, so nothing was sent.</p>
+            <p class="muted">Next, our team will contact you to confirm your place and explain payment and onboarding before the programme starts on November 10.</p>
+            <div class="success-actions">
+              <button class="btn btn-gold" id="add-calendar" type="button"><svg class="ico"><use href="#i-cal-plus"/></svg>Add start date to calendar</button>
+              <button class="btn btn-outline" id="register-another" type="button">Register another person</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-info reveal">
+          <h2>Contact us</h2>
+          <p>Questions about the programme, registration or payment? Send us a message or reach us directly. We will reply to the email address you provide.</p>
+          <ul class="contact-cards">
+            <li>
+              <span class="cc-ico"><svg class="ico"><use href="#i-phone"/></svg></span>
+              <div><strong>Phone</strong><a href="tel:+233533534687">+233 53 353 4687</a></div>
+            </li>
+            <li>
+              <span class="cc-ico"><svg class="ico"><use href="#i-mail"/></svg></span>
+              <div><strong>Email</strong><a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></div>
+            </li>
+            <li>
+              <span class="cc-ico"><svg class="ico"><use href="#i-globe"/></svg></span>
+              <div><strong>Website</strong><a href="https://www.elitestechsolutions.com" target="_blank" rel="noopener noreferrer">www.elitestechsolutions.com</a></div>
+            </li>
+          </ul>
+          <p class="follow">Follow and message us</p>
+          <div class="socials" data-socials></div>
+        </div>
+
+        <div class="contact-card reveal">
+          <noscript><p class="noscript">JavaScript is needed for the contact form. Please email <a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a>.</p></noscript>
+          <form id="contact-form" novalidate>
+            <div class="hp" aria-hidden="true">
+              <label>Leave this empty <input type="text" name="company_url" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="cName">Full name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="cName" name="cName" autocomplete="name" maxlength="80" required aria-required="true" data-rule="cName" />
+                <p class="error" id="err-cName" data-for="cName"></p>
+              </div>
+              <div class="field">
+                <label for="cEmail">Email address <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="cEmail" name="cEmail" autocomplete="email" inputmode="email" maxlength="120" required aria-required="true" data-rule="cEmail" />
+                <p class="error" id="err-cEmail" data-for="cEmail"></p>
+              </div>
+            </div>
+            <div class="field">
+              <label for="topic">Topic <span class="req" aria-hidden="true">*</span></label>
+              <select id="topic" name="topic" required aria-required="true" data-rule="topic">
+                <option value="">Select a topic</option>
+                <option>Programme information</option>
+                <option>Registration help</option>
+                <option>Tuition and payment</option>
+                <option>Partnerships and group enrolment</option>
+                <option>Something else</option>
+              </select>
+              <p class="error" id="err-topic" data-for="topic"></p>
+            </div>
+            <div class="field">
+              <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="message" name="message" rows="5" maxlength="1500" required aria-required="true" data-rule="message"></textarea>
+              <p class="field-meta"><span class="error" id="err-message" data-for="message"></span><span id="msg-count" class="count">0 / 1500</span></p>
+            </div>
+            <div class="field consent">
+              <label>
+                <input type="checkbox" id="cPrivacy" name="cPrivacy" required aria-required="true" data-rule="cPrivacy" />
+                <span>I agree that Elites Tech Solutions LLC may use these details to reply to my message, as described in the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. <span class="req" aria-hidden="true">*</span></span>
+              </label>
+              <p class="error" id="err-cPrivacy" data-for="cPrivacy"></p>
+            </div>
+            <button type="submit" class="btn btn-navy btn-lg btn-block" id="contact-btn">
+              <span class="btn-label">Send message</span>
+              <span class="spinner light" aria-hidden="true"></span>
+            </button>
+            <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <span class="brand-icon" aria-hidden="true"><svg class="ico"><use href="#i-chart"/></svg></span>
+          <span class="brand-text">Elites Tech Solutions <small>LLC</small></span>
+        </a>
+        <p>Practical, hands-on technology training for working professionals.</p>
+        <div class="socials" data-socials></div>
+      </div>
+      <nav class="footer-links" aria-label="Explore">
+        <h3>Explore</h3>
+        <a href="#about">About</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#before-you-enrol">Before you enrol</a>
+        <a href="#faq">FAQ</a>
+        <a href="#register">Register</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <nav class="footer-links" aria-label="Legal">
+        <h3>Legal</h3>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Enrolment</a>
+        <a href="cookies.html">Cookie Policy</a>
+        <button type="button" class="link-btn light" data-cookie-settings>Cookie settings</button>
+      </nav>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <ul>
+          <li><svg class="ico"><use href="#i-phone"/></svg><a href="tel:+233533534687">+233 53 353 4687</a></li>
+          <li><svg class="ico"><use href="#i-mail"/></svg><a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></li>
+          <li><svg class="ico"><use href="#i-globe"/></svg><a href="https://www.elitestechsolutions.com" target="_blank" rel="noopener noreferrer">www.elitestechsolutions.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container"><p class="copyright">© <span data-year></span> Elites Tech Solutions LLC. All rights reserved.</p></div>
+  </footer>
+
+</body>
+</html>
