@@ -334,3 +334,41 @@
   .site-header, .site-footer, .checkout-grid, .crumbs, .phero, .receipt-actions, .to-top, .cookie-banner { display: none !important; }
   .receipt-wrapper { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
 }
+
+
+/* ---------- Testimonials & Social Proof ---------- */
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 3vw, 32px); margin-top: 36px; }
+.tcard { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: clamp(24px, 3vw, 32px); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: transform .2s ease, box-shadow .2s ease; position: relative; }
+.tcard:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.tcard-quote { font-size: 1rem; line-height: 1.6; color: var(--ink); margin-bottom: 24px; font-style: italic; position: relative; }
+.tcard-quote::before { content: "“"; font-family: var(--font-display); font-size: 3.5rem; color: rgba(0, 102, 255, .15); position: absolute; left: -14px; top: -28px; line-height: 1; pointer-events: none; }
+.tcard-author { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
+.tcard-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; font-weight: 800; font-size: 1rem; display: grid; place-items: center; flex-shrink: 0; }
+.tcard-name { font-weight: 800; color: var(--navy); font-size: 1rem; margin: 0; line-height: 1.2; }
+.tcard-role { font-size: .84rem; color: var(--muted); margin: 0; }
+.tcard-stars { color: #f59e0b; display: flex; gap: 2px; margin-bottom: 12px; font-size: .95rem; }
+
+/* ---------- 4 Core Impact Pillars / Metrics ---------- */
+.impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(16px, 2.5vw, 24px); margin-top: 32px; }
+.impact-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px; text-align: left; transition: all .2s ease; }
+.impact-card:hover { border-color: var(--blue); box-shadow: var(--shadow-sm); }
+.impact-icon { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: rgba(0, 102, 255, .08); color: var(--blue); margin-bottom: 14px; }
+.impact-icon svg { width: 22px; height: 22px; }
+.impact-card h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 6px; }
+.impact-card p { font-size: .9rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+/* ---------- Detailed Sub-Capabilities on Services ---------- */
+.cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+.cap-item { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+.cap-item h4 { font-size: 1.05rem; color: var(--navy); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.cap-item h4 svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
+.cap-item p { font-size: .88rem; color: var(--muted); margin: 0; line-height: 1.45; }
+
+/* ---------- Industry Specific Solutions Grid ---------- */
+.industry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: clamp(20px, 3vw, 28px); margin-top: 32px; }
+.industry-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 28px; transition: all .2s; }
+.industry-card:hover { border-color: var(--blue); box-shadow: var(--shadow); }
+.industry-card h3 { font-size: 1.25rem; color: var(--navy); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.industry-card p { font-size: .92rem; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
+.industry-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.industry-tag { font-size: .78rem; font-weight: 700; color: var(--blue); background: rgba(0, 102, 255, .08); padding: 3px 10px; border-radius: 999px; }
