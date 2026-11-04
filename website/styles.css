@@ -699,3 +699,10 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
   .bars rect { transform: none !important; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- CSP-Compliant Layout Helpers ---------- */
+.head-action { align-self: flex-end; justify-self: end; flex-shrink: 0; }
+.tuition-callout-actions { display: flex; gap: 12px; align-items: center; margin-top: 14px; flex-wrap: wrap; }
+.success-stack { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+.success-btn-main { text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.success-sub-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }

@@ -377,3 +377,12 @@
 .industry-card p { font-size: .92rem; color: var(--ink); line-height: 1.55; margin-bottom: 14px; }
 .industry-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .industry-tag { font-size: .78rem; font-weight: 700; color: var(--blue); background: rgba(0, 102, 255, .08); padding: 4px 11px; border-radius: 999px; }
+
+/* ---------- CSP-Compliant Layout Helpers ---------- */
+.impact-cta { display: flex; justify-content: center; align-items: center; text-align: center; margin-top: clamp(28px, 4vw, 44px); width: 100%; }
+.phero .ahero-actions { margin-top: 24px; }
+.cap-span { grid-column: 1 / -1; }
+.cap-featured { grid-column: 1 / -1; background: rgba(0, 102, 255, 0.04); border-color: var(--blue); }
+.cap-featured a { color: var(--blue); font-weight: 700; }
+.check-list-spaced { margin-top: 14px; }
+.mt-16 { margin-top: 16px; }
