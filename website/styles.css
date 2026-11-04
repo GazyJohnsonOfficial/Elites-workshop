@@ -273,7 +273,7 @@ h2 { font-family: var(--font-display); font-weight: 400; text-transform: upperca
 
 /* ============ AT A GLANCE ============ */
 .glance { background: linear-gradient(135deg, var(--navy), var(--navy-deep)); color: #fff; }
-.glance-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; padding-block: clamp(32px, 4vw, 56px); }
+.glance-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; padding-block: clamp(32px, 4vw, 56px); }
 .glance-grid div { display: grid; justify-items: start; gap: 2px; padding-left: 20px; border-left: 3px solid var(--gold); }
 .glance .ico { width: 28px; height: 28px; color: var(--cyan); margin-bottom: 8px; }
 .glance strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.8rem, 2.8vw, 2.8rem); letter-spacing: .02em; line-height: 1.1; text-transform: uppercase; }
@@ -659,6 +659,32 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
   .contact-card { padding: 22px 18px; }
   .stats strong { font-size: 2.8rem; }
 }
+/* --- Tuition & Conversion Enhancements --- */
+.tuition-callout {
+  background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--gold);
+  border-radius: 16px; padding: 22px 24px; margin: 24px 0;
+}
+.tuition-callout-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.tuition-callout-header strong { font-size: 1.4rem; color: var(--navy); }
+.badge-tag { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); }
+.badge-gold { background: #fef5dd; color: var(--gold-dark); }
+.tuition-callout p { margin: 0 0 10px; font-size: .95rem; color: var(--ink); line-height: 1.5; }
+.tuition-callout a { font-weight: 700; color: var(--blue); text-decoration: none; }
+.tuition-callout a:hover { text-decoration: underline; }
+
+.response-guarantee {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px;
+  background: #eaf8f0; color: #137046; border: 1px solid #bfead0; border-radius: 999px;
+  font-size: .86rem; font-weight: 700; margin-bottom: 18px;
+}
+.response-guarantee .ico { width: 16px; height: 16px; color: #1f9d63; }
+
+.booking-prompt {
+  background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; margin-top: 24px;
+}
+.booking-prompt h4 { margin: 0 0 6px; font-size: 1rem; color: var(--navy); }
+.booking-prompt p { margin: 0 0 12px; font-size: .9rem; color: var(--muted); line-height: 1.45; }
+
 @media print {
   .site-header, .cookie-banner, .to-top, .progress, .hero-bg, .stage { display: none !important; }
   .js .reveal { opacity: 1 !important; translate: none !important; }

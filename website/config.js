@@ -55,11 +55,14 @@ const CONFIG = Object.freeze({
 
   CONTACT: Object.freeze({
     EMAIL:           "elitestechsolutionllc@gmail.com",
+    EMAIL_GENERAL:   "contact@elitestechsolutions.com",
+    EMAIL_ACADEMY:   "admissions@elitestechsolutions.com",
     PHONE_DISPLAY:   "+233 53 353 4687",
     PHONE_E164:      "+233533534687",
     WHATSAPP_NUMBER: "233533534687",              // digits only, with country code
     WEBSITE_DISPLAY: "www.elitestechsolutions.com",
     WEBSITE_URL:     "https://www.elitestechsolutions.com",
+    CALENDAR_BOOKING_URL: "",                      // optional: Cal.com or Calendly direct booking link
   }),
 
   // Full profile URLs, for example "https://www.facebook.com/yourpage". Leave "" to hide.
