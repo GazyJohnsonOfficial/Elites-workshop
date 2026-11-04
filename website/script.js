@@ -190,6 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#success-ok").hidden = !confirmationSent;
       $("#success-warn").hidden = confirmationSent;
       $("#demo-note").hidden = !demoMode;
+      const payBtn = $("#pay-now-btn");
+      if (payBtn) {
+        payBtn.href = `checkout.html?ref=${encodeURIComponent(reference)}&name=${encodeURIComponent(data.full_name)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone || "")}`;
+      }
       form.hidden = true;
       success.hidden = false;
       success.classList.add("pop");

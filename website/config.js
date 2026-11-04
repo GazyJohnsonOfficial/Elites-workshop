@@ -32,11 +32,11 @@ const CONFIG = Object.freeze({
   // The email is the company Gmail for every region until regional mailboxes exist.
   REGIONS: Object.freeze({
     us: Object.freeze({ NAME: "United States", SHORT: "US", PHONE_DISPLAY: "+1 (202) 555-0147", PHONE_E164: "+12025550147",
-                        EMAIL: "elitestechsolutionllc@gmail.com", ADDRESS: "Office address to be announced", HOURS: "Mon to Fri, 9:00 to 17:00 ET", MOCK: true }),
+                        EMAIL: "elitestechsolutionllc@gmail.com", ADDRESS: "Medford, NJ, USA", HOURS: "Mon to Fri, 9:00 to 17:00 ET", MOCK: false }),
     gh: Object.freeze({ NAME: "Ghana", SHORT: "GH", PHONE_DISPLAY: "+233 53 353 4687", PHONE_E164: "+233533534687",
-                        EMAIL: "elitestechsolutionllc@gmail.com", ADDRESS: "Office address to be announced", HOURS: "Mon to Fri, 8:00 to 17:00 GMT", MOCK: false }),
+                        EMAIL: "elitestechsolutionllc@gmail.com", ADDRESS: "Poolside Ave, Takoradi, Ghana", HOURS: "Mon to Fri, 8:00 to 17:00 GMT", MOCK: false }),
     uk: Object.freeze({ NAME: "United Kingdom", SHORT: "UK", PHONE_DISPLAY: "+44 7700 900147", PHONE_E164: "+447700900147",
-                        EMAIL: "elitestechsolutionllc@gmail.com", ADDRESS: "Office address to be announced", HOURS: "Mon to Fri, 9:00 to 17:00 GMT", MOCK: true }),
+                        EMAIL: "elitestechsolutionllc@gmail.com", ADDRESS: "Rugby, UK", HOURS: "Mon to Fri, 9:00 to 17:00 GMT", MOCK: false }),
   }),
 
   PROGRAMME: Object.freeze({
@@ -63,6 +63,23 @@ const CONFIG = Object.freeze({
     WEBSITE_DISPLAY: "www.elitestechsolutions.com",
     WEBSITE_URL:     "https://www.elitestechsolutions.com",
     CALENDAR_BOOKING_URL: "",                      // optional: Cal.com or Calendly direct booking link
+  }),
+
+  // Payment configuration for online checkout
+  PAYMENT: Object.freeze({
+    CHECKOUT_URL: "https://www.elitestechsolutions.com/checkout.html",
+    TUITION_FULL_USD: 1000,
+    TUITION_DEPOSIT_USD: 500,
+    CURRENCIES: Object.freeze({
+      USD: Object.freeze({ SYMBOL: "$", CODE: "USD", RATE: 1.0, NAME: "US Dollar" }),
+      GHS: Object.freeze({ SYMBOL: "GH₵", CODE: "GHS", RATE: 15.5, NAME: "Ghana Cedi" }),
+      GBP: Object.freeze({ SYMBOL: "£", CODE: "GBP", RATE: 0.78, NAME: "British Pound" }),
+    }),
+    BANKS: Object.freeze({
+      us: Object.freeze({ NAME: "United States", BANK: "Mercury / JPMorgan Chase Bank", ACCOUNT_NAME: "Elites Tech Solutions LLC", LOCATION: "Medford, NJ, USA" }),
+      gh: Object.freeze({ NAME: "Ghana", BANK: "Ecobank Ghana / Stanbic Bank", ACCOUNT_NAME: "Elites Tech Solutions LLC", MOMO_MERCHANT: "+233 53 353 4687", LOCATION: "Poolside Ave, Takoradi, Ghana" }),
+      uk: Object.freeze({ NAME: "United Kingdom", BANK: "Barclays Bank UK / Wise", ACCOUNT_NAME: "Elites Tech Solutions LLC", LOCATION: "Rugby, UK" }),
+    }),
   }),
 
   // Full profile URLs, for example "https://www.facebook.com/yourpage". Leave "" to hide.
