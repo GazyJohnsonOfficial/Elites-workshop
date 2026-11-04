@@ -151,13 +151,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ---------- Social links (only the ones with a URL; WhatsApp is derived from the phone) ---------- */
+  /* ---------- Social links (active links or placeholders for primary networks; WhatsApp derived from phone) ---------- */
   const socialDefs = [
     ["whatsapp", "WhatsApp", "i-whatsapp"],
     ["facebook", "Facebook", "i-facebook"],
     ["instagram", "Instagram", "i-instagram"],
     ["linkedin", "LinkedIn", "i-linkedin"],
-    ["x", "X (Twitter)", "i-x"],
+    ["x", "X (Twitter)", "i-xsocial"],
     ["youtube", "YouTube", "i-youtube"],
   ];
   const safeUrl = (u) => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch (_) { return null; } };
@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.appendChild(a);
     });
   });
+
   /* =====================================================
      Cookie consent
      - Essential storage is always on (remembers this choice, spam protection for forms).

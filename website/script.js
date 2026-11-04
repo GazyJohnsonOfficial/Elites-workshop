@@ -1,5 +1,6 @@
 /* =========================================================
-   Home page behaviour: countdown, registration form, contact form.
+   Data Analysis Programme page behaviour: countdown, registration form, contact form.
+   Used on: data-analysis.html
    Depends on: config.js, common.js, vendor/emailjs.min.js
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
@@ -224,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const common = {
         reference, registered_at: fmtTime(),
         programme: P.NAME, start_date: P.START_DATE_TEXT, duration: P.DURATION, schedule: P.SCHEDULE,
-        format: P.FORMAT, tuition: P.TUITION, company: CONFIG.COMPANY,
+        format: P.FORMAT, tuition: P.TUITION, tuition_url: P.TUITION_URL, company: CONFIG.COMPANY,
         support_email: C.EMAIL, support_phone: C.PHONE_DISPLAY, website: C.WEBSITE_DISPLAY, site_url: C.WEBSITE_URL,
       };
       try {
@@ -310,6 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
         topic: cForm.elements.topic.value,
         message: clean(cForm.elements.message.value, true),
         site_url: C.WEBSITE_URL, website: C.WEBSITE_DISPLAY, programme: P.NAME,
+        phone: "Not provided", organisation: "Not provided", region: "Not provided", reference: "ETS-PQ-" + Date.now().toString(36).toUpperCase(),
       };
       busy = true; setBusy(btn, true, "Send message");
       try {

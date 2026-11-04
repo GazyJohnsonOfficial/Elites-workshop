@@ -1,74 +1,85 @@
-# Elites Tech Solutions: Data Analysis Programme website
+# Elites Tech Solutions LLC: website
 
-Three things in this folder:
+Static front-end site (HTML, CSS, vanilla JavaScript). No server, no database, no build step.
+Upload the contents of this `website` folder to your host.
 
-| Folder / file | What it is |
-|---|---|
-| `website/` | The finished site. Upload the **contents** of this folder to the web host. |
-| `email-templates/` | Three formal HTML emails. Paste them into EmailJS (they are NOT uploaded to the website). |
-| `README.md` | This guide. |
+## Pages
 
-No build step, no server, no database. Plain HTML, CSS and JavaScript.
+| File | Purpose |
+| --- | --- |
+| `index.html` | Home: headline, regions, services, audiences, upcoming programme, approach, locations |
+| `services.html` | Seven service areas, each with an enquiry button |
+| `training.html` | Corporate training, individual training, career sessions, featured programme |
+| `data-analysis.html` | The Data Analysis Programme page and registration (no tuition shown) |
+| `tuition.html` | Tuition and Fees page |
+| `about.html` | Who we are, how we operate |
+| `contact.html` | Enquiry form and regional contacts |
+| `privacy.html`, `terms.html`, `cookies.html`, `404.html` | Legal and error pages |
 
----
+`client-preview/credentials-preview.html` (a sibling folder, **not** inside `website`) shows how a credentials
+section would look using sample badges. It is marked "client preview only" and must never be uploaded.
 
-## 1. Email setup (about 15 minutes)
+## Configuration & Setup: `config.js`
 
-Emails are sent by [EmailJS](https://www.emailjs.com), which connects to the company Gmail with a Google sign-in. **No password is ever stored in the website.**
+1. **Email keys** (see below).
+2. **Regional contacts** under `REGIONS`. Ghana uses the real number. The **United States and United Kingdom
+   numbers are placeholders** (`MOCK: true`). Replace them in `config.js`, and also update the static occurrences in
+   `index.html` and `contact.html` (search for `+1 (202) 555-0147` and `+44 7700 900147`).
+   Every office address currently reads "Office address to be announced".
+3. **Social links** under `SOCIALS`. Empty ones display clean placeholders; configured URLs link directly to your profiles.
+4. **Logo**: `website/logo.png` is integrated across all header, footer and favicon references.
 
-1. Create a free EmailJS account.
-2. **Email Services > Add New Service > Gmail**, and sign in with `elitestechsolutionllc@gmail.com`. Note the **Service ID**.
-3. **Email Templates > Create New Template**, three times. For each: choose the HTML/code editor, paste the file contents, and set the fields below.
+## Email setup (EmailJS)
 
-| Template file | To email | Subject | Reply-To | From name |
-|---|---|---|---|---|
-| `1-confirmation-to-registrant.html` | `{{to_email}}` | `Registration received: {{programme}} (Ref {{reference}})` | `{{support_email}}` | `Elites Tech Solutions LLC` |
-| `2-registration-notification-to-company.html` | `elitestechsolutionllc@gmail.com` | `New registration: {{full_name}} ({{reference}})` | `{{reply_to}}` | `Website registration` |
-| `3-contact-message-to-company.html` | `elitestechsolutionllc@gmail.com` | `Website enquiry: {{topic}} from {{from_name}}` | `{{reply_to}}` | `Website contact form` |
+The site sends email through EmailJS using the company Gmail. **Never put the Gmail password or app password in
+any file on this site.** Anyone can read website files. The password goes only into the EmailJS dashboard.
 
-4. Open `website/config.js` and paste: the **Public Key** (Account > General), the **Service ID**, and the three **Template IDs**.
-5. In EmailJS **Account > Security**, restrict allowed domains to the real website domain, and consider turning on reCAPTCHA protection there. The Public Key is visible to anyone who views the site's code. That is normal and safe only if the domain restriction is on.
+1. Create an account at emailjs.com.
+2. **Email Services > Add new service > Gmail**, and sign in with `elitestechsolutionllc@gmail.com`.
+   (Alternative: add a custom SMTP service and enter the Gmail app password there, in the dashboard.)
+3. **Email Templates**: create four templates. For each, paste the HTML from the `email-templates` folder.
+   Set the "To" field and subject as shown.
 
-What happens on a registration: the **company is notified first**, then the **registrant gets the formal confirmation** with their reference number. If the confirmation fails (for example, a mistyped address), the registration is still recorded and the visitor is told to keep their reference number.
+   | Template | File | To | Suggested subject |
+   | --- | --- | --- | --- |
+   | Confirmation to registrant | `1-confirmation-to-registrant.html` | `{{to_email}}` | Registration received: {{programme}} |
+   | Registration notice to company | `2-registration-notification-to-company.html` | company Gmail | New registration: {{full_name}} |
+   | Enquiry notice to company | `3-enquiry-message-to-company.html` | company Gmail | Website enquiry: {{topic}} |
+   | Enquiry acknowledgement | `4-enquiry-acknowledgement-to-sender.html` | `{{to_email}}` | Enquiry received: {{reference}} |
 
-Until step 4 is done: on `localhost` / a local file the forms run in **demo mode** (everything works, nothing is sent). On the live site they show an honest "temporarily unavailable" message and never pretend to send.
+   On templates 2 and 3, set "Reply To" to `{{reply_to}}` (template 2: `{{email}}`).
+4. In `config.js` paste the Public Key, Service ID and the template IDs.
+   Template 3 is `TEMPLATE_CONTACT`; template 4 is `TEMPLATE_ENQUIRY_ACK` under `EMAILJS_EXTRA`.
+5. In EmailJS, restrict the account to your domain (Account > Security) so others cannot use your key.
+6. Do not turn on EmailJS "rate limit": each submission sends two emails, and the second would be blocked.
 
-## 2. Social media
+If template 4 is not set, enquiries still reach the company and the visitor sees a message that the team will reply.
+Until the keys are set, forms work in demo mode on your own computer only. On the live site they say the
+form is temporarily unavailable and never pretend to send.
 
-In `website/config.js`, paste the full profile URL under `SOCIALS` (Facebook, Instagram, LinkedIn, X, YouTube). Empty ones are hidden. The WhatsApp button is built automatically from the phone number.
+## Content rules followed
 
-## 3. Go live
+No prices on service pages, no payments, no testimonials, reviews, statistics or client names. The only fee is the
+Data Analysis Programme tuition, which lives on `tuition.html`. Credentials are hidden until real ones exist.
 
-Upload the **contents** of `website/` (so `index.html` sits at the top level) to any static host (cPanel, Netlify, Cloudflare Pages, GitHub Pages...).
+## Hosting
 
-- **cPanel / Apache:** `.htaccess` is included. It forces HTTPS and sets the security headers.
-- **Netlify / Cloudflare Pages:** `_headers` is included and does the same.
-- **Other hosts:** copy the headers from `_headers` into the host's settings.
-- If the site is not at `www.elitestechsolutions.com`, update the domain in `sitemap.xml`, `robots.txt` and `.well-known/security.txt`.
+Netlify or Cloudflare Pages: `_headers` is used automatically. Apache or cPanel: `.htaccess` is used.
+Both force HTTPS and set a strict Content Security Policy, HSTS and other security headers.
 
-## 4. Things for the client to confirm or supply
+## Before launch checklist
 
-- **Logo:** `website/logo.png` is used in the site header, footer and as the favicon.
-- **Curriculum:** the four modules and week ranges are a draft (marked `CLIENT:` in `index.html`).
-- **About section:** the company text is general. Add a real company profile and instructor details.
-- **Session time:** the flyer gives a start date but no time, so the countdown counts to the start of Nov 10 and the calendar button adds an all-day entry. Add the time in `config.js` once confirmed.
-- **Policies:** `privacy.html`, `terms.html` and `cookies.html` describe how this site actually works, written from the flyer details. Refund/withdrawal terms and governing law are deliberately left general. **Have a legal adviser review them** (comments marked `CLIENT / LEGAL REVIEW`).
-- **Email wording:** review the confirmation email, especially the "Status of your registration" and "Payment" paragraphs.
+- [ ] EmailJS keys and templates set; send a real test of each of the four emails
+- [ ] Replace US and UK placeholder phone numbers and the "to be announced" addresses
+- [x] Add `logo.png` and wire brand assets across all pages (Completed)
+- [ ] Add social profile links in `config.js`
+- [ ] Have the Privacy Policy, Terms and Cookie Policy reviewed by a legal adviser (UK GDPR, US state laws, Ghana DPA 2012)
+- [ ] Confirm refund and withdrawal terms for the programme
+- [ ] Update `sitemap.xml` and submit it to Google Search Console
 
-## 5. What is built in
+## Tested
 
-- **Cookie consent:** banner with Accept all / Essential only / Customise, remembered for 12 months, re-openable from the footer. No analytics or tracking runs today.
-- **Security:** strict Content-Security-Policy (also set in each page), HTTPS enforcement, clickjacking and MIME protections, no third-party scripts or fonts (all self-hosted), input validation and cleaning, hidden honeypot field, time trap, 45-second cooldown, duplicate-registration guard, headless-browser blocking in EmailJS, https-only social links, no password or secret anywhere in the code.
-- **Honest limit:** this is a front-end-only site. These measures stop casual spam and mistakes, not a determined attacker. The EmailJS domain restriction and reCAPTCHA (step 5) are the real backstop.
-- **Animations:** hero entrance, scroll reveals, count-up numbers, progress bar, back-to-top, scroll-spy navigation. All switch off for visitors who prefer reduced motion, and nothing is ever hidden if JavaScript fails.
-
-## 6. Tested
-
-Automated browser tests (97 checks) covered: both forms end to end with the real EmailJS library against a simulated mail endpoint (correct order, recipients, fields and that every variable in the three templates is supplied), error and retry paths, honeypot, cooldown and duplicates, cookie consent, social links, navigation, animations, legal pages and 404, link integrity, zero CSP violations, no sideways scrolling from 320px to 1920px, and accessibility (axe: no serious issues).
-
-**Not tested:** real email delivery (needs your EmailJS account) and rendering in real email apps (send yourself a test registration and check Gmail and a phone).
-
-## 7. Housekeeping
-
-- The Gmail **app password** shared earlier in chat is not used anywhere. Please revoke it: Google Account > Security > App passwords.
-- Never put passwords or private keys in `config.js` or any website file.
+Automated browser tests cover every page: loading without errors, no Content Security Policy violations,
+working internal links and anchors, navigation on desktop and phone, both forms (validation, spam protection,
+email order and variables, failure handling), no horizontal scrolling from 320 to 1920 px, and accessibility
+(axe-core, WCAG 2.1 AA). Real emails and the live host are **not** tested here, because they need your EmailJS keys.
