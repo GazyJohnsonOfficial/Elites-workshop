@@ -132,7 +132,7 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
   gap: clamp(32px, 5vw, 110px); align-items: center;
   padding-block: clamp(40px, 6vw, 96px) clamp(36px, 4vw, 56px);
 }
-.kicker { color: var(--blue); font-weight: 800; letter-spacing: .24em; text-transform: uppercase; font-size: clamp(.8rem, 1.2vw, 1rem); margin-bottom: clamp(12px, 2vw, 28px); }
+.kicker { color: var(--blue); font-weight: 800; letter-spacing: .24em; text-transform: uppercase; font-size: clamp(.8rem, 1.2vw, 1rem); margin-bottom: clamp(12px, 2vw, 28px); text-wrap: balance; }
 .hero h1 {
   font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
   font-size: clamp(3.2rem, 9vw, 12rem); line-height: .92; letter-spacing: .005em; color: var(--navy);
