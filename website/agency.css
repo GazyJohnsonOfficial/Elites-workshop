@@ -221,27 +221,55 @@
 .cred p { color: var(--muted); font-size: .92rem; margin: 0; }
 .cred small { display: inline-block; margin-top: 10px; padding: 2px 10px; border-radius: 999px; background: #fdecea; color: #8f1d17; font-weight: 800; letter-spacing: .06em; }
 
-/* ---------- Responsive ---------- */
+
+/* ============ AGENCY RESPONSIVE BREAKPOINTS ============ */
 @media (max-width: 1100px) {
   .aud-grid, .process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cred-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tracks, .values, .reg-cards { grid-template-columns: minmax(0, 1fr); }
 }
+
 @media (max-width: 960px) {
-  .ahero-grid, .promo, .svc-row, .featured, .split, .enq-grid, .fee-grid { grid-template-columns: minmax(0, 1fr); }
-  .netviz { max-width: 420px; }
+  .ahero-grid, .promo, .svc-row, .featured, .split, .enq-grid, .fee-grid, .checkout-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .netviz { max-width: 380px; margin: 20px auto 0; }
+  .plan-cards { grid-template-columns: 1fr 1fr; }
 }
+
 @media (max-width: 640px) {
-  .aud-grid, .process, .cred-grid, .svc-list { grid-template-columns: minmax(0, 1fr); }
-  .ahero-actions .btn, .cta .btn { flex: 1 1 100%; }
-  .netviz .tag { font-size: .74rem; padding: .4rem .7rem; }
-  .regions-inner { flex-direction: column; align-items: flex-start; }
-  .enq-card { padding: 22px 18px; }
+  .aud-grid, .process, .cred-grid, .svc-list, .plan-cards, .method-tabs, .receipt-meta-grid, .testimonials-grid, .impact-grid, .industry-grid { grid-template-columns: minmax(0, 1fr); }
+  .ahero-actions, .cta .ahero-actions { flex-direction: column; align-items: stretch; width: 100%; gap: 10px; }
+  .ahero-actions .btn, .cta .btn { width: 100%; text-align: center; justify-content: center; }
+  .netviz { width: min(100%, 310px); margin: 16px auto 0; }
+  .netviz .tag { font-size: .72rem; padding: .35rem .65rem; }
+  .netviz .t1 { left: -6px; top: 8%; }
+  .netviz .t2 { right: -6px; top: 20%; }
+  .netviz .t3 { left: 0%; bottom: 8%; }
+  .netviz .t4 { right: 0%; bottom: 4%; }
+  .regions-inner { flex-direction: column; align-items: flex-start; gap: 10px; padding-block: 16px; }
+  .regions-inner ul { flex-direction: column; gap: 8px; }
+  .enq-card { padding: 20px 16px; border-radius: 18px; }
+  .cap-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cap-item { padding: 18px 16px; border-radius: 12px; }
+  .svc-ico { width: 50px; height: 50px; border-radius: 14px; margin-bottom: 12px; }
+  .svc-ico .ico { width: 24px; height: 24px; }
+  .svc-row h2 { font-size: 1.6rem; }
+  .industry-card { padding: 22px 18px; border-radius: 14px; }
+  .impact-card { padding: 20px 18px; border-radius: 14px; }
+  .tcard { padding: 22px 18px; border-radius: 14px; }
+  .checkout-box { padding: 18px 14px; border-radius: 14px; }
+  .receipt-wrapper { padding: 20px 14px; border-radius: 14px; }
+  .receipt-meta-grid { grid-template-columns: 1fr; gap: 10px; }
+  .currency-bar { gap: 6px; }
+  .curr-btn { flex: 1 1 auto; padding: 6px 10px; font-size: .82rem; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .net .pulse, .net .ring, .netviz .tag { animation: none !important; }
+
+@media (max-width: 380px) {
+  .netviz { width: 270px; }
+  .netviz .tag { display: none; }
+  .ahero h1 { font-size: 2.1rem; }
+  .phero h1 { font-size: 1.9rem; }
 }
-@media print { .netviz, .preview-banner { display: none !important; } }
+
 
 /* ---------- Small helpers (no inline styles allowed by the CSP) ---------- */
 .h-gap { margin-top: 1.6em; color: var(--navy); }
