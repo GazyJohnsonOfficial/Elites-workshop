@@ -50,7 +50,7 @@ const CONFIG = Object.freeze({
     SCHEDULE:        "3 live sessions per week, 1 hour each (36 sessions in total)",
     FORMAT:          "Online, live on Zoom",
     TUITION:         "USD 1,000",
-    TUITION_URL:     "https://www.elitestechsolutions.com/tuition.html",
+    TUITION_URL:     "https://www.elitestechsolutions.com/tuition",
   }),
 
   CONTACT: Object.freeze({
@@ -67,7 +67,7 @@ const CONFIG = Object.freeze({
 
   // Payment configuration for online checkout
   PAYMENT: Object.freeze({
-    CHECKOUT_URL: "https://www.elitestechsolutions.com/checkout.html",
+    CHECKOUT_URL: "https://www.elitestechsolutions.com/checkout",
     TUITION_FULL_USD: 1000,
     TUITION_DEPOSIT_USD: 500,
     CURRENCIES: Object.freeze({

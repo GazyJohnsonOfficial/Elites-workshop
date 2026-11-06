@@ -6,6 +6,15 @@
    first paint. Everything else waits for DOMContentLoaded.
    ========================================================= */
 document.documentElement.classList.add("js");
+// Clean URL bar on HTTP/HTTPS: strip .html extension without reloading the page
+if (location.protocol !== "file:") {
+  const p = location.pathname;
+  if (p === "/index.html") {
+    history.replaceState(null, "", "/" + location.search + location.hash);
+  } else if (p.endsWith(".html")) {
+    history.replaceState(null, "", p.slice(0, -5) + location.search + location.hash);
+  }
+}
 // Safety net: if anything stops the reveal observer, show all content after 4 s.
 setTimeout(() => document.documentElement.classList.add("reveal-all"), 4000);
 
@@ -53,6 +62,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Footer year ---------- */
   $$("[data-year]").forEach((n) => (n.textContent = new Date().getFullYear()));
+
+  /* ---------- Print triggers (CSP-safe replacement for inline onclick) ---------- */
+  $$("[data-print-page]").forEach((b) => b.addEventListener("click", () => window.print()));
+
+  /* ---------- Local file:// fallback for clean extensionless links ---------- */
+  const isFileProto = location.protocol === "file:";
+  if (isFileProto) {
+    $$('a[href^="/"]').forEach((a) => {
+      const raw = a.getAttribute("href");
+      if (!raw || raw.startsWith("//")) return;
+      const m = raw.match(/^\/([a-z0-9_-]*)(\?[^#]*)?(#.*)?$/i);
+      if (m) {
+        const slug = m[1] || "index";
+        a.setAttribute("href", slug + ".html" + (m[2] || "") + (m[3] || ""));
+      }
+    });
+  }
+
+  /* ---------- Legacy hash alias support on /services ---------- */
+  const hashAliases = {
+    "#consulting": "#cloud-strategy",
+    "#data": "#training-workshops",
+    "#cloud": "#architecture",
+    "#staffing": "#consulting-staffing",
+    "#hardware": "#consulting-staffing",
+    "#training": "#training-workshops",
+    "#cloud-native": "#native",
+    "#hybrid-cloud": "#hybrid",
+  };
+  if (location.hash && !$(location.hash) && hashAliases[location.hash]) {
+    const targetEl = $(hashAliases[location.hash]);
+    if (targetEl) {
+      history.replaceState(null, "", location.pathname + location.search + hashAliases[location.hash]);
+      setTimeout(() => targetEl.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }), 60);
+    }
+  }
 
   /* ---------- Mobile navigation ---------- */
   const toggle = $(".nav-toggle");
@@ -204,11 +249,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   window.ETS_CONSENT = { get: () => read() || { analytics: false }, open: () => openPrefs() };
 
+  const cookieHref = isFileProto ? "cookies.html" : "/cookies";
+  const privacyHref = isFileProto ? "privacy.html" : "/privacy";
   const banner = etsEl("div", { class: "cookie-banner", role: "region", "aria-label": "Cookie consent", hidden: true });
   const bText = etsEl("div", { class: "cookie-text" },
     etsEl("strong", { text: "Your privacy choices" }),
     etsEl("p", { text: "We use essential storage to keep this site working and secure. With your permission we may also use analytics to improve it. You can change your mind at any time." }),
-    (() => { const a = etsEl("a", { href: "cookies.html", text: "Read the Cookie Policy" }); return a; })()
+    (() => { const a = etsEl("a", { href: cookieHref, text: "Read the Cookie Policy" }); return a; })()
   );
   const bBtns = etsEl("div", { class: "cookie-actions" });
   const bAccept = etsEl("button", { type: "button", class: "btn btn-gold btn-sm", text: "Accept all" });
@@ -234,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
     row("ck-ess", "Essential", "Remembers this choice and helps protect the registration and contact forms from spam and repeat submissions. Stored only in your browser.", swEssential, true),
     row("ck-ana", "Analytics", "Helps us understand which pages are useful. We do not run analytics today. If we start, it will only run after you allow it here.", swAnalytics, false),
     etsEl("div", { class: "dlg-actions" }, dSave, dAll),
-    (() => { const p = etsEl("p", { class: "muted small" }, "See our ", etsEl("a", { href: "cookies.html", text: "Cookie Policy" }), " and ", etsEl("a", { href: "privacy.html", text: "Privacy Policy" }), "."); return p; })()
+    (() => { const p = etsEl("p", { class: "muted small" }, "See our ", etsEl("a", { href: cookieHref, text: "Cookie Policy" }), " and ", etsEl("a", { href: privacyHref, text: "Privacy Policy" }), "."); return p; })()
   );
   document.body.append(banner, dlg);
 

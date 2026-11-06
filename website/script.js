@@ -192,7 +192,8 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#demo-note").hidden = !demoMode;
       const payBtn = $("#pay-now-btn");
       if (payBtn) {
-        payBtn.href = `checkout.html?ref=${encodeURIComponent(reference)}&name=${encodeURIComponent(data.full_name)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone || "")}`;
+        const checkoutBase = location.protocol === "file:" ? "checkout.html" : "/checkout";
+        payBtn.href = `${checkoutBase}?ref=${encodeURIComponent(reference)}&name=${encodeURIComponent(data.full_name)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone || "")}`;
       }
       form.hidden = true;
       success.hidden = false;
@@ -214,10 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!humanEnough()) { showStatus(status, "Please review your details and press submit again.", "err"); return; }
 
       const data = collect();
-      if (unavailable) {
-        showStatus(status, "Online registration is temporarily unavailable. Please call " + C.PHONE_DISPLAY + " or email " + C.EMAIL + " to register.", "err");
-        return;
-      }
       if (registered().includes(data.email)) {
         showStatus(status, "This email address has already been registered in this session. Check your inbox and spam folder, or contact us if you need help.", "err");
         return;
@@ -234,13 +231,21 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       try {
         let confirmationSent = true;
-        if (!demoMode) {
+        if (!demoMode && !unavailable) {
           // 1) Notify the company first. If this fails nothing is recorded, so the visitor can safely retry.
           await send(E.TEMPLATE_ADMIN, { ...common, ...data, reply_to: data.email });
           // 2) Formal confirmation to the registrant. A failure here must not lose the registration.
           try {
             await send(E.TEMPLATE_CONFIRM, { ...common, to_name: data.full_name, to_email: data.email });
           } catch (err) { confirmationSent = false; console.warn("Confirmation email failed:", err); }
+        } else if (unavailable) {
+          confirmationSent = false;
+          await new Promise((r) => setTimeout(r, 500));
+          const subj = encodeURIComponent(`[Registration ${reference}] ${P.NAME} — ${data.full_name}`);
+          const body = encodeURIComponent(
+            `Reference: ${reference}\nProgramme: ${P.NAME}\nFull Name: ${data.full_name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCountry: ${data.country}\nJob Title: ${data.job_title}\nOrganisation: ${data.organisation}\nExperience: ${data.experience}\nTools: ${data.tools}\nGoals: ${data.goals}`
+          );
+          window.location.href = `mailto:${C.EMAIL}?subject=${subj}&body=${body}`;
         } else {
           console.info("[Demo mode] EmailJS keys not set. Nothing was sent. Data:", data, reference);
           await new Promise((r) => setTimeout(r, 700));
@@ -304,7 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cForm.elements.company_url.value) { showStatus(status, "Thank you. Your message has been sent.", "ok"); cForm.reset(); return; }
       if (!validateForm(cForm)) { showStatus(status, "Please correct the highlighted fields and try again.", "err"); return; }
       if (!humanEnough()) { showStatus(status, "Please review your message and press send again.", "err"); return; }
-      if (unavailable) { showStatus(status, "The contact form is temporarily unavailable. Please email " + C.EMAIL + " or call " + C.PHONE_DISPLAY + ".", "err"); return; }
       if (cooling(KEY)) { showStatus(status, "Please wait a moment before sending another message.", "err"); return; }
 
       const params = {
@@ -320,6 +324,12 @@ document.addEventListener("DOMContentLoaded", () => {
       busy = true; setBusy(btn, true, "Send message");
       try {
         if (demoMode) { console.info("[Demo mode] EmailJS keys not set. Nothing was sent.", params); await new Promise((r) => setTimeout(r, 600)); }
+        else if (unavailable) {
+          await new Promise((r) => setTimeout(r, 500));
+          const subj = encodeURIComponent(`[Programme Question ${params.reference}] ${params.topic} — ${params.from_name}`);
+          const body = encodeURIComponent(`Reference: ${params.reference}\nName: ${params.from_name}\nEmail: ${params.from_email}\nTopic: ${params.topic}\n\nMessage:\n${params.message}`);
+          window.location.href = `mailto:${C.EMAIL}?subject=${subj}&body=${body}`;
+        }
         else await send(E.TEMPLATE_CONTACT, params);
         markSent(KEY);
         cForm.reset(); if (counter) counter.textContent = "0 / 1500";

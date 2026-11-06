@@ -413,4 +413,45 @@
 .cap-featured { grid-column: 1 / -1; background: rgba(0, 102, 255, 0.04); border-color: var(--blue); }
 .cap-featured a { color: var(--blue); font-weight: 700; }
 .check-list-spaced { margin-top: 14px; }
+.mt-12 { margin-top: 12px; }
 .mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mb-8 { margin-bottom: 8px; }
+.link-inherit { color: inherit; text-decoration: underline; }
+.ico-xs { width: 14px; height: 14px; }
+.ico-sm { width: 16px; height: 16px; }
+.ico-md { width: 18px; height: 18px; }
+.ico-mr-xs { margin-right: 4px; }
+.ico-ml-xs { margin-left: 4px; }
+.ico-mr { margin-right: 6px; }
+.ico-green { color: #16a34a; }
+
+/* Checkout & Receipt CSP-compliant classes */
+.field-hint { display: block; font-size: .8rem; color: var(--muted); margin-top: 4px; }
+.card-enc-note { font-size: .84rem; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.momo-title { color: var(--navy); display: block; margin-bottom: 6px; }
+.momo-sub { font-size: .86rem; color: var(--ink); margin-bottom: 12px; }
+.momo-direct-note { background: #fff; border: 1px dashed #eab308; padding: 12px; border-radius: 8px; font-size: .85rem; margin-top: 12px; }
+.bank-memo-note { font-size: .84rem; color: var(--muted); margin-top: 12px; }
+.bank-copy-btn.copied { color: #16a34a; border-color: #16a34a; }
+.fee-free { color: #16a34a; font-weight: 700; }
+.total-amount { color: var(--blue); }
+.summary-help { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .86rem; color: var(--muted); }
+.summary-help-title { color: var(--navy); display: block; margin-bottom: 4px; }
+.summary-help-offices { margin-top: 6px; font-size: .8rem; }
+.receipt-title { font-size: 1.8rem; color: var(--navy); margin: 8px 0; }
+.receipt-sub { margin: 0; color: var(--muted); font-size: .92rem; }
+.receipt-offices { margin: 4px 0 0; font-size: .82rem; color: var(--muted); }
+.receipt-label { color: var(--muted); display: block; }
+.receipt-mono { font-family: monospace; font-size: .95rem; }
+.receipt-contact-ink { font-size: .85rem; color: var(--ink); }
+.receipt-contact-muted { font-size: .85rem; color: var(--muted); }
+.receipt-ref-val { color: var(--blue); }
+.text-right { text-align: right !important; }
+.receipt-method-sub { font-size: .82rem; color: var(--muted); }
+.receipt-paid-cell { text-align: right !important; font-weight: 800; font-size: 1.15rem; color: var(--navy); }
+.receipt-actions { display: flex; gap: 12px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
+
+@media (min-width: 641px) and (max-width: 1080px) {
+  .svc-grid > .svc:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
