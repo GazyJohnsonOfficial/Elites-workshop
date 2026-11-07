@@ -1172,56 +1172,126 @@
 /* =========================================================
    7. CONSULTATION CTA & GLOBAL OFFICES
    ========================================================= */
-.hp-contact-panel {
+.hp-cta-wrap {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: clamp(32px, 5vw, 68px);
-  align-items: center;
-}
-.hp-contact-intro h2 {
-  font-size: clamp(1.85rem, 3vw, 2.6rem);
-  line-height: 1.16;
-  color: var(--navy);
-  margin: 0 0 14px;
-}
-.hp-contact-intro p {
-  color: var(--muted);
-  font-size: 1.06rem;
-  line-height: 1.65;
-  max-width: 56ch;
-  margin: 0 0 28px;
+  gap: clamp(24px, 3vw, 36px);
 }
 
-.hp-offices {
+.hp-cta-card {
   display: grid;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1.25fr) auto;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: clamp(32px, 4vw, 48px);
+  box-shadow: 0 10px 30px rgba(15, 37, 87, 0.05);
+}
+.hp-cta-copy h2 {
+  font-size: clamp(1.85rem, 3vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--navy);
+  margin: 0 0 12px;
+}
+.hp-cta-copy p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 60ch;
+  margin: 0;
+}
+.hp-cta-actions-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 260px;
+}
+.hp-cta-actions-col .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.hp-offices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(18px, 2.2vw, 28px);
 }
 .hp-office-card {
   background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 20px 24px;
+  border-radius: 18px;
+  padding: clamp(24px, 2.6vw, 32px);
   box-shadow: 0 6px 20px rgba(15, 37, 87, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.hp-office-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(15, 37, 87, 0.08);
+  border-color: rgba(45, 79, 214, 0.35);
+}
+.hp-office-head {
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.hp-office-region {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+  margin-bottom: 4px;
 }
 .hp-office-card h3 {
-  font-size: 1.08rem;
+  font-size: 1.2rem;
   color: var(--navy);
-  margin: 0 0 4px;
+  margin: 0;
 }
-.hp-office-card p {
-  margin: 0 0 4px;
-  font-size: 0.92rem;
+
+.hp-office-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  margin: 0 0 20px;
+}
+.hp-office-meta dt {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--muted);
+  margin-bottom: 2px;
 }
-.hp-office-card p:last-child {
-  margin-bottom: 0;
-}
-.hp-office-card a {
-  color: var(--blue);
+.hp-office-meta dd {
+  font-size: 0.93rem;
   font-weight: 600;
-  text-decoration: none;
+  color: var(--ink);
+  line-height: 1.4;
 }
-.hp-office-card a:hover {
+
+.hp-office-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 14px;
+}
+.hp-office-foot a {
+  color: var(--blue);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  word-break: break-word;
+}
+.hp-office-foot a:hover {
+  color: var(--navy);
   text-decoration: underline;
 }
 
@@ -1235,8 +1305,10 @@
   .hp-stats-row li:nth-child(3) { border-left: 0; }
 }
 @media (max-width: 960px) {
-  .hp-why-grid, .hp-programme-box, .hp-contact-panel { grid-template-columns: minmax(0, 1fr); }
+  .hp-why-grid, .hp-programme-box, .hp-cta-card, .hp-offices-grid { grid-template-columns: minmax(0, 1fr); }
   .hp-programme-aside { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+  .hp-cta-actions-col { flex-direction: row; flex-wrap: wrap; min-width: 0; }
+  .hp-cta-actions-col .btn { flex: 1 1 220px; }
 }
 @media (max-width: 640px) {
   .hp-cards-grid, .hp-benefit-grid, .hp-sector-cards, .hp-steps-grid, .hp-stats-row {
