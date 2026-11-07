@@ -192,8 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#demo-note").hidden = !demoMode;
       const payBtn = $("#pay-now-btn");
       if (payBtn) {
-        const checkoutBase = location.protocol === "file:" ? "checkout.html" : "/checkout";
-        payBtn.href = `${checkoutBase}?ref=${encodeURIComponent(reference)}&name=${encodeURIComponent(data.full_name)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone || "")}`;
+        payBtn.href = `checkout.html?ref=${encodeURIComponent(reference)}&name=${encodeURIComponent(data.full_name)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone || "")}`;
       }
       form.hidden = true;
       success.hidden = false;
@@ -309,6 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cForm.elements.company_url.value) { showStatus(status, "Thank you. Your message has been sent.", "ok"); cForm.reset(); return; }
       if (!validateForm(cForm)) { showStatus(status, "Please correct the highlighted fields and try again.", "err"); return; }
       if (!humanEnough()) { showStatus(status, "Please review your message and press send again.", "err"); return; }
+      if (unavailable) { showStatus(status, "The contact form is temporarily unavailable. Please email " + C.EMAIL + " or call " + C.PHONE_DISPLAY + ".", "err"); return; }
       if (cooling(KEY)) { showStatus(status, "Please wait a moment before sending another message.", "err"); return; }
 
       const params = {
@@ -324,12 +324,6 @@ document.addEventListener("DOMContentLoaded", () => {
       busy = true; setBusy(btn, true, "Send message");
       try {
         if (demoMode) { console.info("[Demo mode] EmailJS keys not set. Nothing was sent.", params); await new Promise((r) => setTimeout(r, 600)); }
-        else if (unavailable) {
-          await new Promise((r) => setTimeout(r, 500));
-          const subj = encodeURIComponent(`[Programme Question ${params.reference}] ${params.topic} — ${params.from_name}`);
-          const body = encodeURIComponent(`Reference: ${params.reference}\nName: ${params.from_name}\nEmail: ${params.from_email}\nTopic: ${params.topic}\n\nMessage:\n${params.message}`);
-          window.location.href = `mailto:${C.EMAIL}?subject=${subj}&body=${body}`;
-        }
         else await send(E.TEMPLATE_CONTACT, params);
         markSent(KEY);
         cForm.reset(); if (counter) counter.textContent = "0 / 1500";

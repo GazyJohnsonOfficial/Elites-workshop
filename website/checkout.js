@@ -180,10 +180,10 @@ document.addEventListener("DOMContentLoaded", () => {
         await navigator.clipboard.writeText(text);
         const originalText = btn.textContent;
         btn.textContent = "Copied!";
-        btn.classList.add("copied");
+        btn.style.color = "#16a34a";
         setTimeout(() => {
           btn.textContent = originalText;
-          btn.classList.remove("copied");
+          btn.style.color = "";
         }, 2000);
       } catch (_) {
         prompt("Copy to clipboard: Ctrl+C, Enter", text);

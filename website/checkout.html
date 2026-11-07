@@ -3,15 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.emailjs.com; form-action 'self'; base-uri 'none'; object-src 'none'" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Secure Online Payment · Elites Tech Solutions LLC</title>
   <meta name="description" content="Secure online payment for the Data Analysis Programme and IT consulting services by Elites Tech Solutions LLC. Credit/debit card, Mobile Money, and bank transfer accepted." />
-  <link rel="canonical" href"https://www.elitestechsolutions.com/checkout" />
+  <link rel="canonical" href="https://www.elitestechsolutions.com/checkout.html" />
   <meta property="og:title" content="Secure Online Payment · Elites Tech Solutions LLC" />
   <meta property="og:description" content="Pay tuition or invoices securely online via Card, Mobile Money, or direct bank transfer." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content"https://www.elitestechsolutions.com/checkout" />
+  <meta property="og:url" content="https://www.elitestechsolutions.com/checkout.html" />
   <meta property="og:image" content="https://www.elitestechsolutions.com/logo.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:image" content="https://www.elitestechsolutions.com/logo.png" />
@@ -27,7 +25,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- SVG Sprite -->
-  <svg class="sprite" aria-hidden="true" focusable="false">
+  <svg style="display:none" aria-hidden="true">
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></symbol>
@@ -60,7 +58,7 @@
   <!-- ============ SITE HEADER ============ -->
   <header class="site-header" id="top">
     <div class="container header-inner">
-      <a href"/" class="brand" aria-label="Elites Tech Solutions LLC home">
+      <a href="index.html" class="brand" aria-label="Elites Tech Solutions LLC home">
         <img class="brand-logo" src="logo.png" alt="Elites Tech Solutions LLC" width="54" height="54" />
         <span class="brand-name">Elites Tech Solutions <small>LLC</small></span>
       </a>
@@ -68,12 +66,12 @@
         <span></span><span></span><span></span>
       </button>
       <nav id="main-nav" class="main-nav" aria-label="Main">
-        <a href"/">Home</a>
-        <a href"/services">Services</a>
-        <a href"/training">Training</a>
-        <a href"/about">About</a>
-        <a href"/contact">Contact</a>
-        <a href"/contact#enquiry" class="btn btn-gold btn-sm">Request a consultation</a>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="training.html">Training</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html#enquiry" class="btn btn-gold btn-sm">Request a consultation</a>
       </nav>
     </div>
   </header>
@@ -82,8 +80,8 @@
     <section class="phero">
       <div class="container">
         <ol class="crumbs" aria-label="Breadcrumb">
-          <li><a href"/">Home</a></li>
-          <li><a href"/tuition">Tuition &amp; fees</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tuition.html">Tuition &amp; fees</a></li>
           <li>Checkout</li>
         </ol>
         <p class="eyebrow">Secure Checkout</p>
@@ -153,7 +151,7 @@
                   </div>
                 </div>
 
-                <div id="custom-amount-row" class="field mt-12" hidden>
+                <div id="custom-amount-row" class="field" hidden style="margin-top:12px;">
                   <label for="custom-amount-input">Custom Invoice Amount (in USD $)</label>
                   <input type="number" id="custom-amount-input" min="10" step="10" value="250" placeholder="e.g. 500" />
                 </div>
@@ -170,7 +168,7 @@
                   <div class="field">
                     <label for="payer-email">Email address <span class="req" aria-hidden="true">*</span></label>
                     <input type="email" id="payer-email" name="payer-email" required autocomplete="email" placeholder="name@example.com" />
-                    <small class="field-hint">Official receipt and Zoom onboarding links are delivered here.</small>
+                    <small style="font-size:0.8rem;color:var(--muted);">Official receipt and Zoom onboarding links are delivered here.</small>
                   </div>
                 </div>
 
@@ -225,8 +223,8 @@
                       <input type="text" id="card-cvc" autocomplete="cc-csc" maxlength="4" placeholder="123" />
                     </div>
                   </div>
-                  <p class="card-enc-note">
-                    <svg class="ico ico-sm ico-green"><use href="#i-lock"/></svg>
+                  <p style="font-size:0.84rem;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:6px;">
+                    <svg class="ico" style="width:16px;height:16px;color:#16a34a;"><use href="#i-lock"/></svg>
                     Bank-grade 256-bit encryption. Card credentials are processed securely.
                   </p>
                 </div>
@@ -234,8 +232,8 @@
                 <!-- Tab Panel 2: Mobile Money -->
                 <div id="panel-momo" class="tab-panel">
                   <div class="momo-box">
-                    <strong class="momo-title">Ghana Mobile Money Direct Checkout</strong>
-                    <p class="momo-sub">Select your network and enter your registered handset number. You will receive an authorization prompt to enter your MoMo PIN.</p>
+                    <strong style="color:var(--navy);display:block;margin-bottom:6px;">Ghana Mobile Money Direct Checkout</strong>
+                    <p style="font-size:0.86rem;color:var(--ink);margin-bottom:12px;">Select your network and enter your registered handset number. You will receive an authorization prompt to enter your MoMo PIN.</p>
                     
                     <div class="momo-networks">
                       <button type="button" class="momo-net-btn active" data-net="MTN">MTN MoMo</button>
@@ -248,7 +246,7 @@
                       <input type="tel" id="momo-phone" placeholder="053 353 4687 or 024 000 0000" />
                     </div>
 
-                    <div class="momo-direct-note">
+                    <div style="background:#fff;border:1px dashed #eab308;padding:12px;border-radius:8px;font-size:0.85rem;margin-top:12px;">
                       <strong>Direct Transfer Option:</strong> You can also send directly from your MoMo menu to our verified company line: <strong>+233 53 353 4687</strong> (Account Name: <em>Elites Tech Solutions</em>).
                     </div>
                   </div>
@@ -289,10 +287,10 @@
                     <div class="bank-row"><span>Account Number:</span><strong>73910294</strong> <button type="button" class="bank-copy-btn" data-copy="73910294">Copy</button></div>
                   </div>
 
-                  <p class="bank-memo-note">Please include your Student Name or Reference Number as the transfer memo. Transfers are confirmed within 1 business day.</p>
+                  <p style="font-size:0.84rem;color:var(--muted);margin-top:12px;">Please include your Student Name or Reference Number as the transfer memo. Transfers are confirmed within 1 business day.</p>
                 </div>
 
-                <div class="mt-24">
+                <div style="margin-top:24px;">
                   <button type="submit" class="btn btn-gold btn-lg btn-block" id="submit-payment-btn">
                     <span id="pay-btn-text">Pay $ 1,000.00 USD Securely</span>
                   </button>
@@ -316,11 +314,11 @@
               </div>
               <div class="summary-line">
                 <span>Processing / Gateway Fee:</span>
-                <span class="fee-free">$ 0.00 (Free)</span>
+                <span style="color:#16a34a;font-weight:700;">$ 0.00 (Free)</span>
               </div>
               <div class="summary-line total">
                 <span>Total Due:</span>
-                <span id="sum-total" class="total-amount">$ 1,000.00 USD</span>
+                <span id="sum-total" style="color:var(--blue);">$ 1,000.00 USD</span>
               </div>
 
               <div class="summary-badges">
@@ -338,11 +336,11 @@
                 </div>
               </div>
 
-              <div class="summary-help">
-                <strong class="summary-help-title">Need payment assistance?</strong>
+              <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:0.86rem;color:var(--muted);">
+                <strong style="color:var(--navy);display:block;margin-bottom:4px;">Need payment assistance?</strong>
                 <div>Email: <a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></div>
                 <div>Phone: <a href="tel:+233533534687">+233 53 353 4687</a></div>
-                <div class="summary-help-offices">Offices: Medford, NJ (USA) · Takoradi (Ghana) · Rugby (UK)</div>
+                <div style="margin-top:6px;font-size:0.8rem;">Offices: Medford, NJ (USA) · Takoradi (Ghana) · Rugby (UK)</div>
               </div>
             </div>
           </aside>
@@ -353,32 +351,32 @@
           <div class="receipt-wrapper">
             <div class="receipt-head">
               <span class="receipt-status-badge">
-                <svg class="ico ico-sm"><use href="#i-check"/></svg>
+                <svg class="ico" style="width:16px;height:16px;"><use href="#i-check"/></svg>
                 Payment Verified &amp; Confirmed
               </span>
-              <h2 class="receipt-title">Official Payment Receipt</h2>
-              <p class="receipt-sub">Elites Tech Solutions LLC · Technology &amp; Training Solutions</p>
-              <p class="receipt-offices">Medford, NJ (USA) · Poolside Ave, Takoradi (Ghana) · Rugby (UK)</p>
+              <h2 style="font-size:1.8rem;color:var(--navy);margin:8px 0;">Official Payment Receipt</h2>
+              <p style="margin:0;color:var(--muted);font-size:0.92rem;">Elites Tech Solutions LLC · Technology &amp; Training Solutions</p>
+              <p style="margin:4px 0 0;font-size:0.82rem;color:var(--muted);">Medford, NJ (USA) · Poolside Ave, Takoradi (Ghana) · Rugby (UK)</p>
             </div>
 
             <div class="receipt-meta-grid">
               <div>
-                <small class="receipt-label">Transaction ID</small>
-                <strong id="receipt-txn-id" class="receipt-mono"></strong>
+                <small style="color:var(--muted);display:block;">Transaction ID</small>
+                <strong id="receipt-txn-id" style="font-family:monospace;font-size:0.95rem;"></strong>
               </div>
               <div>
-                <small class="receipt-label">Payment Date &amp; Time</small>
+                <small style="color:var(--muted);display:block;">Payment Date &amp; Time</small>
                 <strong id="receipt-date"></strong>
               </div>
               <div>
-                <small class="receipt-label">Billed To</small>
+                <small style="color:var(--muted);display:block;">Billed To</small>
                 <strong id="receipt-name"></strong>
-                <div id="receipt-email" class="receipt-contact-ink"></div>
-                <div id="receipt-phone" class="receipt-contact-muted"></div>
+                <div id="receipt-email" style="font-size:0.85rem;color:var(--ink);"></div>
+                <div id="receipt-phone" style="font-size:0.85rem;color:var(--muted);"></div>
               </div>
               <div>
-                <small class="receipt-label">Student Reference #</small>
-                <strong id="receipt-student-ref" class="receipt-ref-val"></strong>
+                <small style="color:var(--muted);display:block;">Student Reference #</small>
+                <strong id="receipt-student-ref" style="color:var(--blue);"></strong>
               </div>
             </div>
 
@@ -386,27 +384,27 @@
               <thead>
                 <tr>
                   <th>Description</th>
-                  <th class="text-right">Amount Paid</th>
+                  <th style="text-align:right;">Amount Paid</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
                     <strong id="receipt-purpose">Data Analysis Programme</strong>
-                    <div class="receipt-method-sub" id="receipt-method">Debit / Credit Card</div>
+                    <div style="font-size:0.82rem;color:var(--muted);" id="receipt-method">Debit / Credit Card</div>
                   </td>
-                  <td class="receipt-paid-cell" id="receipt-total-paid">$ 1,000.00 USD</td>
+                  <td style="text-align:right;font-weight:800;font-size:1.15rem;color:var(--navy);" id="receipt-total-paid">$ 1,000.00 USD</td>
                 </tr>
               </tbody>
             </table>
 
-            <div class="receipt-actions">
+            <div class="receipt-actions" style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
               <button type="button" class="btn btn-gold" id="print-receipt-btn">
-                <svg class="ico ico-sm ico-mr"><use href="#i-check"/></svg>
+                <svg class="ico" style="width:16px;height:16px;margin-right:6px;"><use href="#i-check"/></svg>
                 Print / Save Receipt (PDF)
               </button>
-              <a href"/data-analysis" class="btn btn-outline">Return to Programme Page</a>
-              <a href"/" class="btn btn-outline">Home</a>
+              <a href="data-analysis.html" class="btn btn-outline">Return to Programme Page</a>
+              <a href="index.html" class="btn btn-outline">Home</a>
             </div>
 
             <div class="receipt-foot">
@@ -423,7 +421,7 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <a href"/" class="brand" aria-label="Elites Tech Solutions LLC home">
+        <a href="index.html" class="brand" aria-label="Elites Tech Solutions LLC home">
           <img class="brand-logo" src="logo.png" alt="Elites Tech Solutions LLC" width="54" height="54" />
           <span class="brand-name">Elites Tech Solutions <small>LLC</small></span>
         </a>
@@ -432,27 +430,27 @@
       </div>
       <nav class="footer-links" aria-label="Services">
         <h2 class="foot-h">Services</h2>
-        <a href="/services#cloud-strategy">Cloud strategy and consulting</a>
-        <a href="/services#migration">Cloud migration and architecture</a>
-        <a href="/services#security">Cybersecurity and compliance</a>
-        <a href="/services#devops">DevOps and automation</a>
-        <a href="/services#consulting-staffing">IT staffing and talent</a>
-        <a href="/services#support">Hardware and 24/7 support</a>
+        <a href="services.html#cloud-strategy">Cloud strategy and consulting</a>
+        <a href="services.html#migration">Cloud migration and architecture</a>
+        <a href="services.html#security">Cybersecurity and compliance</a>
+        <a href="services.html#devops">DevOps and automation</a>
+        <a href="services.html#consulting-staffing">IT staffing and talent</a>
+        <a href="services.html#support">Hardware and 24/7 support</a>
       </nav>
       <nav class="footer-links" aria-label="Training">
         <h2 class="foot-h">Training</h2>
-        <a href"/data-analysis">Data Analysis Programme</a>
-        <a href"/training#corporate">Corporate training</a>
-        <a href"/training#individual">Individual programmes</a>
-        <a href"/training#career">Career sessions</a>
-        <a href"/tuition">Tuition and fees</a>
-        <a href"/checkout">Online Payment</a>
+        <a href="data-analysis.html">Data Analysis Programme</a>
+        <a href="training.html#corporate">Corporate training</a>
+        <a href="training.html#individual">Individual programmes</a>
+        <a href="training.html#career">Career sessions</a>
+        <a href="tuition.html">Tuition and fees</a>
+        <a href="checkout.html">Online Payment</a>
       </nav>
       <nav class="footer-links" aria-label="Legal">
         <h2 class="foot-h">Legal</h2>
-        <a href"/privacy">Privacy Policy</a>
-        <a href"/terms">Terms of Enrolment</a>
-        <a href"/cookies">Cookie Policy</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Enrolment</a>
+        <a href="cookies.html">Cookie Policy</a>
         <button type="button" class="link-btn light" data-cookie-settings>Cookie settings</button>
       </nav>
       <div class="footer-contact">
@@ -467,6 +465,10 @@
     </div>
     <div class="container"><p class="copyright">© <span data-year></span> Elites Tech Solutions LLC. All rights reserved.</p></div>
   </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">
+    <svg class="ico"><use href="#i-arrow-up"/></svg>
+  </button>
 </body>
 </html>
 
