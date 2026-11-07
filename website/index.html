@@ -31,7 +31,7 @@
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></symbol>
     <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></symbol>
-    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 2.1 2z"/></symbol>
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
   </svg>
@@ -60,138 +60,80 @@
 
   <main id="main">
 
-    <!-- ============ 1. EXECUTIVE HERO ============ -->
+    <!-- ============ 1. ARCHITECTURAL HERO ============ -->
     <section class="ahero" id="home">
       <div class="container">
-        <div class="ahero-grid">
+        <div class="ahero-top">
           <div class="hero-text">
-            <p class="hp-eyebrow">Enterprise Cloud Architecture / Technical Advisory</p>
-            <h1>Architecting Resilient Cloud, Data, and Security Systems for Modern Organizations.</h1>
-            <p class="sub">Senior-led multi-cloud strategy, zero-downtime infrastructure migration, cybersecurity governance, and automated DevOps, backed by dedicated engineering talent and live practitioner training across the United States, the United Kingdom, and Ghana.</p>
+            <p class="hp-eyebrow">Enterprise Cloud, Security &amp; Data Consultancy</p>
+            <h1>Engineering Resilient Cloud, Data, and Security Systems for Modern Enterprises.</h1>
+            <p class="sub">We partner with leadership teams across the United States, the United Kingdom, and Ghana to execute zero-downtime cloud migrations, enforce audit-ready cybersecurity, automate DevOps pipelines, and scale engineering capacity.</p>
             <div class="ahero-actions">
-              <a href="contact.html#enquiry" class="btn btn-gold btn-lg">Request an Architecture Audit <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <a href="contact.html#enquiry" class="btn btn-gold btn-lg">Schedule an Architecture Review <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
               <a href="services.html" class="btn btn-ghost btn-lg">Explore Practice Areas</a>
             </div>
-            <ul class="hp-hero-trust" aria-label="Enterprise standards">
-              <li>AWS, Azure, and Google Cloud Certified</li>
-              <li>SOC 2, HIPAA, and ISO 27001 Aligned</li>
-              <li>Zero-Downtime Migration Record</li>
-              <li>Direct Senior Architect Engagement</li>
-            </ul>
           </div>
 
-          <!-- Multi-Cloud Architecture & Traffic Topology -->
-          <div class="hero-topology" aria-label="Multi-cloud architecture topology">
-            <div class="topology-header">
-              <span class="topology-title">Multi-Cloud Traffic &amp; Failover Mesh</span>
-              <span class="topology-badge">Active/Active</span>
+          <div class="ahero-metrics" aria-label="Verified enterprise outcomes">
+            <div class="ahero-metric-cell">
+              <strong data-count="20" data-suffix="+">20+</strong>
+              <span class="ahero-metric-title">Years of Senior Leadership</span>
+              <span class="ahero-metric-desc">Principal cloud, infrastructure, and security architecture expertise.</span>
             </div>
-
-            <div class="topology-canvas">
-              <svg viewBox="0 0 540 300" class="topology-svg" aria-hidden="true">
-                <defs>
-                  <linearGradient id="topLineGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#19b5e8" stop-opacity="0.8"/>
-                    <stop offset="100%" stop-color="#2d4fd6" stop-opacity="0.5"/>
-                  </linearGradient>
-                  <linearGradient id="topLineGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#19b5e8" stop-opacity="0.8"/>
-                    <stop offset="100%" stop-color="#f5b82e" stop-opacity="0.6"/>
-                  </linearGradient>
-                </defs>
-
-                <!-- Connector paths -->
-                <path d="M 130 150 L 220 150" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
-                <path d="M 330 120 L 400 80" stroke="url(#topLineGrad1)" stroke-width="2" fill="none"/>
-                <path d="M 330 150 L 400 150" stroke="url(#topLineGrad1)" stroke-width="2" fill="none"/>
-                <path d="M 330 180 L 400 220" stroke="url(#topLineGrad2)" stroke-width="2" fill="none"/>
-
-                <!-- Ingress Node -->
-                <g transform="translate(30, 115)">
-                  <rect width="100" height="70" rx="10" fill="#0c1e48" stroke="rgba(255,255,255,0.18)"/>
-                  <text x="50" y="32" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">Client Traffic</text>
-                  <text x="50" y="48" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="var(--font-mono)">Ingress Gateway</text>
-                </g>
-
-                <!-- Core Zero-Trust Node -->
-                <g transform="translate(220, 105)">
-                  <rect width="110" height="90" rx="12" fill="#0f265c" stroke="rgba(25, 181, 232, 0.45)"/>
-                  <text x="55" y="34" text-anchor="middle" fill="#19b5e8" font-size="9" font-weight="800" font-family="var(--font-mono)">ZERO-TRUST CORE</text>
-                  <text x="55" y="52" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">Security &amp; IAM</text>
-                  <text x="55" y="70" text-anchor="middle" fill="#86efac" font-size="9" font-family="var(--font-mono)">SOC 2 · HIPAA Ready</text>
-                </g>
-
-                <!-- Cloud Destination 1: AWS -->
-                <g transform="translate(400, 55)">
-                  <rect width="115" height="50" rx="8" fill="#0c1e48" stroke="rgba(255,255,255,0.16)"/>
-                  <text x="14" y="24" fill="#ffffff" font-size="11" font-weight="700">AWS Cloud</text>
-                  <text x="14" y="39" fill="#86efac" font-size="9" font-family="var(--font-mono)">us-east-1 · 12ms</text>
-                </g>
-
-                <!-- Cloud Destination 2: Azure -->
-                <g transform="translate(400, 125)">
-                  <rect width="115" height="50" rx="8" fill="#0c1e48" stroke="rgba(255,255,255,0.16)"/>
-                  <text x="14" y="24" fill="#ffffff" font-size="11" font-weight="700">Microsoft Azure</text>
-                  <text x="14" y="39" fill="#86efac" font-size="9" font-family="var(--font-mono)">eastus2 · 18ms</text>
-                </g>
-
-                <!-- Cloud Destination 3: Google Cloud -->
-                <g transform="translate(400, 195)">
-                  <rect width="115" height="50" rx="8" fill="#0c1e48" stroke="rgba(255,255,255,0.16)"/>
-                  <text x="14" y="24" fill="#ffffff" font-size="11" font-weight="700">Google Cloud</text>
-                  <text x="14" y="39" fill="#86efac" font-size="9" font-family="var(--font-mono)">us-central1 · 24ms</text>
-                </g>
-              </svg>
+            <div class="ahero-metric-cell">
+              <strong data-count="99" data-suffix=".99%">99.99%</strong>
+              <span class="ahero-metric-title">Production Uptime SLA</span>
+              <span class="ahero-metric-desc">Multi-region high availability and automated failover engineering.</span>
             </div>
-
-            <div class="topology-metrics-strip">
-              <div class="top-metric">
-                <span class="top-metric-val">99.99%</span>
-                <span class="top-metric-lbl">Availability SLA</span>
-              </div>
-              <div class="top-metric">
-                <span class="top-metric-val">&lt; 15s</span>
-                <span class="top-metric-lbl">Failover Target</span>
-              </div>
-              <div class="top-metric">
-                <span class="top-metric-val">35%+</span>
-                <span class="top-metric-lbl">Cloud OPEX Saved</span>
-              </div>
+            <div class="ahero-metric-cell">
+              <strong data-count="35" data-suffix="%+">35%+</strong>
+              <span class="ahero-metric-title">Cloud Spend Reduction</span>
+              <span class="ahero-metric-desc">Measured infrastructure OPEX savings via FinOps rightsizing.</span>
             </div>
-
-            <div class="topology-foot">
-              <span>Synchronized Global Mesh: Medford, NJ (US) | Rugby (UK) | Takoradi (Ghana)</span>
+            <div class="ahero-metric-cell">
+              <strong>3 Hubs</strong>
+              <span class="ahero-metric-title">Global Delivery Presence</span>
+              <span class="ahero-metric-desc">Direct engineering operations in the US, the UK, and Ghana.</span>
             </div>
           </div>
         </div>
 
-        <!-- Full-Width Executive Proof Bar -->
-        <ul class="hp-proof" aria-label="Key enterprise metrics">
-          <li>
-            <strong data-count="20" data-suffix="+">20+</strong>
-            <span class="hp-proof-label">Years of Senior Leadership</span>
-            <span class="hp-proof-desc">Enterprise cloud, infrastructure, and technical advisory experience.</span>
-          </li>
-          <li>
-            <strong data-count="99" data-suffix=".99%">99.99%</strong>
-            <span class="hp-proof-label">Architecture Uptime SLA</span>
-            <span class="hp-proof-desc">Multi-region high availability and automated disaster recovery design.</span>
-          </li>
-          <li>
-            <strong data-count="35" data-suffix="%+">35%+</strong>
-            <span class="hp-proof-label">Cloud Spend Reduction</span>
-            <span class="hp-proof-desc">Measured infrastructure savings through FinOps and rightsizing.</span>
-          </li>
-          <li>
-            <strong>3 Hubs</strong>
-            <span class="hp-proof-label">Direct Regional Delivery</span>
-            <span class="hp-proof-desc">Operating in the United States, the United Kingdom, and Ghana.</span>
-          </li>
-        </ul>
+        <nav class="ahero-index" aria-label="Core capability quick navigation">
+          <a href="services.html#cloud-strategy" class="ahero-index-item">
+            <span class="ahero-index-num">01</span>
+            <span class="ahero-index-name">Cloud Strategy &amp; Migration</span>
+            <span class="ahero-index-meta">AWS / Azure / GCP</span>
+          </a>
+          <a href="services.html#security" class="ahero-index-item">
+            <span class="ahero-index-num">02</span>
+            <span class="ahero-index-name">Cybersecurity &amp; IAM</span>
+            <span class="ahero-index-meta">SOC 2 / HIPAA / ISO</span>
+          </a>
+          <a href="services.html#devops" class="ahero-index-item">
+            <span class="ahero-index-num">03</span>
+            <span class="ahero-index-name">DevOps &amp; FinOps</span>
+            <span class="ahero-index-meta">Terraform / Kubernetes</span>
+          </a>
+          <a href="services.html#training-workshops" class="ahero-index-item">
+            <span class="ahero-index-num">04</span>
+            <span class="ahero-index-name">Data Analytics &amp; BI</span>
+            <span class="ahero-index-meta">SQL / Python / Power BI</span>
+          </a>
+          <a href="services.html#consulting-staffing" class="ahero-index-item">
+            <span class="ahero-index-num">05</span>
+            <span class="ahero-index-name">IT Staffing &amp; Talent</span>
+            <span class="ahero-index-meta">Embedded Engineers</span>
+          </a>
+          <a href="services.html#support" class="ahero-index-item">
+            <span class="ahero-index-num">06</span>
+            <span class="ahero-index-name">24/7 Managed Operations</span>
+            <span class="ahero-index-meta">SLA Monitoring &amp; DR</span>
+          </a>
+        </nav>
       </div>
     </section>
 
-    <!-- ============ 2. CORE PRACTICE AREAS (3x2 MATRIX) ============ -->
+    <!-- ============ 2. CORE PRACTICE AREAS (ARCHITECTURAL HAIRLINE MATRIX) ============ -->
     <section class="section" id="services">
       <div class="container">
         <div class="hp-head reveal">
@@ -200,281 +142,303 @@
             <h2>Six Integrated Practices. Single-Vendor Accountability.</h2>
           </div>
           <div class="hp-head-right">
-            <p>Engage us for a targeted architectural audit or full-lifecycle delivery. Every engagement is led directly by senior architects and engineers.</p>
-            <a href="services.html" class="more-link">Explore all 10 service pillars <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <p>Engage our team for a targeted readiness assessment or end-to-end production delivery. Every project is architected and executed by senior practitioners.</p>
+            <a href="services.html" class="more-link">View all 10 service pillars <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </div>
         </div>
 
-        <div class="hp-practice-grid">
-          <a class="hp-practice-card reveal" href="services.html#cloud-strategy">
-            <div class="hp-practice-meta">
-              <span class="hp-practice-num">01</span>
-              <span class="hp-practice-cat">Multi-Cloud</span>
+        <div class="hp-matrix">
+          <a class="hp-matrix-cell reveal" href="services.html#cloud-strategy">
+            <div class="hp-matrix-top">
+              <span class="hp-matrix-idx">01 / MULTI-CLOUD</span>
+              <span class="hp-matrix-stack">AWS · Azure · GCP</span>
             </div>
             <h3>Cloud Strategy &amp; Zero-Downtime Migration</h3>
-            <p>Evaluate workload readiness, build a costed roadmap, and migrate mission-critical databases and applications to AWS, Azure, or Google Cloud with zero business disruption.</p>
-            <ul class="hp-practice-deliverables">
-              <li>Readiness audits and licensing review</li>
-              <li>Zero-downtime cutover playbooks</li>
-              <li>Multi-region high availability design</li>
+            <p>Assess workload readiness, build a costed business case, and migrate mission-critical databases and applications to the cloud without operational disruption.</p>
+            <ul class="hp-matrix-list">
+              <li>Infrastructure readiness and licensing audits</li>
+              <li>Phased zero-downtime cutover engineering</li>
+              <li>Multi-region high availability architecture</li>
             </ul>
-            <div class="hp-practice-foot">
-              <span class="hp-practice-stack">AWS · Azure · Google Cloud</span>
-              <span class="more-link">Explore <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-            </div>
+            <span class="hp-matrix-link">Explore Cloud Practice <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
           </a>
 
-          <a class="hp-practice-card reveal" href="services.html#security">
-            <div class="hp-practice-meta">
-              <span class="hp-practice-num">02</span>
-              <span class="hp-practice-cat">Security &amp; Governance</span>
+          <a class="hp-matrix-cell reveal" href="services.html#security">
+            <div class="hp-matrix-top">
+              <span class="hp-matrix-idx">02 / SECURITY &amp; GOVERNANCE</span>
+              <span class="hp-matrix-stack">SOC 2 · HIPAA · ISO 27001</span>
             </div>
             <h3>Cybersecurity, Zero-Trust IAM &amp; Compliance</h3>
-            <p>Protect critical infrastructure and sensitive records with continuous vulnerability assessments, least-privilege identity controls, and audit-ready regulatory governance.</p>
-            <ul class="hp-practice-deliverables">
-              <li>Zero-Trust identity and access policies</li>
-              <li>SOC 2, HIPAA, and ISO 27001 readiness</li>
-              <li>Automated security posture management</li>
+            <p>Harden cloud and on-premise workloads with continuous vulnerability assessments, least-privilege identity architecture, and automated regulatory guardrails.</p>
+            <ul class="hp-matrix-list">
+              <li>Zero-Trust identity and access governance</li>
+              <li>SOC 2, HIPAA, and ISO 27001 audit readiness</li>
+              <li>Continuous security posture management</li>
             </ul>
-            <div class="hp-practice-foot">
-              <span class="hp-practice-stack">SOC 2 · HIPAA · ISO 27001</span>
-              <span class="more-link">Explore <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-            </div>
+            <span class="hp-matrix-link">Explore Security Practice <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
           </a>
 
-          <a class="hp-practice-card reveal" href="services.html#devops">
-            <div class="hp-practice-meta">
-              <span class="hp-practice-num">03</span>
-              <span class="hp-practice-cat">Automation &amp; FinOps</span>
+          <a class="hp-matrix-cell reveal" href="services.html#devops">
+            <div class="hp-matrix-top">
+              <span class="hp-matrix-idx">03 / AUTOMATION &amp; FINOPS</span>
+              <span class="hp-matrix-stack">Terraform · Kubernetes · CI/CD</span>
             </div>
             <h3>DevOps CI/CD &amp; Cloud Cost Optimization</h3>
-            <p>Accelerate release velocity with modular Terraform Infrastructure as Code and Kubernetes orchestration while eliminating idle cloud spend through continuous rightsizing.</p>
-            <ul class="hp-practice-deliverables">
-              <li>Modular Terraform IaC repositories</li>
-              <li>Kubernetes cluster orchestration</li>
-              <li>FinOps compute and storage rightsizing</li>
+            <p>Accelerate release velocity with modular Infrastructure as Code and container orchestration while eliminating wasted cloud spend through FinOps engineering.</p>
+            <ul class="hp-matrix-list">
+              <li>Modular Terraform IaC and GitOps pipelines</li>
+              <li>Production Kubernetes cluster operations</li>
+              <li>Compute and storage rightsizing reviews</li>
             </ul>
-            <div class="hp-practice-foot">
-              <span class="hp-practice-stack">Terraform · Kubernetes · CI/CD</span>
-              <span class="more-link">Explore <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-            </div>
+            <span class="hp-matrix-link">Explore DevOps Practice <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
           </a>
 
-          <a class="hp-practice-card reveal" href="services.html#training-workshops">
-            <div class="hp-practice-meta">
-              <span class="hp-practice-num">04</span>
-              <span class="hp-practice-cat">Analytics &amp; Training</span>
+          <a class="hp-matrix-cell reveal" href="services.html#training-workshops">
+            <div class="hp-matrix-top">
+              <span class="hp-matrix-idx">04 / ANALYTICS &amp; ENABLEMENT</span>
+              <span class="hp-matrix-stack">SQL · Python · Power BI · Tableau</span>
             </div>
             <h3>Data Analytics, BI &amp; Workforce Upskilling</h3>
-            <p>Transform raw operational data into automated ETL pipelines and executive dashboards, and upskill internal teams through custom workshops and live practitioner cohorts.</p>
-            <ul class="hp-practice-deliverables">
-              <li>Automated SQL and Python ETL pipelines</li>
-              <li>Executive Power BI and Tableau dashboards</li>
-              <li>Live corporate practitioner workshops</li>
+            <p>Turn fragmented operational data into automated ETL pipelines and executive dashboards, backed by live practitioner workshops for your internal staff.</p>
+            <ul class="hp-matrix-list">
+              <li>Automated SQL and Python data pipelines</li>
+              <li>Executive Power BI and Tableau reporting</li>
+              <li>Custom corporate analytics training cohorts</li>
             </ul>
-            <div class="hp-practice-foot">
-              <span class="hp-practice-stack">SQL · Python · Power BI · Tableau</span>
-              <span class="more-link">Explore <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-            </div>
+            <span class="hp-matrix-link">Explore Data &amp; Training <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
           </a>
 
-          <a class="hp-practice-card reveal" href="services.html#consulting-staffing">
-            <div class="hp-practice-meta">
-              <span class="hp-practice-num">05</span>
-              <span class="hp-practice-cat">Engineering Talent</span>
+          <a class="hp-matrix-cell reveal" href="services.html#consulting-staffing">
+            <div class="hp-matrix-top">
+              <span class="hp-matrix-idx">05 / ENGINEERING TALENT</span>
+              <span class="hp-matrix-stack">Architects · DevOps · Developers</span>
             </div>
             <h3>IT Staffing &amp; Dedicated Engineering Teams</h3>
-            <p>Scale engineering capacity without recruitment bottlenecks. We deploy vetted cloud architects, DevOps specialists, and full-stack developers directly into your sprint teams.</p>
-            <ul class="hp-practice-deliverables">
-              <li>Senior cloud and infrastructure architects</li>
-              <li>DevOps and platform engineers</li>
-              <li>Flexible contract and contract-to-hire</li>
+            <p>Expand technical delivery capacity without recruitment delays. We embed vetted cloud architects, platform engineers, and analysts directly into your sprints.</p>
+            <ul class="hp-matrix-list">
+              <li>Principal cloud and security architects</li>
+              <li>Dedicated DevOps and full-stack engineers</li>
+              <li>Flexible contract and direct-hire placements</li>
             </ul>
-            <div class="hp-practice-foot">
-              <span class="hp-practice-stack">Architects · Developers · DevOps</span>
-              <span class="more-link">Explore <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-            </div>
+            <span class="hp-matrix-link">Explore IT Staffing <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
           </a>
 
-          <a class="hp-practice-card reveal" href="services.html#support">
-            <div class="hp-practice-meta">
-              <span class="hp-practice-num">06</span>
-              <span class="hp-practice-cat">Continuity &amp; Ops</span>
+          <a class="hp-matrix-cell reveal" href="services.html#support">
+            <div class="hp-matrix-top">
+              <span class="hp-matrix-idx">06 / CONTINUITY &amp; OPS</span>
+              <span class="hp-matrix-stack">24/7 SLA · Disaster Recovery · Hardware</span>
             </div>
             <h3>24/7 Managed Support, Backup &amp; Hardware</h3>
-            <p>Safeguard business continuity with round-the-clock infrastructure monitoring, automated backup and disaster recovery testing, and end-to-end hardware provisioning.</p>
-            <ul class="hp-practice-deliverables">
-              <li>24/7 infrastructure monitoring and SLA</li>
-              <li>Automated backup and recovery drills</li>
-              <li>Complete enterprise hardware lifecycle</li>
+            <p>Protect operational uptime with round-the-clock infrastructure monitoring, automated backup and recovery drills, and enterprise hardware lifecycle management.</p>
+            <ul class="hp-matrix-list">
+              <li>24/7 incident response and SLA monitoring</li>
+              <li>Immutable backup and disaster recovery testing</li>
+              <li>End-to-end enterprise hardware procurement</li>
             </ul>
-            <div class="hp-practice-foot">
-              <span class="hp-practice-stack">24/7 SLA · Disaster Recovery · IT Ops</span>
-              <span class="more-link">Explore <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
-            </div>
+            <span class="hp-matrix-link">Explore Managed Support <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- ============ 3. WHY ELITETECH (EXECUTIVE LEDGER) ============ -->
-    <section class="section section-tint" id="why-us">
-      <div class="container hp-split">
-        <div class="hp-why-copy reveal">
-          <p class="eyebrow">Why EliteTech</p>
-          <h2>Engineered for Zero Cloud Waste, Strict Compliance, and Client Autonomy.</h2>
-          <p class="hp-lead">Most consultancies build long-term client dependency. We architect open, documented systems that reduce operational risk, lower cloud spend, and leave your internal team in full control.</p>
-          <div class="hp-actions">
-            <a href="contact.html#enquiry" class="btn btn-gold btn-lg">Schedule an Architecture Review <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            <a href="about.html" class="more-link">Read our engineering standards <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    <!-- ============ 3. WHY ELITETECH (DARK ARCHITECTURAL SPLIT) ============ -->
+    <section class="section hp-dark-band" id="why-us">
+      <div class="container hp-why-layout">
+        <div class="hp-why-intro reveal">
+          <p class="hp-eyebrow">The EliteTech Standard</p>
+          <h2>Engineered for Zero Cloud Waste, Strict Compliance, and Full Client Ownership.</h2>
+          <p class="hp-why-lead">Traditional IT outsourcers create black-box dependencies. We build transparent, documented architectures that lower monthly cloud operating costs and leave your internal engineering team in complete control.</p>
+          <div class="ahero-actions">
+            <a href="contact.html#enquiry" class="btn btn-gold btn-lg">Request a Technical Briefing <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <a href="about.html" class="btn btn-ghost btn-lg">About Our Firm</a>
           </div>
         </div>
 
-        <div class="hp-ledger reveal" aria-label="Engineering standards">
-          <article class="hp-ledger-row">
-            <span class="hp-ledger-num">01</span>
-            <div class="hp-ledger-body">
-              <div class="hp-ledger-top">
-                <h3>Open Architecture &amp; Zero Vendor Lock-In</h3>
-                <span class="hp-ledger-badge">100% Client-Owned IaC</span>
-              </div>
-              <p>Every environment is codified using modular Terraform and open container standards. You retain full ownership of all repositories, credentials, and blueprints.</p>
+        <div class="hp-why-rows reveal" aria-label="Engineering commitments">
+          <article class="hp-why-row">
+            <div class="hp-why-row-meta">
+              <span class="hp-why-row-num">01</span>
+              <span class="hp-why-row-tag">100% Client-Owned Code</span>
+            </div>
+            <div class="hp-why-row-content">
+              <h3>Open Architecture With Zero Vendor Lock-In</h3>
+              <p>Every environment is provisioned using modular Terraform and open container standards. Your organization retains full administrative ownership of all repositories, runbooks, and cloud accounts.</p>
             </div>
           </article>
 
-          <article class="hp-ledger-row">
-            <span class="hp-ledger-num">02</span>
-            <div class="hp-ledger-body">
-              <div class="hp-ledger-top">
-                <h3>FinOps Discipline from Day One</h3>
-                <span class="hp-ledger-badge">25-45% OPEX Reduction</span>
-              </div>
-              <p>We eliminate idle compute, over-provisioned instances, and unoptimized storage tiers to lower monthly cloud bills while improving application throughput.</p>
+          <article class="hp-why-row">
+            <div class="hp-why-row-meta">
+              <span class="hp-why-row-num">02</span>
+              <span class="hp-why-row-tag">25% to 45% Savings</span>
+            </div>
+            <div class="hp-why-row-content">
+              <h3>FinOps Cost Discipline Built Into Every Architecture</h3>
+              <p>We eliminate orphaned storage, over-provisioned compute instances, and inefficient licensing tiers from day one, reducing monthly cloud spend while improving workload performance.</p>
             </div>
           </article>
 
-          <article class="hp-ledger-row">
-            <span class="hp-ledger-num">03</span>
-            <div class="hp-ledger-body">
-              <div class="hp-ledger-top">
-                <h3>Continuous Compliance-as-Code</h3>
-                <span class="hp-ledger-badge">Audit-Ready Guardrails</span>
-              </div>
-              <p>Automated security policies for HIPAA, SOC 2, ISO 27001, and GDPR are embedded directly into deployment pipelines to prevent configuration drift.</p>
+          <article class="hp-why-row">
+            <div class="hp-why-row-meta">
+              <span class="hp-why-row-num">03</span>
+              <span class="hp-why-row-tag">SOC 2 · HIPAA · ISO</span>
+            </div>
+            <div class="hp-why-row-content">
+              <h3>Automated Compliance-as-Code Guardrails</h3>
+              <p>Identity federation, encryption at rest and in transit, and immutable audit logging are embedded directly into deployment pipelines so your infrastructure stays audit-ready year-round.</p>
             </div>
           </article>
 
-          <article class="hp-ledger-row">
-            <span class="hp-ledger-num">04</span>
-            <div class="hp-ledger-body">
-              <div class="hp-ledger-top">
-                <h3>Embedded Knowledge Transfer &amp; Handover</h3>
-                <span class="hp-ledger-badge">Full Team Autonomy</span>
-              </div>
-              <p>We document every architecture, record technical walkthroughs, and train your internal staff so your team operates the platform with complete confidence.</p>
+          <article class="hp-why-row">
+            <div class="hp-why-row-meta">
+              <span class="hp-why-row-num">04</span>
+              <span class="hp-why-row-tag">Structured Handover</span>
+            </div>
+            <div class="hp-why-row-content">
+              <h3>Embedded Knowledge Transfer &amp; Team Enablement</h3>
+              <p>Every engagement concludes with comprehensive architectural documentation, recorded operational walkthroughs, and live training sessions for your internal engineering staff.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ============ 4. REGULATED SECTORS MATRIX ============ -->
+    <!-- ============ 4. REGULATED SECTORS (EDITORIAL COLUMNS) ============ -->
     <section class="section" id="sectors">
       <div class="container">
         <div class="hp-head reveal">
           <div class="hp-head-left">
             <p class="eyebrow">Industries We Serve</p>
-            <h2>Built for Regulated &amp; High-Availability Sectors.</h2>
+            <h2>Built for Regulated &amp; High-Availability Environments.</h2>
           </div>
           <div class="hp-head-right">
-            <p>Our cloud architectures, data pipelines, and security controls are configured to satisfy the strict compliance mandates and uptime requirements of your industry.</p>
+            <p>Our cloud architectures, data pipelines, and identity controls are tailored to meet the strict data residency, audit, and uptime mandates of your sector.</p>
           </div>
         </div>
 
-        <div class="hp-sector-grid">
-          <article class="hp-sector reveal">
-            <span class="hp-sector-pill">Sovereign &amp; Public Cloud</span>
+        <div class="hp-sectors-table">
+          <article class="hp-sector-col reveal">
+            <div class="hp-sector-header">
+              <span class="hp-sector-code">SECTOR 01</span>
+              <span class="hp-sector-std">Sovereign &amp; Public Cloud</span>
+            </div>
             <h3>Government &amp; Public Sector</h3>
-            <p>Resilient cloud infrastructure, zero-trust identity management, and staff upskilling engineered for data residency compliance and dependable public service delivery.</p>
-            <div class="hp-sector-foot">Sovereign Cloud · Zero-Trust IAM · Public DR</div>
+            <p>Resilient cloud infrastructure, zero-trust identity management, and civil service upskilling designed for strict data residency compliance and continuous citizen service delivery.</p>
+            <ul class="hp-sector-specs">
+              <li>Data residency and sovereign cloud controls</li>
+              <li>Zero-trust identity and access federation</li>
+              <li>Automated disaster recovery and continuity</li>
+            </ul>
           </article>
 
-          <article class="hp-sector reveal">
-            <span class="hp-sector-pill">HIPAA &amp; HITECH Aligned</span>
+          <article class="hp-sector-col reveal">
+            <div class="hp-sector-header">
+              <span class="hp-sector-code">SECTOR 02</span>
+              <span class="hp-sector-std">HIPAA &amp; HITECH Aligned</span>
+            </div>
             <h3>Healthcare &amp; Life Sciences</h3>
-            <p>Encrypted EHR cloud hosting, clinical data pipelines, and high-availability telehealth platforms designed to safeguard protected health information (PHI).</p>
-            <div class="hp-sector-foot">HIPAA Compliance · EHR Hosting · Telehealth DR</div>
+            <p>Encrypted EHR cloud hosting, clinical analytics pipelines, and high-availability telehealth platforms architected to protect sensitive health records and clinical operations.</p>
+            <ul class="hp-sector-specs">
+              <li>HIPAA-compliant PHI storage and encryption</li>
+              <li>High-availability EHR and telehealth hosting</li>
+              <li>Clinical reporting and operational BI</li>
+            </ul>
           </article>
 
-          <article class="hp-sector reveal">
-            <span class="hp-sector-pill">PCI-DSS &amp; SOC 2 Type II</span>
+          <article class="hp-sector-col reveal">
+            <div class="hp-sector-header">
+              <span class="hp-sector-code">SECTOR 03</span>
+              <span class="hp-sector-std">PCI-DSS &amp; SOC 2 Type II</span>
+            </div>
             <h3>Financial Services &amp; Fintech</h3>
-            <p>High-concurrency transaction architectures, immutable audit logging, automated multi-region failover, and real-time analytics for fraud detection and reporting.</p>
-            <div class="hp-sector-foot">PCI-DSS · Fraud Analytics · Multi-Region HA</div>
+            <p>High-concurrency transaction systems, immutable audit trails, automated multi-region failover, and real-time data pipelines for risk analytics and regulatory reporting.</p>
+            <ul class="hp-sector-specs">
+              <li>PCI-DSS and SOC 2 Type II security controls</li>
+              <li>Multi-region active/active failover architecture</li>
+              <li>Real-time fraud and transaction analytics</li>
+            </ul>
           </article>
 
-          <article class="hp-sector reveal">
-            <span class="hp-sector-pill">Institutional &amp; Corporate</span>
+          <article class="hp-sector-col reveal">
+            <div class="hp-sector-header">
+              <span class="hp-sector-code">SECTOR 04</span>
+              <span class="hp-sector-std">Institutional &amp; Corporate</span>
+            </div>
             <h3>Higher Education &amp; Enterprise</h3>
-            <p>Campus IT modernization and unified identity federation alongside live, mentor-led analytics cohorts that close technical skill gaps across teams.</p>
-            <div class="hp-sector-foot">Campus IT · Identity Federation · Live Cohorts</div>
+            <p>Campus and enterprise IT modernization, unified single sign-on federation, and mentor-led analytics training cohorts that build lasting internal data capability.</p>
+            <ul class="hp-sector-specs">
+              <li>Enterprise SSO and directory modernization</li>
+              <li>Cloud cost governance and FinOps tooling</li>
+              <li>Live practitioner data analysis cohorts</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ============ 5. DELIVERY FRAMEWORK ============ -->
+    <!-- ============ 5. DELIVERY METHODOLOGY (4-STAGE PIPELINE) ============ -->
     <section class="section section-tint" id="approach">
       <div class="container">
         <div class="hp-head reveal">
           <div class="hp-head-left">
             <p class="eyebrow">How We Deliver</p>
-            <h2>A Disciplined 4-Stage Engineering Methodology.</h2>
+            <h2>A Disciplined 4-Phase Engineering Lifecycle.</h2>
           </div>
           <div class="hp-head-right">
-            <p>Every engagement follows a structured milestone framework with concrete, audit-ready deliverables, giving leadership complete visibility from audit to operations.</p>
+            <p>Every engagement follows a milestone-driven methodology with clear executive sign-offs and verifiable engineering outputs at every stage.</p>
           </div>
         </div>
 
-        <ol class="hp-timeline">
-          <li class="hp-time-step reveal">
-            <div class="hp-time-meta">
-              <span class="hp-time-num">01</span>
-              <span class="hp-time-pill">Weeks 1-2</span>
+        <ol class="hp-pipeline">
+          <li class="hp-phase reveal">
+            <div class="hp-phase-bar">
+              <span class="hp-phase-step">PHASE 01</span>
+              <span class="hp-phase-duration">Weeks 1 to 2</span>
             </div>
             <h3>Discovery &amp; Readiness Audit</h3>
-            <p>Comprehensive assessment of existing architecture, security posture, licensing costs, and operational bottlenecks before proposing changes.</p>
-            <div class="hp-time-deliverable">Output: Readiness &amp; FinOps Report</div>
-          </li>
-
-          <li class="hp-time-step reveal">
-            <div class="hp-time-meta">
-              <span class="hp-time-num">02</span>
-              <span class="hp-time-pill">Weeks 3-4</span>
+            <p>We evaluate your existing infrastructure, security posture, licensing contracts, and cloud spend to identify immediate risks and cost-saving opportunities.</p>
+            <div class="hp-phase-output">
+              <span>Deliverable</span>
+              <strong>Readiness &amp; FinOps Assessment</strong>
             </div>
-            <h3>Target Architecture &amp; Roadmap</h3>
-            <p>Senior architects design a phased, costed blueprint with clear technology choices, zero-downtime cutover plans, and security controls.</p>
-            <div class="hp-time-deliverable">Output: Phased Architecture Blueprint</div>
           </li>
 
-          <li class="hp-time-step reveal">
-            <div class="hp-time-meta">
-              <span class="hp-time-num">03</span>
-              <span class="hp-time-pill">Sprint Execution</span>
+          <li class="hp-phase reveal">
+            <div class="hp-phase-bar">
+              <span class="hp-phase-step">PHASE 02</span>
+              <span class="hp-phase-duration">Weeks 3 to 4</span>
             </div>
-            <h3>Agile Build &amp; Migration</h3>
-            <p>Engineers provision modular Terraform IaC, configure container clusters, and execute seamless workload migrations with zero unplanned downtime.</p>
-            <div class="hp-time-deliverable">Output: Validated Production Cutover</div>
+            <h3>Target Architecture &amp; Blueprint</h3>
+            <p>Senior architects design a phased, costed technical blueprint detailing network topology, identity controls, Terraform modules, and zero-downtime cutover steps.</p>
+            <div class="hp-phase-output">
+              <span>Deliverable</span>
+              <strong>Costed Architecture Blueprint</strong>
+            </div>
           </li>
 
-          <li class="hp-time-step reveal">
-            <div class="hp-time-meta">
-              <span class="hp-time-num">04</span>
-              <span class="hp-time-pill">Ongoing SLA</span>
+          <li class="hp-phase reveal">
+            <div class="hp-phase-bar">
+              <span class="hp-phase-step">PHASE 03</span>
+              <span class="hp-phase-duration">Sprint Execution</span>
+            </div>
+            <h3>Automated Build &amp; Migration</h3>
+            <p>Our engineers provision Infrastructure as Code, harden security guardrails, configure CI/CD pipelines, and execute validated production cutovers with zero downtime.</p>
+            <div class="hp-phase-output">
+              <span>Deliverable</span>
+              <strong>Production Cloud Environment</strong>
+            </div>
+          </li>
+
+          <li class="hp-phase reveal">
+            <div class="hp-phase-bar">
+              <span class="hp-phase-step">PHASE 04</span>
+              <span class="hp-phase-duration">Continuous SLA</span>
             </div>
             <h3>24/7 Operations &amp; Handover</h3>
-            <p>Proactive monitoring, continuous FinOps cost reviews, disaster recovery drills, and hands-on workshops so your team owns the platform.</p>
-            <div class="hp-time-deliverable">Output: Managed SLA &amp; Trained Team</div>
+            <p>We provide ongoing 24/7 SLA monitoring, quarterly FinOps reviews, automated disaster recovery drills, and hands-on training for your internal engineering team.</p>
+            <div class="hp-phase-output">
+              <span>Deliverable</span>
+              <strong>Runbooks, Training &amp; 24/7 SLA</strong>
+            </div>
           </li>
         </ol>
       </div>
@@ -486,11 +450,11 @@
         <div class="hp-academy reveal">
           <div class="hp-academy-main">
             <div class="hp-academy-badges">
-              <span class="eyebrow">EliteTech Academy Spotlight</span>
-              <span class="hp-cohort-pill">Enrolling for Nov 10, 2026</span>
+              <span class="eyebrow">EliteTech Academy</span>
+              <span class="hp-cohort-pill">Next Cohort Starts November 10, 2026</span>
             </div>
-            <h2>12-Week Live Data Analysis &amp; BI Practitioner Intensive</h2>
-            <p>Go from raw datasets to executive-ready dashboards and automated analytics pipelines in 12 weeks. Delivered live on Zoom by senior enterprise practitioners across 36 interactive, project-based sessions.</p>
+            <h2>12-Week Live Data Analysis &amp; BI Practitioner Programme</h2>
+            <p>Master the complete enterprise analytics stack in 12 weeks. Taught live on Zoom by senior data practitioners across 36 interactive sessions focused on real-world business datasets and executive dashboard delivery.</p>
             <ul class="hp-academy-tools" aria-label="Curriculum tools">
               <li>SQL</li>
               <li>Python</li>
@@ -500,46 +464,63 @@
               <li>Power BI</li>
             </ul>
             <div class="ahero-actions">
-              <a href="data-analysis.html#register" class="btn btn-gold btn-lg">Apply for Next Cohort <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-              <a href="data-analysis.html" class="btn btn-navy btn-lg">View Full 12-Week Syllabus</a>
-              <a href="tuition.html" class="more-link">Tuition &amp; payment plans <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <a href="data-analysis.html#register" class="btn btn-gold btn-lg">Apply for the November Cohort <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <a href="data-analysis.html" class="btn btn-navy btn-lg">Explore Full 12-Week Syllabus</a>
+              <a href="tuition.html" class="more-link">Tuition &amp; instalment plans <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
             </div>
           </div>
-          <aside class="hp-academy-side" aria-label="Programme key facts">
-            <p class="hp-academy-side-title">Cohort Specifications</p>
-            <ul class="promo-facts">
-              <li><span>Starts November 10, 2026<small>Seats open · Flexible 2-part instalment plan</small></span></li>
-              <li><span>12 Weeks · 36 Live Sessions<small>3 sessions per week, 1 hour each on Zoom</small></span></li>
-              <li><span>Capstone Portfolio &amp; Certificate<small>Real-world production dashboard evaluated by mentors</small></span></li>
-            </ul>
+          <aside class="hp-academy-side" aria-label="Programme specifications">
+            <p class="hp-academy-side-title">Programme Specifications</p>
+            <dl class="hp-academy-specs">
+              <div>
+                <dt>Start Date</dt>
+                <dd>November 10, 2026 (Registration Open)</dd>
+              </div>
+              <div>
+                <dt>Schedule &amp; Format</dt>
+                <dd>12 Weeks · 36 Live Sessions on Zoom (3 hours/week)</dd>
+              </div>
+              <div>
+                <dt>Graduation Output</dt>
+                <dd>Capstone Production Portfolio &amp; Verifiable Certificate</dd>
+              </div>
+              <div>
+                <dt>Payment Options</dt>
+                <dd>Full tuition or flexible 2-part instalment plan</dd>
+              </div>
+            </dl>
           </aside>
         </div>
       </div>
     </section>
 
-    <!-- ============ 7. FINAL CTA + DELIVERY HUBS ============ -->
+    <!-- ============ 7. FINAL CTA + REGIONAL HUBS ============ -->
     <section class="section band-dark on-dark" id="contact-cta">
       <div class="container">
         <div class="hp-final reveal">
-          <div>
-            <p class="eyebrow">Initiate an Engagement</p>
-            <h2>Ready to Modernise Your Cloud, Data &amp; Security Posture?</h2>
-            <p>Consult directly with our senior cloud architects. Receive an objective assessment of your current infrastructure, compliance requirements, and cloud spend within one business day.</p>
+          <div class="hp-final-copy">
+            <p class="hp-eyebrow">Start a Conversation</p>
+            <h2>Ready to Modernize Your Cloud, Security, and Data Operations?</h2>
+            <p>Speak directly with our senior architects. Receive an objective technical review of your current infrastructure, compliance posture, and cloud costs within one business day.</p>
             <div class="ahero-actions">
-              <a href="contact.html#enquiry" class="btn btn-gold btn-lg">Request Free Architecture Review <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <a href="contact.html#enquiry" class="btn btn-gold btn-lg">Request a Consultation <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
               <a href="mailto:elitestechsolutionllc@gmail.com" class="btn btn-ghost btn-lg">Email Our Advisory Desk</a>
             </div>
           </div>
-          <div class="hp-hubs" aria-label="Regional delivery hubs">
+
+          <div class="hp-hubs" aria-label="Global delivery hubs">
             <div class="hp-hub">
+              <span class="hp-hub-region">North America</span>
               <h3>United States Delivery Hub</h3>
               <p>Medford, NJ, USA · Mon-Fri, 9:00-17:00 ET<br /><a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></p>
             </div>
             <div class="hp-hub">
+              <span class="hp-hub-region">Europe</span>
               <h3>United Kingdom Delivery Hub</h3>
               <p>Rugby, UK · Mon-Fri, 9:00-17:00 GMT<br /><a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></p>
             </div>
             <div class="hp-hub">
+              <span class="hp-hub-region">West Africa</span>
               <h3>Ghana Delivery Hub</h3>
               <p>Poolside Ave, Takoradi · Mon-Fri, 8:00-17:00 GMT<br /><a href="tel:+233533534687">+233 53 353 4687</a> · <a href="mailto:elitestechsolutionllc@gmail.com">elitestechsolutionllc@gmail.com</a></p>
             </div>
