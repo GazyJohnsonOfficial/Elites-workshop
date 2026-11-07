@@ -427,13 +427,18 @@
 }
 
 .hp-kicker {
+  display: inline-block;
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--gold);
-  margin: 0 0 16px;
+  color: var(--blue);
+  background: rgba(45, 79, 214, 0.08);
+  border: 1px solid rgba(45, 79, 214, 0.16);
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin: 0 0 20px;
 }
 
 .hp-tag {
@@ -473,44 +478,50 @@
 }
 
 /* =========================================================
-   1. CLEAN, CENTERED FULL-WIDTH HERO + HORIZONTAL STATS ROW
+   1. CLEAN, CENTERED LIGHT & AIRY CORPORATE HERO + STATS ROW
    ========================================================= */
 .ahero {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  color: #ffffff;
-  background: linear-gradient(165deg, #0b1c44 0%, #102a63 55%, #163882 100%);
-  padding-block: clamp(56px, 7vw, 96px) clamp(44px, 5.5vw, 72px);
+  color: var(--ink);
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 55%, #eaf1ff 100%);
+  border-bottom: 1px solid var(--line);
+  padding-block: clamp(56px, 7vw, 96px) clamp(48px, 6vw, 76px);
 }
 .ahero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(900px 450px at 50% 0%, rgba(25, 181, 232, 0.16), transparent 70%),
-    radial-gradient(800px 400px at 50% 100%, rgba(45, 79, 214, 0.2), transparent 70%);
+  opacity: 1;
+  mask-image: none;
+  -webkit-mask-image: none;
+  background-size: auto;
+  background-image:
+    radial-gradient(850px 420px at 18% 0%, rgba(45, 79, 214, 0.09), transparent 70%),
+    radial-gradient(750px 380px at 82% 8%, rgba(25, 181, 232, 0.11), transparent 70%),
+    radial-gradient(650px 320px at 50% 95%, rgba(245, 184, 46, 0.09), transparent 70%);
 }
 
 .ahero-center {
   max-width: 920px;
   margin-inline: auto;
   text-align: center;
-  padding-bottom: clamp(44px, 5.5vw, 68px);
+  padding-bottom: clamp(40px, 5vw, 60px);
 }
 .ahero h1 {
   font-size: clamp(2.35rem, 4.5vw, 3.85rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  color: #ffffff;
+  color: var(--navy);
   margin: 0 0 20px;
   text-wrap: balance;
 }
 .ahero .sub {
   font-size: clamp(1.06rem, 1.35vw, 1.22rem);
-  color: #dbe6ff;
+  color: var(--muted);
   line-height: 1.65;
   max-width: 68ch;
   margin: 0 auto 32px;
@@ -523,15 +534,23 @@
 .hp-stats-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 40px);
-  padding-top: clamp(32px, 4vw, 44px);
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  gap: clamp(20px, 2.5vw, 32px);
+  padding: clamp(26px, 3vw, 38px);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(15, 37, 87, 0.06);
   text-align: center;
 }
 .hp-stats-row li {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-inline: 12px;
+  border-left: 1px solid var(--line);
+}
+.hp-stats-row li:first-child {
+  border-left: 0;
 }
 .hp-stats-row strong {
   display: block;
@@ -539,21 +558,21 @@
   font-size: clamp(2rem, 3.2vw, 2.75rem);
   font-weight: 800;
   line-height: 1.05;
-  color: #ffffff;
+  color: var(--navy);
   margin-bottom: 8px;
 }
 .hp-stat-title {
   display: block;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--blue);
   margin-bottom: 4px;
 }
 .hp-stat-desc {
   display: block;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: #cbd8f6;
+  color: var(--muted);
   max-width: 28ch;
 }
 
@@ -974,6 +993,7 @@
   .hp-cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hp-sector-cards, .hp-steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hp-stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hp-stats-row li:nth-child(3) { border-left: 0; }
 }
 @media (max-width: 960px) {
   .hp-why-grid, .hp-programme-box, .hp-contact-panel { grid-template-columns: minmax(0, 1fr); }
@@ -982,6 +1002,15 @@
 @media (max-width: 640px) {
   .hp-cards-grid, .hp-benefit-grid, .hp-sector-cards, .hp-steps-grid, .hp-stats-row {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .hp-stats-row li {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+  .hp-stats-row li:first-child {
+    border-top: 0;
+    padding-top: 0;
   }
   .hp-card, .hp-benefit-card, .hp-sector-card, .hp-step-card { padding: 24px 20px; }
   .hp-programme-content, .hp-programme-aside { padding: 26px 20px; }
