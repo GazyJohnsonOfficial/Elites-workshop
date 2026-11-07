@@ -160,7 +160,7 @@
 .svc-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .svc-list li { padding: 18px 20px 18px 54px; position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; font-weight: 600; color: var(--navy); }
 .svc-list li::before { content: ""; position: absolute; left: 18px; top: 20px; width: 22px; height: 22px; border-radius: 50%; background: var(--blue-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232d4fd6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat; }
-.svc-note { margin-top: 22px; padding: 18px 20px; border-left: 4px solid var(--gold); background: #fffaf0; border-radius: 0 12px 12px 0; color: var(--ink); font-size: .98rem; }
+.svc-note { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--line); border-left: 3px solid var(--navy); background: var(--paper); border-radius: 8px; color: var(--ink); font-size: .98rem; }
 
 /* ---------- Training tracks ---------- */
 .tracks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
@@ -370,7 +370,7 @@
 .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 3vw, 32px); margin-top: 36px; }
 .tcard { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: clamp(24px, 3vw, 32px); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; transition: transform .2s ease, box-shadow .2s ease; position: relative; }
 .tcard:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.tcard-quote { font-size: 1rem; line-height: 1.6; color: var(--ink); margin-bottom: 24px; font-style: italic; position: relative; }
+.tcard-quote { font-size: 1rem; line-height: 1.6; color: var(--ink); margin-bottom: 24px; font-style: normal; position: relative; }
 .tcard-quote::before { content: "“"; font-family: var(--font-display); font-size: 3.5rem; color: rgba(0, 102, 255, .15); position: absolute; left: -14px; top: -28px; line-height: 1; pointer-events: none; }
 .tcard-author { display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
 .tcard-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; font-weight: 800; font-size: 1rem; display: grid; place-items: center; flex-shrink: 0; }
