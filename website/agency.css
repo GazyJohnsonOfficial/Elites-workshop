@@ -34,8 +34,7 @@
 .more-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* ---------- Home hero ---------- */
-.ahero { position: relative; overflow: hidden; isolation: isolate; color: #fff; background: radial-gradient(1200px 600px at 85% -10%, rgba(25, 181, 232, .28), transparent 60%), radial-gradient(900px 500px at -10% 110%, rgba(45, 79, 214, .45), transparent 60%), linear-gradient(160deg, var(--navy-deep), var(--navy) 60%, #14337a); }
-.ahero::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; background-image: linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse at 70% 40%, #000, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000, transparent 75%); }
+.ahero { position: relative; overflow: hidden; isolation: isolate; }
 .ahero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 4vw, 56px); align-items: center; padding-block: clamp(40px, 5.5vw, 76px); }
 .ahero .eyebrow { color: var(--cyan); }
 .ahero h1 { font-size: clamp(2.5rem, 5.6vw, 5.2rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.04; margin-bottom: .4em; text-wrap: balance; }
@@ -494,29 +493,13 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -2;
-  opacity: 1;
-  mask-image: none;
-  -webkit-mask-image: none;
-  background-size: auto;
+  z-index: -1;
+  pointer-events: none;
   background-image:
     radial-gradient(760px 460px at 12% 12%, rgba(45, 79, 214, 0.28), transparent 68%),
     radial-gradient(720px 440px at 88% 15%, rgba(25, 181, 232, 0.32), transparent 68%),
     radial-gradient(680px 420px at 80% 92%, rgba(245, 184, 46, 0.30), transparent 68%),
     radial-gradient(640px 380px at 18% 92%, rgba(45, 79, 214, 0.20), transparent 68%);
-}
-.ahero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(15, 37, 87, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 37, 87, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at 50% 45%, #000 35%, transparent 82%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 35%, transparent 82%);
 }
 
 .ahero-center {
