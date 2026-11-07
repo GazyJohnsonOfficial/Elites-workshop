@@ -36,7 +36,7 @@
   --font-body: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
 
-  --gutter: clamp(24px, 5vw, 88px);
+  --gutter: clamp(20px, 3.5vw, 64px);
   --section-y: 80px;
   --header-h: 76px;
 }
@@ -62,11 +62,11 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spac
 p { margin: 0 0 16px; }
 ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 
-/* Full-width container: fluid gutters, content spans the page */
+/* Full-width container: fluid gutters, content spans the entire webpage */
 .container {
   width: 100%;
-  max-width: 1440px;
-  margin-inline: auto;
+  max-width: 100%;
+  margin-inline: 0;
   padding-inline: var(--gutter);
 }
 
