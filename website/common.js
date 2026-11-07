@@ -273,5 +273,6 @@ document.addEventListener("DOMContentLoaded", () => {
   closeBtn.addEventListener("click", () => dlg.close());
   dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   $$("[data-cookie-settings]").forEach((b) => b.addEventListener("click", openPrefs));
+  $$("[data-print-page]").forEach((b) => b.addEventListener("click", () => window.print()));
   if (!read()) setTimeout(showBanner, 600);
 });

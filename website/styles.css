@@ -25,14 +25,16 @@
   --ok: #1f9d63;
   --ok-text: #137046;
 
-  --radius: 20px;
-  --shadow: 0 18px 44px rgba(15, 37, 87, 0.14);
+  --radius: 8px;
+  --shadow: 0 8px 24px rgba(10, 25, 47, 0.08);
 
   --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Plus Jakarta Sans", "Trebuchet MS", "Segoe UI", Roboto, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
 
-  --gutter: clamp(20px, 5vw, 96px);
-  --section-y: clamp(40px, 5vw, 72px);
+  --gutter: clamp(20px, 5vw, 88px);
+  --section-y: 64px;
   --header-h: 76px;
 }
 
@@ -53,7 +55,7 @@ body {
 }
 img, svg { max-width: 100%; }
 a { color: var(--blue); }
-h1, h2, h3, h4 { margin: 0 0 .5em; line-height: 1.15; }
+h1, h2, h3, h4 { font-family: var(--font-heading); margin: 0 0 .5em; line-height: 1.15; letter-spacing: -0.02em; }
 p { margin: 0 0 1em; }
 ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 
@@ -74,28 +76,28 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 
 /* ============ BUTTONS ============ */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
-  font: 700 1rem/1.2 var(--font-body);
-  letter-spacing: .03em; text-decoration: none;
-  padding: .9rem 1.8rem; border-radius: 999px; border: 2px solid transparent;
-  cursor: pointer; transition: transform .15s, background .15s, color .15s, border-color .15s, box-shadow .15s;
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  font: 700 .96rem/1.2 var(--font-heading);
+  letter-spacing: .01em; text-decoration: none;
+  padding: .85rem 1.5rem; border-radius: 6px; border: 1.5px solid transparent;
+  cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn-gold { background: var(--gold); color: var(--navy-deep); box-shadow: 0 8px 20px rgba(245, 184, 46, .38); }
-.btn-gold:hover { background: var(--gold-dark); }
-.btn-navy { background: var(--navy); color: #fff; }
-.btn-navy:hover { background: var(--blue); }
-.btn-outline { border-color: var(--navy); color: var(--navy); background: transparent; }
+.btn:hover { opacity: 1; }
+.btn-gold { background: var(--gold); color: #0a192f; border-color: var(--gold); }
+.btn-gold:hover { background: var(--gold-dark); border-color: var(--gold-dark); color: #0a192f; }
+.btn-navy { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-navy:hover { background: #1e3a8a; border-color: #1e3a8a; color: #fff; }
+.btn-outline { border-color: var(--navy); color: var(--navy); background: #fff; }
 .btn-outline:hover { background: var(--navy); color: #fff; }
-.btn-sm { padding: .75rem 1.3rem; font-size: .92rem; }
-.btn-lg { padding: 1.15rem 2.3rem; font-size: 1.1rem; }
+.btn-sm { padding: .65rem 1.15rem; font-size: .88rem; }
+.btn-lg { padding: 1rem 1.85rem; font-size: 1rem; }
 .btn-block { width: 100%; }
-.btn[disabled] { opacity: .7; cursor: not-allowed; transform: none; }
+.btn[disabled] { opacity: .65; cursor: not-allowed; }
 
 /* ============ HEADER ============ */
 .site-header {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(255, 255, 255, .94); backdrop-filter: blur(10px);
+  background: #ffffff;
   border-bottom: 1px solid var(--line);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); }
@@ -436,18 +438,9 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
 .to-top:hover { background: var(--blue); }
 .to-top .ico { width: 22px; height: 22px; stroke-width: 2.4; }
 
-/* reveal on scroll (uses the individual `translate` property so hover transforms still work) */
-.js:not(.reveal-all) .reveal:not(.in) { opacity: 0; translate: 0 26px; }
-.js .reveal { transition: opacity .7s ease var(--d, 0ms), translate .7s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms), transform .2s ease, box-shadow .2s ease, border-color .15s ease; }
-
-/* hero entrance: one orchestrated sequence on load */
-@keyframes rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
-@keyframes drift-in { from { opacity: 0; translate: 0 30px; scale: .94; } to { opacity: 1; translate: 0 0; scale: 1; } }
-@keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -9px; } }
-@keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-.js .hero-copy > * { animation: rise .8s cubic-bezier(.2, .7, .2, 1) both; }
-.js .hero-copy > :nth-child(1) { animation-delay: .05s; }
-.js .hero-copy > :nth-child(2) { animation-delay: .15s; }
+/* reveal on scroll disabled: instant, rock-solid rendering without scroll fade-in */
+.js:not(.reveal-all) .reveal:not(.in) { opacity: 1; translate: none; }
+.js .reveal { opacity: 1; translate: none; }
 .js .hero-copy > :nth-child(3) { animation-delay: .28s; }
 .js .hero-copy > :nth-child(4) { animation-delay: .4s; }
 .js .hero-copy > :nth-child(5) { animation-delay: .5s; }
