@@ -186,12 +186,12 @@ document.addEventListener("DOMContentLoaded", () => {
     socialDefs.forEach(([key, label, icon]) => {
       const href = key === "whatsapp" ? waUrl : safeUrl(CONFIG.SOCIALS[key] || "");
       if (!href) {
-        if (["facebook", "linkedin", "x"].includes(key)) {
+        if (["facebook", "instagram", "linkedin", "x", "youtube"].includes(key)) {
           box.appendChild(etsEl("span", {
             class: "social-placeholder",
             role: "img",
-            "aria-label": label + " profile link not configured",
-            title: label + " profile link not configured",
+            "aria-label": label,
+            title: label,
           }, etsIcon(icon)));
         }
         return;
