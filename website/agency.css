@@ -780,38 +780,102 @@
 }
 
 /* =========================================================
-   5. HOW WE WORK: 4-Step Delivery Cards
+   5. HOW WE WORK: Connected 4-Stage Delivery Process
    ========================================================= */
+.hp-approach-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(20px, 4vw, 56px);
+  align-items: end;
+  margin-bottom: clamp(36px, 4.5vw, 52px);
+  padding-bottom: clamp(20px, 2.5vw, 28px);
+  border-bottom: 1px solid var(--line);
+}
+.hp-approach-head h2 {
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0;
+}
+.hp-approach-head > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
 .hp-steps-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 28px);
+  gap: clamp(18px, 2.2vw, 28px);
   list-style: none;
   padding: 0;
   margin: 0;
 }
 .hp-step-card {
+  position: relative;
   background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: clamp(26px, 2.5vw, 34px);
-  box-shadow: 0 6px 20px rgba(15, 37, 87, 0.04);
+  border-radius: 18px;
+  padding: clamp(26px, 2.6vw, 34px);
+  box-shadow: 0 8px 24px rgba(15, 37, 87, 0.05);
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.hp-step-label {
-  align-self: flex-start;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #ffffff;
-  background: var(--blue);
-  padding: 4px 12px;
-  border-radius: 999px;
+.hp-step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(15, 37, 87, 0.09);
+  border-color: rgba(45, 79, 214, 0.35);
+}
+
+.hp-step-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
   margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
 }
+.hp-step-num {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--navy);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+.hp-step-card:hover .hp-step-num {
+  background: var(--blue);
+}
+.hp-step-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hp-step-stage {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+}
+.hp-step-time {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
 .hp-step-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.22rem;
   color: var(--navy);
   margin: 0 0 10px;
 }
@@ -819,14 +883,53 @@
   color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.6;
-  margin: 0 0 20px;
-  flex: 1;
+  margin: 0 0 18px;
 }
-.hp-step-out {
-  display: block;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
+
+.hp-step-list {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 22px;
+  padding: 0;
+  list-style: none;
+}
+.hp-step-list li {
   font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding-left: 16px;
+  position: relative;
+}
+.hp-step-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.48em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.hp-step-out {
+  margin-top: auto;
+  padding: 12px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hp-step-out span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+.hp-step-out strong {
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--navy);
 }
@@ -1305,7 +1408,7 @@
   .hp-stats-row li:nth-child(3) { border-left: 0; }
 }
 @media (max-width: 960px) {
-  .hp-why-grid, .hp-programme-box, .hp-cta-card, .hp-offices-grid { grid-template-columns: minmax(0, 1fr); }
+  .hp-why-grid, .hp-approach-head, .hp-programme-box, .hp-cta-card, .hp-offices-grid { grid-template-columns: minmax(0, 1fr); }
   .hp-programme-aside { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
   .hp-cta-actions-col { flex-direction: row; flex-wrap: wrap; min-width: 0; }
   .hp-cta-actions-col .btn { flex: 1 1 220px; }
