@@ -309,38 +309,89 @@
       </div>
     </section>
 
-    <!-- ============ 6. FEATURED TRAINING PROGRAMME ============ -->
-    <section class="section" id="programme">
+    <!-- ============ 6. FEATURED TRAINING PROGRAMME (DYNAMIC & FOOTER-THEMED) ============ -->
+    <section class="section hp-programme-sec" id="programme">
       <div class="container">
         <div class="hp-programme-box reveal">
           <div class="hp-programme-content">
             <div class="hp-programme-top">
-              <span class="hp-tag">Elites Tech Academy</span>
-              <span class="hp-programme-date">Next Cohort Starts November 10, 2026</span>
+              <span class="hp-prog-eyebrow">Elites Tech Academy</span>
+              <span class="hp-programme-date">
+                <span class="hp-live-dot" aria-hidden="true"></span>
+                Next Cohort Starts <span data-prog-start>November 10, 2026</span>
+              </span>
             </div>
+
             <h2>12-Week Live Data Analysis &amp; Business Intelligence Programme</h2>
             <p>Build job-ready analytics skills from the ground up in 12 weeks. Taught live on Zoom by experienced industry practitioners across 36 interactive sessions focused on practical business datasets and portfolio projects.</p>
-            <ul class="hp-skill-pills" aria-label="Tools covered">
-              <li>SQL</li>
-              <li>Python</li>
-              <li>Excel &amp; VBA</li>
-              <li>Alteryx</li>
-              <li>Tableau</li>
-              <li>Power BI</li>
-            </ul>
+
+            <!-- Interactive Curriculum Tool Explorer -->
+            <div class="hp-tool-explorer" aria-label="Interactive curriculum explorer">
+              <div class="hp-tool-header">
+                <span class="hp-tool-Instruction">Select a tool to preview curriculum modules:</span>
+                <span class="hp-tool-weeks" id="hp-tool-weeks">Weeks 3 to 4</span>
+              </div>
+              <div class="hp-skill-pills" role="tablist" aria-label="Curriculum tools">
+                <button type="button" class="hp-tool-tab active" role="tab" aria-selected="true" data-tool="sql">SQL</button>
+                <button type="button" class="hp-tool-tab" role="tab" aria-selected="false" data-tool="python">Python</button>
+                <button type="button" class="hp-tool-tab" role="tab" aria-selected="false" data-tool="excel">Excel &amp; VBA</button>
+                <button type="button" class="hp-tool-tab" role="tab" aria-selected="false" data-tool="alteryx">Alteryx</button>
+                <button type="button" class="hp-tool-tab" role="tab" aria-selected="false" data-tool="tableau">Tableau</button>
+                <button type="button" class="hp-tool-tab" role="tab" aria-selected="false" data-tool="powerbi">Power BI</button>
+              </div>
+              <div class="hp-tool-panel" id="hp-tool-panel" role="tabpanel" aria-live="polite">
+                <div class="hp-tool-panel-top">
+                  <strong id="hp-tool-title">Relational Database Querying &amp; Analytical Joins</strong>
+                  <span class="hp-tool-badge" id="hp-tool-badge">6 Live Sessions</span>
+                </div>
+                <p id="hp-tool-desc">Write production-grade queries, CTEs, window functions, and multi-table joins to extract and structure enterprise datasets for reporting.</p>
+                <div class="hp-tool-project">
+                  <span>Portfolio Project:</span>
+                  <strong id="hp-tool-output">Revenue &amp; Customer Cohort Retention SQL Pipeline</strong>
+                </div>
+              </div>
+            </div>
+
             <div class="ahero-actions">
               <a href="data-analysis.html#register" class="btn btn-gold">Apply for the Next Cohort <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-              <a href="data-analysis.html" class="btn btn-navy">View Full Syllabus</a>
-              <a href="tuition.html" class="more-link">Tuition &amp; payment options <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <a href="data-analysis.html" class="btn btn-ghost">View Full Syllabus</a>
+              <a href="tuition.html" class="hp-prog-link">Tuition &amp; payment options <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
             </div>
           </div>
 
-          <aside class="hp-programme-aside" aria-label="Programme overview">
-            <h3>Programme Highlights</h3>
+          <aside class="hp-programme-aside" aria-label="Programme overview and live countdown">
+            <div class="hp-aside-head">
+              <h3>Programme Highlights</h3>
+              <span class="hp-status-pill">Enrolment Open</span>
+            </div>
+
+            <!-- Live Cohort Countdown -->
+            <div class="hp-countdown-box" data-hp-countdown aria-label="Countdown to cohort start">
+              <span class="hp-cd-label">Cohort Begins In</span>
+              <div class="hp-cd-grid">
+                <div class="hp-cd-cell">
+                  <strong id="hp-cd-days">180</strong>
+                  <span>Days</span>
+                </div>
+                <div class="hp-cd-cell">
+                  <strong id="hp-cd-hours">00</strong>
+                  <span>Hours</span>
+                </div>
+                <div class="hp-cd-cell">
+                  <strong id="hp-cd-mins">00</strong>
+                  <span>Mins</span>
+                </div>
+                <div class="hp-cd-cell">
+                  <strong id="hp-cd-secs">00</strong>
+                  <span>Secs</span>
+                </div>
+              </div>
+            </div>
+
             <ul class="hp-programme-highlights">
               <li>
                 <strong>Start Date</strong>
-                <span>November 10, 2026 (Enrolment Open)</span>
+                <span data-prog-start-detail>November 10, 2026 (Enrolment Open)</span>
               </li>
               <li>
                 <strong>Live Schedule</strong>
@@ -350,9 +401,16 @@
                 <strong>Practical Outcome</strong>
                 <span>Capstone Dashboard Portfolio and Certificate of Completion</span>
               </li>
-              <li>
-                <strong>Flexible Tuition</strong>
-                <span>Pay in full or use our two-part instalment plan</span>
+              <li class="hp-tuition-item">
+                <div class="hp-tuition-top">
+                  <strong>Flexible Tuition</strong>
+                  <div class="hp-curr-switch" role="group" aria-label="Select currency">
+                    <button type="button" class="hp-curr-btn active" data-hp-curr="USD">USD</button>
+                    <button type="button" class="hp-curr-btn" data-hp-curr="GHS">GHS</button>
+                    <button type="button" class="hp-curr-btn" data-hp-curr="GBP">GBP</button>
+                  </div>
+                </div>
+                <span id="hp-tuition-display">Pay $1,000 in full or 2 instalments of $500</span>
               </li>
             </ul>
           </aside>
