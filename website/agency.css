@@ -735,48 +735,88 @@
 }
 
 /* =========================================================
-   4. INDUSTRIES WE SERVE: Clean 4-Card Row
+   4. INDUSTRIES WE SERVE: 2x2 Executive Sector Showcase
    ========================================================= */
 .hp-sector-cards {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(18px, 2vw, 28px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 32px);
 }
 .hp-sector-card {
   background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: clamp(26px, 2.5vw, 34px);
-  box-shadow: 0 6px 20px rgba(15, 37, 87, 0.04);
+  border-radius: 18px;
+  padding: clamp(28px, 2.8vw, 38px);
+  box-shadow: 0 8px 24px rgba(15, 37, 87, 0.05);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .hp-sector-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(15, 37, 87, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(15, 37, 87, 0.09);
+  border-color: rgba(45, 79, 214, 0.35);
 }
-.hp-sector-badge {
-  align-self: flex-start;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 700;
+.hp-sector-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.hp-sector-cat {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--blue);
-  background: var(--paper);
-  padding: 4px 12px;
-  border-radius: 999px;
-  margin-bottom: 14px;
+}
+.hp-sector-std {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
 }
 .hp-sector-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--navy);
   margin: 0 0 10px;
 }
 .hp-sector-card p {
-  margin: 0;
+  margin: 0 0 22px;
   color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+.hp-sector-points {
+  margin-top: auto;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  list-style: none;
+}
+.hp-sector-points li {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding-left: 14px;
+  position: relative;
+}
+.hp-sector-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.48em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
 }
 
 /* =========================================================
@@ -1408,13 +1448,13 @@
   .hp-stats-row li:nth-child(3) { border-left: 0; }
 }
 @media (max-width: 960px) {
-  .hp-why-grid, .hp-approach-head, .hp-programme-box, .hp-cta-card, .hp-offices-grid { grid-template-columns: minmax(0, 1fr); }
+  .hp-why-grid, .hp-approach-head, .hp-sector-cards, .hp-programme-box, .hp-cta-card, .hp-offices-grid { grid-template-columns: minmax(0, 1fr); }
   .hp-programme-aside { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
   .hp-cta-actions-col { flex-direction: row; flex-wrap: wrap; min-width: 0; }
   .hp-cta-actions-col .btn { flex: 1 1 220px; }
 }
 @media (max-width: 640px) {
-  .hp-cards-grid, .hp-benefit-grid, .hp-sector-cards, .hp-steps-grid, .hp-stats-row {
+  .hp-cards-grid, .hp-benefit-grid, .hp-sector-cards, .hp-sector-points, .hp-steps-grid, .hp-stats-row {
     grid-template-columns: minmax(0, 1fr);
   }
   .hp-stats-row li {
