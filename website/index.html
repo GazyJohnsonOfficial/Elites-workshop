@@ -80,65 +80,87 @@
             </ul>
           </div>
 
-          <!-- Enterprise Cloud Architecture Schematic -->
-          <div class="hero-schematic" aria-label="Enterprise architecture blueprint">
-            <div class="schematic-head">
-              <span class="schematic-id">ARCHITECTURE BLUEPRINT // MULTI-CLOUD FABRIC</span>
-              <span class="schematic-status">Production Active</span>
+          <!-- Multi-Cloud Architecture & Traffic Topology -->
+          <div class="hero-topology" aria-label="Multi-cloud architecture topology">
+            <div class="topology-header">
+              <span class="topology-title">Multi-Cloud Traffic &amp; Failover Mesh</span>
+              <span class="topology-badge">Active/Active</span>
             </div>
 
-            <div class="schematic-layers">
-              <!-- Tier 1: Multi-Cloud Infrastructure Fabric -->
-              <div class="schematic-layer">
-                <div class="schematic-meta">
-                  <span class="schematic-tier">Tier 01</span>
-                  <strong>Multi-Cloud Infrastructure Fabric</strong>
-                  <span class="schematic-tag">High Availability</span>
-                </div>
-                <p>AWS, Microsoft Azure, and Google Cloud topologies engineered with automated multi-region failover and hybrid interconnects.</p>
-                <div class="schematic-chips">
-                  <span>AWS us-east-1</span>
-                  <span>Azure eastus2</span>
-                  <span>GCP us-central1</span>
-                  <span>Hybrid On-Prem</span>
-                </div>
-              </div>
+            <div class="topology-canvas">
+              <svg viewBox="0 0 540 300" class="topology-svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="topLineGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#19b5e8" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#2d4fd6" stop-opacity="0.5"/>
+                  </linearGradient>
+                  <linearGradient id="topLineGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#19b5e8" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#f5b82e" stop-opacity="0.6"/>
+                  </linearGradient>
+                </defs>
 
-              <!-- Tier 2: Zero-Trust Security & Compliance -->
-              <div class="schematic-layer">
-                <div class="schematic-meta">
-                  <span class="schematic-tier">Tier 02</span>
-                  <strong>Zero-Trust Security &amp; Compliance Guardrails</strong>
-                  <span class="schematic-tag">Continuous CSPM</span>
-                </div>
-                <p>Identity and access management policies, least-privilege role definitions, and automated audit enforcement built into every pipeline.</p>
-                <div class="schematic-chips">
-                  <span>SOC 2 Type II</span>
-                  <span>HIPAA</span>
-                  <span>ISO 27001</span>
-                  <span>PCI-DSS</span>
-                </div>
-              </div>
+                <!-- Connector paths -->
+                <path d="M 130 150 L 220 150" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+                <path d="M 330 120 L 400 80" stroke="url(#topLineGrad1)" stroke-width="2" fill="none"/>
+                <path d="M 330 150 L 400 150" stroke="url(#topLineGrad1)" stroke-width="2" fill="none"/>
+                <path d="M 330 180 L 400 220" stroke="url(#topLineGrad2)" stroke-width="2" fill="none"/>
 
-              <!-- Tier 3: DevOps Automation & Cloud FinOps -->
-              <div class="schematic-layer">
-                <div class="schematic-meta">
-                  <span class="schematic-tier">Tier 03</span>
-                  <strong>DevOps Automation &amp; Cloud FinOps Engine</strong>
-                  <span class="schematic-tag">35%+ Waste Reduced</span>
-                </div>
-                <p>Modular Terraform Infrastructure as Code, Kubernetes GitOps deployments, and continuous compute and storage rightsizing.</p>
-                <div class="schematic-chips">
-                  <span>Terraform IaC</span>
-                  <span>Kubernetes</span>
-                  <span>Docker</span>
-                  <span>Auto-Scaling</span>
-                </div>
+                <!-- Ingress Node -->
+                <g transform="translate(30, 115)">
+                  <rect width="100" height="70" rx="10" fill="#0c1e48" stroke="rgba(255,255,255,0.18)"/>
+                  <text x="50" y="32" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">Client Traffic</text>
+                  <text x="50" y="48" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="var(--font-mono)">Ingress Gateway</text>
+                </g>
+
+                <!-- Core Zero-Trust Node -->
+                <g transform="translate(220, 105)">
+                  <rect width="110" height="90" rx="12" fill="#0f265c" stroke="rgba(25, 181, 232, 0.45)"/>
+                  <text x="55" y="34" text-anchor="middle" fill="#19b5e8" font-size="9" font-weight="800" font-family="var(--font-mono)">ZERO-TRUST CORE</text>
+                  <text x="55" y="52" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">Security &amp; IAM</text>
+                  <text x="55" y="70" text-anchor="middle" fill="#86efac" font-size="9" font-family="var(--font-mono)">SOC 2 · HIPAA Ready</text>
+                </g>
+
+                <!-- Cloud Destination 1: AWS -->
+                <g transform="translate(400, 55)">
+                  <rect width="115" height="50" rx="8" fill="#0c1e48" stroke="rgba(255,255,255,0.16)"/>
+                  <text x="14" y="24" fill="#ffffff" font-size="11" font-weight="700">AWS Cloud</text>
+                  <text x="14" y="39" fill="#86efac" font-size="9" font-family="var(--font-mono)">us-east-1 · 12ms</text>
+                </g>
+
+                <!-- Cloud Destination 2: Azure -->
+                <g transform="translate(400, 125)">
+                  <rect width="115" height="50" rx="8" fill="#0c1e48" stroke="rgba(255,255,255,0.16)"/>
+                  <text x="14" y="24" fill="#ffffff" font-size="11" font-weight="700">Microsoft Azure</text>
+                  <text x="14" y="39" fill="#86efac" font-size="9" font-family="var(--font-mono)">eastus2 · 18ms</text>
+                </g>
+
+                <!-- Cloud Destination 3: Google Cloud -->
+                <g transform="translate(400, 195)">
+                  <rect width="115" height="50" rx="8" fill="#0c1e48" stroke="rgba(255,255,255,0.16)"/>
+                  <text x="14" y="24" fill="#ffffff" font-size="11" font-weight="700">Google Cloud</text>
+                  <text x="14" y="39" fill="#86efac" font-size="9" font-family="var(--font-mono)">us-central1 · 24ms</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="topology-metrics-strip">
+              <div class="top-metric">
+                <span class="top-metric-val">99.99%</span>
+                <span class="top-metric-lbl">Availability SLA</span>
+              </div>
+              <div class="top-metric">
+                <span class="top-metric-val">&lt; 15s</span>
+                <span class="top-metric-lbl">Failover Target</span>
+              </div>
+              <div class="top-metric">
+                <span class="top-metric-val">35%+</span>
+                <span class="top-metric-lbl">Cloud OPEX Saved</span>
               </div>
             </div>
 
-            <div class="schematic-foot">
-              <span>Synchronized Delivery Hubs: Medford, NJ (US) | Rugby (UK) | Takoradi (Ghana)</span>
+            <div class="topology-foot">
+              <span>Synchronized Global Mesh: Medford, NJ (US) | Rugby (UK) | Takoradi (Ghana)</span>
             </div>
           </div>
         </div>

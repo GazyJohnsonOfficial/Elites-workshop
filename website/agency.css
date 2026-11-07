@@ -573,8 +573,8 @@
   margin-right: 18px;
 }
 
-/* Enterprise Cloud Architecture Schematic */
-.hero-schematic {
+/* Enterprise Multi-Cloud Architecture & Traffic Topology */
+.hero-topology {
   background: rgba(10, 22, 50, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 20px;
@@ -585,7 +585,7 @@
   display: flex;
   flex-direction: column;
 }
-.schematic-head {
+.topology-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -594,15 +594,15 @@
   background: rgba(255, 255, 255, 0.04);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.schematic-id {
+.topology-title {
   font-family: var(--font-mono);
-  font-size: .72rem;
+  font-size: .74rem;
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: #cbd5e1;
 }
-.schematic-status {
+.topology-badge {
   font-family: var(--font-mono);
   font-size: .68rem;
   font-weight: 700;
@@ -614,83 +614,49 @@
   padding: 2px 8px;
   border-radius: 4px;
 }
-
-.schematic-layers {
-  padding: 18px 20px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.topology-canvas {
+  padding: 18px 16px 10px;
 }
-.schematic-layer {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 14px 16px;
-  transition: border-color .2s ease, background .2s ease;
+.topology-svg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
-.schematic-layer:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.18);
-}
-.schematic-meta {
-  display: flex;
-  align-items: center;
+.topology-metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
+  padding: 12px 18px;
+  background: rgba(0, 0, 0, 0.18);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-.schematic-tier {
-  font-family: var(--font-mono);
-  font-size: .68rem;
+.top-metric {
+  text-align: center;
+}
+.top-metric-val {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
   font-weight: 800;
-  color: var(--cyan);
-  background: rgba(25, 181, 232, 0.15);
-  border: 1px solid rgba(25, 181, 232, 0.3);
-  padding: 1px 6px;
-  border-radius: 4px;
+  color: #ffffff;
+  line-height: 1.1;
 }
-.schematic-meta strong {
-  color: #fff;
-  font-size: .94rem;
-  font-weight: 700;
-  line-height: 1.3;
-}
-.schematic-tag {
+.top-metric-lbl {
+  display: block;
   font-family: var(--font-mono);
   font-size: .66rem;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--gold);
-  margin-left: auto;
+  margin-top: 2px;
 }
-.schematic-layer p {
-  margin: 4px 0 10px;
-  font-size: .84rem;
-  line-height: 1.48;
-  color: #b9c8ee;
-}
-.schematic-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.schematic-chips span {
-  font-family: var(--font-mono);
-  font-size: .7rem;
-  font-weight: 700;
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2px 7px;
-  border-radius: 4px;
-}
-
-.schematic-foot {
-  padding: 12px 20px;
-  background: rgba(0, 0, 0, 0.22);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: .8rem;
+.topology-foot {
+  padding: 11px 18px;
+  background: rgba(0, 0, 0, 0.28);
+  font-size: .78rem;
   color: #cdd9f7;
+  text-align: center;
 }
 
 /* Full-Width Executive Proof Bar */
@@ -1196,8 +1162,8 @@
   .hp-academy-main, .hp-academy-side { padding: 24px 18px; }
   .hp-actions { flex-direction: column; align-items: stretch; }
   .hp-actions .btn { width: 100%; }
-  .hero-schematic { border-radius: 16px; }
-  .schematic-layers { padding: 14px 14px 10px; }
+  .hero-topology { border-radius: 16px; }
+  .topology-canvas { padding: 12px 10px 8px; }
 }
 @media (max-width: 380px) {
   .ahero h1 { font-size: 1.95rem; }
