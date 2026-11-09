@@ -748,7 +748,7 @@ input[type="checkbox"] { width: 19px; height: 19px; accent-color: var(--blue); f
 .response-guarantee .ico { width: 16px; height: 16px; color: #1f9d63; }
 
 .booking-prompt {
-  background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; margin-top: 24px;
+  background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; margin-top: 24px;
 }
 .booking-prompt h4 { margin: 0 0 6px; font-size: 1rem; color: var(--navy); }
 .booking-prompt p { margin: 0 0 12px; font-size: .9rem; color: var(--muted); line-height: 1.45; }

@@ -276,7 +276,7 @@ export function RegistrationForm() {
             id="reg-phone"
             type="tel"
             required
-            placeholder="e.g. +233 53 353 4687"
+            placeholder="e.g. +1 (609) 304-7571"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             aria-invalid={!!errors.phone}

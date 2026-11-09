@@ -5,9 +5,9 @@ import { EnquiryForm } from "@/components/EnquiryForm";
 import { SITE_CONFIG } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: `Request a Consultation | ${SITE_CONFIG.COMPANY}`,
+  title: `Request a Technical Consultation | ${SITE_CONFIG.COMPANY}`,
   description:
-    "Request an IT consultation or enquiry. Reach our regional offices across the United States, Ghana and the United Kingdom.",
+    "Request an enterprise cloud, DevOps, or cybersecurity consultation. Reach our technical advisory desk directly at +1 (609) 304-7571 or submit an inquiry for a guaranteed 1 business day response.",
 };
 
 export default async function ContactPage({
@@ -16,11 +16,51 @@ export default async function ContactPage({
   searchParams: Promise<{ service?: string }>;
 }) {
   const { service } = await searchParams;
+  const primaryPhone = SITE_CONFIG.CONTACT.PHONE_DISPLAY;
+  const primaryPhoneE164 = SITE_CONFIG.CONTACT.PHONE_E164;
+  const whatsappNumber = SITE_CONFIG.CONTACT.WHATSAPP_NUMBER;
+  const primaryEmail = SITE_CONFIG.CONTACT.EMAIL;
+
+  const hubs = [
+    {
+      country: "United States",
+      title: "North America Office",
+      role: "Global Headquarters & Advisory",
+      city: "Medford, NJ, USA",
+      timezone: "Eastern Time (UTC-5)",
+      hours: "Mon to Fri, 9:00 to 17:00 ET",
+      phone: primaryPhone,
+      phoneE164: primaryPhoneE164,
+      email: primaryEmail,
+    },
+    {
+      country: "United Kingdom",
+      title: "United Kingdom Office",
+      role: "European Operations & EMEA Delivery",
+      city: "Rugby, UK",
+      timezone: "Greenwich Mean Time (UTC+0)",
+      hours: "Mon to Fri, 9:00 to 17:00 GMT",
+      phone: primaryPhone,
+      phoneE164: primaryPhoneE164,
+      email: primaryEmail,
+    },
+    {
+      country: "Ghana",
+      title: "West Africa Office",
+      role: "Regional Delivery Hub & Academy",
+      city: "Poolside Ave, Takoradi, Ghana",
+      timezone: "Greenwich Mean Time (UTC+0)",
+      hours: "Mon to Fri, 8:00 to 17:00 GMT",
+      phone: primaryPhone,
+      phoneE164: primaryPhoneE164,
+      email: primaryEmail,
+    },
+  ];
 
   return (
     <main id="main">
-      {/* ============ PHERO ============ */}
-      <section className="phero">
+      {/* ============ EXECUTIVE HERO ============ */}
+      <section className="contact-hero">
         <div className="container">
           <ol className="crumbs" aria-label="Breadcrumb">
             <li>
@@ -28,159 +68,226 @@ export default async function ContactPage({
             </li>
             <li>Contact</li>
           </ol>
-          <p className="eyebrow">Contact</p>
-          <h1>Request a consultation</h1>
-          <p>
-            Tell us what you need. A member of our team will reply by email, usually with a few
-            questions and a suggested next step.
-          </p>
+          <div className="contact-hero-header">
+            <span className="contact-hero-eyebrow">Technical Consultation &amp; Client Inquiries</span>
+            <h1>Connect With Our Solutions Architects</h1>
+            <p>
+              Tell us what your organisation is looking to achieve. Whether scoping enterprise cloud
+              migration, DevOps automation, cybersecurity governance, or technical training, our senior
+              engineering leads respond within one business day.
+            </p>
+          </div>
+
+          {/* Direct Access Channels Strip */}
+          <div className="contact-channels-strip">
+            <a href={`tel:${primaryPhoneE164}`} className="contact-channel-card">
+              <span className="contact-channel-ico">
+                <Icon id="i-phone" />
+              </span>
+              <div>
+                <span className="contact-channel-lbl">Corporate Direct Line</span>
+                <span className="contact-channel-val">{primaryPhone}</span>
+              </div>
+            </a>
+
+            <a href={`mailto:${primaryEmail}`} className="contact-channel-card">
+              <span className="contact-channel-ico">
+                <Icon id="i-mail" />
+              </span>
+              <div>
+                <span className="contact-channel-lbl">Technical Inquiries</span>
+                <span className="contact-channel-val">{primaryEmail}</span>
+              </div>
+            </a>
+
+            <a
+              href={`https://wa.me/${whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-channel-card"
+            >
+              <span className="contact-channel-ico">
+                <Icon id="i-whatsapp" />
+              </span>
+              <div>
+                <span className="contact-channel-lbl">Instant Advisory Desk</span>
+                <span className="contact-channel-val">WhatsApp Direct Chat</span>
+              </div>
+            </a>
+
+            <div className="contact-channel-card">
+              <span className="contact-channel-ico">
+                <Icon id="i-check" />
+              </span>
+              <div>
+                <span className="contact-channel-lbl">Response Commitment</span>
+                <span className="contact-channel-val">1 Business Day SLA</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ============ ENQUIRY SECTION ============ */}
-      <section className="section" id="enquiry">
-        <div className="container enq-grid">
-          <div className="enq-aside reveal">
-            <div className="response-guarantee">
+      {/* ============ CONSULTATION & ENQUIRY SECTION ============ */}
+      <section className="contact-section" id="enquiry">
+        <div className="container contact-grid">
+          {/* Left Column: Engagement Workflow */}
+          <div className="contact-advisory-col">
+            <div className="contact-sla-badge">
               <Icon id="i-check" />
               <span>Guaranteed reply within 1 business day</span>
             </div>
-            <h2>How an enquiry works</h2>
-            <p>
-              Whether you are a government body, a school, a large organisation or an individual, start here.
+
+            <h2 className="contact-col-title">How Technical Engagements Begin</h2>
+            <p className="contact-col-desc">
+              Whether you are a regulated enterprise, public institution, growing team, or career professional,
+              our engagement path is clear, structured, and transparent.
             </p>
-            <ol className="expect">
-              <li>
-                <span className="n">1</span>
+
+            <ol className="contact-workflow-steps">
+              <li className="contact-workflow-step">
+                <span className="contact-step-num">01</span>
                 <div>
-                  <strong>Send your enquiry</strong>
-                  <span className="d">Choose a service and describe what you need.</span>
+                  <strong>Submit Technical Scope</strong>
+                  <p>Choose your area of interest and summarize your architecture goals, current stack, and target timeline.</p>
                 </div>
               </li>
-              <li>
-                <span className="n">2</span>
+              <li className="contact-workflow-step">
+                <span className="contact-step-num">02</span>
                 <div>
-                  <strong>Receive an acknowledgement</strong>
-                  <span className="d">
-                    A formal email with your reference number arrives in your inbox.
-                  </span>
+                  <strong>Audit Reference &amp; Assignment</strong>
+                  <p>A formal acknowledgement email with a unique tracking reference is generated instantly for your team.</p>
                 </div>
               </li>
-              <li>
-                <span className="n">3</span>
+              <li className="contact-workflow-step">
+                <span className="contact-step-num">03</span>
                 <div>
-                  <strong>We reply</strong>
-                  <span className="d">
-                    Our team follows up by email to understand your needs and agree next steps.
-                  </span>
+                  <strong>Architect Alignment Session</strong>
+                  <p>Our solutions architects follow up to review requirements, clarify technical dependencies, and define execution milestones.</p>
                 </div>
               </li>
             </ol>
-            <p className="svc-note">
-              Consulting and enterprise service fees are agreed directly with each client. Programme
-              tuition and approved invoices can be viewed on our{" "}
-              <Link href="/tuition">Tuition &amp; Fees page</Link>.
-            </p>
-            <div className="booking-prompt">
-              <h4>Prefer a direct conversation?</h4>
+
+            <div className="contact-direct-box">
+              <h4>Prefer a Direct Conversation?</h4>
               <p>
-                Speak with our advisory desk to discuss your organizational goals, staff training needs,
-                or consulting scope.
+                Speak directly with our solutions advisory desk to discuss organizational goals, staffing requirements, or custom scope.
               </p>
-              <a
-                href={`tel:${SITE_CONFIG.REGIONS.gh.PHONE_E164}`}
-                className="btn btn-outline btn-sm"
-              >
-                <Icon id="i-phone" /> Call Regional Advisory Desk
-              </a>
+              <div className="contact-direct-actions">
+                <a href={`tel:${primaryPhoneE164}`} className="btn btn-navy btn-sm">
+                  <Icon id="i-phone" /> Call {primaryPhone}
+                </a>
+                <a
+                  href={`https://wa.me/${whatsappNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline btn-sm"
+                >
+                  <Icon id="i-whatsapp" /> WhatsApp Desk
+                </a>
+              </div>
+            </div>
+
+            <div className="contact-assurance-note">
+              <Icon id="i-shield" />
+              <p>
+                All communications are protected under strict confidentiality. Non-disclosure agreements (NDAs) can be executed prior to detailed technical discovery upon request.
+              </p>
             </div>
           </div>
 
-          <div className="enq-card reveal">
-            <EnquiryForm defaultService={service} />
+          {/* Right Column: Form */}
+          <div className="contact-form-col">
+            <div className="contact-form-wrapper">
+              <div className="contact-form-header">
+                <h3>Request a Consultation</h3>
+                <p>Complete this brief form and our engineering team will follow up directly.</p>
+              </div>
+              <EnquiryForm defaultService={service} />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ REGIONAL CONTACTS ============ */}
-      <section className="section section-tint light" id="locations">
+      {/* ============ REGIONAL OPERATING HUBS ============ */}
+      <section className="contact-locations-section" id="locations">
         <div className="container">
-          <div className="sec-head reveal">
-            <p className="eyebrow">Regional contacts</p>
-            <h2>Reach the team closest to you</h2>
+          <div className="contact-locations-head">
+            <div>
+              <span className="contact-locations-kicker">Global Operations</span>
+              <h2>Regional Operating Offices</h2>
+            </div>
+            <p>
+              Direct regional access and time-zone aligned engineering support across North America, Europe, and West Africa. All offices route through our unified communications system.
+            </p>
           </div>
-          <div className="reg-cards">
-            <article className="rcard reveal">
-              <h3>
-                <Icon id="i-pin" /> United States
-              </h3>
-              <ul>
-                <li>
-                  <Icon id="i-phone" />
-                  <a href={`tel:${SITE_CONFIG.REGIONS.us.PHONE_E164}`}>{SITE_CONFIG.REGIONS.us.PHONE_DISPLAY}</a>
-                </li>
-                <li>
-                  <Icon id="i-mail" />
-                  <a href={`mailto:${SITE_CONFIG.REGIONS.us.EMAIL}`}>{SITE_CONFIG.REGIONS.us.EMAIL}</a>
-                </li>
-                <li>
-                  <Icon id="i-building" />
-                  <span>{SITE_CONFIG.REGIONS.us.ADDRESS}</span>
-                </li>
-                <li>
-                  <Icon id="i-clock" />
-                  <span>{SITE_CONFIG.REGIONS.us.HOURS}</span>
-                </li>
-              </ul>
-            </article>
 
-            <article className="rcard reveal">
-              <h3>
-                <Icon id="i-pin" /> Ghana
-              </h3>
-              <ul>
-                <li>
-                  <Icon id="i-phone" />
-                  <a href={`tel:${SITE_CONFIG.REGIONS.gh.PHONE_E164}`}>{SITE_CONFIG.REGIONS.gh.PHONE_DISPLAY}</a>
-                </li>
-                <li>
-                  <Icon id="i-mail" />
-                  <a href={`mailto:${SITE_CONFIG.REGIONS.gh.EMAIL}`}>{SITE_CONFIG.REGIONS.gh.EMAIL}</a>
-                </li>
-                <li>
-                  <Icon id="i-building" />
-                  <span>{SITE_CONFIG.REGIONS.gh.ADDRESS}</span>
-                </li>
-                <li>
-                  <Icon id="i-clock" />
-                  <span>{SITE_CONFIG.REGIONS.gh.HOURS}</span>
-                </li>
-              </ul>
-            </article>
+          <div className="contact-hubs-grid">
+            {hubs.map((hub, i) => (
+              <article key={i} className="contact-hub-card">
+                <div className="hub-card-title-block">
+                  <span className="hub-card-country">{hub.country}</span>
+                  <h3>{hub.title}</h3>
+                  <p className="hub-role-text">{hub.role}</p>
+                </div>
 
-            <article className="rcard reveal">
-              <h3>
-                <Icon id="i-pin" /> United Kingdom
-              </h3>
-              <ul>
-                <li>
-                  <Icon id="i-phone" />
-                  <a href={`tel:${SITE_CONFIG.REGIONS.uk.PHONE_E164}`}>{SITE_CONFIG.REGIONS.uk.PHONE_DISPLAY}</a>
-                </li>
-                <li>
-                  <Icon id="i-mail" />
-                  <a href={`mailto:${SITE_CONFIG.REGIONS.uk.EMAIL}`}>{SITE_CONFIG.REGIONS.uk.EMAIL}</a>
-                </li>
-                <li>
-                  <Icon id="i-building" />
-                  <span>{SITE_CONFIG.REGIONS.uk.ADDRESS}</span>
-                </li>
-                <li>
-                  <Icon id="i-clock" />
-                  <span>{SITE_CONFIG.REGIONS.uk.HOURS}</span>
-                </li>
-              </ul>
-            </article>
+                <div className="hub-meta-list">
+                  <div className="hub-meta-row">
+                    <div className="hub-meta-icon">
+                      <Icon id="i-pin" />
+                    </div>
+                    <div className="hub-meta-content">
+                      <span className="hub-meta-label">Location</span>
+                      <span className="hub-meta-val">{hub.city}</span>
+                      <span className="hub-meta-sub">{hub.timezone}</span>
+                    </div>
+                  </div>
+
+                  <div className="hub-meta-row">
+                    <div className="hub-meta-icon">
+                      <Icon id="i-clock" />
+                    </div>
+                    <div className="hub-meta-content">
+                      <span className="hub-meta-label">Office Hours</span>
+                      <span className="hub-meta-val">{hub.hours}</span>
+                    </div>
+                  </div>
+
+                  <div className="hub-meta-row">
+                    <div className="hub-meta-icon">
+                      <Icon id="i-phone" />
+                    </div>
+                    <div className="hub-meta-content">
+                      <span className="hub-meta-label">Phone</span>
+                      <a href={`tel:${hub.phoneE164}`} className="hub-meta-link">
+                        {hub.phone}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="hub-meta-row">
+                    <div className="hub-meta-icon">
+                      <Icon id="i-mail" />
+                    </div>
+                    <div className="hub-meta-content">
+                      <span className="hub-meta-label">Email Desk</span>
+                      <a href={`mailto:${hub.email}`} className="hub-meta-link">
+                        {hub.email}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="hub-actions">
+                  <a href={`tel:${hub.phoneE164}`} className="btn btn-navy btn-sm">
+                    <Icon id="i-phone" /> Call Office
+                  </a>
+                  <a href={`mailto:${hub.email}`} className="btn btn-outline btn-sm">
+                    <Icon id="i-mail" /> Email Desk
+                  </a>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
