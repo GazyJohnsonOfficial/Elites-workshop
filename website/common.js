@@ -54,25 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------- Footer year ---------- */
   $$("[data-year]").forEach((n) => (n.textContent = new Date().getFullYear()));
 
-  /* ---------- Legacy hash alias support on services.html ---------- */
-  const hashAliases = {
-    "#consulting": "#cloud-strategy",
-    "#data": "#training-workshops",
-    "#cloud": "#architecture",
-    "#staffing": "#consulting-staffing",
-    "#hardware": "#consulting-staffing",
-    "#training": "#training-workshops",
-    "#cloud-native": "#native",
-    "#hybrid-cloud": "#hybrid",
-  };
-  if (location.hash && !$(location.hash) && hashAliases[location.hash]) {
-    const targetEl = $(hashAliases[location.hash]);
-    if (targetEl) {
-      history.replaceState(null, "", location.pathname + location.search + hashAliases[location.hash]);
-      setTimeout(() => targetEl.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }), 60);
-    }
-  }
-
   /* ---------- Mobile navigation ---------- */
   const toggle = $(".nav-toggle");
   const nav = $("#main-nav");
@@ -170,13 +151,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ---------- Social links (active links or placeholders for primary networks; WhatsApp derived from phone) ---------- */
+  /* ---------- Social links (only the ones with a URL; WhatsApp is derived from the phone) ---------- */
   const socialDefs = [
     ["whatsapp", "WhatsApp", "i-whatsapp"],
     ["facebook", "Facebook", "i-facebook"],
     ["instagram", "Instagram", "i-instagram"],
     ["linkedin", "LinkedIn", "i-linkedin"],
-    ["x", "X (Twitter)", "i-xsocial"],
+    ["x", "X (Twitter)", "i-x"],
     ["youtube", "YouTube", "i-youtube"],
   ];
   const safeUrl = (u) => { try { const x = new URL(u); return x.protocol === "https:" ? x.href : null; } catch (_) { return null; } };
@@ -185,17 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $$("[data-socials]").forEach((box) => {
     socialDefs.forEach(([key, label, icon]) => {
       const href = key === "whatsapp" ? waUrl : safeUrl(CONFIG.SOCIALS[key] || "");
-      if (!href) {
-        if (["facebook", "instagram", "linkedin", "x", "youtube"].includes(key)) {
-          box.appendChild(etsEl("span", {
-            class: "social-placeholder",
-            role: "img",
-            "aria-label": label,
-            title: label,
-          }, etsIcon(icon)));
-        }
-        return;
-      }
+      if (!href) return;
       const a = etsEl("a", { href, target: "_blank", rel: "noopener noreferrer", "aria-label": label + " (opens in a new tab)", title: label }, etsIcon(icon));
       box.appendChild(a);
     });
@@ -273,151 +244,5 @@ document.addEventListener("DOMContentLoaded", () => {
   closeBtn.addEventListener("click", () => dlg.close());
   dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   $$("[data-cookie-settings]").forEach((b) => b.addEventListener("click", openPrefs));
-  $$("[data-print-page],[data-print]").forEach((b) => b.addEventListener("click", () => window.print()));
   if (!read()) setTimeout(showBanner, 600);
-
-  /* =====================================================
-     Homepage Dynamic Academy Spotlight (#programme)
-     1. Live Cohort Countdown driven by CONFIG.PROGRAMME
-     2. Interactive Curriculum Tool Explorer with auto-cycle
-     3. Live Currency Switcher (USD / GHS / GBP)
-     ===================================================== */
-  if (typeof CONFIG !== "undefined" && CONFIG.PROGRAMME) {
-    $$("[data-prog-start]").forEach((el) => (el.textContent = CONFIG.PROGRAMME.START_DATE_TEXT));
-    $$("[data-prog-start-detail]").forEach((el) => (el.textContent = CONFIG.PROGRAMME.START_DATE_TEXT + " (Enrolment Open)"));
-
-    const hpCd = $("[data-hp-countdown]");
-    if (hpCd) {
-      const target = Date.parse(CONFIG.PROGRAMME.START_DATE_ISO);
-      const dEl = $("#hp-cd-days"), hEl = $("#hp-cd-hours"), mEl = $("#hp-cd-mins"), sEl = $("#hp-cd-secs");
-      const pad = (n) => String(Math.max(0, n)).padStart(2, "0");
-      const tickHp = () => {
-        const diff = target - Date.now();
-        if (!Number.isFinite(diff) || diff <= 0) return false;
-        const sec = Math.floor(diff / 1000);
-        if (dEl) dEl.textContent = pad(Math.floor(sec / 86400));
-        if (hEl) hEl.textContent = pad(Math.floor((sec % 86400) / 3600));
-        if (mEl) mEl.textContent = pad(Math.floor((sec % 3600) / 60));
-        if (sEl) sEl.textContent = pad(sec % 60);
-        return true;
-      };
-      if (tickHp()) {
-        const timerId = setInterval(() => { if (!tickHp()) clearInterval(timerId); }, 1000);
-      }
-    }
-  }
-
-  const toolData = {
-    sql: {
-      weeks: "Weeks 3 to 4",
-      title: "Relational Database Querying & Analytical Joins",
-      badge: "6 Live Sessions",
-      desc: "Write production-grade queries, CTEs, window functions, and multi-table joins to extract and structure enterprise datasets for reporting.",
-      output: "Revenue & Customer Cohort Retention SQL Pipeline",
-    },
-    python: {
-      weeks: "Weeks 5 to 7",
-      title: "Python for Data Cleaning, EDA & Automation",
-      badge: "9 Live Sessions",
-      desc: "Use Pandas, NumPy, and visualization libraries to clean messy records, automate recurring analysis scripts, and uncover statistical trends.",
-      output: "Automated Python ETL & Exploratory Analysis Notebook",
-    },
-    excel: {
-      weeks: "Weeks 1 to 2",
-      title: "Advanced Excel Modelling, Pivot Tables & VBA Macros",
-      badge: "6 Live Sessions",
-      desc: "Master dynamic lookup functions, financial and operational modelling, Power Query transformations, and time-saving VBA macro automation.",
-      output: "Executive KPI Tracker & Automated VBA Reporting Workbook",
-    },
-    alteryx: {
-      weeks: "Weeks 8 to 9",
-      title: "Self-Service ETL Workflows & Data Blending in Alteryx",
-      badge: "6 Live Sessions",
-      desc: "Design repeatable, no-code/low-code data preparation workflows that blend spreadsheets, SQL databases, and API feeds without manual rework.",
-      output: "Multi-Source Enterprise Data Blending Workflow",
-    },
-    tableau: {
-      weeks: "Weeks 10 to 11",
-      title: "Interactive Visual Storytelling with Tableau",
-      badge: "6 Live Sessions",
-      desc: "Build interactive executive scorecards, calculated fields, geospatial maps, and drill-down visual stories that drive leadership decisions.",
-      output: "Interactive Regional Sales & Operations Tableau Scorecard",
-    },
-    powerbi: {
-      weeks: "Week 12 & Capstone",
-      title: "Enterprise Power BI Data Modelling, DAX & Capstone",
-      badge: "3 Live Sessions + Defense",
-      desc: "Create star-schema data models, write advanced DAX measures, and publish your end-to-end production dashboard for mentor evaluation.",
-      output: "Full-Stack Executive BI Capstone Dashboard & Certificate",
-    },
-  };
-
-  const toolTabs = $$(".hp-tool-tab");
-  const toolPanel = $("#hp-tool-panel");
-  if (toolTabs.length && toolPanel) {
-    const wEl = $("#hp-tool-weeks"), tEl = $("#hp-tool-title"), bEl = $("#hp-tool-badge"), dEl = $("#hp-tool-desc"), oEl = $("#hp-tool-output");
-    let currentIdx = 0;
-    let autoTimer = null;
-
-    const selectTool = (key, idx) => {
-      const info = toolData[key];
-      if (!info) return;
-      currentIdx = idx;
-      toolTabs.forEach((btn, i) => {
-        const active = i === idx;
-        btn.classList.toggle("active", active);
-        btn.setAttribute("aria-selected", String(active));
-      });
-      toolPanel.classList.add("switching");
-      setTimeout(() => {
-        if (wEl) wEl.textContent = info.weeks;
-        if (tEl) tEl.textContent = info.title;
-        if (bEl) bEl.textContent = info.badge;
-        if (dEl) dEl.textContent = info.desc;
-        if (oEl) oEl.textContent = info.output;
-        toolPanel.classList.remove("switching");
-      }, 120);
-    };
-
-    const stopAuto = () => { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } };
-    const startAuto = () => {
-      if (reduceMotion) return;
-      stopAuto();
-      autoTimer = setInterval(() => {
-        const nextIdx = (currentIdx + 1) % toolTabs.length;
-        selectTool(toolTabs[nextIdx].dataset.tool, nextIdx);
-      }, 4500);
-    };
-
-    toolTabs.forEach((btn, idx) => {
-      btn.addEventListener("click", () => {
-        stopAuto();
-        selectTool(btn.dataset.tool, idx);
-      });
-    });
-    const explorer = $(".hp-tool-explorer");
-    if (explorer) {
-      explorer.addEventListener("mouseenter", stopAuto);
-      explorer.addEventListener("mouseleave", startAuto);
-    }
-    startAuto();
-  }
-
-  const currBtns = $$("[data-hp-curr]");
-  const tuitionOut = $("#hp-tuition-display");
-  if (currBtns.length && tuitionOut && typeof CONFIG !== "undefined" && CONFIG.PAYMENT) {
-    const P = CONFIG.PAYMENT;
-    const fmt = (sym, amt) => sym + Math.round(amt).toLocaleString("en-US");
-    currBtns.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const code = btn.dataset.hpCurr;
-        const c = P.CURRENCIES && P.CURRENCIES[code];
-        if (!c) return;
-        currBtns.forEach((b) => b.classList.toggle("active", b === btn));
-        const full = fmt(c.SYMBOL, P.TUITION_FULL_USD * c.RATE);
-        const half = fmt(c.SYMBOL, P.TUITION_DEPOSIT_USD * c.RATE);
-        tuitionOut.textContent = "Pay " + full + " in full or 2 instalments of " + half;
-      });
-    });
-  }
 });

@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (form.elements.company_url.value) { show("Thank you. Your enquiry has been sent.", "ok"); form.reset(); return; }
     if (!validate()) { show("Please correct the highlighted fields and try again.", "err"); return; }
     if (!humanEnough()) { show("Please review your enquiry and press send again.", "err"); return; }
+    if (unavailable) { show("The enquiry form is temporarily unavailable. Please email " + C.EMAIL + " or call " + C.PHONE_DISPLAY + ".", "err"); return; }
     if (cooling()) { show("Please wait a moment before sending another enquiry.", "err"); return; }
 
     const svcSel = form.elements.eService;
@@ -119,17 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
     sending = true; busy(true);
     let ackSent = false;
     try {
-      if (demoMode) {
-        console.info("[Demo mode] EmailJS keys not set. Nothing was sent.", params);
-        await new Promise((r) => setTimeout(r, 600));
-      } else if (unavailable) {
-        await new Promise((r) => setTimeout(r, 500));
-        const subj = encodeURIComponent(`[Enquiry ${ref}] ${service} — ${name}`);
-        const body = encodeURIComponent(
-          `Reference: ${ref}\nName: ${name}\nEmail: ${email}\nPhone: ${params.phone}\nOrganisation: ${params.organisation}\nRegion: ${params.region}\nService: ${service}\n\nMessage:\n${params.message}`
-        );
-        window.location.href = `mailto:${C.EMAIL}?subject=${subj}&body=${body}`;
-      } else {
+      if (demoMode) { console.info("[Demo mode] EmailJS keys not set. Nothing was sent.", params); await new Promise((r) => setTimeout(r, 600)); }
+      else {
         await send(E.TEMPLATE_CONTACT, params);          // the company is told first
         if (ackConfigured) { try { await send(X.TEMPLATE_ENQUIRY_ACK, params); ackSent = true; } catch (err) { console.error("Acknowledgement failed:", err); } }
       }

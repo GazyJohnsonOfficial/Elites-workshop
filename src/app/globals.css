@@ -1,0 +1,73 @@
+@import "../styles/styles.css";
+@import "../styles/agency.css";
+@import "../styles/hero.css";
+@import "../styles/footer.css";
+
+/* ==========================================================================
+   Full-stack Next.js utilities and safeguards
+   ========================================================================== */
+
+/* Guarantee that elements are always visible and never blank */
+.reveal, .in, .visible,
+.hero-copy > *, .circle-a, .circle-b, .chip, .hero-bar,
+.js .hero-copy > *, .js .circle-a, .js .circle-b, .js .chip, .js .hero-bar {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Spinner for async actions */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Form alert banners */
+.alert-success {
+  background: #eafaf1;
+  border: 1px solid #1f9d63;
+  color: #137046;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.alert-error {
+  background: #fdf2f2;
+  border: 1px solid #c0392b;
+  color: #c0392b;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* Admin Portal status badges */
+.admin-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.admin-badge-pending { background: #fef3c7; color: #92400e; }
+.admin-badge-confirmed { background: #d1fae5; color: #065f46; }
+.admin-badge-enrolled { background: #dbeafe; color: #1e40af; }
+.admin-badge-cancelled { background: #fee2e2; color: #991b1b; }
+.admin-badge-new { background: #e0e7ff; color: #3730a3; }
+.admin-badge-responded { background: #d1fae5; color: #065f46; }

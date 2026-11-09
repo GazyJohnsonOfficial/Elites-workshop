@@ -1,6 +1,5 @@
 /* =========================================================
-   Data Analysis Programme page behaviour: countdown, registration form, contact form.
-   Used on: data-analysis.html
+   Home page behaviour: countdown, registration form, contact form.
    Depends on: config.js, common.js, vendor/emailjs.min.js
    ========================================================= */
 document.addEventListener("DOMContentLoaded", () => {
@@ -190,10 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#success-ok").hidden = !confirmationSent;
       $("#success-warn").hidden = confirmationSent;
       $("#demo-note").hidden = !demoMode;
-      const payBtn = $("#pay-now-btn");
-      if (payBtn) {
-        payBtn.href = `checkout.html?ref=${encodeURIComponent(reference)}&name=${encodeURIComponent(data.full_name)}&email=${encodeURIComponent(data.email)}&phone=${encodeURIComponent(data.phone || "")}`;
-      }
       form.hidden = true;
       success.hidden = false;
       success.classList.add("pop");
@@ -214,6 +209,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!humanEnough()) { showStatus(status, "Please review your details and press submit again.", "err"); return; }
 
       const data = collect();
+      if (unavailable) {
+        showStatus(status, "Online registration is temporarily unavailable. Please call " + C.PHONE_DISPLAY + " or email " + C.EMAIL + " to register.", "err");
+        return;
+      }
       if (registered().includes(data.email)) {
         showStatus(status, "This email address has already been registered in this session. Check your inbox and spam folder, or contact us if you need help.", "err");
         return;
@@ -230,21 +229,13 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       try {
         let confirmationSent = true;
-        if (!demoMode && !unavailable) {
+        if (!demoMode) {
           // 1) Notify the company first. If this fails nothing is recorded, so the visitor can safely retry.
           await send(E.TEMPLATE_ADMIN, { ...common, ...data, reply_to: data.email });
           // 2) Formal confirmation to the registrant. A failure here must not lose the registration.
           try {
             await send(E.TEMPLATE_CONFIRM, { ...common, to_name: data.full_name, to_email: data.email });
           } catch (err) { confirmationSent = false; console.warn("Confirmation email failed:", err); }
-        } else if (unavailable) {
-          confirmationSent = false;
-          await new Promise((r) => setTimeout(r, 500));
-          const subj = encodeURIComponent(`[Registration ${reference}] ${P.NAME} — ${data.full_name}`);
-          const body = encodeURIComponent(
-            `Reference: ${reference}\nProgramme: ${P.NAME}\nFull Name: ${data.full_name}\nEmail: ${data.email}\nPhone: ${data.phone}\nCountry: ${data.country}\nJob Title: ${data.job_title}\nOrganisation: ${data.organisation}\nExperience: ${data.experience}\nTools: ${data.tools}\nGoals: ${data.goals}`
-          );
-          window.location.href = `mailto:${C.EMAIL}?subject=${subj}&body=${body}`;
         } else {
           console.info("[Demo mode] EmailJS keys not set. Nothing was sent. Data:", data, reference);
           await new Promise((r) => setTimeout(r, 700));
