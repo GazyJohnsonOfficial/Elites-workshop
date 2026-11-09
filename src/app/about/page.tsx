@@ -4,16 +4,134 @@ import { Icon } from "@/components/Sprite";
 import { SITE_CONFIG } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: `About Us · Cloud Innovation & Track Record | ${SITE_CONFIG.COMPANY}`,
+  title: `Corporate Profile & Architectural Pedigree | ${SITE_CONFIG.COMPANY}`,
   description:
-    "Elites Tech Solutions LLC delivers cutting-edge cloud, infrastructure, cybersecurity, and digital transformation solutions with a 20-year track record across the US, Ghana and UK.",
+    "Elites Tech Solutions LLC provides enterprise cloud architecture, DevOps automation, cybersecurity governance, and technical workforce training across North America, Europe, and West Africa.",
 };
 
 export default function AboutPage() {
+  const primaryPhone = SITE_CONFIG.CONTACT.PHONE_DISPLAY;
+  const primaryPhoneE164 = SITE_CONFIG.CONTACT.PHONE_E164;
+
+  const principles = [
+    {
+      num: "01",
+      icon: "i-code",
+      title: "Infrastructure as Code & Zero Drift",
+      desc: "Every virtual network, compute node, and security policy is defined in versioned code. No manual configuration drifts, and complete auditability across deployments.",
+    },
+    {
+      num: "02",
+      icon: "i-infinity",
+      title: "Cloud-Agnostic & Vendor Neutrality",
+      desc: "Architectures engineered for portable workloads across AWS, Microsoft Azure, Google Cloud, and private data centers to protect client autonomy.",
+    },
+    {
+      num: "03",
+      icon: "i-shield",
+      title: "Security & Compliance by Default",
+      desc: "Zero-trust network boundaries, strict least-privilege identity access, and continuous compliance telemetry adhering to SOC 2, ISO 27001, and HIPAA.",
+    },
+    {
+      num: "04",
+      icon: "i-gauge",
+      title: "Measurable Production SLAs",
+      desc: "Observability pipelines, automated health checking, and fault-tolerant cluster design engineered to maintain high availability and rapid recovery.",
+    },
+    {
+      num: "05",
+      icon: "i-users",
+      title: "Direct Senior Accountability",
+      desc: "Engagements are executed directly by seasoned solutions architects and technical leads. Clear communication with zero intermediary handoffs.",
+    },
+    {
+      num: "06",
+      icon: "i-grad",
+      title: "Capability Transfer & Autonomy",
+      desc: "We ensure client engineering teams become completely self-sufficient through comprehensive system documentation, runbooks, and paired operational drills.",
+    },
+  ];
+
+  const hubs = [
+    {
+      region: "North America Desk",
+      country: "United States",
+      city: "Medford, New Jersey, USA",
+      role: "Global Corporate Headquarters & Advisory Desk",
+      features: [
+        "Strategic architecture discovery",
+        "Commercial governance & legal",
+        "Executive client partnership",
+      ],
+    },
+    {
+      region: "EMEA Operations",
+      country: "United Kingdom",
+      city: "Rugby, United Kingdom",
+      role: "European Delivery Hub & Infrastructure Operations",
+      features: [
+        "Time-zone aligned EMEA execution",
+        "GDPR data privacy alignment",
+        "Cross-border cloud engineering",
+      ],
+    },
+    {
+      region: "West Africa Hub",
+      country: "Ghana",
+      city: "Poolside Ave, Takoradi, Ghana",
+      role: "Regional Delivery Center & Technical Academy",
+      features: [
+        "Production engineering laboratories",
+        "Workforce capability acceleration",
+        "Cloud & DevOps apprentice programs",
+      ],
+    },
+  ];
+
+  const testimonials = [
+    {
+      stars: "★★★★★",
+      quote:
+        "We faced severe challenges with data security and multi-cloud scalability. Elites Tech Solutions delivered an enterprise cloud architecture that protected our sensitive workloads and enabled seamless scaling with zero downtime. Their technical rigor provided total confidence.",
+      name: "David Kim",
+      role: "IT Director",
+      sector: "Enterprise Healthcare Services",
+      initials: "DK",
+    },
+    {
+      stars: "★★★★★",
+      quote:
+        "Their team engineered a resilient, automated cloud infrastructure that propelled our growth. The continuous support throughout deployment and knowledge transfer to our internal engineers was first-class. We achieved a noticeable acceleration in delivery speed.",
+      name: "Alex Turner",
+      role: "Engineering Lead",
+      sector: "Digital Commerce & Logistics",
+      initials: "AT",
+    },
+    {
+      stars: "★★★★★",
+      quote:
+        "Elites Tech Solutions conducted an architectural audit that eliminated redundant resources and optimized our cloud spend by over 32% while enhancing throughput. Their ability to dissect complex distributed systems and execute without disruption is exceptional.",
+      name: "Michael Brown",
+      role: "Chief Information Officer (CIO)",
+      sector: "Financial Technology & SaaS",
+      initials: "MB",
+    },
+  ];
+
+  const standards = [
+    { label: "SOC 2 Type II Aligned", icon: "i-shield" },
+    { label: "ISO 27001 Standards", icon: "i-lock" },
+    { label: "HIPAA Security Controls", icon: "i-check" },
+    { label: "GDPR Data Governance", icon: "i-globe" },
+    { label: "AWS Well-Architected", icon: "i-cloud" },
+    { label: "Azure Cloud Framework", icon: "i-server" },
+    { label: "HashiCorp Terraform Validated", icon: "i-code" },
+  ];
+
   return (
     <main id="main">
-      {/* ============ PHERO ============ */}
-      <section className="phero">
+      {/* ============ EXECUTIVE HERO ============ */}
+      <section className="about-hero">
         <div className="container">
           <ol className="crumbs" aria-label="Breadcrumb">
             <li>
@@ -21,217 +139,278 @@ export default function AboutPage() {
             </li>
             <li>About</li>
           </ol>
-          <p className="eyebrow">About us</p>
-          <h1>A single partner for IT, data and talent</h1>
-          <p>
-            {SITE_CONFIG.COMPANY} helps organisations and individuals solve IT problems and build the
-            skills to run their technology with confidence.
-          </p>
-        </div>
-      </section>
-
-      {/* ============ WHO WE ARE / PROVEN EXPERTISE ============ */}
-      <section className="section">
-        <div className="container split">
-          <div className="reveal">
-            <p className="eyebrow">Who we are</p>
-            <h2>Cloud Innovation Advanced by EliteTech</h2>
+          <div className="about-hero-header">
+            <span className="about-hero-kicker">Corporate Profile &amp; Architectural Pedigree</span>
+            <h1>Engineering Resilient Cloud Systems &amp; Building Technical Capability</h1>
             <p>
-              Founded on a passion for technical innovation, EliteTech Solutions LLC has been at the forefront
-              of delivering cutting-edge cloud, infrastructure, and digital transformation solutions for over 20
-              years.
-            </p>
-            <p>
-              We specialize in crafting tailored, high-performance technology strategies that allow enterprise
-              clients and growing businesses to thrive in an increasingly digital world. Our expert team is
-              dedicated to providing seamless, ironclad, and highly scalable cloud services committed to your
-              long-term success.
+              Founded on two decades of production infrastructure practice, {SITE_CONFIG.COMPANY} partners
+              with enterprises, growing organizations, and engineering teams across North America, Europe,
+              and West Africa. We operate at the intersection of complex cloud architecture and hands-on
+              workforce enablement.
             </p>
           </div>
-          <div className="reveal">
-            <p className="eyebrow">Why Choose Us</p>
-            <h2>Tailored Solutions &amp; Proven Expertise</h2>
-            <ul className="check-list check-list-spaced">
-              <li>
-                <strong>Tailored Solutions:</strong> Customized strategies engineered to align directly with your
-                unique business requirements and accelerate sustainable growth.
-              </li>
-              <li>
-                <strong>20-Year Track Record:</strong> Trusted technical expertise in enterprise cloud architecture,
-                DevOps automation, and cost optimization.
-              </li>
-              <li>
-                <strong>Client-Centric Philosophy:</strong> Dedicated personal support, clear communication, and
-                ongoing partnership with your internal engineering team.
-              </li>
-            </ul>
-            <p className="mt-16">
-              <Link className="more-link" href="/contact#locations">
-                Connect with our regional offices (US · Ghana · UK) <Icon id="i-arrow-right" />
-              </Link>
-            </p>
+
+          {/* 4-Item Executive Metrics Strip */}
+          <div className="about-metrics-strip">
+            <div className="about-metric-card">
+              <span className="about-metric-val">20+ Years</span>
+              <span className="about-metric-lbl">Operational Engineering Pedigree</span>
+            </div>
+            <div className="about-metric-card">
+              <span className="about-metric-val">3 Global Hubs</span>
+              <span className="about-metric-lbl">North America, Europe &amp; West Africa</span>
+            </div>
+            <div className="about-metric-card">
+              <span className="about-metric-val">150+ Engagements</span>
+              <span className="about-metric-lbl">Cloud, DevOps &amp; Security Deliveries</span>
+            </div>
+            <div className="about-metric-card">
+              <span className="about-metric-val">99.99% Target</span>
+              <span className="about-metric-lbl">Production Infrastructure SLA</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 4 IMPACT PILLARS ============ */}
-      <section className="section section-tint">
-        <div className="container">
-          <div className="sec-head center reveal">
-            <p className="eyebrow">Our Core Standards</p>
-            <h2>Built on Four Pillars of Excellence</h2>
-          </div>
-          <div className="impact-grid reveal">
-            <div className="impact-card">
-              <span className="impact-icon">
+      {/* ============ STRATEGIC NARRATIVE & DUAL-ENGINE MODEL ============ */}
+      <section className="about-engine-section">
+        <div className="container about-engine-grid">
+          {/* Left Column: Lineage & Thesis */}
+          <div className="about-thesis-col">
+            <span className="about-section-kicker">Foundational Thesis</span>
+            <h2>Production Stability Without Vendor Lock-In</h2>
+            <p className="about-thesis-text">
+              Modern enterprises face an acute dilemma: hyperscale cloud adoption often comes at the price of
+              spiraling compute costs, unmanaged architectural drift, and deep proprietary lock-in. Our practice
+              was established to restore architectural autonomy.
+            </p>
+            <p className="about-thesis-text-muted">
+              We build strictly on reproducible, code-defined infrastructure using immutable patterns,
+              declarative state, and open standards. Whether orchestrating multi-region Kubernetes clusters on
+              AWS, hardening identity boundaries across Azure, or establishing continuous deployment automation,
+              our implementations are documented, transparent, and built to survive beyond any single vendor
+              engagement.
+            </p>
+
+            <div className="about-credentials-bar">
+              <div className="about-cred-item">
                 <Icon id="i-check" />
-              </span>
-              <h3>Customer Satisfaction</h3>
-              <p>We exceed client expectations through reliable execution and measurable business outcomes.</p>
+                <span>Zero-Trust Security Design</span>
+              </div>
+              <div className="about-cred-item">
+                <Icon id="i-check" />
+                <span>Declarative Infrastructure as Code</span>
+              </div>
+              <div className="about-cred-item">
+                <Icon id="i-check" />
+                <span>Cross-Cloud Resilience</span>
+              </div>
             </div>
-            <div className="impact-card">
-              <span className="impact-icon">
-                <Icon id="i-chart" />
-              </span>
-              <h3>Cost Savings</h3>
-              <p>Optimize infrastructure spending while improving throughput, resilience, and operational speed.</p>
+          </div>
+
+          {/* Right Column: Dual-Engine Model */}
+          <div className="about-engines-col">
+            <div className="about-engines-head">
+              <h3>The Dual-Engine Practice</h3>
+              <p>How our organization delivers lasting value to modern institutions.</p>
             </div>
-            <div className="impact-card">
-              <span className="impact-icon">
-                <Icon id="i-repeat" />
-              </span>
-              <h3>Continuous Optimization</h3>
-              <p>Ongoing architectural audits and fine-tuning to ensure maximum ROI across all cloud environments.</p>
-            </div>
-            <div className="impact-card">
-              <span className="impact-icon">
-                <Icon id="i-shield" />
-              </span>
-              <h3>Security &amp; Compliance</h3>
-              <p>Rigorous security controls and governance adhering to HIPAA, SOC 2, ISO 27001, and GDPR.</p>
-            </div>
+
+            <article className="about-engine-card">
+              <div className="about-engine-card-header">
+                <div className="about-engine-icon">
+                  <Icon id="i-cloud" />
+                </div>
+                <div>
+                  <span className="about-engine-num">Practice 01</span>
+                  <h4>Enterprise Cloud &amp; Infrastructure Solutions</h4>
+                </div>
+              </div>
+              <p>
+                Direct architecture and engineering execution. We design, migrate, automate, and secure mission-critical
+                workloads with high availability, automated disaster recovery, and FinOps cost governance.
+              </p>
+              <Link href="/services" className="about-engine-link">
+                <span>Explore Technical Practices</span>
+                <Icon id="i-arrow-right" />
+              </Link>
+            </article>
+
+            <article className="about-engine-card">
+              <div className="about-engine-card-header">
+                <div className="about-engine-icon">
+                  <Icon id="i-grad" />
+                </div>
+                <div>
+                  <span className="about-engine-num">Practice 02</span>
+                  <h4>Technical Academy &amp; Workforce Capability</h4>
+                </div>
+              </div>
+              <p>
+                Infrastructure is only as sustainable as the engineers operating it. Our academy delivers rigorous,
+                production-simulated training in Cloud, DevOps, and Data Analytics so internal teams maintain full mastery.
+              </p>
+              <Link href="/training" className="about-engine-link">
+                <span>Explore Academy Curricula</span>
+                <Icon id="i-arrow-right" />
+              </Link>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* ============ HOW WE OPERATE ============ */}
-      <section className="section">
+      {/* ============ 6 ARCHITECTURAL OPERATING PRINCIPLES ============ */}
+      <section className="about-principles-section">
         <div className="container">
-          <div className="sec-head reveal">
-            <p className="eyebrow">How we operate</p>
-            <h2>What you can expect from us</h2>
+          <div className="about-principles-head">
+            <div>
+              <span className="about-section-kicker">Operating Playbook</span>
+              <h2>Six Principles Guiding Every Engagement</h2>
+            </div>
+            <p>
+              Our baseline engineering standards for resilience, governance, and long-term client sovereignty across
+              every deployed system.
+            </p>
           </div>
-          <div className="values">
-            <article className="value reveal">
-              <Icon id="i-target" />
-              <h3>Practical first</h3>
-              <p>We recommend what works for your situation and explain it in plain language.</p>
-            </article>
-            <article className="value reveal">
-              <Icon id="i-users" />
-              <h3>Our own people</h3>
-              <p>Staffing is supplied by our own staffing team, so there is one accountable point of contact.</p>
-            </article>
-            <article className="value reveal">
-              <Icon id="i-lock" />
-              <h3>Careful with information</h3>
-              <p>We handle client information with care, as described in our Privacy Policy.</p>
-            </article>
-            <article className="value reveal">
-              <Icon id="i-grad" />
-              <h3>Skills that stay</h3>
-              <p>Training is part of how we work, so your team can keep improving after we leave.</p>
-            </article>
-            <article className="value reveal">
-              <Icon id="i-headset" />
-              <h3>Responsive support</h3>
-              <p>Every enquiry is read by a person and answered by email.</p>
-            </article>
-            <article className="value reveal">
-              <Icon id="i-layers" />
-              <h3>Works together or alone</h3>
-              <p>Use one service or combine several as your needs grow.</p>
-            </article>
+
+          <div className="about-principles-grid">
+            {principles.map((p, i) => (
+              <article key={i} className="about-principle-card">
+                <div className="about-principle-header">
+                  <div className="about-principle-icon">
+                    <Icon id={p.icon} />
+                  </div>
+                  <span className="about-principle-num">{p.num}</span>
+                </div>
+                <h3>{p.title}</h3>
+                <p>{p.desc}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ============ CLIENT TESTIMONIALS ============ */}
-      <section className="section section-tint" id="testimonials">
+      {/* ============ GLOBAL DELIVERY FOOTPRINT ============ */}
+      <section className="about-global-section">
         <div className="container">
-          <div className="sec-head center reveal">
-            <p className="eyebrow">Client Feedback</p>
-            <h2>What Our Clients Are Saying</h2>
-            <p>Trusted by engineering leaders, IT directors, and executives across the US, Ghana, and the UK.</p>
+          <div className="about-global-head">
+            <div>
+              <span className="about-section-kicker">Global Footprint</span>
+              <h2>Cross-Continental Delivery &amp; Coordination</h2>
+            </div>
+            <p>
+              With operations spanning three continents, our follow-the-sun model ensures time-zone aligned
+              technical advisory, seamless project delivery, and responsive support.
+            </p>
           </div>
 
-          <div className="testimonials-grid">
-            <article className="tcard reveal">
-              <div className="tcard-stars">★★★★★</div>
-              <p className="tcard-quote">
-                &ldquo;We were facing challenges with data security and scalability. Elitetech provided a
-                comprehensive cloud security solution that protected our sensitive data and allowed us to
-                scale our operations efficiently. Their expertise and energetic approach have given us complete
-                peace of mind.&rdquo;
-              </p>
-              <div className="tcard-author">
-                <div className="tcard-avatar">DK</div>
-                <div>
-                  <p className="tcard-name">David Kim</p>
-                  <p className="tcard-role">IT Director</p>
-                </div>
-              </div>
-            </article>
-
-            <article className="tcard reveal">
-              <div className="tcard-stars">★★★★★</div>
-              <p className="tcard-quote">
-                &ldquo;This team helped us implement a robust cloud-based e-commerce platform that has driven
-                significant growth for our business. The excellent support throughout the project continues to
-                this day and helped in ongoing success. We&apos;ve seen a noticeable increase in sales and
-                customer satisfaction.&rdquo;
-              </p>
-              <div className="tcard-author">
-                <div className="tcard-avatar">AT</div>
-                <div>
-                  <p className="tcard-name">Alex Turner</p>
-                  <p className="tcard-role">IT Manager</p>
-                </div>
-              </div>
-            </article>
-
-            <article className="tcard reveal">
-              <div className="tcard-stars">★★★★★</div>
-              <p className="tcard-quote">
-                &ldquo;Elitetech&apos;s cloud consulting services helped us optimize our cloud infrastructure
-                cost-effectively. Their in-depth analysis and recommendations resulted in substantial savings
-                without compromising performance. We&apos;re impressed with their ability to understand our
-                complex needs and deliver solutions.&rdquo;
-              </p>
-              <div className="tcard-author">
-                <div className="tcard-avatar">MB</div>
-                <div>
-                  <p className="tcard-name">Michael Brown</p>
-                  <p className="tcard-role">Chief Information Officer (CIO)</p>
-                </div>
-              </div>
-            </article>
+          <div className="about-hubs-grid">
+            {hubs.map((hub, i) => (
+              <article key={i} className="about-hub-card">
+                <span className="about-hub-region">{hub.region}</span>
+                <h3>{hub.country}</h3>
+                <span className="about-hub-city">{hub.city}</span>
+                <p className="about-hub-role">{hub.role}</p>
+                <ul className="about-hub-features">
+                  {hub.features.map((feat, idx) => (
+                    <li key={idx}>
+                      <Icon id="i-check" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
-        </div>
-      </section>
 
-      {/* ============ CTA BANNER ============ */}
-      <section className="cta">
-        <div className="container reveal">
-          <h2>Let&apos;s talk about your goals</h2>
-          <p>A short message is enough to start. We will reply with next steps.</p>
-          <div className="ahero-actions">
-            <Link href="/contact#enquiry" className="btn btn-gold btn-lg">
-              Request a consultation
+          <div className="about-global-footer">
+            <p>
+              Need direct coordination with a specific office? All locations route through our corporate desk at{" "}
+              <strong>{primaryPhone}</strong>.
+            </p>
+            <Link href="/contact#locations" className="btn btn-navy btn-sm">
+              <span>View Office Coordinates</span>
+              <Icon id="i-arrow-right" />
             </Link>
-            <a href={`mailto:${SITE_CONFIG.CONTACT.EMAIL}`} className="btn btn-outline btn-lg">
-              Email us
-            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ VERIFIED CLIENT TESTIMONIALS ============ */}
+      <section className="about-testimonials-section" id="testimonials">
+        <div className="container">
+          <div className="about-testimonials-head">
+            <div>
+              <span className="about-section-kicker">Verified Feedback</span>
+              <h2>Trusted by Engineering Leaders &amp; IT Executives</h2>
+            </div>
+            <p>
+              Real outcomes from technology directors and engineering teams who rely on our architecture and
+              continuous guidance.
+            </p>
+          </div>
+
+          <div className="about-testimonials-grid">
+            {testimonials.map((t, i) => (
+              <article key={i} className="about-tcard">
+                <div className="about-tcard-stars" aria-label="5 out of 5 stars">
+                  {t.stars}
+                </div>
+                <p className="about-tcard-quote">&ldquo;{t.quote}&rdquo;</p>
+                <div className="about-tcard-author">
+                  <div className="about-tcard-avatar">{t.initials}</div>
+                  <div>
+                    <h4 className="about-tcard-name">{t.name}</h4>
+                    <p className="about-tcard-role">{t.role}</p>
+                    <span className="about-tcard-sector">{t.sector}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ STANDARDS & COMPLIANCE STRIP ============ */}
+      <section className="about-standards-strip">
+        <div className="container about-standards-inner">
+          <span className="about-standards-label">Enterprise Standards &amp; Frameworks</span>
+          <div className="about-standards-items">
+            {standards.map((s, i) => (
+              <div key={i} className="about-standard-tag">
+                <Icon id={s.icon} />
+                <span>{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ CONSULTATION CTA POD ============ */}
+      <section className="about-cta-section">
+        <div className="container">
+          <div className="about-cta-box">
+            <div className="about-cta-content">
+              <span className="about-section-kicker">Start a Technical Discussion</span>
+              <h2>Ready to Discuss Your Architecture or Team Development?</h2>
+              <p>
+                Our senior solutions architects provide a comprehensive discovery session to understand your
+                current infrastructure, operational bottlenecks, and strategic milestones.
+              </p>
+            </div>
+            <div className="about-cta-actions">
+              <div className="about-cta-buttons">
+                <Link href="/contact#enquiry" className="btn btn-navy btn-lg">
+                  Request a Consultation
+                </Link>
+                <a href={`tel:${primaryPhoneE164}`} className="btn btn-outline btn-lg">
+                  <Icon id="i-phone" /> Call {primaryPhone}
+                </a>
+              </div>
+              <div className="about-cta-sla">
+                <Icon id="i-check" />
+                <span>Guaranteed technical response within one business day</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
