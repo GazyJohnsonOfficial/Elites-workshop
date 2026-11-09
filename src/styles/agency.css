@@ -3133,6 +3133,661 @@
   }
 }
 
+/* =========================================================
+   TRAINING PAGE: Technical Academy & Workforce Enablement
+   ========================================================= */
+
+/* Hero: Atmospheric Lighting without Grids */
+.training-hero {
+  position: relative;
+  background: radial-gradient(circle at 18% 25%, rgba(45, 79, 214, 0.28), transparent 45%),
+              radial-gradient(circle at 82% 75%, rgba(25, 181, 232, 0.2), transparent 45%),
+              linear-gradient(135deg, #071326 0%, #0d1e38 50%, #0a182d 100%);
+  color: #ffffff;
+  padding-top: clamp(36px, 4.5vw, 56px);
+  padding-bottom: clamp(52px, 6vw, 76px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.training-hero-header {
+  max-width: 900px;
+  margin: 0 0 clamp(32px, 4vw, 44px);
+}
+
+.training-hero-kicker {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+
+.training-hero-header h1 {
+  font-size: clamp(2.3rem, 4.2vw, 3.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 18px;
+}
+
+.training-hero-header p {
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+  color: #b5cbe8;
+  margin: 0;
+}
+
+/* 4-Item Executive Metrics Strip */
+.training-metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.training-metric-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.training-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(25, 181, 232, 0.4);
+}
+
+.training-metric-val {
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.training-metric-lbl {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #9bb5e8;
+  line-height: 1.45;
+}
+
+/* Three Learning Pathways Section */
+.training-pathways-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #ffffff;
+}
+
+.training-pathways-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: end;
+  margin-bottom: clamp(32px, 4vw, 44px);
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.training-section-kicker {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+.training-pathways-head h2 {
+  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.training-pathways-head p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+.training-pathways-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.training-pathway-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-pathway-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.training-pathway-header {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.training-pathway-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.training-pathway-icon svg,
+.training-pathway-icon .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.training-pathway-tier {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  margin-bottom: 2px;
+}
+
+.training-pathway-card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.training-pathway-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.training-pathway-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.training-pathway-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.training-pathway-features svg,
+.training-pathway-features .ico {
+  width: 14px;
+  height: 14px;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.training-pathway-action {
+  margin-top: auto;
+}
+
+/* Academy Curricula & Programs Section */
+.training-programmes-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #f8fafc;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.training-programmes-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: end;
+  margin-bottom: clamp(32px, 4vw, 44px);
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.training-programmes-head h2 {
+  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.training-programmes-head p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+.training-programmes-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+}
+
+/* Flagship Featured Card */
+.training-flagship-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(26px, 3vw, 36px);
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-flagship-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+}
+
+.training-card-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.training-flagship-card h3 {
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.training-flagship-desc {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+.training-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.training-tool-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 5px 10px;
+  background: #f1f5f9;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.training-tool-pill svg,
+.training-tool-pill .ico {
+  width: 13px;
+  height: 13px;
+  color: var(--blue);
+}
+
+.training-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.training-fact-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.training-fact-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.training-fact-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.training-flagship-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: auto;
+}
+
+/* Secondary Specialized Curricula Stack */
+.training-secondary-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.training-secondary-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-secondary-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.training-secondary-card h4 {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.training-secondary-card p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.training-secondary-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  margin-top: auto;
+}
+
+.training-secondary-meta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.training-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+
+.training-link-arrow:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.training-link-arrow svg,
+.training-link-arrow .ico {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.16s ease;
+}
+
+.training-link-arrow:hover svg,
+.training-link-arrow:hover .ico {
+  transform: translateX(3px);
+}
+
+/* Academy Methodology Section */
+.training-methodology-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #ffffff;
+}
+
+.training-methodology-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 3.5vw, 48px);
+  align-items: end;
+  margin-bottom: clamp(32px, 4vw, 44px);
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.training-methodology-head h2 {
+  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.training-methodology-head p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0;
+}
+
+.training-methodology-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.training-method-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-method-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.training-method-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.training-method-icon svg,
+.training-method-icon .ico {
+  width: 18px;
+  height: 18px;
+}
+
+.training-method-card h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.training-method-card p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Corporate Consultation CTA Pod */
+.training-cta-section {
+  padding-block: clamp(52px, 6vw, 76px);
+  background: #f8fafc;
+  border-top: 1px solid var(--line);
+}
+
+.training-cta-box {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(32px, 4.5vw, 52px);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(24px, 4vw, 44px);
+  align-items: center;
+}
+
+.training-cta-content h2 {
+  font-size: clamp(1.8rem, 2.6vw, 2.3rem);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.training-cta-content p {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+.training-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.training-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.training-cta-sla {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.training-cta-sla svg,
+.training-cta-sla .ico {
+  width: 14px;
+  height: 14px;
+  color: var(--blue);
+}
+
+/* Responsive adjustments for Training */
+@media (max-width: 980px) {
+  .training-metrics-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .training-pathways-head,
+  .training-programmes-head,
+  .training-methodology-head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .training-pathways-grid,
+  .training-programmes-grid,
+  .training-methodology-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .training-facts-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .training-cta-box {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .training-metrics-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .training-cta-buttons {
+    flex-direction: column;
+  }
+
+  .training-cta-buttons .btn {
+    width: 100%;
+  }
+}
+
 .cred-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
