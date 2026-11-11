@@ -1,524 +1,233 @@
 import Link from "next/link";
 import { Icon } from "@/components/Sprite";
 import { HomeHero } from "@/components/HomeHero";
+import { SITE_CONFIG } from "@/lib/config";
 
 export default function HomePage() {
+  const primaryPhone = SITE_CONFIG.CONTACT.PHONE_DISPLAY;
+  const primaryPhoneE164 = SITE_CONFIG.CONTACT.PHONE_E164;
+
+  const collabs = [
+    { name: "AWS Well-Architected Aligned", icon: "i-cloud" },
+    { name: "Microsoft Azure Solutions", icon: "i-server" },
+    { name: "Google Cloud Platform", icon: "i-globe" },
+    { name: "HashiCorp Terraform Validated", icon: "i-code" },
+    { name: "SOC 2 Type II Architecture", icon: "i-shield" },
+    { name: "ISO 27001 Security Controls", icon: "i-lock" },
+    { name: "HIPAA Security & Privacy", icon: "i-check" },
+  ];
+
+  const milestones = [
+    {
+      val: "20+ Years",
+      label: "Operational Lineage",
+      desc: "Continuous enterprise infrastructure and cloud systems practice across hybrid environments.",
+    },
+    {
+      val: "150+",
+      label: "Completed Deliveries",
+      desc: "Enterprise cloud cutovers, Kubernetes clusters, and automated DevOps deployment pipelines.",
+    },
+    {
+      val: "99.99%",
+      label: "Production SLA Target",
+      desc: "Engineered high-availability architectures with automated failover and telemetry monitoring.",
+    },
+    {
+      val: "3 Desks",
+      label: "Global Coordination",
+      desc: "Follow-the-sun client delivery across North America (HQ), United Kingdom, and West Africa.",
+    },
+  ];
+
+  const pillars = [
+    {
+      eyebrow: "Division 01 · Strategic Advisory",
+      icon: "i-cloud",
+      title: "Cloud, DevOps & Security Consulting",
+      desc: "High-stakes architectural blueprints, cloud cutovers, and regulatory governance for organizations modernizing complex digital infrastructure.",
+      services: [
+        "Cloud Strategy & Zero-Downtime Migration (AWS, Azure, Google Cloud)",
+        "DevOps Automation, CI/CD & Terraform Infrastructure as Code",
+        "Zero-Trust Identity (IAM), SOC 2, HIPAA & ISO 27001 Compliance",
+        "FinOps Cloud Cost Governance & Continuous Rightsizing",
+      ],
+      ctaText: "Explore Consulting Practices",
+      ctaHref: "/services",
+    },
+    {
+      eyebrow: "Division 02 · Team Augmentation",
+      icon: "i-users",
+      title: "Engineering Staffing & Dedicated Pods",
+      desc: "Pre-vetted senior cloud architects, DevOps leads, and data specialists embedded directly into your agile delivery cycles without recruiting lag.",
+      services: [
+        "Dedicated Cloud & DevOps Engineering Squads",
+        "Embedded Data Engineers & BI Dashboard Analysts",
+        "Turnkey 24/7 SRE Incident Response & Managed Operations",
+        "Flexible Sprint Scaling & Contract-to-Hire Placement",
+      ],
+      ctaText: "Explore Staffing Solutions",
+      ctaHref: "/services#support",
+    },
+    {
+      eyebrow: "Division 03 · Enterprise Enablement",
+      icon: "i-building",
+      title: "Corporate Workforce Training & Labs",
+      desc: "Bespoke technical upskilling programs aligned directly with your enterprise toolchain, internal security baselines, and engineering roadmaps.",
+      services: [
+        "Custom Departmental Curricula for Cloud, DevOps & Analytics",
+        "Production Sandbox Labs on Real Cloud Consoles",
+        "Executive Data Literacy & Automated Reporting Bootcamps",
+        "Measurable Skill Telemetry & Progress Reporting for Leadership",
+      ],
+      ctaText: "Explore Corporate Training",
+      ctaHref: "/training#pathways",
+    },
+    {
+      eyebrow: "Division 04 · Career Acceleration",
+      icon: "i-grad",
+      title: "Individual Professional Academy",
+      desc: "Rigorous multi-week live programs for working professionals and career switchers seeking verifiable, production-grade capabilities with live architect guidance.",
+      services: [
+        "Flagship 3-Month Data Analysis Cohort (SQL, Python, Power BI, Tableau)",
+        "Cloud Architecture & DevOps Hands-On Lab Work",
+        "1-on-1 Architect Mentorship & System Design Interview Defense",
+        "Capstone Project Portfolios Verifiable by Employers",
+      ],
+      ctaText: "Explore Academy Curricula",
+      ctaHref: "/training#programmes",
+    },
+  ];
+
   return (
     <main id="main">
       {/* ============ 1. HERO ============ */}
       <HomeHero />
 
-      {/* ============ 2. CORE PRACTICE AREAS ============ */}
-      <section className="section hp-services-section" id="services">
+      {/* ============ 2. ENTERPRISE COLLABORATIONS & PLATFORMS STRIP ============ */}
+      <section className="hp-collabs-strip" aria-label="Enterprise Platform Alignments and Certifications">
+        <div className="container hp-collabs-inner">
+          <span className="hp-collabs-label">Enterprise Platform Alignments &amp; Standards</span>
+          <div className="hp-collabs-items">
+            {collabs.map((collab, i) => (
+              <span key={i} className="hp-collab-badge">
+                <Icon id={collab.icon} />
+                <span>{collab.name}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 3. ORGANIZATIONAL PEDIGREE, MILESTONES & ACHIEVEMENTS ============ */}
+      <section className="hp-pedigree-section" id="about-overview">
+        <div className="container hp-pedigree-grid">
+          <div className="hp-pedigree-copy reveal">
+            <span className="hp-pedigree-kicker">Corporate Pedigree &amp; Track Record</span>
+            <h2>Two Decades of Resilient Engineering &amp; Architectural Sovereignty</h2>
+            <p className="hp-pedigree-lead">
+              Founded on 20 years of production infrastructure practice, {SITE_CONFIG.COMPANY} operates across
+              North America, Europe, and West Africa. We architect, migrate, and secure mission-critical cloud
+              environments while ensuring internal engineering teams retain complete operational independence.
+            </p>
+            <p className="hp-pedigree-sub">
+              We reject vendor lock-in. Every architecture is codified in versioned Infrastructure as Code, fully
+              documented in operational runbooks, and backed by comprehensive knowledge transfer.
+            </p>
+
+            <div className="hp-pedigree-trust-row">
+              <div className="hp-pedigree-trust-item">
+                <Icon id="i-check" />
+                <span>100% Client Code &amp; Key Ownership</span>
+              </div>
+              <div className="hp-pedigree-trust-item">
+                <Icon id="i-check" />
+                <span>Zero Vendor Lock-In Philosophy</span>
+              </div>
+              <div className="hp-pedigree-trust-item">
+                <Icon id="i-check" />
+                <span>Direct Access to Lead Architects</span>
+              </div>
+            </div>
+
+            <div className="hp-pedigree-cta">
+              <Link href="/about" className="btn btn-navy">
+                <span>Read Full Corporate Profile</span>
+                <Icon id="i-arrow-right" />
+              </Link>
+              <Link href="/contact#locations" className="btn btn-outline">
+                <span>Global Operating Desks</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="hp-milestones-grid reveal">
+            {milestones.map((m, i) => (
+              <article key={i} className="hp-milestone-card">
+                <span className="hp-milestone-val">{m.val}</span>
+                <span className="hp-milestone-label">{m.label}</span>
+                <p>{m.desc}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 4. CATEGORIZED PRACTICE PILLARS ============ */}
+      <section className="hp-pillars-section" id="services">
         <div className="container">
-          <div className="hp-sec-intro reveal">
-            <p className="hp-tag">Core Practice Areas</p>
-            <h2>Technology Support from Assessment to Operations</h2>
+          <div className="hp-pillars-head reveal">
+            <div>
+              <span className="hp-pillars-kicker">Core Practice Areas</span>
+              <h2>Technology Support from Assessment to Operations</h2>
+            </div>
             <p>
               Engage our senior engineering teams for targeted architectural reviews, full delivery lifecycles, or managed operational governance. We build resilient, transparent systems your organization can operate independently.
             </p>
           </div>
 
-          <div className="hp-practice-grid">
-            {/* Practice 01 */}
-            <Link className="hp-practice-card reveal" href="/services#cloud-strategy">
-              <div className="hp-practice-top">
-                <div className="hp-practice-icon-box" aria-hidden="true">
-                  <Icon id="i-cloud" />
-                </div>
-                <div className="hp-practice-meta">
-                  <span className="hp-practice-index">Practice 01</span>
-                  <span className="hp-practice-cat">Cloud Architecture</span>
-                </div>
-              </div>
-              <h3>Cloud Strategy, Migration &amp; Hybrid Infrastructure</h3>
-              <p>
-                Assess legacy workloads, determine optimal cloud economics, and execute phased cutovers across AWS, Azure, and Google Cloud with verified zero-downtime rollbacks.
-              </p>
-              <ul className="hp-practice-list">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Workload readiness audit and total cost of ownership (TCO)</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Multi-cloud and hybrid infrastructure design</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Phased data cutovers and automated failover testing</span>
-                </li>
-              </ul>
-              <div className="hp-practice-tags">
-                <span>AWS</span>
-                <span>Microsoft Azure</span>
-                <span>Google Cloud</span>
-                <span>Hybrid Cloud</span>
-              </div>
-              <span className="hp-practice-cta">
-                Explore Cloud Practices <Icon id="i-arrow-right" />
-              </span>
-            </Link>
-
-            {/* Practice 02 */}
-            <Link className="hp-practice-card reveal" href="/services#security">
-              <div className="hp-practice-top">
-                <div className="hp-practice-icon-box" aria-hidden="true">
-                  <Icon id="i-shield" />
-                </div>
-                <div className="hp-practice-meta">
-                  <span className="hp-practice-index">Practice 02</span>
-                  <span className="hp-practice-cat">Security &amp; Governance</span>
-                </div>
-              </div>
-              <h3>Cybersecurity, Identity (IAM) &amp; Compliance</h3>
-              <p>
-                Harden perimeter defences, eliminate identity vulnerabilities, and implement continuous compliance controls aligned with ISO 27001, SOC 2, and GDPR standards.
-              </p>
-              <ul className="hp-practice-list">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Zero Trust architecture and least-privilege IAM controls</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Automated vulnerability scanning and penetration audits</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Regulatory compliance frameworks (HIPAA, SOC 2, PCI-DSS)</span>
-                </li>
-              </ul>
-              <div className="hp-practice-tags">
-                <span>Zero Trust</span>
-                <span>Cloud IAM</span>
-                <span>SOC 2</span>
-                <span>ISO 27001</span>
-              </div>
-              <span className="hp-practice-cta">
-                Explore Security Practices <Icon id="i-arrow-right" />
-              </span>
-            </Link>
-
-            {/* Practice 03 */}
-            <Link className="hp-practice-card reveal" href="/services#devops">
-              <div className="hp-practice-top">
-                <div className="hp-practice-icon-box" aria-hidden="true">
-                  <Icon id="i-cpu" />
-                </div>
-                <div className="hp-practice-meta">
-                  <span className="hp-practice-index">Practice 03</span>
-                  <span className="hp-practice-cat">Automation &amp; FinOps</span>
-                </div>
-              </div>
-              <h3>DevOps Automation, CI/CD &amp; Cloud Cost Optimisation</h3>
-              <p>
-                Accelerate software releases with automated pipelines and Infrastructure as Code while rightsizing cloud resources to eliminate wasteful spending.
-              </p>
-              <ul className="hp-practice-list">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Infrastructure as Code (IaC) via Terraform and CloudFormation</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Container orchestration with Docker and Kubernetes</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>FinOps resource governance and continuous cost rightsizing</span>
-                </li>
-              </ul>
-              <div className="hp-practice-tags">
-                <span>Terraform</span>
-                <span>Kubernetes</span>
-                <span>CI/CD</span>
-                <span>FinOps</span>
-              </div>
-              <span className="hp-practice-cta">
-                Explore DevOps &amp; FinOps <Icon id="i-arrow-right" />
-              </span>
-            </Link>
-
-            {/* Practice 04 */}
-            <Link className="hp-practice-card reveal" href="/services#training-workshops">
-              <div className="hp-practice-top">
-                <div className="hp-practice-icon-box" aria-hidden="true">
-                  <Icon id="i-chart" />
-                </div>
-                <div className="hp-practice-meta">
-                  <span className="hp-practice-index">Practice 04</span>
-                  <span className="hp-practice-cat">Analytics &amp; Enablement</span>
-                </div>
-              </div>
-              <h3>Data Engineering, Analytics &amp; Workforce Training</h3>
-              <p>
-                Consolidate enterprise data into resilient analytics pipelines, automated executive dashboards, and hands-on technical upskilling for internal engineering teams.
-              </p>
-              <ul className="hp-practice-list">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Automated ETL pipelines, data warehousing, and modeling</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Executive dashboards in Power BI, Tableau, and SQL</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Tailored corporate workshops for engineers and analysts</span>
-                </li>
-              </ul>
-              <div className="hp-practice-tags">
-                <span>SQL</span>
-                <span>Python</span>
-                <span>Power BI</span>
-                <span>ETL Pipelines</span>
-              </div>
-              <span className="hp-practice-cta">
-                Explore Data &amp; Enablement <Icon id="i-arrow-right" />
-              </span>
-            </Link>
-          </div>
-
-          {/* ============ TACTICAL & SPECIALISED CAPABILITIES BAR ============ */}
-          <div className="hp-services-adjunct reveal">
-            <div className="hp-adjunct-header">
-              <div>
-                <span className="hp-adjunct-kicker">Extended Capabilities</span>
-                <h3>Specialised Tactical &amp; Operational Engagements</h3>
-              </div>
-              <p>
-                Beyond strategic consultancy, we deploy dedicated engineering squads, SLA-backed managed systems, and rapid technical resources to support day-to-day enterprise demands.
-              </p>
-            </div>
-
-            <div className="hp-adjunct-grid">
-              <Link className="hp-adjunct-card" href="/services#support">
-                <div className="hp-adjunct-card-top">
-                  <div className="hp-adjunct-icon" aria-hidden="true">
-                    <Icon id="i-users" />
+          <div className="hp-pillars-grid">
+            {pillars.map((pillar, i) => (
+              <article key={i} className="hp-pillar-card reveal">
+                <div className="hp-pillar-top">
+                  <div className="hp-pillar-icon" aria-hidden="true">
+                    <Icon id={pillar.icon} />
                   </div>
-                  <span className="hp-adjunct-card-badge">Staff Pods</span>
-                </div>
-                <h4>IT Staff Augmentation</h4>
-                <p>
-                  Certified cloud engineers and analysts embedded directly into your sprint cycles.
-                </p>
-                <ul className="hp-adjunct-checklist">
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Senior engineers integrated into team workflows</span>
-                  </li>
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Rapid onboarding for project crunches</span>
-                  </li>
-                </ul>
-                <span className="hp-adjunct-link">
-                  Explore Augmentation <Icon id="i-arrow-right" />
-                </span>
-              </Link>
-
-              <Link className="hp-adjunct-card" href="/services#support">
-                <div className="hp-adjunct-card-top">
-                  <div className="hp-adjunct-icon" aria-hidden="true">
-                    <Icon id="i-server" />
+                  <div>
+                    <span className="hp-pillar-eyebrow">{pillar.eyebrow}</span>
+                    <h3>{pillar.title}</h3>
                   </div>
-                  <span className="hp-adjunct-card-badge">24/7 SRE</span>
                 </div>
-                <h4>24/7 Managed Operations</h4>
-                <p>
-                  Proactive health monitoring, rapid incident response, and SLA-backed infrastructure care.
-                </p>
-                <ul className="hp-adjunct-checklist">
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Continuous telemetry, log auditing and alerts</span>
-                  </li>
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Tier-2 and tier-3 incident resolution</span>
-                  </li>
-                </ul>
-                <span className="hp-adjunct-link">
-                  Explore Managed Ops <Icon id="i-arrow-right" />
-                </span>
-              </Link>
+                <p className="hp-pillar-desc">{pillar.desc}</p>
 
-              <Link className="hp-adjunct-card" href="/services#support">
-                <div className="hp-adjunct-card-top">
-                  <div className="hp-adjunct-icon" aria-hidden="true">
-                    <Icon id="i-db" />
-                  </div>
-                  <span className="hp-adjunct-card-badge">BCDR</span>
+                <span className="hp-pillar-list-label">Deep-Dive Capabilities</span>
+                <ul className="hp-pillar-list">
+                  {pillar.services.map((svc, idx) => (
+                    <li key={idx}>
+                      <Icon id="i-check" />
+                      <span>{svc}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="hp-pillar-action">
+                  <Link href={pillar.ctaHref} className="hp-pillar-action-link">
+                    <span>{pillar.ctaText}</span>
+                    <Icon id="i-arrow-right" />
+                  </Link>
                 </div>
-                <h4>Disaster Recovery &amp; Backup</h4>
-                <p>
-                  Automated multi-region replication, continuous backups, and rapid failover runbooks.
-                </p>
-                <ul className="hp-adjunct-checklist">
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Automated cross-region data replication</span>
-                  </li>
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Documented and verified failover simulations</span>
-                  </li>
-                </ul>
-                <span className="hp-adjunct-link">
-                  Explore Disaster Recovery <Icon id="i-arrow-right" />
-                </span>
-              </Link>
-
-              <Link className="hp-adjunct-card" href="/services#support">
-                <div className="hp-adjunct-card-top">
-                  <div className="hp-adjunct-icon" aria-hidden="true">
-                    <Icon id="i-laptop" />
-                  </div>
-                  <span className="hp-adjunct-card-badge">Turnkey</span>
-                </div>
-                <h4>Hardware &amp; Network Logistics</h4>
-                <p>
-                  Enterprise network design, datacenter hardware setups, and device deployments.
-                </p>
-                <ul className="hp-adjunct-checklist">
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Datacenter rack, stack and SDN configuration</span>
-                  </li>
-                  <li>
-                    <Icon id="i-check" />
-                    <span>Enterprise device procurement and staging</span>
-                  </li>
-                </ul>
-                <span className="hp-adjunct-link">
-                  Explore Infrastructure <Icon id="i-arrow-right" />
-                </span>
-              </Link>
-            </div>
-
-            <div className="hp-adjunct-bottom">
-              <div className="hp-adjunct-actions">
-                <Link href="/services" className="btn btn-navy">
-                  Explore Complete 10-Service Directory <Icon id="i-arrow-right" />
-                </Link>
-                <Link href="/contact#enquiry" className="btn btn-outline">
-                  Request Tactical Support
-                </Link>
-              </div>
-              <div className="hp-adjunct-assurance">
-                <Icon id="i-shield" />
-                <span>Transparent scopes, verified NDAs, and flexible monthly engagements.</span>
-              </div>
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ============ 3. WHY CHOOSE US ============ */}
-      <section className="section section-tint hp-why-section" id="why-us">
-        <div className="container hp-why-grid">
-          <div className="hp-why-copy reveal">
-            <p className="hp-tag">Why Elites Tech Solutions</p>
-            <h2>Built for Long-Term Reliability, Cost Clarity, and Full Client Ownership</h2>
-            <p>
-              Most IT consultancies engineer long-term dependence. We do the opposite. We design transparent, well-documented cloud architectures and train your internal personnel so your team maintains complete operational autonomy.
-            </p>
-
-            <div className="hp-why-commitments">
-              <div className="hp-why-commit-item">
-                <span className="hp-why-commit-icon" aria-hidden="true">
-                  <Icon id="i-lock" />
-                </span>
-                <div>
-                  <strong>Zero Vendor Lock-In</strong>
-                  <span>Open standards, standard IaC, and 100% client source code ownership.</span>
-                </div>
-              </div>
-              <div className="hp-why-commit-item">
-                <span className="hp-why-commit-icon" aria-hidden="true">
-                  <Icon id="i-compass" />
-                </span>
-                <div>
-                  <strong>Senior Engineering Direct Access</strong>
-                  <span>Direct collaboration with senior architects without junior delegation.</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="hp-why-cta">
-              <Link href="/about" className="btn btn-navy">
-                Learn More About Our Firm <Icon id="i-arrow-right" />
-              </Link>
-              <Link href="#approach" className="btn btn-outline">
-                Our Delivery Methodology
-              </Link>
-            </div>
-          </div>
-
-          <div className="hp-benefit-grid reveal">
-            <article className="hp-benefit-card">
-              <div className="hp-benefit-top">
-                <div className="hp-benefit-icon" aria-hidden="true">
-                  <Icon id="i-lock" />
-                </div>
-                <span className="hp-benefit-badge">100% Client IP</span>
-              </div>
-              <h3>Full Client Ownership</h3>
-              <p>
-                We favour open, documented standards and ensure full client ownership of all source code, configurations, architecture diagrams, and administrative credentials from day one.
-              </p>
-              <ul className="hp-benefit-points">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Open-standard Terraform and cloud-native IaC</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Unrestricted access to all repositories and keys</span>
-                </li>
-              </ul>
-            </article>
-
-            <article className="hp-benefit-card">
-              <div className="hp-benefit-top">
-                <div className="hp-benefit-icon" aria-hidden="true">
-                  <Icon id="i-target" />
-                </div>
-                <span className="hp-benefit-badge">Predictable FinOps</span>
-              </div>
-              <h3>Clear Cost Decisions</h3>
-              <p>
-                We review cloud resource use, compute sizing, and licensing models, explaining practical trade-offs so executive leadership can make informed spending decisions.
-              </p>
-              <ul className="hp-benefit-points">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Transparent cloud spend models before deployment</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Continuous rightsizing and reserved instance guidance</span>
-                </li>
-              </ul>
-            </article>
-
-            <article className="hp-benefit-card">
-              <div className="hp-benefit-top">
-                <div className="hp-benefit-icon" aria-hidden="true">
-                  <Icon id="i-shield" />
-                </div>
-                <span className="hp-benefit-badge">Zero Trust</span>
-              </div>
-              <h3>Security Considered Early</h3>
-              <p>
-                We build security and compliance directly into the architecture foundations, integrating least-privilege access, encryption at rest, and automated audit controls.
-              </p>
-              <ul className="hp-benefit-points">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Zero Trust identity and least-privilege IAM policies</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Compliance alignment for SOC 2, ISO 27001, and HIPAA</span>
-                </li>
-              </ul>
-            </article>
-
-            <article className="hp-benefit-card">
-              <div className="hp-benefit-top">
-                <div className="hp-benefit-icon" aria-hidden="true">
-                  <Icon id="i-user-check" />
-                </div>
-                <span className="hp-benefit-badge">Full Autonomy</span>
-              </div>
-              <h3>Complete Knowledge Transfer</h3>
-              <p>
-                Every engagement culminates in comprehensive delivery handovers, complete operational runbooks, disaster recovery playbooks, and hands-on team mentoring.
-              </p>
-              <ul className="hp-benefit-points">
-                <li>
-                  <Icon id="i-check" />
-                  <span>Verified production runbooks and architectural ADRs</span>
-                </li>
-                <li>
-                  <Icon id="i-check" />
-                  <span>Interactive coaching sessions for internal engineers</span>
-                </li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 4. INDUSTRIES WE SERVE ============ */}
-      <section className="section" id="sectors">
-        <div className="container">
-          <div className="hp-approach-head reveal">
-            <div>
-              <p className="hp-tag">Industries We Serve</p>
-              <h2>Technology needs we understand</h2>
-            </div>
-            <p>
-              We tailor our cloud architectures, security governance, and analytics solutions to match
-              the operational and regulatory demands of your industry.
-            </p>
-          </div>
-
-          <div className="hp-sector-cards">
-            <article className="hp-sector-card reveal">
-              <div className="hp-sector-top">
-                <span className="hp-sector-std">Data residency requirements</span>
-              </div>
-              <h3>Government &amp; Public Institutions</h3>
-              <p>
-                Cloud, identity and data solutions shaped around public-sector operations and
-                residency requirements.
-              </p>
-            </article>
-
-            <article className="hp-sector-card reveal">
-              <div className="hp-sector-top">
-                <span className="hp-sector-std">Patient data and privacy needs</span>
-              </div>
-              <h3>Healthcare &amp; Life Sciences</h3>
-              <p>
-                Infrastructure and data systems designed with patient information and privacy in mind.
-              </p>
-            </article>
-
-            <article className="hp-sector-card reveal">
-              <div className="hp-sector-top">
-                <span className="hp-sector-std">Payment and audit requirements</span>
-              </div>
-              <h3>Financial Services &amp; Fintech</h3>
-              <p>
-                Cloud, security and analytics support for financial operations and reporting.
-              </p>
-            </article>
-
-            <article className="hp-sector-card reveal">
-              <div className="hp-sector-top">
-                <span className="hp-sector-std">Institutional &amp; Corporate IT</span>
-              </div>
-              <h3>Higher Education &amp; Corporate</h3>
-              <p>
-                Modernise systems, improve access, and build practical data skills across teams.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 5. HOW WE WORK (4-STAGE METHODOLOGY) ============ */}
+      {/* ============ 5. DELIVERY METHODOLOGY (4-STAGE PIPELINE) ============ */}
       <section className="section section-tint hp-process-section" id="approach">
         <div className="container">
           <div className="hp-process-head reveal">
             <div>
-              <p className="hp-tag">Delivery Methodology</p>
+              <span className="hp-pillars-kicker">Delivery Methodology</span>
               <h2>A Clear Path from Assessment to Handover</h2>
             </div>
             <p className="hp-process-lead">
@@ -547,11 +256,11 @@ export default function HomePage() {
                   <ul className="hp-step-activities">
                     <li>
                       <Icon id="i-check" />
-                      <span>Architecture and security review</span>
+                      <span>Architecture and security posture review</span>
                     </li>
                     <li>
                       <Icon id="i-check" />
-                      <span>Cost, capacity and risk baselines</span>
+                      <span>Cost, capacity, and risk baselines</span>
                     </li>
                   </ul>
                   <div className="hp-step-deliverable">
@@ -689,46 +398,111 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ 6. TRAINING PATHWAY ============ */}
-      <section className="section" id="training">
+      {/* ============ 6. INDUSTRIES WE SERVE ============ */}
+      <section className="section" id="sectors">
         <div className="container">
-          <div className="hp-training-banner reveal">
-            <div className="hp-training-copy">
-              <span className="hp-tag hp-tag-light">Enablement &amp; Upskilling</span>
-              <h2>Practical Technology Training for Teams &amp; Learners</h2>
+          <div className="hp-approach-head reveal">
+            <div>
+              <span className="hp-pillars-kicker">Industries We Serve</span>
+              <h2>Technology Needs We Understand</h2>
+            </div>
+            <p>
+              We tailor our cloud architectures, security governance, and analytics solutions to match
+              the operational and regulatory demands of your sector.
+            </p>
+          </div>
+
+          <div className="hp-sector-cards">
+            <article className="hp-sector-card reveal">
+              <div className="hp-sector-top">
+                <span className="hp-sector-std">Data residency requirements</span>
+              </div>
+              <h3>Government &amp; Public Institutions</h3>
               <p>
-                From corporate staff enablement to our signature live Data Analysis Cohort,
-                we deliver hands-on, project-driven training in Excel, SQL, Power BI, Python, and cloud infrastructure.
+                Cloud, identity, and data solutions shaped around public-sector governance and data sovereignty.
               </p>
-              <div className="hp-training-actions">
-                <Link href="/training" className="btn btn-gold">
-                  Explore Training Catalog <Icon id="i-arrow-right" />
+            </article>
+
+            <article className="hp-sector-card reveal">
+              <div className="hp-sector-top">
+                <span className="hp-sector-std">Patient data &amp; HIPAA privacy</span>
+              </div>
+              <h3>Healthcare &amp; Life Sciences</h3>
+              <p>
+                Infrastructure and data systems designed with strict patient information protection and privacy in mind.
+              </p>
+            </article>
+
+            <article className="hp-sector-card reveal">
+              <div className="hp-sector-top">
+                <span className="hp-sector-std">Payment &amp; SOC 2 audit controls</span>
+              </div>
+              <h3>Financial Services &amp; Fintech</h3>
+              <p>
+                High-throughput cloud, security, and analytics support for transaction-critical operations.
+              </p>
+            </article>
+
+            <article className="hp-sector-card reveal">
+              <div className="hp-sector-top">
+                <span className="hp-sector-std">Enterprise &amp; Institutional IT</span>
+              </div>
+              <h3>Higher Education &amp; Corporate</h3>
+              <p>
+                Modernize legacy systems, eliminate technical debt, and build practical data capability across teams.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 7. CLOSING EXECUTIVE CONSULTATION CTA POD ============ */}
+      <section className="section hp-cta-section" id="contact-cta">
+        <div className="container">
+          <div className="hp-cta-card reveal">
+            <div className="hp-cta-content">
+              <span className="hp-cta-kicker">Start a Technical Discussion</span>
+              <h2>Ready to Discuss Your Architecture, Staffing, or Team Enablement?</h2>
+              <p>
+                Speak directly with our senior solutions architects to explore strategic cloud consulting,
+                dedicated staff augmentation pods, or custom workforce training programs.
+              </p>
+              <div className="hp-cta-actions">
+                <Link href="/contact#enquiry" className="btn btn-gold btn-lg">
+                  <span>Request a Consultation</span>
+                  <Icon id="i-arrow-right" />
                 </Link>
-                <Link href="/data-analysis" className="btn btn-outline-light">
-                  Data Analysis Programme <Icon id="i-arrow-right" />
-                </Link>
+                <a href={`tel:${primaryPhoneE164}`} className="btn btn-outline-light btn-lg">
+                  <Icon id="i-phone" /> Call {primaryPhone}
+                </a>
               </div>
             </div>
-            <div className="hp-training-features">
-              <div className="hp-train-feat-card">
-                <span className="hp-feat-icon"><Icon id="i-check" /></span>
+            <div className="hp-cta-aside">
+              <div className="hp-cta-assurance-item">
+                <span className="hp-cta-assurance-icon">
+                  <Icon id="i-check" />
+                </span>
                 <div>
-                  <strong>Corporate Workshops</strong>
-                  <p>Tailored curriculum designed around your team&apos;s stack, pipelines, and reporting needs.</p>
+                  <strong>1 Business Day SLA</strong>
+                  <p>Guaranteed response from a senior technical architect.</p>
                 </div>
               </div>
-              <div className="hp-train-feat-card">
-                <span className="hp-feat-icon"><Icon id="i-check" /></span>
+              <div className="hp-cta-assurance-item">
+                <span className="hp-cta-assurance-icon">
+                  <Icon id="i-shield" />
+                </span>
                 <div>
-                  <strong>Live Instructor Mentorship</strong>
-                  <p>Real-time coaching, project code reviews, and structured capstone evaluations.</p>
+                  <strong>Strict Confidentiality</strong>
+                  <p>Mutual NDAs executed prior to detailed technical discovery.</p>
                 </div>
               </div>
-              <div className="hp-train-feat-card">
-                <span className="hp-feat-icon"><Icon id="i-check" /></span>
+              <div className="hp-cta-assurance-item">
+                <span className="hp-cta-assurance-icon">
+                  <Icon id="i-lock" />
+                </span>
                 <div>
-                  <strong>Career-Ready Projects</strong>
-                  <p>Build enterprise dashboards, automated ETL scripts, and production-grade queries.</p>
+                  <strong>Zero Vendor Lock-In</strong>
+                  <p>Open standards, clear IP ownership, and transparent scopes.</p>
                 </div>
               </div>
             </div>
