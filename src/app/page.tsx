@@ -42,7 +42,6 @@ export default function HomePage() {
 
   const pillars = [
     {
-      eyebrow: "Division 01 · Strategic Advisory",
       icon: "i-cloud",
       title: "Cloud, DevOps & Security Consulting",
       desc: "High-stakes architectural blueprints, cloud cutovers, and regulatory governance for organizations modernizing complex digital infrastructure.",
@@ -56,7 +55,6 @@ export default function HomePage() {
       ctaHref: "/services",
     },
     {
-      eyebrow: "Division 02 · Team Augmentation",
       icon: "i-users",
       title: "Engineering Staffing & Dedicated Pods",
       desc: "Pre-vetted senior cloud architects, DevOps leads, and data specialists embedded directly into your agile delivery cycles without recruiting lag.",
@@ -70,7 +68,6 @@ export default function HomePage() {
       ctaHref: "/services#support",
     },
     {
-      eyebrow: "Division 03 · Enterprise Enablement",
       icon: "i-building",
       title: "Corporate Workforce Training & Labs",
       desc: "Bespoke technical upskilling programs aligned directly with your enterprise toolchain, internal security baselines, and engineering roadmaps.",
@@ -84,7 +81,6 @@ export default function HomePage() {
       ctaHref: "/training#pathways",
     },
     {
-      eyebrow: "Division 04 · Career Acceleration",
       icon: "i-grad",
       title: "Individual Professional Academy",
       desc: "Rigorous multi-week live programs for working professionals and career switchers seeking verifiable, production-grade capabilities with live architect guidance.",
@@ -105,7 +101,7 @@ export default function HomePage() {
       <HomeHero />
 
       {/* ============ 2. ENTERPRISE COLLABORATIONS & PLATFORMS STRIP ============ */}
-      <section className="hp-collabs-strip" aria-label="Enterprise Platform Alignments and Certifications">
+      <section className="hp-collabs-strip" id="collaborations" aria-label="Enterprise Platform Alignments and Certifications">
         <div className="container hp-collabs-inner">
           <span className="hp-collabs-label">Enterprise Platform Alignments &amp; Standards</span>
           <div className="hp-collabs-items">
@@ -193,10 +189,7 @@ export default function HomePage() {
                   <div className="hp-pillar-icon" aria-hidden="true">
                     <Icon id={pillar.icon} />
                   </div>
-                  <div>
-                    <span className="hp-pillar-eyebrow">{pillar.eyebrow}</span>
-                    <h3>{pillar.title}</h3>
-                  </div>
+                  <h3>{pillar.title}</h3>
                 </div>
                 <p className="hp-pillar-desc">{pillar.desc}</p>
 

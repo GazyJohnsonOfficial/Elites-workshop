@@ -5203,9 +5203,9 @@
 
 .hp-pillar-top {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 14px;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .hp-pillar-icon {
@@ -6639,6 +6639,36 @@
 }
 
 /* =========================================================
+   GLOBAL SMOOTH SCROLL & ANCHOR OFFSETS
+   ========================================================= */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+#hero,
+#collaborations,
+#about-overview,
+#services,
+#approach,
+#sectors,
+#contact-cta,
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
    RESPONSIVE BREAKPOINTS
    ========================================================= */
 @media (max-width: 1100px) {
@@ -6669,6 +6699,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .hp-pedigree-section,
+  .hp-pillars-section,
+  .hp-process-section,
+  .hp-cta-section {
+    padding-block: clamp(44px, 6vw, 64px);
+  }
+
   .hp-why-cta {
     flex-direction: column;
     align-items: stretch;
@@ -6696,6 +6733,13 @@
 }
 
 @media (max-width: 640px) {
+  .hp-pedigree-section,
+  .hp-pillars-section,
+  .hp-process-section,
+  .hp-cta-section {
+    padding-block: 40px;
+  }
+
   .hp-milestones-grid,
   .hp-pillars-grid,
   .hp-benefit-grid,
@@ -6706,9 +6750,87 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .hp-collabs-strip {
+    padding: 14px 0;
+  }
+
   .hp-collabs-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hp-collabs-items {
+    gap: 8px;
+  }
+
+  .hp-collab-badge {
+    font-size: 0.74rem;
+    padding: 4px 9px;
+  }
+
+  .hp-pedigree-trust-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .hp-pedigree-cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hp-pedigree-cta .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hp-pillar-card {
+    padding: 22px 18px;
+  }
+
+  .hp-pillar-list {
+    gap: 8px;
+  }
+
+  .hp-pillar-action-link {
+    width: 100%;
+    justify-content: space-between;
+    padding-block: 8px;
+  }
+
+  .hp-step-body {
+    padding: 20px 16px;
+  }
+
+  .hp-sector-card {
+    padding: 20px 18px;
+  }
+
+  .hp-cta-card {
+    padding: 28px 20px;
+  }
+
+  .hp-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .hp-cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hp-cta-aside {
+    padding-top: 20px;
+    gap: 14px;
   }
 
   .hp-training-actions {
@@ -6731,5 +6853,23 @@
   .hp-programme-content,
   .hp-programme-aside {
     padding: 26px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hp-pedigree-copy h2,
+  .hp-pillars-head h2,
+  .hp-process-head h2,
+  .hp-approach-head h2 {
+    font-size: 1.65rem;
+  }
+
+  .hp-cta-content h2 {
+    font-size: 1.55rem;
+  }
+
+  .hp-collab-badge {
+    width: 100%;
+    justify-content: flex-start;
   }
 }

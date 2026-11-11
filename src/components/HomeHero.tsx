@@ -10,7 +10,7 @@ const ENGAGEMENT_PILLARS = [
 
 export function HomeHero() {
   return (
-    <section className="hx" aria-labelledby="hx-title">
+    <section className="hx" id="hero" aria-labelledby="hx-title">
       <Image
         src="/hero-datacenter.jpg"
         alt=""
