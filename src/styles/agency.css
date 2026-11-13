@@ -992,7 +992,7 @@
 /* Sticky Practice Jump Bar */
 .svc-jump-bar {
   position: sticky;
-  top: 72px;
+  top: var(--header-h);
   z-index: 40;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
@@ -1009,6 +1009,7 @@
   overflow-x: auto;
   padding: 12px 0;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .svc-jump-scroller::-webkit-scrollbar {
@@ -1087,6 +1088,8 @@
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--navy);
+  line-height: 1.4;
+  max-width: 100%;
 }
 
 .svc-impact-pill .ico {
@@ -1099,7 +1102,7 @@
 /* Service Offering Section */
 .svc-section {
   padding-block: clamp(52px, 6vw, 84px);
-  scroll-margin-top: 136px;
+  scroll-margin-top: calc(var(--header-h) + 54px);
   border-bottom: 1px solid var(--line);
   transition: background 0.3s ease;
 }
@@ -1336,7 +1339,7 @@
               radial-gradient(circle at 90% 85%, rgba(25, 181, 232, 0.04), transparent 50%),
               linear-gradient(180deg, #f2f6fc 0%, #edf3fb 100%);
   border-bottom: 1px solid var(--line);
-  scroll-margin-top: 136px;
+  scroll-margin-top: calc(var(--header-h) + 54px);
 }
 
 .svc-industry-grid {
@@ -1584,12 +1587,36 @@
 }
 
 @media (max-width: 640px) {
+  .svc-jump-scroller {
+    padding: 8px 0;
+    gap: 6px;
+  }
+
+  .svc-jump-link {
+    font-size: 0.74rem;
+    padding: 5px 10px;
+  }
+
   .svc-hero-metrics {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .svc-cap-cards {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .svc-action-wrap {
+    width: 100%;
+  }
+
+  .svc-action-wrap .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .svc-guarantees-pod {
+    padding: 24px 18px;
   }
 
   .svc-industry-grid {
@@ -3253,7 +3280,7 @@
 }
 
 .training-hero-header h1 {
-  font-size: clamp(2.3rem, 4.2vw, 3.4rem);
+  font-size: clamp(1.75rem, 4.2vw, 3.4rem);
   font-weight: 800;
   color: #ffffff;
   line-height: 1.15;
@@ -4390,20 +4417,177 @@
 }
 
 @media (max-width: 640px) {
+  .training-hero {
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+  .training-hero-header h1 {
+    font-size: 1.75rem;
+  }
+  .training-track-card {
+    padding: 20px 16px;
+  }
+  .training-track-card h3 {
+    font-size: 1.25rem;
+  }
+  .training-phases-container {
+    padding: 14px 12px;
+  }
   .training-phases-grid {
     grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .training-phase-card {
+    padding: 12px 14px;
+  }
+  .training-track-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .training-track-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    width: 100%;
+  }
+  .training-track-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+  }
+  .training-track-actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .training-track-actions .training-link-arrow {
+    justify-content: center;
+    padding: 6px 0;
   }
   .training-corp-grid,
   .training-mentorship-grid,
   .training-labs-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+  .training-corp-card,
+  .training-mentor-card,
+  .training-lab-card,
+  .training-faq-card {
+    padding: 20px 16px;
+  }
+  .training-corp-specs-box {
+    padding: 22px 16px;
+  }
   .training-specs-grid {
     grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
-  .training-track-footer {
-    flex-direction: column;
-    align-items: flex-start;
+  .training-spec-item {
+    padding: 12px 14px;
+  }
+}
+
+/* In-Page Sticky Navigation on Data Analysis */
+.subnav {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 16px rgba(15, 37, 87, 0.04);
+}
+
+.subnav-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.subnav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.subnav-inner > span {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--navy);
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.subnav-inner a:not(.btn) {
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.subnav-inner a:not(.btn):hover {
+  background: var(--navy);
+  color: #ffffff;
+  border-color: var(--navy);
+}
+
+@media (max-width: 768px) {
+  .subnav-inner > span {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .subnav-inner {
+    padding: 8px 0;
+    gap: 6px;
+  }
+  .subnav-inner a:not(.btn) {
+    font-size: 0.74rem;
+    padding: 5px 10px;
+  }
+}
+
+/* Scroll Margins for Sticky Header and Jump Bar */
+.training-pathways-section,
+.training-programmes-section,
+.training-corporate-section,
+.training-mentorship-section,
+.training-labs-section,
+.training-methodology-section,
+.training-faq-section,
+.training-cta-section,
+.training-track-card,
+.svc-category-band,
+.svc-industries-section {
+  scroll-margin-top: calc(var(--header-h) + 54px);
+}
+
+@media (max-width: 640px) {
+  .training-pathways-section,
+  .training-programmes-section,
+  .training-corporate-section,
+  .training-mentorship-section,
+  .training-labs-section,
+  .training-methodology-section,
+  .training-faq-section,
+  .training-cta-section,
+  .training-track-card,
+  .svc-category-band,
+  .svc-industries-section {
+    scroll-margin-top: calc(var(--header-h) + 44px);
   }
 }
 
