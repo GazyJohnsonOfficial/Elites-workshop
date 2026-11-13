@@ -164,7 +164,7 @@ export const SITE_CONFIG: SiteConfig = {
   SOCIALS: {
     facebook: "",
     instagram: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/company/elites-tech-solutions",
     x: "",
     youtube: "",
   },

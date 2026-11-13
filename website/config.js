@@ -66,7 +66,7 @@ const CONFIG = Object.freeze({
   SOCIALS: Object.freeze({
     facebook:  "",
     instagram: "",
-    linkedin:  "",
+    linkedin:  "https://www.linkedin.com/company/elites-tech-solutions",
     x:         "",
     youtube:   "",
   }),

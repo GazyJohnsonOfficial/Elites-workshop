@@ -228,7 +228,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                 <Icon id="i-whatsapp" />
               </a>
               <a
-                href="https://linkedin.com"
+                href={SITE_CONFIG.SOCIALS.linkedin || "https://www.linkedin.com/company/elites-tech-solutions"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rf-social-btn"

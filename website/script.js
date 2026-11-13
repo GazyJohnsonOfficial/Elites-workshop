@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
         goals: clean(form.elements.goals.value, true) || "Not provided",
         source: form.elements.source.value || "Not provided",
         marketing: form.elements.marketing.checked ? "Yes: agreed to receive news about future programmes" : "No",
-        privacy_consent: "Yes: agreed to the Privacy Policy and Terms of Enrolment",
+        privacy_consent: "Yes: agreed to the Privacy Policy and Terms of Service",
       };
     }
 

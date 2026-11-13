@@ -423,7 +423,7 @@ export default function HomePage() {
 
             <article className="hp-sector-card reveal">
               <div className="hp-sector-top">
-                <span className="hp-sector-std">Patient data &amp; HIPAA privacy</span>
+                <span className="hp-sector-std">Patient data safeguards &amp; privacy</span>
               </div>
               <h3>Healthcare &amp; Life Sciences</h3>
               <p>
