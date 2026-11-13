@@ -85,9 +85,9 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
 
           <div className="rf-newsletter-wrapper">
             <div className="rf-newsletter-header">
-              <h3 className="rf-newsletter-title">Newsletter</h3>
+              <h3 className="rf-newsletter-title">Industry Insights</h3>
               <p className="rf-newsletter-subtitle">
-                Curated quarterly insights on cloud architecture, security baselines, and technical workforce enablement.
+                Curated quarterly updates on cloud architecture, security baselines, and technical workforce enablement.
               </p>
             </div>
 
@@ -133,7 +133,21 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                     opacity: 0,
                   }}
                 />
-                <label htmlFor="rf-newsletter-email" className="sr-only">
+                <label
+                  htmlFor="rf-newsletter-email"
+                  className="sr-only"
+                  style={{
+                    position: "absolute",
+                    width: "1px",
+                    height: "1px",
+                    padding: 0,
+                    margin: "-1px",
+                    overflow: "hidden",
+                    clip: "rect(0, 0, 0, 0)",
+                    whiteSpace: "nowrap",
+                    border: 0,
+                  }}
+                >
                   Work email address
                 </label>
                 <input
@@ -201,14 +215,6 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
               Senior-led cloud consultancy, cybersecurity governance, automated DevOps pipelines, and practical technical workforce enablement for organizations across three continents.
             </p>
 
-            <div className="rf-brand-trust">
-              <span className="rf-trust-item">
-                <Icon id="i-shield" /> Open IaC &amp; 100% Client IP
-              </span>
-              <span className="rf-trust-item">
-                <Icon id="i-lock" /> Zero Vendor Lock-In
-              </span>
-            </div>
 
             <div className="rf-socials" aria-label="Social and Direct Channels">
               <a

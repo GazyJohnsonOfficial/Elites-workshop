@@ -23,8 +23,8 @@ export default function HomePage() {
       desc: "All infrastructure code, scripts, configurations, and documentation remain full client property.",
     },
     {
-      val: "Zero",
-      label: "Vendor Lock-In",
+      val: "Open",
+      label: "Portable Architecture",
       desc: "Engineered using open, portable industry standards across public cloud and hybrid environments.",
     },
     {
@@ -126,7 +126,7 @@ export default function HomePage() {
               teams retain complete operational independence.
             </p>
             <p className="hp-pedigree-sub">
-              We reject vendor lock-in. Every architecture is codified in versioned Infrastructure as Code,
+              Every architecture is codified in versioned Infrastructure as Code,
               fully documented in operational runbooks, and backed by comprehensive knowledge transfer.
             </p>
 
@@ -137,7 +137,7 @@ export default function HomePage() {
               </div>
               <div className="hp-pedigree-trust-item">
                 <Icon id="i-check" />
-                <span>Zero Vendor Lock-In Philosophy</span>
+                <span>Open Standards &amp; Portability</span>
               </div>
               <div className="hp-pedigree-trust-item">
                 <Icon id="i-check" />
@@ -367,8 +367,8 @@ export default function HomePage() {
               <div className="hp-guarantee-item">
                 <span className="hp-guarantee-icon" aria-hidden="true"><Icon id="i-lock" /></span>
                 <div>
-                  <strong>Zero Vendor Lock-In</strong>
-                  <p>Open standards, standard IaC, and full client access to all configurations.</p>
+                  <strong>Open Industry Standards</strong>
+                  <p>Declarative IaC, standard tooling, and full client access to all configurations.</p>
                 </div>
               </div>
               <div className="hp-guarantee-item">
@@ -535,8 +535,8 @@ export default function HomePage() {
                   <Icon id="i-lock" />
                 </span>
                 <div>
-                  <strong>Zero Vendor Lock-In</strong>
-                  <p>Open standards, clear IP ownership, and transparent scopes.</p>
+                  <strong>Open Industry Standards</strong>
+                  <p>Portable architecture, clear IP ownership, and transparent scopes.</p>
                 </div>
               </div>
             </div>

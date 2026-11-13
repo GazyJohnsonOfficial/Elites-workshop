@@ -166,9 +166,9 @@ export default function ServicesPage() {
           badge: "Hybrid Infrastructure",
           title: "Multi-Cloud & Hybrid Cloud Solutions",
           icon: "i-layers",
-          impact: "Zero vendor lock-in with unified cross-cloud connectivity",
+          impact: "Open portability with unified cross-cloud connectivity",
           summary:
-            "Eliminate vendor lock-in. Seamlessly integrate your private datacenter, AWS, Microsoft Azure, and Google Cloud into one unified infrastructure.",
+            "Maintain architectural autonomy. Seamlessly integrate your private datacenter, AWS, Microsoft Azure, and Google Cloud into one unified infrastructure.",
           btnText: "Integrate Hybrid Clouds",
           contactTopic: "Cloud and Infrastructure",
           techStack: [

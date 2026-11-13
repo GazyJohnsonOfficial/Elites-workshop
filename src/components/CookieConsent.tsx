@@ -123,7 +123,7 @@ export function CookieConsent() {
                 className="ck-btn ck-btn-light-outline"
                 onClick={() => saveConsent(false)}
               >
-                Essential only
+                Decline
               </button>
               <button
                 type="button"
@@ -237,7 +237,7 @@ export function CookieConsent() {
                   className="ck-btn ck-btn-light-outline"
                   onClick={() => saveConsent(false)}
                 >
-                  Essential only
+                  Decline all
                 </button>
                 <button
                   type="button"

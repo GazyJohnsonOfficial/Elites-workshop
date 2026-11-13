@@ -116,7 +116,7 @@ export function CookieManageButton() {
               className="ck-btn ck-btn-light-outline"
               onClick={resetToEssential}
             >
-              Switch to Essential Only
+              Decline Non-Essential
             </button>
           )}
           <button type="button" className="ck-btn ck-btn-navy" onClick={openSettings}>

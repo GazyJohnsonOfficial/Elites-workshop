@@ -147,7 +147,7 @@ export default function AboutPage() {
           {/* Left Column: Lineage & Thesis */}
           <div className="about-thesis-col">
             <span className="about-section-kicker">Foundational Thesis</span>
-            <h2>Production Stability Without Vendor Lock-In</h2>
+            <h2>Production Stability Through Open Standards</h2>
             <p className="about-thesis-text">
               Modern enterprises face an acute dilemma: hyperscale cloud adoption often comes at the price of
               spiraling compute costs, unmanaged architectural drift, and deep proprietary lock-in. Our practice
