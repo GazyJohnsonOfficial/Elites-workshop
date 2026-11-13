@@ -28,11 +28,11 @@ export function HomeHero() {
         <div className="hx-copy">
           <h1 id="hx-title">
             Technology that{" "}
-            <span className="hx-accent">moves your organisation forward</span>
+            <span className="hx-accent">moves your organization forward</span>
           </h1>
           <p className="hx-lead">
             Practical cloud architecture, cybersecurity governance, and data engineering to help your
-            team make confident decisions, modernise systems, and retain full technical ownership.
+            team make confident decisions, modernize systems, and retain full technical ownership.
           </p>
 
           <div className="hx-actions">
@@ -56,7 +56,11 @@ export function HomeHero() {
           </div>
         </div>
 
-        <a className="hx-scroll" href="#services" aria-label="Scroll to services">
+        <a
+          className="hx-scroll"
+          href="#collaborations"
+          aria-label="Scroll to platform alignments and overview"
+        >
           <span className="hx-scroll-line" aria-hidden="true" />
           Scroll to explore
         </a>

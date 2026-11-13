@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { verifyAdminSession } from "@/lib/auth";
+import { asTrimmedString, isSameOriginRequest } from "@/lib/security";
+
+const ALLOWED_ENQUIRY_STATUSES = new Set(["new", "responded", "closed"]);
 
 export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ error: "Forbidden origin" }, { status: 403 });
+  }
+
   const session = await verifyAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -13,15 +20,24 @@ export async function PATCH(
 
   try {
     const { id } = await params;
-    const { status } = await req.json();
+    const cleanId = asTrimmedString(id, 64);
+    if (!cleanId) {
+      return NextResponse.json({ error: "Invalid enquiry ID" }, { status: 400 });
+    }
+
+    const body = await req.json().catch(() => null);
+    const status = asTrimmedString((body as Record<string, unknown> | null)?.status, 32);
+    if (!ALLOWED_ENQUIRY_STATUSES.has(status)) {
+      return NextResponse.json({ error: "Invalid status value" }, { status: 400 });
+    }
 
     const updated = await prisma.enquiry.update({
-      where: { id },
+      where: { id: cleanId },
       data: { status },
     });
 
     return NextResponse.json({ success: true, enquiry: updated });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to update enquiry" }, { status: 500 });
   }
 }
@@ -30,6 +46,10 @@ export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ error: "Forbidden origin" }, { status: 403 });
+  }
+
   const session = await verifyAdminSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -37,10 +57,14 @@ export async function DELETE(
 
   try {
     const { id } = await params;
-    await prisma.enquiry.delete({ where: { id } });
+    const cleanId = asTrimmedString(id, 64);
+    if (!cleanId) {
+      return NextResponse.json({ error: "Invalid enquiry ID" }, { status: 400 });
+    }
+
+    await prisma.enquiry.delete({ where: { id: cleanId } });
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to delete enquiry" }, { status: 500 });
   }
 }
-

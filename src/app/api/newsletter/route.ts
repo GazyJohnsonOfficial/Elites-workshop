@@ -1,31 +1,57 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { sendNewsletterWelcomeEmail } from "@/lib/mail";
-
-function generateEnquiryReference(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code = "";
-  for (let i = 0; i < 6; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return `ETS-NEWS-${code}`;
-}
+import {
+  asTrimmedString,
+  checkRateLimit,
+  generateSecureReference,
+  getClientIp,
+  isSameOriginRequest,
+  isValidEmail,
+} from "@/lib/security";
 
 export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-    const { email } = body;
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ error: "Forbidden origin." }, { status: 403 });
+  }
 
-    if (!email || typeof email !== "string") {
+  try {
+    const ip = getClientIp(req);
+    const rate = checkRateLimit({
+      key: `newsletter-ip:${ip}`,
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!rate.allowed) {
+      return NextResponse.json(
+        { error: "Too many subscription requests. Please try again later." },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rate.retryAfterSeconds) },
+        }
+      );
+    }
+
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== "object") {
       return NextResponse.json(
         { error: "Please enter a valid email address." },
         { status: 400 }
       );
     }
 
-    const trimmed = email.trim().toLowerCase();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(trimmed)) {
+    const data = body as Record<string, unknown>;
+    const hp = asTrimmedString(data.hp, 100);
+    if (hp) {
+      return NextResponse.json({
+        success: true,
+        message: "Thank you! You've been subscribed to executive tech updates.",
+      });
+    }
+
+    const trimmed = asTrimmedString(data.email, 254).toLowerCase();
+    if (!isValidEmail(trimmed)) {
       return NextResponse.json(
         { error: "Please enter a valid email address." },
         { status: 400 }
@@ -48,14 +74,14 @@ export async function POST(req: Request) {
       });
     }
 
-    let reference = generateEnquiryReference();
+    let reference = generateSecureReference("ETS-NEWS");
     let exists = await prisma.enquiry.findUnique({ where: { reference } });
     while (exists) {
-      reference = generateEnquiryReference();
+      reference = generateSecureReference("ETS-NEWS");
       exists = await prisma.enquiry.findUnique({ where: { reference } });
     }
 
-    const subscriberName = trimmed.split("@")[0];
+    const subscriberName = trimmed.split("@")[0] || "Subscriber";
     const formattedName =
       subscriberName.charAt(0).toUpperCase() + subscriberName.slice(1);
 

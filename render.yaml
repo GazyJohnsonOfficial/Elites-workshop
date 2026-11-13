@@ -14,7 +14,9 @@ services:
       - key: ADMIN_EMAIL
         value: elitestechsolutionllc@gmail.com
       - key: ADMIN_PASSWORD
-        value: admin123
+        sync: false
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
       - key: ADMIN_SECRET
         generateValue: true
       - key: NEXT_PUBLIC_SITE_URL

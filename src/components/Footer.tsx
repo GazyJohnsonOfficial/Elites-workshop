@@ -8,6 +8,7 @@ import { SITE_CONFIG } from "@/lib/config";
 export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
   const [year, setYear] = useState(2026);
   const [email, setEmail] = useState("");
+  const [hp, setHp] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -15,8 +16,17 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
     setYear(new Date().getFullYear());
   }, []);
 
+  const handleOpenCookies = () => {
+    if (onOpenCookies) {
+      onOpenCookies();
+    } else {
+      window.dispatchEvent(new Event("ets-open-cookie-settings"));
+    }
+  };
+
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (hp) return;
     const trimmed = email.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -33,7 +43,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: trimmed }),
+        body: JSON.stringify({ email: trimmed, hp }),
       });
 
       const data = await res.json();
@@ -106,6 +116,23 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                 onSubmit={handleSubscribe}
                 noValidate
               >
+                <input
+                  type="text"
+                  name="company_website"
+                  value={hp}
+                  onChange={(e) => setHp(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    width: "1px",
+                    height: "1px",
+                    overflow: "hidden",
+                    opacity: 0,
+                  }}
+                />
                 <input
                   type="email"
                   className="rf-newsletter-input"
@@ -333,12 +360,10 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
             <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Terms of Enrolment</Link>
             <Link href="/cookies">Cookie Policy</Link>
-            {onOpenCookies && (
-              <button type="button" onClick={onOpenCookies}>
-                Cookie settings
-              </button>
-            )}
-            <Link href="/admin" className="rf-staff-link">
+            <button type="button" onClick={handleOpenCookies}>
+              Cookie settings
+            </button>
+            <Link href="/admin" className="rf-staff-link" rel="nofollow">
               Staff Portal
             </Link>
           </div>

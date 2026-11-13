@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { SITE_CONFIG } from "./config";
+import { escapeHtml, stripHeaderNewlines } from "./security";
 
 function getTransporter() {
   const host = process.env.SMTP_HOST;
@@ -29,15 +30,18 @@ export async function sendMail({
   html: string;
   replyTo?: string;
 }) {
+  const safeTo = stripHeaderNewlines(to);
+  const safeSubject = stripHeaderNewlines(subject);
+  const safeReplyTo = replyTo ? stripHeaderNewlines(replyTo) : undefined;
   const from = process.env.SMTP_FROM || `"${SITE_CONFIG.COMPANY}" <${SITE_CONFIG.CONTACT.EMAIL}>`;
   const transporter = getTransporter();
 
   if (!transporter) {
     console.log("=================================================");
     console.log("[EMAIL DISPATCH - DEV SIMULATION]");
-    console.log(`To: ${to}`);
-    console.log(`Subject: ${subject}`);
-    if (replyTo) console.log(`Reply-To: ${replyTo}`);
+    console.log(`To: ${safeTo}`);
+    console.log(`Subject: ${safeSubject}`);
+    if (safeReplyTo) console.log(`Reply-To: ${safeReplyTo}`);
     console.log(`From: ${from}`);
     console.log("-------------------------------------------------");
     console.log("Body length:", html.length, "chars");
@@ -48,10 +52,10 @@ export async function sendMail({
   try {
     const info = await transporter.sendMail({
       from,
-      to,
-      subject,
+      to: safeTo,
+      subject: safeSubject,
       html,
-      replyTo,
+      replyTo: safeReplyTo,
     });
     return { success: true, messageId: info.messageId, simulated: false };
   } catch (error) {
@@ -92,6 +96,17 @@ export async function sendRegistrationEmails(registration: {
     year: "numeric",
   });
 
+  const safeName = escapeHtml(registration.fullName);
+  const safeRef = escapeHtml(registration.reference);
+  const safeEmail = escapeHtml(registration.email);
+  const safePhone = escapeHtml(registration.phone);
+  const safeCountry = escapeHtml(registration.country);
+  const safeJobTitle = escapeHtml(registration.jobTitle);
+  const safeOrg = escapeHtml(registration.organisation || "Not specified");
+  const safeExp = escapeHtml(registration.experience);
+  const safeTools = escapeHtml(registration.tools || "None");
+  const safeGoals = escapeHtml(registration.goals || "None");
+
   // 1. Confirmation to Registrant
   const confirmHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -106,12 +121,12 @@ export async function sendRegistrationEmails(registration: {
     </td></tr>
     <tr><td style="height:4px;background:#f5b82e;line-height:4px;font-size:4px;">&nbsp;</td></tr>
     <tr><td style="padding:30px 32px 8px 32px;font-size:15px;line-height:1.65;color:#14213d;">
-      <p style="margin:0 0 14px 0;">Dear ${registration.fullName},</p>
+      <p style="margin:0 0 14px 0;">Dear ${safeName},</p>
       <p style="margin:0 0 14px 0;">Thank you for registering for the <strong>${SITE_CONFIG.PROGRAMME.NAME}</strong> offered by ${SITE_CONFIG.COMPANY}. We confirm that we have received your registration, and we are pleased that you would like to join us.</p>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7ff;border-left:4px solid #f5b82e;border-radius:6px;margin:6px 0 22px 0;">
         <tr><td style="padding:14px 18px;">
           <div style="font-size:12px;color:#55627f;">Your reference number</div>
-          <div style="font-family:Consolas,Menlo,monospace;font-size:20px;font-weight:700;letter-spacing:1px;color:#0f2557;">${registration.reference}</div>
+          <div style="font-family:Consolas,Menlo,monospace;font-size:20px;font-weight:700;letter-spacing:1px;color:#0f2557;">${safeRef}</div>
           <div style="font-size:12px;color:#55627f;margin-top:4px;">Registered on ${formattedDate}. Please quote this number when you contact us.</div>
         </td></tr>
       </table>
@@ -145,16 +160,16 @@ export async function sendRegistrationEmails(registration: {
     </td></tr>
     <tr><td style="padding:30px 32px;font-size:15px;line-height:1.65;color:#14213d;">
       <p>A new registration has been received for <strong>${SITE_CONFIG.PROGRAMME.NAME}</strong>.</p>
-      <p><strong>Reference:</strong> ${registration.reference}<br />
-      <strong>Name:</strong> ${registration.fullName}<br />
-      <strong>Email:</strong> <a href="mailto:${registration.email}">${registration.email}</a><br />
-      <strong>Phone:</strong> ${registration.phone}<br />
-      <strong>Country:</strong> ${registration.country}<br />
-      <strong>Job Title:</strong> ${registration.jobTitle}<br />
-      <strong>Organisation:</strong> ${registration.organisation || "Not specified"}<br />
-      <strong>Experience:</strong> ${registration.experience}<br />
-      <strong>Tools:</strong> ${registration.tools || "None"}<br />
-      <strong>Goals:</strong> ${registration.goals || "None"}</p>
+      <p><strong>Reference:</strong> ${safeRef}<br />
+      <strong>Name:</strong> ${safeName}<br />
+      <strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a><br />
+      <strong>Phone:</strong> ${safePhone}<br />
+      <strong>Country:</strong> ${safeCountry}<br />
+      <strong>Job Title:</strong> ${safeJobTitle}<br />
+      <strong>Organisation:</strong> ${safeOrg}<br />
+      <strong>Experience:</strong> ${safeExp}<br />
+      <strong>Tools:</strong> ${safeTools}<br />
+      <strong>Goals:</strong> ${safeGoals}</p>
     </td></tr>
   </table>
 </td></tr>
@@ -195,6 +210,15 @@ export async function sendEnquiryEmails(enquiry: {
     year: "numeric",
   });
 
+  const safeName = escapeHtml(enquiry.fullName);
+  const safeRef = escapeHtml(enquiry.reference);
+  const safeEmail = escapeHtml(enquiry.email);
+  const safePhone = escapeHtml(enquiry.phone || "None");
+  const safeOrg = escapeHtml(enquiry.organisation || "None");
+  const safeRegion = escapeHtml(enquiry.region);
+  const safeTopic = escapeHtml(enquiry.topic);
+  const safeMessage = escapeHtml(enquiry.message);
+
   // 1. Acknowledgement to Sender
   const ackHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -208,9 +232,9 @@ export async function sendEnquiryEmails(enquiry: {
       <div style="font-size:24px;line-height:1.25;font-weight:700;color:#ffffff;margin-top:6px;">Enquiry received</div>
     </td></tr>
     <tr><td style="padding:30px 32px;font-size:15px;line-height:1.65;color:#14213d;">
-      <p>Dear ${enquiry.fullName},</p>
-      <p>Thank you for contacting ${SITE_CONFIG.COMPANY}. We confirm that we have received your enquiry regarding <strong>${enquiry.topic}</strong>.</p>
-      <p><strong>Reference:</strong> ${enquiry.reference}<br />
+      <p>Dear ${safeName},</p>
+      <p>Thank you for contacting ${SITE_CONFIG.COMPANY}. We confirm that we have received your enquiry regarding <strong>${safeTopic}</strong>.</p>
+      <p><strong>Reference:</strong> ${safeRef}<br />
       <strong>Date:</strong> ${formattedDate}</p>
       <p>A member of our team will review your message and reply by email shortly.</p>
       <p>Kind regards,<br /><strong>Client Services Team</strong><br />${SITE_CONFIG.COMPANY}</p>
@@ -233,15 +257,15 @@ export async function sendEnquiryEmails(enquiry: {
       <div style="font-size:24px;line-height:1.25;font-weight:700;color:#ffffff;margin-top:6px;">New website enquiry</div>
     </td></tr>
     <tr><td style="padding:30px 32px;font-size:15px;line-height:1.65;color:#14213d;">
-      <p><strong>Reference:</strong> ${enquiry.reference}<br />
-      <strong>From:</strong> ${enquiry.fullName}<br />
-      <strong>Email:</strong> <a href="mailto:${enquiry.email}">${enquiry.email}</a><br />
-      <strong>Phone:</strong> ${enquiry.phone || "None"}<br />
-      <strong>Organisation:</strong> ${enquiry.organisation || "None"}<br />
-      <strong>Region:</strong> ${enquiry.region}<br />
-      <strong>Topic:</strong> ${enquiry.topic}</p>
+      <p><strong>Reference:</strong> ${safeRef}<br />
+      <strong>From:</strong> ${safeName}<br />
+      <strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a><br />
+      <strong>Phone:</strong> ${safePhone}<br />
+      <strong>Organisation:</strong> ${safeOrg}<br />
+      <strong>Region:</strong> ${safeRegion}<br />
+      <strong>Topic:</strong> ${safeTopic}</p>
       <h3 style="font-size:15px;color:#0f2557;">Message:</h3>
-      <div style="background:#f4f7ff;padding:12px;border-radius:6px;white-space:pre-wrap;">${enquiry.message}</div>
+      <div style="background:#f4f7ff;padding:12px;border-radius:6px;white-space:pre-wrap;">${safeMessage}</div>
     </td></tr>
   </table>
 </td></tr>
@@ -272,6 +296,8 @@ export async function sendNewsletterWelcomeEmail({
   reference: string;
 }) {
   const companyEmail = process.env.COMPANY_NOTIFICATION_EMAIL || SITE_CONFIG.CONTACT.EMAIL;
+  const safeRef = escapeHtml(reference);
+  const safeEmail = escapeHtml(email);
 
   const subscriberHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -289,7 +315,7 @@ export async function sendNewsletterWelcomeEmail({
       <p>Thank you for subscribing to <strong>${SITE_CONFIG.COMPANY}</strong> technology briefings.</p>
       <p>You will receive our curated executive insights on cloud infrastructure, zero-trust security architecture, DevOps automation, and enterprise data analytics.</p>
       <p style="background:#f8fafc;padding:14px;border-radius:8px;border-left:4px solid #fab005;font-size:14px;">
-        <strong>Subscriber Ref:</strong> ${reference}<br />
+        <strong>Subscriber Ref:</strong> ${safeRef}<br />
         <strong>Focus Areas:</strong> Cloud Architecture · Cybersecurity · FinOps · Data Engineering
       </p>
       <p>You can manage your preferences or unsubscribe at any time by replying directly to this email.</p>
@@ -313,8 +339,8 @@ export async function sendNewsletterWelcomeEmail({
     </td></tr>
     <tr><td style="padding:28px 32px;font-size:15px;line-height:1.6;color:#14213d;">
       <p>A new visitor has subscribed to the executive newsletter briefing:</p>
-      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a><br />
-      <strong>Reference:</strong> ${reference}</p>
+      <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a><br />
+      <strong>Reference:</strong> ${safeRef}</p>
     </td></tr>
   </table>
 </td></tr>

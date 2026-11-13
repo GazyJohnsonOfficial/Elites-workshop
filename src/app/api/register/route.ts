@@ -1,72 +1,101 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { sendRegistrationEmails } from "@/lib/mail";
-
-function generateReference(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code = "";
-  for (let i = 0; i < 6; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return `ETS-DA-${code}`;
-}
+import {
+  asTrimmedString,
+  checkRateLimit,
+  generateSecureReference,
+  getClientIp,
+  isSameOriginRequest,
+  isValidEmail,
+} from "@/lib/security";
 
 export async function POST(req: Request) {
-  try {
-    const body = await req.json();
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ error: "Forbidden origin." }, { status: 403 });
+  }
 
-    const {
-      fullName,
-      email,
-      phone,
-      country,
-      jobTitle,
-      organisation,
-      experience,
-      tools,
-      goals,
-      source,
-      privacyConsent,
-      marketingConsent,
-      hp,
-    } = body;
+  try {
+    const ip = getClientIp(req);
+    const rate = checkRateLimit({
+      key: `register-ip:${ip}`,
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!rate.allowed) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please wait a few minutes and try again." },
+        {
+          status: 429,
+          headers: { "Retry-After": String(rate.retryAfterSeconds) },
+        }
+      );
+    }
+
+    const body = await req.json().catch(() => null);
+    if (!body || typeof body !== "object") {
+      return NextResponse.json({ error: "Invalid request payload." }, { status: 400 });
+    }
+
+    const data = body as Record<string, unknown>;
+    const hp = asTrimmedString(data.hp, 100);
 
     // Bot detection
     if (hp) {
       return NextResponse.json({ success: true, reference: "ETS-DA-MOCK" });
     }
 
-    if (!fullName || !email || !phone || !country || !jobTitle || !experience || !privacyConsent) {
+    const fullName = asTrimmedString(data.fullName, 120);
+    const email = asTrimmedString(data.email, 254).toLowerCase();
+    const phone = asTrimmedString(data.phone, 32);
+    const country = asTrimmedString(data.country, 100);
+    const jobTitle = asTrimmedString(data.jobTitle, 100);
+    const organisation = asTrimmedString(data.organisation, 150);
+    const experience = asTrimmedString(data.experience, 80);
+    const tools = asTrimmedString(data.tools, 500);
+    const goals = asTrimmedString(data.goals, 1000);
+    const source = asTrimmedString(data.source, 100);
+    const privacyConsent = data.privacyConsent === true;
+    const marketingConsent = data.marketingConsent === true;
+
+    if (
+      fullName.length < 2 ||
+      !isValidEmail(email) ||
+      phone.length < 6 ||
+      country.length < 2 ||
+      jobTitle.length < 2 ||
+      !experience ||
+      !privacyConsent
+    ) {
       return NextResponse.json(
-        { error: "Please fill in all required fields." },
+        { error: "Please fill in all required fields with valid information." },
         { status: 400 }
       );
     }
 
-    // Generate unique reference
-    let reference = generateReference();
+    let reference = generateSecureReference("ETS-DA");
     let exists = await prisma.registration.findUnique({ where: { reference } });
     while (exists) {
-      reference = generateReference();
+      reference = generateSecureReference("ETS-DA");
       exists = await prisma.registration.findUnique({ where: { reference } });
     }
 
-    // Save to Database
     const registration = await prisma.registration.create({
       data: {
         reference,
-        fullName: fullName.trim(),
-        email: email.trim().toLowerCase(),
-        phone: phone.trim(),
-        country: country.trim(),
-        jobTitle: jobTitle.trim(),
-        organisation: organisation?.trim() || null,
+        fullName,
+        email,
+        phone,
+        country,
+        jobTitle,
+        organisation: organisation || null,
         experience,
         tools: tools || null,
-        goals: goals?.trim() || null,
+        goals: goals || null,
         source: source || null,
-        privacyConsent: !!privacyConsent,
-        marketingConsent: !!marketingConsent,
+        privacyConsent: true,
+        marketingConsent,
         status: "pending",
       },
     });
@@ -89,4 +118,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

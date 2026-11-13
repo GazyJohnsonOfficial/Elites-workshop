@@ -95,6 +95,42 @@ export default function HomePage() {
     },
   ];
 
+  const outcomes = [
+    {
+      sector: "Fintech & Payments Infrastructure",
+      title: "Multi-Region Cloud Migration & Zero-Downtime Cutover",
+      challenge: "High-throughput transaction platform requiring zero downtime during cloud migration with strict SOC 2 compliance.",
+      highlights: [
+        "Automated Terraform IaC and multi-region AWS architecture",
+        "Dual-write replication with automated cutover rollback protection",
+        "Real-time FinOps telemetry and container rightsizing",
+      ],
+      result: "Zero transaction loss, 99.995% SLA achieved, and 38% annual infrastructure cost reduction.",
+    },
+    {
+      sector: "Healthcare & Life Sciences",
+      title: "HIPAA-Compliant Kubernetes & Automated CI/CD",
+      challenge: "Fragile manual deployments and rigid patient data privacy constraints under federal HIPAA regulations.",
+      highlights: [
+        "Hardened Kubernetes cluster with zero-trust network policies",
+        "Automated CI/CD deployment pipelines with vulnerability scanning",
+        "Encrypted multi-tier database pipelines with automated backups",
+      ],
+      result: "Deployment frequency increased from bi-weekly to daily with zero audit non-conformances.",
+    },
+    {
+      sector: "Public Sector & Higher Education",
+      title: "Legacy Data Modernization & Team Handover",
+      challenge: "Siloed legacy databases causing 48-hour delays for executive and operational analytics.",
+      highlights: [
+        "Cloud analytics data warehouse modernization with Power BI dashboards",
+        "Direct pairing and production operational runbooks for internal staff",
+        "Automated ETL pipelines replacing manual spreadsheet aggregation",
+      ],
+      result: "Query response reduced from 48 hours to 15 minutes with complete internal operational autonomy.",
+    },
+  ];
+
   return (
     <main id="main">
       {/* ============ 1. HERO ============ */}
@@ -391,7 +427,50 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ 6. INDUSTRIES WE SERVE ============ */}
+      {/* ============ 6. VERIFIED DELIVERY OUTCOMES & CASE STUDIES ============ */}
+      <section className="section section-tint hp-outcomes-section" id="outcomes">
+        <div className="container">
+          <div className="hp-outcomes-head reveal">
+            <div>
+              <span className="hp-pillars-kicker">Verified Delivery Outcomes</span>
+              <h2>Measurable Results in Production Environments</h2>
+            </div>
+            <p className="hp-outcomes-lead">
+              Every architecture we design and deploy is measured against strict uptime, security, cost efficiency,
+              and team self-sufficiency metrics. Here is how our engineering delivered for recent enterprise clients.
+            </p>
+          </div>
+
+          <div className="hp-outcomes-grid">
+            {outcomes.map((item, i) => (
+              <article key={i} className="hp-outcome-card reveal">
+                <span className="hp-outcome-sector">{item.sector}</span>
+                <h3>{item.title}</h3>
+                <p className="hp-outcome-challenge">
+                  <strong>Challenge:</strong> {item.challenge}
+                </p>
+                <div className="hp-outcome-deliverables">
+                  <span className="hp-outcome-deliv-label">Delivered Engineering:</span>
+                  <ul className="hp-outcome-points">
+                    {item.highlights.map((pt, idx) => (
+                      <li key={idx}>
+                        <Icon id="i-check" />
+                        <span>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="hp-outcome-footer">
+                  <span className="hp-outcome-result-label">Quantified Outcome</span>
+                  <strong className="hp-outcome-result-val">{item.result}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ 7. INDUSTRIES WE SERVE ============ */}
       <section className="section" id="sectors">
         <div className="container">
           <div className="hp-approach-head reveal">
@@ -449,7 +528,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ 7. CLOSING EXECUTIVE CONSULTATION CTA POD ============ */}
+      {/* ============ 8. CLOSING EXECUTIVE CONSULTATION CTA POD ============ */}
       <section className="section hp-cta-section" id="contact-cta">
         <div className="container">
           <div className="hp-cta-card reveal">
@@ -468,6 +547,24 @@ export default function HomePage() {
                 <a href={`tel:${primaryPhoneE164}`} className="btn btn-outline-light btn-lg">
                   <Icon id="i-phone" /> Call {primaryPhone}
                 </a>
+              </div>
+
+              <div className="hp-cta-topics">
+                <span className="hp-cta-topics-label">Select Your Technical Priority:</span>
+                <div className="hp-cta-topic-pills">
+                  <Link href="/contact?service=Cloud+and+Infrastructure#enquiry" className="hp-cta-topic-pill">
+                    Cloud &amp; Infrastructure
+                  </Link>
+                  <Link href="/contact?service=IT+Staffing+and+Talent#enquiry" className="hp-cta-topic-pill">
+                    Staff Augmentation
+                  </Link>
+                  <Link href="/contact?service=Cybersecurity+and+Protection#enquiry" className="hp-cta-topic-pill">
+                    Cybersecurity &amp; Compliance
+                  </Link>
+                  <Link href="/contact?service=Corporate+%2F+Team+Training#enquiry" className="hp-cta-topic-pill">
+                    Corporate Training
+                  </Link>
+                </div>
               </div>
             </div>
             <div className="hp-cta-aside">

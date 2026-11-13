@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/config";
+import { CookieManageButton } from "@/components/CookieManageButton";
 
 export const metadata: Metadata = {
   title: `Cookie Policy | ${SITE_CONFIG.COMPANY}`,
   description:
-    "Explanation of how Elites Tech Solutions LLC uses essential storage and optional analytics preferences on our website.",
+    "How Elites Tech Solutions LLC uses minimal essential browser storage, avoids third-party advertising trackers, hosts assets first-party, and lets you manage consent.",
 };
 
 export default function CookiesPage() {
@@ -13,76 +15,159 @@ export default function CookiesPage() {
       <section className="legal-hero">
         <div className="container">
           <h1>Cookie Policy</h1>
-          <p>What this website stores on your device, why, and how you can control it.</p>
-          <p className="updated">Last updated: 4 November 2026</p>
+          <p>
+            How Elites Tech Solutions LLC maintains a minimal browser footprint, hosts site assets
+            first-party, excludes third-party ad trackers, and gives you full control over your
+            privacy choices.
+          </p>
+          <div className="legal-meta-bar">
+            <span>
+              <strong>Last updated:</strong> November 13, 2026
+            </span>
+            <span>
+              <strong>Entity:</strong> {SITE_CONFIG.COMPANY}
+            </span>
+            <span>
+              <strong>Scope:</strong> Public Website &amp; Client Services
+            </span>
+          </div>
         </div>
       </section>
 
       <div className="container legal-wrap">
-        <nav className="toc" aria-label="On this page">
-          <h2>On this page</h2>
-          <ol>
-            <li><a href="#what">1. What this policy covers</a></li>
-            <li><a href="#used">2. What we store on your device</a></li>
-            <li><a href="#not">3. What we do not use</a></li>
-            <li><a href="#manage">4. Managing your choices</a></li>
-            <li><a href="#contact">5. Contact us</a></li>
-          </ol>
-        </nav>
+        <aside>
+          <nav className="toc" aria-label="On this page">
+            <h2>On This Page</h2>
+            <ol>
+              <li><a href="#what">1. Overview &amp; Scope</a></li>
+              <li><a href="#categories">2. Browser Storage Categories</a></li>
+              <li><a href="#hosting">3. Zero Ad Tracking &amp; First-Party Hosting</a></li>
+              <li><a href="#manage">4. Managing Your Preferences</a></li>
+              <li><a href="#contact">5. Contact Information</a></li>
+            </ol>
+
+            <div className="toc-related">
+              <h3>Related Policies</h3>
+              <div className="toc-related-links">
+                <Link href="/privacy">Privacy Policy</Link>
+                <Link href="/terms">Terms of Enrolment</Link>
+              </div>
+            </div>
+          </nav>
+        </aside>
 
         <article className="legal">
-          <h2 id="what">1. What this policy covers</h2>
+          <h2 id="what">1. Overview &amp; Scope</h2>
           <p>
-            Cookies and storage technologies allow websites to function securely and preserve user
-            preferences. This policy explains what our website stores and why.
+            {SITE_CONFIG.COMPANY} (&quot;Elites Tech Solutions,&quot; &quot;we,&quot; or &quot;our&quot;)
+            is engineered around a minimal browser footprint. Rather than placing invasive tracking
+            files across visitor devices, we restrict browser storage strictly to essential
+            functionality and honoring the privacy preferences you explicitly select.
+          </p>
+          <p>
+            In this policy, references to &quot;cookies&quot; include standard HTTP cookies as well
+            as equivalent browser storage technologies such as local storage. Please review our{" "}
+            <Link href="/privacy">Privacy Policy</Link> for full details on how information
+            submitted through consultation enquiries or programme registrations is processed.
           </p>
 
-          <h2 id="used">2. What we store on your device</h2>
-          <div className="table-wrap" tabIndex={0} role="region" aria-label="Items stored on device">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                  <th>Purpose</th>
-                  <th>Duration</th>
-                  <th>Category</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><code>ets_consent</code></td>
-                  <td>Local storage</td>
-                  <td>Stores your cookie and analytics preference choices.</td>
-                  <td>12 months</td>
-                  <td>Essential</td>
-                </tr>
-                <tr>
-                  <td><code>ets_admin_token</code></td>
-                  <td>HTTP-only Cookie</td>
-                  <td>Secures authenticated staff sessions on the operations portal.</td>
-                  <td>7 days</td>
-                  <td>Essential</td>
-                </tr>
-              </tbody>
-            </table>
+          <h2 id="categories">2. Browser Storage Categories</h2>
+          <p>
+            Across public pages, client-side storage is strictly segmented into two clear categories
+            so visitors know exactly how their device is used:
+          </p>
+
+          <div className="ck-cat-grid">
+            <section className="ck-cat-card">
+              <h3>Essential Preference Storage</h3>
+              <p>
+                Remembers whether you chose essential-only mode or enabled optional preferences,
+                preventing repeated consent prompts while supporting reliable site navigation and
+                form interactions.
+              </p>
+              <span className="ck-cat-meta">Retention: Up to 12 months · Strictly necessary</span>
+            </section>
+
+            <section className="ck-cat-card">
+              <h3>Optional Analytics Preferences</h3>
+              <p>
+                Disabled by default until you explicitly opt in. When enabled, supports aggregate
+                usage insights to improve service pages and training information without creating
+                individual visitor or advertising profiles.
+              </p>
+              <span className="ck-cat-meta">Status: Opt-in only · Off by default</span>
+            </section>
           </div>
 
-          <h2 id="not">3. What we do not use</h2>
+          <p>
+            Protective anti-abuse checks on our enquiry, registration, and newsletter workflows run
+            on our servers without installing persistent third-party tracking cookies on your
+            device.
+          </p>
+
+          <h2 id="hosting">3. Zero Ad Tracking &amp; First-Party Hosting</h2>
+          <p>
+            Our digital infrastructure enforces strict privacy boundaries so visiting our website
+            does not silently expose your browsing activity to external marketing vendors:
+          </p>
           <ul>
-            <li>No third-party tracking or behavioral advertising pixels.</li>
-            <li>No data sharing or sale to data brokers.</li>
-            <li>All core fonts and assets are hosted directly from this domain.</li>
+            <li>
+              <strong>Zero Third-Party Ad Trackers:</strong> We do not run behavioral advertising
+              networks, cross-site retargeting pixels, affiliate beacons, or social media tracking
+              tags anywhere on this website.
+            </li>
+            <li>
+              <strong>First-Party Asset Hosting:</strong> All typography, iconography, stylesheets,
+              and media assets are hosted directly from our own domain rather than loaded from
+              external third-party font or script providers that log visitor IP addresses.
+            </li>
+            <li>
+              <strong>Minimal Browser Footprint &amp; No Data Brokerage:</strong> Client-side
+              storage is limited solely to your consent state, and we never sell, rent, or trade
+              browsing information with data brokers or marketing aggregators.
+            </li>
           </ul>
 
-          <h2 id="contact">5. Contact us</h2>
+          <h2 id="manage">4. Managing Your Preferences</h2>
           <p>
-            Email: <a href={`mailto:${SITE_CONFIG.CONTACT.EMAIL}`}>{SITE_CONFIG.CONTACT.EMAIL}</a><br />
-            Phone: <a href={`tel:${SITE_CONFIG.CONTACT.PHONE_E164}`}>{SITE_CONFIG.CONTACT.PHONE_DISPLAY}</a>
+            You can review your current privacy selection or update optional consent settings at
+            any time using the preference control panel below or via the{" "}
+            <strong>Cookie settings</strong> link in the footer of every page.
           </p>
+
+          <CookieManageButton />
+
+          <p>
+            You can also clear or block browser storage and cookies directly through your web
+            browser privacy settings (including Google Chrome, Microsoft Edge, Apple Safari, and
+            Mozilla Firefox). Clearing site storage removes your saved consent choice, and the
+            preference banner will appear cleanly on your next visit so you can set a fresh
+            preference.
+          </p>
+
+          <h2 id="contact">5. Contact Information</h2>
+          <p>
+            Questions regarding this Cookie Policy or requests related to digital privacy may be
+            directed to our team:
+          </p>
+          <div className="legal-contact-card">
+            <div className="legal-contact-item">
+              <span>Privacy &amp; Compliance Email</span>
+              <a href={`mailto:${SITE_CONFIG.CONTACT.EMAIL}`}>{SITE_CONFIG.CONTACT.EMAIL}</a>
+            </div>
+            <div className="legal-contact-item">
+              <span>Corporate Telephone</span>
+              <a href={`tel:${SITE_CONFIG.CONTACT.PHONE_E164}`}>
+                {SITE_CONFIG.CONTACT.PHONE_DISPLAY}
+              </a>
+            </div>
+            <div className="legal-contact-item">
+              <span>Operating Jurisdictions</span>
+              <strong>United States · United Kingdom · Ghana</strong>
+            </div>
+          </div>
         </article>
       </div>
     </main>
   );
 }
-
