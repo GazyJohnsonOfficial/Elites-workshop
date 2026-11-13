@@ -166,7 +166,7 @@ export function RegistrationForm() {
             {result.reference}
           </span>
           <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "6px", margin: 0 }}>
-            Quote this reference in any communication with our admissions team.
+            Quote this reference in any communication with our training team.
           </p>
         </div>
 

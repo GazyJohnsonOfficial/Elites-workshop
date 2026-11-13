@@ -130,16 +130,16 @@ export async function sendRegistrationEmails(registration: {
           <div style="font-size:12px;color:#55627f;margin-top:4px;">Registered on ${formattedDate}. Please quote this number when you contact us.</div>
         </td></tr>
       </table>
-      <h2 style="font-size:16px;color:#0f2557;margin:26px 0 8px 0;">Programme details</h2>
+      <h2 style="font-size:16px;color:#0f2557;margin:26px 0 8px 0;">Program details</h2>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #dbe3f5;border-radius:8px;font-size:14px;margin:8px 0 22px 0;">
-        <tr><td style="padding:10px 14px;background:#ffffff;font-weight:700;color:#0f2557;width:38%;border-bottom:1px solid #dbe3f5;">Programme</td><td style="padding:10px 14px;background:#ffffff;border-bottom:1px solid #dbe3f5;">${SITE_CONFIG.PROGRAMME.NAME}</td></tr>
+        <tr><td style="padding:10px 14px;background:#ffffff;font-weight:700;color:#0f2557;width:38%;border-bottom:1px solid #dbe3f5;">Program</td><td style="padding:10px 14px;background:#ffffff;border-bottom:1px solid #dbe3f5;">${SITE_CONFIG.PROGRAMME.NAME}</td></tr>
         <tr><td style="padding:10px 14px;background:#f4f7ff;font-weight:700;color:#0f2557;width:38%;border-bottom:1px solid #dbe3f5;">Start date</td><td style="padding:10px 14px;background:#f4f7ff;border-bottom:1px solid #dbe3f5;">${SITE_CONFIG.PROGRAMME.START_DATE_TEXT}</td></tr>
         <tr><td style="padding:10px 14px;background:#ffffff;font-weight:700;color:#0f2557;width:38%;border-bottom:1px solid #dbe3f5;">Duration</td><td style="padding:10px 14px;background:#ffffff;border-bottom:1px solid #dbe3f5;">${SITE_CONFIG.PROGRAMME.DURATION}</td></tr>
         <tr><td style="padding:10px 14px;background:#f4f7ff;font-weight:700;color:#0f2557;width:38%;">Tuition</td><td style="padding:10px 14px;background:#f4f7ff;">${SITE_CONFIG.PROGRAMME.TUITION}</td></tr>
       </table>
       <h2 style="font-size:16px;color:#0f2557;margin:26px 0 8px 0;">Status of your registration</h2>
       <p style="margin:0 0 14px 0;">This email acknowledges that your registration has been received. <strong>It is not yet a confirmation of a place.</strong> Your place is confirmed when our team confirms it to you in writing and payment arrangements are agreed.</p>
-      <p style="margin:0 0 14px 0;">Kind regards,<br /><strong>Admissions Team</strong><br />${SITE_CONFIG.COMPANY}</p>
+      <p style="margin:0 0 14px 0;">Kind regards,<br /><strong>Training Team</strong><br />${SITE_CONFIG.COMPANY}</p>
     </td></tr>
   </table>
 </td></tr>
@@ -166,7 +166,7 @@ export async function sendRegistrationEmails(registration: {
       <strong>Phone:</strong> ${safePhone}<br />
       <strong>Country:</strong> ${safeCountry}<br />
       <strong>Job Title:</strong> ${safeJobTitle}<br />
-      <strong>Organisation:</strong> ${safeOrg}<br />
+      <strong>Organization:</strong> ${safeOrg}<br />
       <strong>Experience:</strong> ${safeExp}<br />
       <strong>Tools:</strong> ${safeTools}<br />
       <strong>Goals:</strong> ${safeGoals}</p>
@@ -204,9 +204,9 @@ export async function sendEnquiryEmails(enquiry: {
   createdAt: Date;
 }) {
   const companyEmail = process.env.COMPANY_NOTIFICATION_EMAIL || SITE_CONFIG.CONTACT.EMAIL;
-  const formattedDate = enquiry.createdAt.toLocaleDateString("en-GB", {
-    day: "numeric",
+  const formattedDate = enquiry.createdAt.toLocaleDateString("en-US", {
     month: "long",
+    day: "numeric",
     year: "numeric",
   });
 
@@ -222,18 +222,18 @@ export async function sendEnquiryEmails(enquiry: {
   // 1. Acknowledgement to Sender
   const ackHtml = `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8" /><title>Enquiry received</title></head>
+<head><meta charset="UTF-8" /><title>Inquiry received</title></head>
 <body style="margin:0;padding:0;background:#f4f7ff;font-family:Arial,Helvetica,sans-serif;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7ff;">
 <tr><td align="center" style="padding:24px 12px;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #dbe3f5;">
     <tr><td style="background:#0f2557;padding:26px 32px;">
       <div style="font-size:13px;letter-spacing:2px;font-weight:700;color:#f5b82e;text-transform:uppercase;">${SITE_CONFIG.COMPANY}</div>
-      <div style="font-size:24px;line-height:1.25;font-weight:700;color:#ffffff;margin-top:6px;">Enquiry received</div>
+      <div style="font-size:24px;line-height:1.25;font-weight:700;color:#ffffff;margin-top:6px;">Inquiry received</div>
     </td></tr>
     <tr><td style="padding:30px 32px;font-size:15px;line-height:1.65;color:#14213d;">
       <p>Dear ${safeName},</p>
-      <p>Thank you for contacting ${SITE_CONFIG.COMPANY}. We confirm that we have received your enquiry regarding <strong>${safeTopic}</strong>.</p>
+      <p>Thank you for contacting ${SITE_CONFIG.COMPANY}. We confirm that we have received your inquiry regarding <strong>${safeTopic}</strong>.</p>
       <p><strong>Reference:</strong> ${safeRef}<br />
       <strong>Date:</strong> ${formattedDate}</p>
       <p>A member of our team will review your message and reply by email shortly.</p>
@@ -247,21 +247,21 @@ export async function sendEnquiryEmails(enquiry: {
   // 2. Notification to Company
   const adminHtml = `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8" /><title>New website enquiry</title></head>
+<head><meta charset="UTF-8" /><title>New website inquiry</title></head>
 <body style="margin:0;padding:0;background:#f4f7ff;font-family:Arial,Helvetica,sans-serif;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f7ff;">
 <tr><td align="center" style="padding:24px 12px;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #dbe3f5;">
     <tr><td style="background:#0f2557;padding:26px 32px;">
       <div style="font-size:13px;letter-spacing:2px;font-weight:700;color:#f5b82e;text-transform:uppercase;">${SITE_CONFIG.COMPANY}</div>
-      <div style="font-size:24px;line-height:1.25;font-weight:700;color:#ffffff;margin-top:6px;">New website enquiry</div>
+      <div style="font-size:24px;line-height:1.25;font-weight:700;color:#ffffff;margin-top:6px;">New website inquiry</div>
     </td></tr>
     <tr><td style="padding:30px 32px;font-size:15px;line-height:1.65;color:#14213d;">
       <p><strong>Reference:</strong> ${safeRef}<br />
       <strong>From:</strong> ${safeName}<br />
       <strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a><br />
       <strong>Phone:</strong> ${safePhone}<br />
-      <strong>Organisation:</strong> ${safeOrg}<br />
+      <strong>Organization:</strong> ${safeOrg}<br />
       <strong>Region:</strong> ${safeRegion}<br />
       <strong>Topic:</strong> ${safeTopic}</p>
       <h3 style="font-size:15px;color:#0f2557;">Message:</h3>
@@ -275,13 +275,13 @@ export async function sendEnquiryEmails(enquiry: {
   await Promise.allSettled([
     sendMail({
       to: enquiry.email,
-      subject: `Enquiry received: ${enquiry.reference}`,
+      subject: `Inquiry received: ${enquiry.reference}`,
       html: ackHtml,
       replyTo: companyEmail,
     }),
     sendMail({
       to: companyEmail,
-      subject: `Website enquiry: ${enquiry.topic} (${enquiry.reference})`,
+      subject: `Website inquiry: ${enquiry.topic} (${enquiry.reference})`,
       html: adminHtml,
       replyTo: enquiry.email,
     }),

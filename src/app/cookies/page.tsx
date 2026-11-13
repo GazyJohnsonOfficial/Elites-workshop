@@ -68,7 +68,7 @@ export default function CookiesPage() {
             In this policy, references to &quot;cookies&quot; include standard HTTP cookies as well
             as equivalent browser storage technologies such as local storage. Please review our{" "}
             <Link href="/privacy">Privacy Policy</Link> for full details on how information
-            submitted through consultation enquiries or programme registrations is processed.
+            submitted through consultation inquiries or program registrations is processed.
           </p>
 
           <h2 id="categories">2. Browser Storage Categories</h2>
@@ -100,7 +100,7 @@ export default function CookiesPage() {
           </div>
 
           <p>
-            Protective anti-abuse checks on our enquiry, registration, and newsletter workflows run
+            Protective anti-abuse checks on our inquiry, registration, and newsletter workflows run
             on our servers without installing persistent third-party tracking cookies on your
             device.
           </p>

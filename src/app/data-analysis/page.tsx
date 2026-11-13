@@ -8,7 +8,7 @@ import { SITE_CONFIG } from "@/lib/config";
 export const metadata: Metadata = {
   title: `${SITE_CONFIG.PROGRAMME.NAME} | ${SITE_CONFIG.COMPANY}`,
   description:
-    "A practical, hands-on programme that takes working professionals from messy data to clear, decision-ready insights across SQL, Python, Excel, Alteryx, Tableau and Power BI.",
+    "A practical, hands-on program that takes working professionals from messy data to clear, decision-ready insights across SQL, Python, Excel, Alteryx, Tableau and Power BI.",
 };
 
 export default function DataAnalysisPage() {
@@ -20,7 +20,7 @@ export default function DataAnalysisPage() {
           <span>{SITE_CONFIG.PROGRAMME.NAME}</span>
           <a href="#about">About</a>
           <a href="#curriculum">Curriculum</a>
-          <a href="#before-you-enrol">Before you enrol</a>
+          <a href="#before-you-enrol">Before you enroll</a>
           <a href="#faq">FAQ</a>
           <Link href="/tuition">Tuition and fees</Link>
           <a href="#register" className="btn btn-gold btn-sm">
@@ -40,13 +40,13 @@ export default function DataAnalysisPage() {
         <div className="container">
           <div className="hero-grid">
             <div className="hero-copy">
-              <p className="kicker">Upcoming programme · {SITE_CONFIG.COMPANY}</p>
+              <p className="kicker">Upcoming program · {SITE_CONFIG.COMPANY}</p>
               <h1>
                 <span>Data</span>
                 <span>Analysis</span>
               </h1>
               <p className="lead">
-                A practical, hands-on programme that takes working professionals from messy data to
+                A practical, hands-on program that takes working professionals from messy data to
                 clear, decision-ready insights across four tools over three months.
               </p>
 
@@ -190,7 +190,7 @@ export default function DataAnalysisPage() {
           {/* Countdown bar */}
           <div className="hero-bar">
             <div className="bar-text">
-              <strong>Programme starts in</strong>
+              <strong>Program starts in</strong>
               <span>Enrollment open · Flexible online payment &amp; installment options available</span>
             </div>
             <Countdown />
@@ -233,10 +233,10 @@ export default function DataAnalysisPage() {
         <div className="container">
           <div className="ov-grid">
             <div className="ov-intro reveal">
-              <h2>About the programme</h2>
+              <h2>About the program</h2>
               <p>
                 {SITE_CONFIG.COMPANY} is an IT solutions agency, and training is part of how we work.
-                Our Data Analysis Programme is built on one idea: you learn a tool best by using it on
+                Our Data Analysis Program is built on one idea: you learn a tool best by using it on
                 realistic data, then connecting it to the next tool in a real workflow.
               </p>
               <p>
@@ -254,7 +254,7 @@ export default function DataAnalysisPage() {
                 </span>
                 <div>
                   <h3>Hands-on, not theory-heavy</h3>
-                  <p>Every session is built around realistic datasets, so you practise each skill as you learn it.</p>
+                  <p>Every session is built around realistic datasets, so you practice each skill as you learn it.</p>
                 </div>
               </li>
               <li className="reveal">
@@ -287,7 +287,7 @@ export default function DataAnalysisPage() {
             </ul>
           </div>
 
-          <ul className="stats" aria-label="The programme in numbers">
+          <ul className="stats" aria-label="The program in numbers">
             <li className="reveal">
               <strong>12</strong>
               <span>Weeks of training</span>
@@ -331,7 +331,7 @@ export default function DataAnalysisPage() {
       </section>
 
       {/* ============ AT A GLANCE ============ */}
-      <section className="glance" aria-label="Programme at a glance">
+      <section className="glance" aria-label="Program at a glance">
         <div className="container glance-grid">
           <div className="reveal">
             <Icon id="i-calendar" />
@@ -481,7 +481,7 @@ export default function DataAnalysisPage() {
       <section className="section" id="before-you-enrol">
         <div className="container">
           <div className="head-row reveal">
-            <h2>Before you enrol</h2>
+            <h2>Before you enroll</h2>
             <p>Everything to check so you can start on day one.</p>
           </div>
 
@@ -495,7 +495,7 @@ export default function DataAnalysisPage() {
                   <ul className="dash-list">
                     <li>No programming experience needed. We start from the basics.</li>
                     <li>Comfort using a computer and basic spreadsheet skills.</li>
-                    <li>Willingness to practise between sessions.</li>
+                    <li>Willingness to practice between sessions.</li>
                   </ul>
                 </dd>
               </div>
@@ -530,7 +530,7 @@ export default function DataAnalysisPage() {
                 <dd>
                   <ul className="dash-list">
                     <li>
-                      We use your details only to manage your registration and the programme. Read our{" "}
+                      We use your details only to manage your registration and the program. Read our{" "}
                       <Link href="/privacy">Privacy Policy</Link>.
                     </li>
                     <li>
@@ -549,7 +549,7 @@ export default function DataAnalysisPage() {
                 <li>36 live Zoom sessions</li>
                 <li>Four tools in one workflow</li>
                 <li>Capstone project review</li>
-                <li>Flexible instalment options available</li>
+                <li>Flexible installment options available</li>
               </ul>
               <Link href="/tuition" className="btn btn-gold btn-block">
                 View tuition and fees breakdown
@@ -578,9 +578,9 @@ export default function DataAnalysisPage() {
           </div>
           <div className="faq">
             <details className="reveal">
-              <summary>When does the programme start?</summary>
+              <summary>When does the program start?</summary>
               <p>
-                The programme starts on {SITE_CONFIG.PROGRAMME.START_DATE_TEXT} and runs for three
+                The program starts on {SITE_CONFIG.PROGRAMME.START_DATE_TEXT} and runs for three
                 months (12 weeks).
               </p>
             </details>
@@ -594,7 +594,7 @@ export default function DataAnalysisPage() {
             <details className="reveal">
               <summary>Do I need prior coding or database experience?</summary>
               <p>
-                No. The programme starts from fundamentals. If you are comfortable with general computer
+                No. The program starts from fundamentals. If you are comfortable with general computer
                 usage and simple spreadsheets, you will thrive.
               </p>
             </details>
@@ -608,7 +608,7 @@ export default function DataAnalysisPage() {
             <details className="reveal">
               <summary>How does payment work?</summary>
               <p>
-                You can reserve your seat through the online form below. Our admissions desk verifies
+                You can reserve your seat through the online form below. Our training team confirms
                 your registration, after which you can pay securely online via Debit/Credit Card or
                 direct transfer.
               </p>
@@ -642,7 +642,7 @@ export default function DataAnalysisPage() {
                 <div>
                   <strong>Receive your confirmation</strong>
                   <span>
-                    A formal email with your reference number and programme details arrives in your
+                    A formal email with your reference number and program details arrives in your
                     inbox.
                   </span>
                 </div>
@@ -652,7 +652,7 @@ export default function DataAnalysisPage() {
                   <Icon id="i-phone" />
                 </span>
                 <div>
-                  <strong>Our admissions team contacts you</strong>
+                  <strong>Our coordination team contacts you</strong>
                   <span>We confirm your place and guide you through payment and onboarding.</span>
                 </div>
               </li>

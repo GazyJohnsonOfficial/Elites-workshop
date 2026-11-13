@@ -179,7 +179,7 @@ export function CookieConsent() {
                       <strong>Essential &amp; Security Cookies</strong>
                     </div>
                     <p>
-                      Keep page navigation, enquiry and registration forms, and your saved privacy
+                      Keep page navigation, inquiry and registration forms, and your saved privacy
                       preferences working reliably across our website.
                     </p>
                   </div>

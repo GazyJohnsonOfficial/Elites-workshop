@@ -106,7 +106,7 @@ export function AdminDashboardClient({
   };
 
   const handleDeleteEnquiry = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this enquiry?")) return;
+    if (!confirm("Are you sure you want to delete this inquiry?")) return;
     const res = await fetch(`/api/admin/enquiries/${id}`, { method: "DELETE" });
     if (res.ok) {
       setEnquiries((prev) => prev.filter((e) => e.id !== id));
@@ -183,13 +183,13 @@ export function AdminDashboardClient({
               {registrations.filter((r) => r.status === "pending").length}
             </div>
             <div style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "4px" }}>
-              Awaiting admissions onboarding
+              Awaiting cohort onboarding
             </div>
           </div>
 
           <div className="card" style={{ padding: "20px" }}>
             <div style={{ color: "var(--muted)", fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "1px" }}>
-              Website Enquiries
+              Website Inquiries
             </div>
             <div style={{ fontSize: "2rem", fontWeight: 700, color: "var(--blue)", marginTop: "4px" }}>
               {enquiries.length}
@@ -228,7 +228,7 @@ export function AdminDashboardClient({
                 className={`btn btn-sm ${activeTab === "enquiries" ? "btn-gold" : "btn-outline"}`}
                 onClick={() => { setActiveTab("enquiries"); setStatusFilter("all"); }}
               >
-                Service Enquiries ({enquiries.length})
+                Service Inquiries ({enquiries.length})
               </button>
             </div>
 
@@ -378,7 +378,7 @@ export function AdminDashboardClient({
                   {filteredEnquiries.length === 0 ? (
                     <tr>
                       <td colSpan={7} style={{ padding: "32px", textAlign: "center", color: "var(--muted)" }}>
-                        No enquiries found matching your query.
+                        No inquiries found matching your query.
                       </td>
                     </tr>
                   ) : (
@@ -433,7 +433,7 @@ export function AdminDashboardClient({
                             type="button"
                             onClick={() => handleDeleteEnquiry(e.id)}
                             style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)", fontSize: "0.85rem" }}
-                            title="Delete enquiry"
+                            title="Delete inquiry"
                           >
                             Delete
                           </button>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Sprite } from "@/components/Sprite";
 import { Header } from "@/components/Header";
@@ -6,6 +6,12 @@ import { Footer } from "@/components/Footer";
 import { ScrollEffects } from "@/components/ScrollEffects";
 import { CookieConsent } from "@/components/CookieConsent";
 import { SITE_CONFIG } from "@/lib/config";
+
+export const viewport: Viewport = {
+  themeColor: "#0f2557",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Elites Tech Solutions LLC | Cloud, Cybersecurity, Data & IT Staffing",
@@ -52,11 +58,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="theme-color" content="#0f2557" />
-        <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      </head>
       <body>
         <Sprite />
         <Header />

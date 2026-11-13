@@ -30,12 +30,12 @@ export default function AboutPage() {
       num: "03",
       icon: "i-shield",
       title: "Security & Compliance by Default",
-      desc: "Zero-trust network boundaries, strict least-privilege identity access, and continuous compliance telemetry adhering to SOC 2, ISO 27001, and HIPAA.",
+      desc: "Zero-trust network boundaries, strict least-privilege identity access, and continuous compliance telemetry adhering to industry security baselines.",
     },
     {
       num: "04",
       icon: "i-gauge",
-      title: "Measurable Production SLAs",
+      title: "High Availability & Resilient Design",
       desc: "Observability pipelines, automated health checking, and fault-tolerant cluster design engineered to maintain high availability and rapid recovery.",
     },
     {
@@ -93,8 +93,8 @@ export default function AboutPage() {
     { label: "Azure Cloud Solutions", icon: "i-server" },
     { label: "Google Cloud Platform", icon: "i-globe" },
     { label: "HashiCorp Terraform Ecosystem", icon: "i-code" },
-    { label: "SOC 2 & ISO 27001 Alignment", icon: "i-shield" },
-    { label: "HIPAA Security Baselines", icon: "i-check" },
+    { label: "Security & Compliance Baselines", icon: "i-shield" },
+    { label: "Zero-Trust Identity Governance", icon: "i-lock" },
     { label: "GDPR Data Governance", icon: "i-globe" },
   ];
 

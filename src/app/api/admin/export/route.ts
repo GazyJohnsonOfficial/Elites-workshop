@@ -20,7 +20,7 @@ export async function GET() {
     "Phone",
     "Country",
     "Job Title",
-    "Organisation",
+    "Organization",
     "Experience",
     "Tools",
     "Goals",

@@ -86,8 +86,8 @@ export const SITE_CONFIG: SiteConfig = {
     gh: {
       NAME: "Ghana",
       SHORT: "GH",
-      PHONE_DISPLAY: "+1 (609) 304-7571",
-      PHONE_E164: "+16093047571",
+      PHONE_DISPLAY: "+233 53 353 4687",
+      PHONE_E164: "+233533534687",
       EMAIL: "ghana@elitestechsolutions.com",
       ADDRESS: "Poolside Ave, Takoradi, Ghana",
       HOURS: "Mon to Fri, 8:00 to 17:00 GMT",

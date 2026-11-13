@@ -108,7 +108,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
     }
 
     if (!formData.privacyConsent) {
-      errs.privacyConsent = "You need to agree before you can send your enquiry.";
+      errs.privacyConsent = "You need to agree before you can send your inquiry.";
     }
 
     setErrors(errs);
@@ -132,13 +132,13 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit enquiry.");
+        throw new Error(data.error || "Failed to submit inquiry.");
       }
 
       setResult({
         success: true,
         reference: data.reference,
-        message: "Enquiry received! Our team will reply by email with sensible next steps.",
+        message: "Inquiry received! Our team will reply by email with sensible next steps.",
       });
     } catch (err) {
       setResult({
@@ -157,10 +157,10 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
           <Icon id="i-check" />
         </div>
         <h3 style={{ fontSize: "1.75rem", color: "var(--navy)", marginBottom: "8px" }}>
-          Enquiry sent
+          Inquiry sent
         </h3>
         <p style={{ color: "var(--muted)", maxWidth: "500px", margin: "0 auto 20px" }}>
-          Thank you for getting in touch. A member of our team will review your enquiry and reply to{" "}
+          Thank you for getting in touch. A member of our team will review your inquiry and reply to{" "}
           <strong>{formData.email}</strong>.
         </p>
 
@@ -175,7 +175,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
           }}
         >
           <span style={{ fontSize: "0.85rem", color: "var(--muted)", display: "block" }}>
-            Enquiry Reference
+            Inquiry Reference
           </span>
           <span
             style={{
@@ -368,7 +368,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
               <Link href="/privacy" target="_blank" style={{ color: "var(--blue)", textDecoration: "underline" }}>
                 Privacy Policy
               </Link>
-              . We only use your contact details to reply to your enquiry. <span className="req">*</span>
+              . We only use your contact details to reply to your inquiry. <span className="req">*</span>
             </span>
           </label>
           {errors.privacyConsent && <span className="error">{errors.privacyConsent}</span>}
@@ -385,10 +385,10 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
           {isSubmitting ? (
             <>
               <span className="spinner" />
-              Sending enquiry...
+              Sending inquiry...
             </>
           ) : (
-            "Send enquiry"
+            "Send inquiry"
           )}
         </button>
       </div>

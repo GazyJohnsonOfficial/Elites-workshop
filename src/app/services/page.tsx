@@ -91,7 +91,7 @@ export default function ServicesPage() {
           badge: "Workload Transition",
           title: "Cloud Migration & Modernization",
           icon: "i-cloud-upload",
-          impact: "Zero transaction loss · 99.995% production cutover SLA",
+          impact: "Automated cutover validation and rollback protection",
           summary:
             "Seamless, secure migration of mission-critical workloads, applications, and enterprise databases with guaranteed data integrity, automated rollbacks, and zero disruption to business continuity.",
           btnText: "Plan Your Migration",
@@ -192,7 +192,7 @@ export default function ServicesPage() {
       id: "security-devops",
       eyebrow: "Practice Domain 02",
       title: "Cybersecurity, DevOps Automation & FinOps",
-      desc: "Enforce ironclad zero-trust defense postures, automate continuous compliance across SOC 2 and HIPAA, and eliminate wasteful cloud expenditure.",
+      desc: "Enforce zero-trust defense postures, automate compliance monitoring aligned with industry baselines, and eliminate wasteful cloud expenditure.",
       services: [
         {
           id: "security",
@@ -200,18 +200,18 @@ export default function ServicesPage() {
           badge: "SecOps & Governance",
           title: "Cloud Security, IAM & Compliance",
           icon: "i-shield",
-          impact: "Automated controls · Aligned to HIPAA, SOC 2 & ISO 27001",
+          impact: "Automated security controls and continuous audit readiness",
           summary:
             "Multi-layer defense safeguarding sensitive corporate workloads, mitigating infrastructure threats, and supporting compliance with industry regulatory standards.",
           btnText: "Get a Security Assessment",
           contactTopic: "Cybersecurity and Protection",
           techStack: [
-            "SOC 2 Framework",
-            "ISO 27001 Controls",
-            "HIPAA Safeguards",
-            "PCI-DSS Baselines",
-            "Zero Trust IAM",
+            "Security Baselines",
+            "Audit Readiness",
+            "Data Protection",
+            "Least-Privilege IAM",
             "GuardDuty & Sentinel",
+            "Policy as Code",
           ],
           capabilities: [
             {
@@ -222,7 +222,7 @@ export default function ServicesPage() {
             {
               title: "Compliance & Regulatory Governance",
               icon: "i-file",
-              desc: "Implement automated compliance monitoring aligned with HIPAA, SOC 2, ISO 27001, PCI-DSS, and GDPR standards with audit-ready reporting.",
+              desc: "Implement automated compliance monitoring aligned with major regulatory baselines and audit-ready reporting.",
             },
             {
               title: "Zero-Trust Identity & Access Management",
@@ -291,7 +291,7 @@ export default function ServicesPage() {
           badge: "FinOps & Efficiency",
           title: "Cloud Cost Optimization & FinOps",
           icon: "i-gauge",
-          impact: "Up to 38% annual cloud infrastructure cost reduction",
+          impact: "Measurable cloud infrastructure cost reduction and continuous right-sizing",
           summary:
             "Maximize the return on your cloud investment. We identify inefficiencies, eliminate wasteful spend, and fine-tune resources for peak speed and responsiveness.",
           btnText: "Optimize Your Cloud Spend",
@@ -318,7 +318,7 @@ export default function ServicesPage() {
               title: "Reservation & Savings Strategy",
               icon: "i-cpu",
               span: true,
-              desc: "Structure committed use discounts, Savings Plans, and Spot instance workflows to lock in cost reductions up to 40% without sacrificing availability.",
+              desc: "Structure committed use discounts, Savings Plans, and Spot instance workflows to lower recurring cloud expenditure without sacrificing availability.",
             },
           ],
         },
@@ -328,7 +328,7 @@ export default function ServicesPage() {
       id: "sre-native",
       eyebrow: "Practice Domain 03",
       title: "Site Reliability (SRE) & Cloud-Native Platforms",
-      desc: "Round-the-clock production operations backed by strict 15-minute response SLAs, automated disaster recovery, and resilient API microservices.",
+      desc: "Round-the-clock production operations, automated disaster recovery, and resilient API microservices.",
       services: [
         {
           id: "support",
@@ -336,28 +336,28 @@ export default function ServicesPage() {
           badge: "Managed SRE",
           title: "24/7 Managed Support & Disaster Recovery",
           icon: "i-server",
-          impact: "15-minute critical SLA · RPO < 5 min, RTO < 15 min",
+          impact: "Rapid incident triage and automated failover orchestration",
           summary:
             "Dedicated engineering care ensuring high availability, continuous health monitoring, and enterprise disaster recovery safeguarding all data.",
           btnText: "Engage 24/7 SRE Support",
           contactTopic: "Cloud and Infrastructure",
           techStack: [
-            "24/7/365 Monitoring",
-            "15-Min Critical SLA",
+            "24/7 Monitoring",
+            "Incident Response",
             "Automated Failover",
-            "RPO < 5 Min",
-            "RTO < 15 Min",
+            "Runbook Automation",
+            "Health Telemetry",
           ],
           capabilities: [
             {
               title: "24/7/365 SRE Operations",
               icon: "i-clock",
-              desc: "Round-the-clock incident response, proactive uptime monitoring, and guaranteed 15-minute response SLA for critical production alerts.",
+              desc: "Round-the-clock incident response, proactive uptime monitoring, and rapid triage runbooks for critical production alerts.",
             },
             {
               title: "Backup & Disaster Recovery (DR)",
               icon: "i-shield",
-              desc: "Design and validate multi-region failover playbooks with aggressive Recovery Time Objective (RTO) and Recovery Point Objective (RPO) guarantees.",
+              desc: "Design and validate multi-region failover playbooks with verified Recovery Time Objective (RTO) and Recovery Point Objective (RPO) targets.",
             },
           ],
         },
@@ -407,7 +407,7 @@ export default function ServicesPage() {
           badge: "Talent & Embedded Pods",
           title: "Engineering Staffing & Dedicated Pods",
           icon: "i-users",
-          impact: "Senior engineering practitioners embedded within 5 business days",
+          impact: "Pre-vetted senior engineering practitioners embedded into your delivery cycles",
           summary:
             "Eliminate months of recruiting lag. Pre-vetted senior cloud architects, DevOps leads, and data specialists embedded directly into your agile delivery cycles with full team enablement.",
           btnText: "Request Engineering Talent",
@@ -445,19 +445,19 @@ export default function ServicesPage() {
   const industries = [
     {
       title: "Healthcare & Life Sciences",
-      standard: "HIPAA & HITECH Compliance",
+      standard: "Healthcare Data Safeguards",
       desc: "Encrypted PHI data lakes, secure clinical APIs, business associate agreement (BAA) alignments, and zero-trust patient portal architectures.",
       topic: "Cybersecurity and Protection",
     },
     {
       title: "Financial Services & Fintech",
-      standard: "PCI-DSS Level 1 & SOC 2",
+      standard: "Payment Security & Audit Baselines",
       desc: "Real-time fraud detection pipelines, immutable transaction ledgers, encrypted payment gateways, and automated regulatory reporting.",
       topic: "Cloud and Infrastructure",
     },
     {
       title: "Retail & E-Commerce",
-      standard: "Sub-Second SLA & Flash Scale",
+      standard: "High-Concurrency Scalability",
       desc: "Dynamic auto-scaling Kubernetes clusters, multi-region CDN edge caching, and resilient inventory microservices built for peak concurrency.",
       topic: "Cloud and Infrastructure",
     },
@@ -469,7 +469,7 @@ export default function ServicesPage() {
     },
     {
       title: "Public Sector & Civil Systems",
-      standard: "Data Sovereignty & ISO 27001",
+      standard: "Data Sovereignty & Governance",
       desc: "Sovereign cloud deployments, strict role-based access management, and civil service workforce enablement aligned with regional digital mandates.",
       topic: "IT Consulting and Strategy",
     },
@@ -521,7 +521,7 @@ export default function ServicesPage() {
             </div>
             <div className="svc-hero-metric">
               <span className="svc-metric-val">Security Baselines</span>
-              <span className="svc-metric-lbl">SOC 2 &amp; ISO 27001 Alignment</span>
+              <span className="svc-metric-lbl">Enterprise Compliance Alignment</span>
             </div>
           </div>
         </div>
@@ -660,7 +660,7 @@ export default function ServicesPage() {
               </span>
               <div>
                 <h4>Senior Practitioners Only</h4>
-                <p>Direct leadership from certified engineers with over a decade of hands-on cloud experience.</p>
+                <p>Direct leadership from senior solutions architects with extensive production cloud experience.</p>
               </div>
             </div>
 
@@ -669,7 +669,7 @@ export default function ServicesPage() {
                 <Icon id="i-shield" />
               </span>
               <div>
-                <h4>Zero-Downtime Guarantee</h4>
+                <h4>Zero-Downtime Cutover Playbooks</h4>
                 <p>Thoroughly rehearsed migration cutovers with automated rollbacks protecting business continuity.</p>
               </div>
             </div>
@@ -679,8 +679,8 @@ export default function ServicesPage() {
                 <Icon id="i-target" />
               </span>
               <div>
-                <h4>Strict SLAs &amp; Full IP Ownership</h4>
-                <p>Contractual uptime and response commitments with 100% intellectual property transfer upon delivery.</p>
+                <h4>Clear Service Commitments &amp; Full IP Ownership</h4>
+                <p>Agreed uptime and delivery commitments with 100% intellectual property transfer upon delivery.</p>
               </div>
             </div>
           </div>

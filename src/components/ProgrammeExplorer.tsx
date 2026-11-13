@@ -35,9 +35,9 @@ const TOOL_DATA: Record<
   excel: {
     name: "Excel & VBA",
     weeks: "Weeks 1 to 2",
-    title: "Advanced Excel Modelling, Pivot Tables & VBA Macros",
+    title: "Advanced Excel Modeling, Pivot Tables & VBA Macros",
     badge: "6 Live Sessions",
-    desc: "Master dynamic lookup functions, financial and operational modelling, Power Query transformations, and time-saving VBA macro automation.",
+    desc: "Master dynamic lookup functions, financial and operational modeling, Power Query transformations, and time-saving VBA macro automation.",
     output: "Executive KPI Tracker & Automated VBA Reporting Workbook",
   },
   alteryx: {
@@ -132,7 +132,7 @@ export function ProgrammeExplorer() {
               </span>
             </div>
 
-            <h2>12-Week Live Data Analysis &amp; Business Intelligence Programme</h2>
+            <h2>12-Week Live Data Analysis &amp; Business Intelligence Program</h2>
             <p>
               Build job-ready analytics skills from the ground up in 12 weeks. Taught live on Zoom by
               experienced industry practitioners across 36 interactive sessions focused on practical
@@ -185,9 +185,9 @@ export function ProgrammeExplorer() {
             </div>
           </div>
 
-          <aside className="hp-programme-aside" aria-label="Programme overview and live countdown">
+          <aside className="hp-programme-aside" aria-label="Program overview and live countdown">
             <div className="hp-aside-head">
-              <h3>Programme Highlights</h3>
+              <h3>Program Highlights</h3>
             </div>
 
             {/* Live Cohort Countdown */}

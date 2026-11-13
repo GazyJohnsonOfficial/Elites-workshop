@@ -81,27 +81,27 @@ export default function PrivacyPage() {
           <h2 id="collect">2. Information We Collect</h2>
           <p>
             We collect only the personal information necessary to respond to client requests,
-            administer training admissions, distribute requested technical briefings, and protect
+            administer training registrations, distribute requested technical briefings, and protect
             our systems against misuse.
           </p>
 
-          <h3>Advisory &amp; Consultation Enquiries</h3>
+          <h3>Advisory &amp; Consultation Inquiries</h3>
           <ul>
             <li>
               Full name, business email address, regional location, requested service area, and
-              project enquiry message.
+              project inquiry message.
             </li>
             <li>
               Optional business details where provided, including telephone number and organization
               name.
             </li>
             <li>
-              System-generated enquiry reference number, submission timestamp, and recorded privacy
+              System-generated inquiry reference number, submission timestamp, and recorded privacy
               acknowledgement.
             </li>
           </ul>
 
-          <h3>Data Analysis Programme Registrations</h3>
+          <h3>Data Analysis Program Registrations</h3>
           <ul>
             <li>
               Full name, email address, phone or WhatsApp contact number, country of residence, job
@@ -124,7 +124,7 @@ export default function PrivacyPage() {
             </li>
             <li>
               Contact details and message records provided when you initiate direct correspondence
-              with our advisory or admissions desks via email or telephone.
+              with our advisory or training desks via email or telephone.
             </li>
           </ul>
 
@@ -173,7 +173,7 @@ export default function PrivacyPage() {
                 <tr>
                   <td>
                     Responding to consulting, engineering delivery, cybersecurity, data, and
-                    staffing enquiries
+                    staffing inquiries
                   </td>
                   <td>
                     Legitimate business interest in responding to prospective clients, or
@@ -222,7 +222,7 @@ export default function PrivacyPage() {
           <p>
             Because {SITE_CONFIG.COMPANY} operates across the United States (Medford, NJ), the
             United Kingdom (Rugby), and Ghana (Takoradi), your information may be reviewed or
-            processed by authorized personnel across these offices to fulfill your enquiry or
+            processed by authorized personnel across these offices to fulfill your inquiry or
             enrollment. Cross-border processing is governed by technical safeguards and operational
             controls aligned with the UK GDPR, the Ghana Data Protection Act, 2012 (Act 843), and
             applicable United States privacy standards.
@@ -231,7 +231,7 @@ export default function PrivacyPage() {
           <h2 id="retention">6. Data Retention</h2>
           <p>
             We retain personal records strictly for the duration necessary to fulfill the purposes
-            outlined in this policy: responding to advisory enquiries, managing active and alumni
+            outlined in this policy: responding to advisory inquiries, managing active and alumni
             training cohorts, honoring briefing preferences, and meeting statutory legal, tax, and
             accounting obligations. Records no longer required for active operational or compliance
             needs are securely deleted or anonymized upon review or verified request.
@@ -267,7 +267,7 @@ export default function PrivacyPage() {
               service.
             </li>
             <li>
-              <strong>Least-Privilege Access:</strong> Submitted client enquiries and enrollment
+              <strong>Least-Privilege Access:</strong> Submitted client inquiries and enrollment
               records are isolated behind authenticated, role-restricted access limited strictly to
               authorized personnel on a need-to-know basis.
             </li>
@@ -275,7 +275,7 @@ export default function PrivacyPage() {
 
           <h2 id="children">9. Children&apos;s Privacy</h2>
           <p>
-            Our consulting services, enterprise engagements, and workforce training programmes are
+            Our consulting services, enterprise engagements, and workforce training programs are
             intended solely for adult professionals and corporate clients. We do not knowingly
             collect personal information from individuals under the age of 18 (or the applicable age
             of majority in your jurisdiction). If we become aware that information from a minor has

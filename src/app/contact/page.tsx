@@ -29,9 +29,9 @@ export default async function ContactPage({
       city: "Medford, NJ, USA",
       timezone: "Eastern Time (UTC-5)",
       hours: "Mon to Fri, 9:00 to 17:00 ET",
-      phone: primaryPhone,
-      phoneE164: primaryPhoneE164,
-      email: primaryEmail,
+      phone: SITE_CONFIG.REGIONS.us.PHONE_DISPLAY,
+      phoneE164: SITE_CONFIG.REGIONS.us.PHONE_E164,
+      email: SITE_CONFIG.REGIONS.us.EMAIL,
     },
     {
       country: "United Kingdom",
@@ -40,9 +40,9 @@ export default async function ContactPage({
       city: "Rugby, UK",
       timezone: "Greenwich Mean Time (UTC+0)",
       hours: "Mon to Fri, 9:00 to 17:00 GMT",
-      phone: primaryPhone,
-      phoneE164: primaryPhoneE164,
-      email: primaryEmail,
+      phone: SITE_CONFIG.REGIONS.uk.PHONE_DISPLAY,
+      phoneE164: SITE_CONFIG.REGIONS.uk.PHONE_E164,
+      email: SITE_CONFIG.REGIONS.uk.EMAIL,
     },
     {
       country: "Ghana",
@@ -51,9 +51,9 @@ export default async function ContactPage({
       city: "Poolside Ave, Takoradi, Ghana",
       timezone: "Greenwich Mean Time (UTC+0)",
       hours: "Mon to Fri, 8:00 to 17:00 GMT",
-      phone: primaryPhone,
-      phoneE164: primaryPhoneE164,
-      email: primaryEmail,
+      phone: SITE_CONFIG.REGIONS.gh.PHONE_DISPLAY,
+      phoneE164: SITE_CONFIG.REGIONS.gh.PHONE_E164,
+      email: SITE_CONFIG.REGIONS.gh.EMAIL,
     },
   ];
 
@@ -128,7 +128,8 @@ export default async function ContactPage({
         </div>
       </section>
 
-      {/* ============ CONSULTATION & ENQUIRY SECTION ============ */}
+      {/* ============ CONSULTATION & INQUIRY SECTION ============ */}
+      <div id="inquiry" />
       <section className="contact-section" id="enquiry">
         <div className="container contact-grid">
           {/* Left Column: Engagement Workflow */}

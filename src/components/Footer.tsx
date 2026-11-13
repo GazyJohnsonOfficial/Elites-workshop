@@ -85,7 +85,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
 
           <div className="rf-newsletter-wrapper">
             <div className="rf-newsletter-header">
-              <h3 className="rf-newsletter-title">Engineering Briefing &amp; Newsletter</h3>
+              <h3 className="rf-newsletter-title">Newsletter</h3>
               <p className="rf-newsletter-subtitle">
                 Curated quarterly insights on cloud architecture, security baselines, and technical workforce enablement.
               </p>
@@ -133,7 +133,11 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                     opacity: 0,
                   }}
                 />
+                <label htmlFor="rf-newsletter-email" className="sr-only">
+                  Work email address
+                </label>
                 <input
+                  id="rf-newsletter-email"
                   type="email"
                   className="rf-newsletter-input"
                   placeholder="Enter your work email"
@@ -291,7 +295,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                 <Link href="/tuition#schedule">Cohort Dates &amp; Schedules</Link>
               </li>
               <li>
-                <Link href="/data-analysis#register">Apply for Admission</Link>
+                <Link href="/data-analysis#register">Cohort Registration</Link>
               </li>
             </ul>
           </div>
@@ -304,12 +308,24 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                 <a
                   href={`tel:${SITE_CONFIG.CONTACT.PHONE_E164}`}
                   className="rf-contact-phone"
-                  aria-label="Call Elites Tech Solutions Direct"
+                  aria-label="Call Elites Tech Solutions US Headquarters"
                 >
                   <Icon id="i-phone" />
                   <span>{SITE_CONFIG.CONTACT.PHONE_DISPLAY}</span>
                 </a>
-                <span className="rf-contact-subtext">US &amp; International Line</span>
+                <span className="rf-contact-subtext">US Headquarters (NJ)</span>
+              </li>
+
+              <li>
+                <a
+                  href={`tel:${SITE_CONFIG.REGIONS.gh.PHONE_E164}`}
+                  className="rf-contact-phone"
+                  aria-label="Call Elites Tech Solutions Ghana Office"
+                >
+                  <Icon id="i-phone" />
+                  <span>{SITE_CONFIG.REGIONS.gh.PHONE_DISPLAY}</span>
+                </a>
+                <span className="rf-contact-subtext">Ghana Office (Takoradi)</span>
               </li>
 
               <li className="rf-contact-item">
@@ -360,12 +376,17 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
             <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms">Terms of Service</Link>
             <Link href="/cookies">Cookie Policy</Link>
-            <button type="button" onClick={handleOpenCookies}>
+            <a
+              href="#cookies"
+              onClick={(e) => {
+                e.preventDefault();
+                handleOpenCookies();
+              }}
+              className="rf-cookie-link"
+              role="button"
+            >
               Cookie settings
-            </button>
-            <Link href="/admin" className="rf-staff-link" rel="nofollow">
-              Staff Portal
-            </Link>
+            </a>
           </div>
         </div>
       </div>

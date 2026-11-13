@@ -51,7 +51,7 @@ export function Countdown() {
     return (
       <div className="countdown-wrap">
         <p className="countdown-sub" style={{ margin: 0, fontWeight: 700, color: "var(--gold)" }}>
-          The current cohort has started. Contact admissions for the next intake!
+          The current cohort has started. Contact our training desk for the next cohort intake!
         </p>
       </div>
     );
@@ -59,7 +59,7 @@ export function Countdown() {
 
   return (
     <div className="countdown-wrap">
-      <div className="countdown" id="countdown" aria-label="Countdown to programme start">
+      <div className="countdown" id="countdown" aria-label="Countdown to program start">
         <div className="cd-box">
           <span className="cd-num" id="cd-days">{timeLeft.days}</span>
           <span className="cd-label">Days</span>

@@ -124,7 +124,7 @@ export default function TuitionPage() {
 
             <p className="p-gap">
               Enrolling a team or several people?{" "}
-              <Link href="/contact?service=training#enquiry">Send us an enquiry</Link> and we will discuss
+              <Link href="/contact?service=training#enquiry">Send us an inquiry</Link> and we will discuss
               arrangements for your group.
             </p>
           </div>

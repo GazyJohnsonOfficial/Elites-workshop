@@ -214,7 +214,7 @@ export default function TrainingPage() {
       badge: "Security Practitioner & Enterprise",
       title: "Cybersecurity Operations, Cloud Defense & Compliance",
       subtitle: "Zero Trust Architecture, Automated Vulnerability Scanning, and Regulatory Auditing",
-      desc: "Defend cloud-native infrastructure against modern threats, configuration drift, and supply-chain vulnerabilities. Learn to implement Zero Trust IAM, run automated vulnerability scans, codify SOC 2 and HIPAA controls, and execute incident response runbooks.",
+      desc: "Defend cloud-native infrastructure against modern threats, configuration drift, and supply-chain vulnerabilities. Learn to implement Zero Trust IAM, run automated vulnerability scans, codify compliance security controls, and execute incident response runbooks.",
       roles: ["Cloud Security Analyst", "DevSecOps Specialist", "Cybersecurity Engineer", "Compliance & Risk Auditor"],
       tools: [
         { name: "Zero Trust IAM", icon: "i-key" },
@@ -222,7 +222,7 @@ export default function TrainingPage() {
         { name: "Amazon GuardDuty", icon: "i-shield" },
         { name: "HashiCorp Vault", icon: "i-lock" },
         { name: "Trivy Scanner", icon: "i-target" },
-        { name: "SOC 2 & HIPAA", icon: "i-file" },
+        { name: "Security Controls", icon: "i-file" },
       ],
       phases: [
         {
@@ -238,7 +238,7 @@ export default function TrainingPage() {
         {
           tag: "Weeks 07-09",
           title: "Cloud Compliance & Security Auditing",
-          desc: "Codifying SOC 2 Type II, HIPAA, and ISO 27001 technical controls into policy-as-code, and continuous evaluation with AWS Config.",
+          desc: "Codifying enterprise compliance controls and security baselines into policy-as-code, and continuous evaluation with AWS Config.",
         },
         {
           tag: "Weeks 10-12",

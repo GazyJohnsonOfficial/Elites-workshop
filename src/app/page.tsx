@@ -47,7 +47,7 @@ export default function HomePage() {
       services: [
         "Cloud Strategy & Zero-Downtime Migration (AWS, Azure, Google Cloud)",
         "DevOps Automation, CI/CD & Terraform Infrastructure as Code",
-        "Zero-Trust Identity (IAM), SOC 2, HIPAA & ISO 27001 Compliance",
+        "Zero-Trust Identity (IAM) & Cloud Security Baselines",
         "FinOps Cloud Cost Governance & Continuous Rightsizing",
       ],
       ctaText: "Explore Consulting Practices",
@@ -439,7 +439,7 @@ export default function HomePage() {
 
             <article className="hp-sector-card reveal">
               <div className="hp-sector-top">
-                <span className="hp-sector-std">Payment &amp; SOC 2 audit controls</span>
+                <span className="hp-sector-std">Payment data security &amp; audit controls</span>
               </div>
               <h3>Financial Services &amp; Fintech</h3>
               <p>
