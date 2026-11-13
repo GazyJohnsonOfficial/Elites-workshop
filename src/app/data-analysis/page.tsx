@@ -191,7 +191,7 @@ export default function DataAnalysisPage() {
           <div className="hero-bar">
             <div className="bar-text">
               <strong>Programme starts in</strong>
-              <span>Enrolment open · Flexible online payment &amp; instalment options available</span>
+              <span>Enrollment open · Flexible online payment &amp; installment options available</span>
             </div>
             <Countdown />
             <a href="#register" className="btn btn-gold">
@@ -534,7 +534,7 @@ export default function DataAnalysisPage() {
                       <Link href="/privacy">Privacy Policy</Link>.
                     </li>
                     <li>
-                      Enrolment terms are set out in the <Link href="/terms">Terms of Enrolment</Link>.
+                      Terms of engagement and enrollment are set out in the <Link href="/terms">Terms of Service</Link>.
                     </li>
                   </ul>
                 </dd>

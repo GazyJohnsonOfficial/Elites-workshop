@@ -66,7 +66,7 @@ export default function AdminLoginPage() {
               type="email"
               required
               autoFocus
-              placeholder="elitestechsolutionllc@gmail.com"
+              placeholder="admin@elitestechsolutions.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

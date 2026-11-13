@@ -50,7 +50,7 @@ export default function CookiesPage() {
               <h3>Related Policies</h3>
               <div className="toc-related-links">
                 <Link href="/privacy">Privacy Policy</Link>
-                <Link href="/terms">Terms of Enrolment</Link>
+                <Link href="/terms">Terms of Service</Link>
               </div>
             </div>
           </nav>

@@ -88,44 +88,14 @@ export default function AboutPage() {
     },
   ];
 
-  const testimonials = [
-    {
-      stars: "★★★★★",
-      quote:
-        "We faced severe challenges with data security and multi-cloud scalability. Elites Tech Solutions delivered an enterprise cloud architecture that protected our sensitive workloads and enabled seamless scaling with zero downtime. Their technical rigor provided total confidence.",
-      name: "David Kim",
-      role: "IT Director",
-      sector: "Enterprise Healthcare Services",
-      initials: "DK",
-    },
-    {
-      stars: "★★★★★",
-      quote:
-        "Their team engineered a resilient, automated cloud infrastructure that propelled our growth. The continuous support throughout deployment and knowledge transfer to our internal engineers was first-class. We achieved a noticeable acceleration in delivery speed.",
-      name: "Alex Turner",
-      role: "Engineering Lead",
-      sector: "Digital Commerce & Logistics",
-      initials: "AT",
-    },
-    {
-      stars: "★★★★★",
-      quote:
-        "Elites Tech Solutions conducted an architectural audit that eliminated redundant resources and optimized our cloud spend by over 32% while enhancing throughput. Their ability to dissect complex distributed systems and execute without disruption is exceptional.",
-      name: "Michael Brown",
-      role: "Chief Information Officer (CIO)",
-      sector: "Financial Technology & SaaS",
-      initials: "MB",
-    },
-  ];
-
   const standards = [
-    { label: "SOC 2 Type II Aligned", icon: "i-shield" },
-    { label: "ISO 27001 Standards", icon: "i-lock" },
-    { label: "HIPAA Security Controls", icon: "i-check" },
+    { label: "AWS Well-Architected Framework", icon: "i-cloud" },
+    { label: "Azure Cloud Solutions", icon: "i-server" },
+    { label: "Google Cloud Platform", icon: "i-globe" },
+    { label: "HashiCorp Terraform Ecosystem", icon: "i-code" },
+    { label: "SOC 2 & ISO 27001 Alignment", icon: "i-shield" },
+    { label: "HIPAA Security Baselines", icon: "i-check" },
     { label: "GDPR Data Governance", icon: "i-globe" },
-    { label: "AWS Well-Architected", icon: "i-cloud" },
-    { label: "Azure Cloud Framework", icon: "i-server" },
-    { label: "HashiCorp Terraform Validated", icon: "i-code" },
   ];
 
   return (
@@ -143,30 +113,29 @@ export default function AboutPage() {
             <span className="about-hero-kicker">Corporate Profile &amp; Architectural Pedigree</span>
             <h1>Engineering Resilient Cloud Systems &amp; Building Technical Capability</h1>
             <p>
-              Founded on two decades of production infrastructure practice, {SITE_CONFIG.COMPANY} partners
-              with enterprises, growing organizations, and engineering teams across North America, Europe,
-              and West Africa. We operate at the intersection of complex cloud architecture and hands-on
-              workforce enablement.
+              {SITE_CONFIG.COMPANY} partners with enterprises, growing organizations, and engineering
+              teams across North America, Europe, and West Africa. We operate at the intersection of
+              complex cloud architecture, cybersecurity governance, and hands-on workforce enablement.
             </p>
           </div>
 
-          {/* 4-Item Executive Metrics Strip */}
+          {/* 4-Item Executive Principles Strip */}
           <div className="about-metrics-strip">
             <div className="about-metric-card">
-              <span className="about-metric-val">20+ Years</span>
-              <span className="about-metric-lbl">Operational Engineering Pedigree</span>
+              <span className="about-metric-val">100%</span>
+              <span className="about-metric-lbl">Client Code &amp; Key Ownership</span>
             </div>
             <div className="about-metric-card">
-              <span className="about-metric-val">3 Global Hubs</span>
+              <span className="about-metric-val">Zero</span>
+              <span className="about-metric-lbl">Vendor Lock-In Philosophy</span>
+            </div>
+            <div className="about-metric-card">
+              <span className="about-metric-val">Direct</span>
+              <span className="about-metric-lbl">Solutions Architect Access</span>
+            </div>
+            <div className="about-metric-card">
+              <span className="about-metric-val">3 Hubs</span>
               <span className="about-metric-lbl">North America, Europe &amp; West Africa</span>
-            </div>
-            <div className="about-metric-card">
-              <span className="about-metric-val">150+ Engagements</span>
-              <span className="about-metric-lbl">Cloud, DevOps &amp; Security Deliveries</span>
-            </div>
-            <div className="about-metric-card">
-              <span className="about-metric-val">99.99% Target</span>
-              <span className="about-metric-lbl">Production Infrastructure SLA</span>
             </div>
           </div>
         </div>
@@ -331,41 +300,6 @@ export default function AboutPage() {
               <span>View Office Coordinates</span>
               <Icon id="i-arrow-right" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ VERIFIED CLIENT TESTIMONIALS ============ */}
-      <section className="about-testimonials-section" id="testimonials">
-        <div className="container">
-          <div className="about-testimonials-head">
-            <div>
-              <span className="about-section-kicker">Verified Feedback</span>
-              <h2>Trusted by Engineering Leaders &amp; IT Executives</h2>
-            </div>
-            <p>
-              Real outcomes from technology directors and engineering teams who rely on our architecture and
-              continuous guidance.
-            </p>
-          </div>
-
-          <div className="about-testimonials-grid">
-            {testimonials.map((t, i) => (
-              <article key={i} className="about-tcard">
-                <div className="about-tcard-stars" aria-label="5 out of 5 stars">
-                  {t.stars}
-                </div>
-                <p className="about-tcard-quote">&ldquo;{t.quote}&rdquo;</p>
-                <div className="about-tcard-author">
-                  <div className="about-tcard-avatar">{t.initials}</div>
-                  <div>
-                    <h4 className="about-tcard-name">{t.name}</h4>
-                    <p className="about-tcard-role">{t.role}</p>
-                    <span className="about-tcard-sector">{t.sector}</span>
-                  </div>
-                </div>
-              </article>
-            ))}
           </div>
         </div>
       </section>

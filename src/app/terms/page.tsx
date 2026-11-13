@@ -3,9 +3,9 @@ import Link from "next/link";
 import { SITE_CONFIG } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: `Terms of Enrolment | ${SITE_CONFIG.COMPANY}`,
+  title: `Terms of Service | ${SITE_CONFIG.COMPANY}`,
   description:
-    "Terms and conditions for enrolling in the Data Analysis Programme with Elites Tech Solutions LLC.",
+    "Terms of service and engagement conditions for Elites Tech Solutions LLC, covering technical consulting, workforce enablement, and training programs.",
 };
 
 export default function TermsPage() {
@@ -13,9 +13,9 @@ export default function TermsPage() {
     <main id="main">
       <section className="legal-hero">
         <div className="container">
-          <h1>Terms of Enrolment</h1>
-          <p>The terms that apply when you register for the Data Analysis Programme.</p>
-          <p className="updated">Last updated: 4 November 2026</p>
+          <h1>Terms of Service</h1>
+          <p>The general terms that govern your use of our website, services, and technical programs.</p>
+          <p className="updated">Last updated: November 2026</p>
         </div>
       </section>
 
@@ -24,7 +24,7 @@ export default function TermsPage() {
           <h2>On this page</h2>
           <ol>
             <li><a href="#about">1. About these terms</a></li>
-            <li><a href="#programme">2. The programme</a></li>
+            <li><a href="#programme">2. Educational programs</a></li>
             <li><a href="#registration">3. Registration and your place</a></li>
             <li><a href="#tuition">4. Tuition and payment</a></li>
             <li><a href="#changes">5. Changes, withdrawals and refunds</a></li>
@@ -42,12 +42,13 @@ export default function TermsPage() {
         <article className="legal">
           <h2 id="about">1. About these terms</h2>
           <p>
-            These Terms of Enrolment apply when you register for the {SITE_CONFIG.PROGRAMME.NAME} run
-            by {SITE_CONFIG.COMPANY} (&quot;we&quot;, &quot;us&quot;). Other services, such as consulting, staffing and
-            corporate training, are agreed separately in writing with each client.
+            These Terms of Service apply to your use of this website and engagement with {SITE_CONFIG.COMPANY} (&quot;we&quot;, &quot;us&quot;).
+            Commercial engagements such as cloud consulting, dedicated engineering pods, and bespoke corporate workforce enablement are
+            agreed separately under written Statements of Work (SOW). Individual professional cohort registrations are governed by the program
+            terms set forth below.
           </p>
 
-          <h2 id="programme">2. The programme</h2>
+          <h2 id="programme">2. Educational programs</h2>
           <ul>
             <li><strong>Start date:</strong> {SITE_CONFIG.PROGRAMME.START_DATE_TEXT}.</li>
             <li><strong>Duration:</strong> {SITE_CONFIG.PROGRAMME.DURATION}.</li>
@@ -65,7 +66,7 @@ export default function TermsPage() {
 
           <h2 id="tuition">4. Tuition and payment</h2>
           <p>
-            Tuition is {SITE_CONFIG.PROGRAMME.TUITION} for the full programme. <strong>No payment is taken on this website.</strong> Our
+            Tuition is {SITE_CONFIG.PROGRAMME.TUITION} for the full program. <strong>No payment is taken on this website.</strong> Our
             team provides official payment instructions directly.
           </p>
 

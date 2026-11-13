@@ -318,9 +318,9 @@ export function RegistrationForm() {
           {errors.jobTitle && <span className="error">{errors.jobTitle}</span>}
         </div>
 
-        {/* Organisation */}
+        {/* Organization */}
         <div className="field">
-          <label htmlFor="reg-org">Organisation / Company (optional)</label>
+          <label htmlFor="reg-org">Organization / Company (optional)</label>
           <input
             id="reg-org"
             type="text"
@@ -385,7 +385,7 @@ export function RegistrationForm() {
         {/* Learning Goals */}
         <div className="field full">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <label htmlFor="reg-goals">What are your main goals for this programme?</label>
+            <label htmlFor="reg-goals">What are your main goals for this program?</label>
             <span style={{ fontSize: "0.8rem", color: "var(--muted)" }}>
               {formData.goals.length}/500
             </span>
@@ -413,7 +413,7 @@ export function RegistrationForm() {
             <option value="LinkedIn">LinkedIn</option>
             <option value="WhatsApp group or message">WhatsApp</option>
             <option value="Google search">Google Search</option>
-            <option value="Company training programme">Employer</option>
+            <option value="Company training program">Employer</option>
             <option value="Other">Other</option>
           </select>
         </div>
@@ -435,7 +435,7 @@ export function RegistrationForm() {
               </Link>{" "}
               and{" "}
               <Link href="/terms" target="_blank" style={{ color: "var(--blue)", textDecoration: "underline" }}>
-                Terms of Enrolment
+                Terms of Service
               </Link>
               . <span className="req">*</span>
             </span>

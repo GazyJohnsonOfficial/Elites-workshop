@@ -200,16 +200,16 @@ export default function ServicesPage() {
           badge: "SecOps & Governance",
           title: "Cloud Security, IAM & Compliance",
           icon: "i-shield",
-          impact: "Zero audit non-conformances · HIPAA, SOC 2 & ISO 27001",
+          impact: "Automated controls · Aligned to HIPAA, SOC 2 & ISO 27001",
           summary:
-            "Ironclad, multi-layer security safeguarding sensitive corporate data, mitigating threats, and guaranteeing strict compliance with international regulatory standards.",
+            "Multi-layer defense safeguarding sensitive corporate workloads, mitigating infrastructure threats, and supporting compliance with industry regulatory standards.",
           btnText: "Get a Security Assessment",
           contactTopic: "Cybersecurity and Protection",
           techStack: [
-            "SOC 2 Type II",
-            "ISO 27001",
-            "HIPAA",
-            "PCI-DSS",
+            "SOC 2 Framework",
+            "ISO 27001 Controls",
+            "HIPAA Safeguards",
+            "PCI-DSS Baselines",
             "Zero Trust IAM",
             "GuardDuty & Sentinel",
           ],
@@ -509,19 +509,19 @@ export default function ServicesPage() {
           <div className="svc-hero-metrics">
             <div className="svc-hero-metric">
               <span className="svc-metric-val">AWS / Azure / GCP</span>
-              <span className="svc-metric-lbl">Multi-Cloud Certified Architects</span>
+              <span className="svc-metric-lbl">Multi-Cloud Solutions Architects</span>
             </div>
             <div className="svc-hero-metric">
               <span className="svc-metric-val">Zero-Downtime</span>
               <span className="svc-metric-lbl">Validated Cutover Playbooks</span>
             </div>
             <div className="svc-hero-metric">
-              <span className="svc-metric-val">99.99% Availability</span>
-              <span className="svc-metric-lbl">Production Architecture SLA</span>
+              <span className="svc-metric-val">High Availability</span>
+              <span className="svc-metric-lbl">Fault-Tolerant System Design</span>
             </div>
             <div className="svc-hero-metric">
-              <span className="svc-metric-val">SOC 2 &amp; ISO 27001</span>
-              <span className="svc-metric-lbl">Built-In Security &amp; Compliance</span>
+              <span className="svc-metric-val">Security Baselines</span>
+              <span className="svc-metric-lbl">SOC 2 &amp; ISO 27001 Alignment</span>
             </div>
           </div>
         </div>

@@ -819,8 +819,8 @@
 /* Hero: Atmospheric Lighting without Grids */
 .svc-hero {
   background: radial-gradient(circle at 82% 18%, rgba(25, 181, 232, 0.14), transparent 48%),
-              radial-gradient(circle at 14% 85%, rgba(45, 79, 214, 0.18), transparent 52%),
-              linear-gradient(145deg, #050c18 0%, #071326 55%, #0c2044 100%);
+    radial-gradient(circle at 14% 85%, rgba(45, 79, 214, 0.18), transparent 52%),
+    linear-gradient(145deg, #050c18 0%, #071326 55%, #0c2044 100%);
   color: #ffffff;
   padding-top: clamp(36px, 4.5vw, 64px);
   padding-bottom: clamp(48px, 6vw, 76px);
@@ -866,6 +866,7 @@
     transform: scale(1) translate3d(0, 0, 0);
     opacity: 0.75;
   }
+
   100% {
     transform: scale(1.15) translate3d(-18px, 14px, 0);
     opacity: 1;
@@ -878,6 +879,7 @@
     opacity: 0;
     transform: translate3d(0, 22px, 0);
   }
+
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -934,9 +936,9 @@
 
 .svc-hero-actions .btn {
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.22s ease,
-              background 0.2s ease,
-              border-color 0.2s ease;
+    box-shadow 0.22s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .svc-hero-actions .btn:hover {
@@ -963,9 +965,9 @@
   flex-direction: column;
   gap: 6px;
   transition: border-color 0.25s ease,
-              background 0.25s ease,
-              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease;
+    background 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
 }
 
 .svc-hero-metric:hover {
@@ -1221,10 +1223,10 @@
   border-radius: 4px;
   padding: 4px 10px;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.2s ease,
-              background 0.2s ease,
-              color 0.2s ease,
-              box-shadow 0.2s ease;
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .svc-tech-tag:hover {
@@ -1241,8 +1243,8 @@
 
 .svc-action-wrap .btn {
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.22s ease,
-              background 0.2s ease;
+    box-shadow 0.22s ease,
+    background 0.2s ease;
 }
 
 .svc-action-wrap .btn:hover {
@@ -1268,8 +1270,8 @@
   padding: 22px 24px;
   box-shadow: 0 3px 10px rgba(15, 37, 87, 0.03);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    border-color 0.25s ease,
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
 }
@@ -1301,8 +1303,8 @@
   color: var(--blue);
   flex-shrink: 0;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.22s ease,
-              color 0.22s ease;
+    background 0.22s ease,
+    color 0.22s ease;
 }
 
 .svc-cap-card:hover .svc-cap-ico {
@@ -1336,8 +1338,8 @@
 .svc-industries-section {
   padding-block: clamp(64px, 7vw, 96px);
   background: radial-gradient(circle at 10% 15%, rgba(45, 79, 214, 0.035), transparent 45%),
-              radial-gradient(circle at 90% 85%, rgba(25, 181, 232, 0.04), transparent 50%),
-              linear-gradient(180deg, #f2f6fc 0%, #edf3fb 100%);
+    radial-gradient(circle at 90% 85%, rgba(25, 181, 232, 0.04), transparent 50%),
+    linear-gradient(180deg, #f2f6fc 0%, #edf3fb 100%);
   border-bottom: 1px solid var(--line);
   scroll-margin-top: calc(var(--header-h) + 54px);
 }
@@ -1360,8 +1362,8 @@
   position: relative;
   overflow: hidden;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    border-color 0.25s ease,
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .svc-industry-card::before {
@@ -1563,7 +1565,7 @@
 
 .svc-cta-actions .btn {
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.22s ease;
+    box-shadow 0.22s ease;
 }
 
 .svc-cta-actions .btn:hover {
@@ -1768,8 +1770,8 @@
 /* Hero: Atmospheric Lighting without Grids */
 .contact-hero {
   background: radial-gradient(circle at 82% 18%, rgba(25, 181, 232, 0.14), transparent 48%),
-              radial-gradient(circle at 14% 85%, rgba(45, 79, 214, 0.18), transparent 52%),
-              linear-gradient(145deg, #050c18 0%, #071326 55%, #0c2044 100%);
+    radial-gradient(circle at 14% 85%, rgba(45, 79, 214, 0.18), transparent 52%),
+    linear-gradient(145deg, #050c18 0%, #071326 55%, #0c2044 100%);
   color: #ffffff;
   padding-top: clamp(36px, 4.5vw, 64px);
   padding-bottom: clamp(48px, 6vw, 76px);
@@ -1871,9 +1873,9 @@
   text-decoration: none;
   color: inherit;
   transition: border-color 0.25s ease,
-              background 0.25s ease,
-              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease;
+    background 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
 }
 
 .contact-channel-card:hover {
@@ -2463,8 +2465,8 @@
 .about-hero {
   position: relative;
   background: radial-gradient(circle at 18% 25%, rgba(45, 79, 214, 0.28), transparent 45%),
-              radial-gradient(circle at 82% 75%, rgba(25, 181, 232, 0.2), transparent 45%),
-              linear-gradient(135deg, #071326 0%, #0d1e38 50%, #0a182d 100%);
+    radial-gradient(circle at 82% 75%, rgba(25, 181, 232, 0.2), transparent 45%),
+    linear-gradient(135deg, #071326 0%, #0d1e38 50%, #0a182d 100%);
   color: #ffffff;
   padding-top: clamp(36px, 4.5vw, 56px);
   padding-bottom: clamp(52px, 6vw, 76px);
@@ -3255,8 +3257,8 @@
 .training-hero {
   position: relative;
   background: radial-gradient(circle at 18% 25%, rgba(45, 79, 214, 0.28), transparent 45%),
-              radial-gradient(circle at 82% 75%, rgba(25, 181, 232, 0.2), transparent 45%),
-              linear-gradient(135deg, #071326 0%, #0d1e38 50%, #0a182d 100%);
+    radial-gradient(circle at 82% 75%, rgba(25, 181, 232, 0.2), transparent 45%),
+    linear-gradient(135deg, #071326 0%, #0d1e38 50%, #0a182d 100%);
   color: #ffffff;
   padding-top: clamp(36px, 4.5vw, 56px);
   padding-bottom: clamp(52px, 6vw, 76px);
@@ -4403,14 +4405,17 @@
   .training-phases-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
   .training-corp-grid,
   .training-mentorship-grid,
   .training-labs-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
   .training-corp-specs-box {
     grid-template-columns: minmax(0, 1fr);
   }
+
   .training-faq-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -4421,69 +4426,85 @@
     padding-top: 28px;
     padding-bottom: 40px;
   }
+
   .training-hero-header h1 {
     font-size: 1.75rem;
   }
+
   .training-track-card {
     padding: 20px 16px;
   }
+
   .training-track-card h3 {
     font-size: 1.25rem;
   }
+
   .training-phases-container {
     padding: 14px 12px;
   }
+
   .training-phases-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
+
   .training-phase-card {
     padding: 12px 14px;
   }
+
   .training-track-footer {
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
   }
+
   .training-track-facts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 12px;
     width: 100%;
   }
+
   .training-track-actions {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
     gap: 8px;
   }
+
   .training-track-actions .btn {
     width: 100%;
     justify-content: center;
     text-align: center;
   }
+
   .training-track-actions .training-link-arrow {
     justify-content: center;
     padding: 6px 0;
   }
+
   .training-corp-grid,
   .training-mentorship-grid,
   .training-labs-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+
   .training-corp-card,
   .training-mentor-card,
   .training-lab-card,
   .training-faq-card {
     padding: 20px 16px;
   }
+
   .training-corp-specs-box {
     padding: 22px 16px;
   }
+
   .training-specs-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
   }
+
   .training-spec-item {
     padding: 12px 14px;
   }
@@ -4515,7 +4536,7 @@
   display: none;
 }
 
-.subnav-inner > span {
+.subnav-inner>span {
   font-weight: 800;
   font-size: 0.82rem;
   color: var(--navy);
@@ -4544,7 +4565,7 @@
 }
 
 @media (max-width: 768px) {
-  .subnav-inner > span {
+  .subnav-inner>span {
     display: none;
   }
 }
@@ -4554,6 +4575,7 @@
     padding: 8px 0;
     gap: 6px;
   }
+
   .subnav-inner a:not(.btn) {
     font-size: 0.74rem;
     padding: 5px 10px;
@@ -4576,6 +4598,7 @@
 }
 
 @media (max-width: 640px) {
+
   .training-pathways-section,
   .training-programmes-section,
   .training-corporate-section,
@@ -6672,6 +6695,7 @@
 }
 
 @media (min-width: 641px) and (max-width: 1100px) {
+
   .hp-process-step:nth-child(1) .hp-step-indicator::after,
   .hp-process-step:nth-child(3) .hp-step-indicator::after {
     content: "";
@@ -7397,7 +7421,7 @@
   align-items: center;
   color: #ffffff;
   background: radial-gradient(circle at 15% 20%, rgba(45, 79, 214, 0.28), transparent 45%),
-              linear-gradient(135deg, #071326 0%, #0d1e38 65%, #0a182d 100%);
+    linear-gradient(135deg, #071326 0%, #0d1e38 65%, #0a182d 100%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   padding: clamp(32px, 4.5vw, 52px);
@@ -7694,7 +7718,10 @@ html {
   html {
     scroll-behavior: auto;
   }
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
@@ -7705,6 +7732,7 @@ html {
    RESPONSIVE BREAKPOINTS
    ========================================================= */
 @media (max-width: 1100px) {
+
   .hp-pillars-grid,
   .hp-process-track,
   .hp-steps-grid,
@@ -7718,6 +7746,7 @@ html {
 }
 
 @media (max-width: 960px) {
+
   .hp-pedigree-grid,
   .hp-pillars-head,
   .hp-pillars-grid,
@@ -7769,6 +7798,7 @@ html {
 }
 
 @media (max-width: 640px) {
+
   .hp-pedigree-section,
   .hp-pillars-section,
   .hp-process-section,
@@ -7895,6 +7925,7 @@ html {
 }
 
 @media (max-width: 400px) {
+
   .hp-pedigree-copy h2,
   .hp-pillars-head h2,
   .hp-process-head h2,

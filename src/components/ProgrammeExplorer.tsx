@@ -216,7 +216,7 @@ export function ProgrammeExplorer() {
             <ul className="hp-programme-highlights">
               <li>
                 <strong>Start Date</strong>
-                <span>{SITE_CONFIG.PROGRAMME.START_DATE_TEXT} (Enrolment Open)</span>
+                <span>{SITE_CONFIG.PROGRAMME.START_DATE_TEXT} (Enrollment Open)</span>
               </li>
               <li>
                 <strong>Live Schedule</strong>

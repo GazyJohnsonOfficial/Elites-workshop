@@ -70,7 +70,7 @@ export interface SiteConfig {
 
 export const SITE_CONFIG: SiteConfig = {
   COMPANY: "Elites Tech Solutions LLC",
-  TAGLINE: "Technology that works as hard as your organisation.",
+  TAGLINE: "Technology that works as hard as your organization.",
 
   REGIONS: {
     us: {
@@ -78,7 +78,7 @@ export const SITE_CONFIG: SiteConfig = {
       SHORT: "US",
       PHONE_DISPLAY: "+1 (609) 304-7571",
       PHONE_E164: "+16093047571",
-      EMAIL: "elitestechsolutionllc@gmail.com",
+      EMAIL: "hello@elitestechsolutions.com",
       ADDRESS: "Medford, NJ, USA",
       HOURS: "Mon to Fri, 9:00 to 17:00 ET",
       MOCK: false,
@@ -88,7 +88,7 @@ export const SITE_CONFIG: SiteConfig = {
       SHORT: "GH",
       PHONE_DISPLAY: "+1 (609) 304-7571",
       PHONE_E164: "+16093047571",
-      EMAIL: "elitestechsolutionllc@gmail.com",
+      EMAIL: "ghana@elitestechsolutions.com",
       ADDRESS: "Poolside Ave, Takoradi, Ghana",
       HOURS: "Mon to Fri, 8:00 to 17:00 GMT",
       MOCK: false,
@@ -98,7 +98,7 @@ export const SITE_CONFIG: SiteConfig = {
       SHORT: "UK",
       PHONE_DISPLAY: "+1 (609) 304-7571",
       PHONE_E164: "+16093047571",
-      EMAIL: "elitestechsolutionllc@gmail.com",
+      EMAIL: "uk@elitestechsolutions.com",
       ADDRESS: "Rugby, UK",
       HOURS: "Mon to Fri, 9:00 to 17:00 GMT",
       MOCK: false,
@@ -106,7 +106,7 @@ export const SITE_CONFIG: SiteConfig = {
   },
 
   PROGRAMME: {
-    NAME: "Data Analysis Programme",
+    NAME: "Data Analysis Program",
     START_DATE_TEXT: "November 10, 2026",
     START_DATE_ISO: "2026-11-10T00:00:00Z",
     START_DATE_ICS: "20261110",
@@ -118,9 +118,9 @@ export const SITE_CONFIG: SiteConfig = {
   },
 
   CONTACT: {
-    EMAIL: "elitestechsolutionllc@gmail.com",
+    EMAIL: "hello@elitestechsolutions.com",
     EMAIL_GENERAL: "contact@elitestechsolutions.com",
-    EMAIL_ACADEMY: "admissions@elitestechsolutions.com",
+    EMAIL_ACADEMY: "training@elitestechsolutions.com",
     PHONE_DISPLAY: "+1 (609) 304-7571",
     PHONE_E164: "+16093047571",
     WHATSAPP_NUMBER: "16093047571",

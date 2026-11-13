@@ -13,7 +13,7 @@ export function HomeHero() {
     <section className="hx" id="hero" aria-labelledby="hx-title">
       <Image
         src="/hero-datacenter.jpg"
-        alt=""
+        alt="Modern enterprise data center infrastructure with server racks and high-speed networking"
         fill
         priority
         sizes="100vw"
@@ -58,8 +58,8 @@ export function HomeHero() {
 
         <a
           className="hx-scroll"
-          href="#collaborations"
-          aria-label="Scroll to platform alignments and overview"
+          href="#services"
+          aria-label="Scroll to core practice areas and capabilities"
         >
           <span className="hx-scroll-line" aria-hidden="true" />
           Scroll to explore

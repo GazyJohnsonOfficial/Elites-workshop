@@ -56,7 +56,7 @@ export default function PrivacyPage() {
               <h3>Related Policies</h3>
               <div className="toc-related-links">
                 <Link href="/cookies">Cookie &amp; Storage Policy</Link>
-                <Link href="/terms">Terms of Enrolment</Link>
+                <Link href="/terms">Terms of Service</Link>
               </div>
             </div>
           </nav>
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
           <p>
             This Privacy Policy should be read together with our{" "}
             <Link href="/cookies">Cookie &amp; Browser Storage Policy</Link> and our{" "}
-            <Link href="/terms">Terms of Enrolment</Link>.
+            <Link href="/terms">Terms of Service</Link>.
           </p>
 
           <h2 id="collect">2. Information We Collect</h2>
@@ -112,7 +112,7 @@ export default function PrivacyPage() {
               and referral source.
             </li>
             <li>
-              Your agreement to this Privacy Policy and the Terms of Enrolment, optional preference
+              Your agreement to this Privacy Policy and the Terms of Service, optional preference
               regarding future cohort announcements, registration reference code, and timestamp.
             </li>
           </ul>
@@ -161,7 +161,7 @@ export default function PrivacyPage() {
                     Evaluating, confirming, and administering registrations for the{" "}
                     {SITE_CONFIG.PROGRAMME.NAME}
                   </td>
-                  <td>Pre-contractual steps requested by you and performance of enrolment terms</td>
+                  <td>Pre-contractual steps requested by you and performance of service terms</td>
                 </tr>
                 <tr>
                   <td>
@@ -223,7 +223,7 @@ export default function PrivacyPage() {
             Because {SITE_CONFIG.COMPANY} operates across the United States (Medford, NJ), the
             United Kingdom (Rugby), and Ghana (Takoradi), your information may be reviewed or
             processed by authorized personnel across these offices to fulfill your enquiry or
-            enrolment. Cross-border processing is governed by technical safeguards and operational
+            enrollment. Cross-border processing is governed by technical safeguards and operational
             controls aligned with the UK GDPR, the Ghana Data Protection Act, 2012 (Act 843), and
             applicable United States privacy standards.
           </p>
@@ -267,7 +267,7 @@ export default function PrivacyPage() {
               service.
             </li>
             <li>
-              <strong>Least-Privilege Access:</strong> Submitted client enquiries and enrolment
+              <strong>Least-Privilege Access:</strong> Submitted client enquiries and enrollment
               records are isolated behind authenticated, role-restricted access limited strictly to
               authorized personnel on a need-to-know basis.
             </li>

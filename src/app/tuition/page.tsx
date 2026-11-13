@@ -6,7 +6,7 @@ import { SITE_CONFIG } from "@/lib/config";
 export const metadata: Metadata = {
   title: `Tuition and Fees | ${SITE_CONFIG.COMPANY}`,
   description:
-    "Clear, transparent fee structure for the Data Analysis Programme. Details on standard tuition ($1,000), instalment options ($500), and enrolment terms.",
+    "Clear, transparent fee structure for the Data Analysis Program. Details on standard tuition ($1,000), installment options ($500), and enrollment terms.",
 };
 
 export default function TuitionPage() {
@@ -23,7 +23,7 @@ export default function TuitionPage() {
           </ol>
           <p className="eyebrow">{SITE_CONFIG.PROGRAMME.NAME}</p>
           <h1>Tuition and fees</h1>
-          <p>What the Data Analysis Programme costs and how payment works.</p>
+          <p>What the Data Analysis Program costs and how payment works.</p>
         </div>
       </section>
 
@@ -33,7 +33,7 @@ export default function TuitionPage() {
           <aside className="fee-card reveal">
             <p className="lab">Tuition</p>
             <p className="amt">{SITE_CONFIG.PROGRAMME.TUITION}</p>
-            <p className="per">For the full 3-month Data Analysis Programme</p>
+            <p className="per">For the full 3-month Data Analysis Program</p>
             <ul className="check-list">
               <li>36 live sessions on Zoom</li>
               <li>SQL, Python, Excel and VBA, Alteryx, Tableau and Power BI</li>
@@ -52,12 +52,12 @@ export default function TuitionPage() {
               className="table-wrap"
               tabIndex={0}
               role="region"
-              aria-label="Programme and fee summary (scrollable)"
+              aria-label="Program and fee summary (scrollable)"
             >
               <table className="fee-table">
                 <tbody>
                   <tr>
-                    <th scope="row">Programme</th>
+                    <th scope="row">Program</th>
                     <td>{SITE_CONFIG.PROGRAMME.NAME}</td>
                   </tr>
                   <tr>
@@ -74,7 +74,7 @@ export default function TuitionPage() {
                   </tr>
                   <tr>
                     <th scope="row">Tuition</th>
-                    <td>{SITE_CONFIG.PROGRAMME.TUITION} for the full programme</td>
+                    <td>{SITE_CONFIG.PROGRAMME.TUITION} for the full program</td>
                   </tr>
                 </tbody>
               </table>
@@ -88,7 +88,7 @@ export default function TuitionPage() {
                   <strong>Register or choose your plan</strong>
                   <span className="d">
                     Register online or proceed directly to payment. Choose full tuition (USD 1,000)
-                    or split into two monthly instalments (USD 500 deposit).
+                    or split into two monthly installments (USD 500 deposit).
                   </span>
                 </div>
               </li>

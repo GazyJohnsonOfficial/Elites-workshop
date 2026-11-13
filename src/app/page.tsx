@@ -8,35 +8,34 @@ export default function HomePage() {
   const primaryPhoneE164 = SITE_CONFIG.CONTACT.PHONE_E164;
 
   const collabs = [
-    { name: "AWS Well-Architected Aligned", icon: "i-cloud" },
+    { name: "AWS Well-Architected Framework", icon: "i-cloud" },
     { name: "Microsoft Azure Solutions", icon: "i-server" },
     { name: "Google Cloud Platform", icon: "i-globe" },
-    { name: "HashiCorp Terraform Validated", icon: "i-code" },
-    { name: "SOC 2 Type II Architecture", icon: "i-shield" },
-    { name: "ISO 27001 Security Controls", icon: "i-lock" },
-    { name: "HIPAA Security & Privacy", icon: "i-check" },
+    { name: "HashiCorp Terraform Ecosystem", icon: "i-code" },
+    { name: "Kubernetes & Cloud Native", icon: "i-shield" },
+    { name: "Linux Enterprise Environments", icon: "i-server" },
   ];
 
-  const milestones = [
+  const corePrinciples = [
     {
-      val: "20+ Years",
-      label: "Operational Lineage",
-      desc: "Continuous enterprise infrastructure and cloud systems practice across hybrid environments.",
+      val: "100%",
+      label: "Client Code Ownership",
+      desc: "All infrastructure code, scripts, configurations, and documentation remain full client property.",
     },
     {
-      val: "150+",
-      label: "Completed Deliveries",
-      desc: "Enterprise cloud cutovers, Kubernetes clusters, and automated DevOps deployment pipelines.",
+      val: "Zero",
+      label: "Vendor Lock-In",
+      desc: "Engineered using open, portable industry standards across public cloud and hybrid environments.",
     },
     {
-      val: "99.99%",
-      label: "Production SLA Target",
-      desc: "Engineered high-availability architectures with automated failover and telemetry monitoring.",
+      val: "Direct",
+      label: "Architect Access",
+      desc: "Engagements led by senior solutions architects without junior handoffs or management layers.",
     },
     {
-      val: "3 Desks",
-      label: "Global Coordination",
-      desc: "Follow-the-sun client delivery across North America (HQ), United Kingdom, and West Africa.",
+      val: "3 Hubs",
+      label: "Global Operations",
+      desc: "Coordinated client support across North America (HQ), United Kingdom, and West Africa.",
     },
   ];
 
@@ -91,43 +90,7 @@ export default function HomePage() {
         "Capstone Project Portfolios Verifiable by Employers",
       ],
       ctaText: "Explore Academy Curricula",
-      ctaHref: "/training#programmes",
-    },
-  ];
-
-  const outcomes = [
-    {
-      sector: "Fintech & Payments Infrastructure",
-      title: "Multi-Region Cloud Migration & Zero-Downtime Cutover",
-      challenge: "High-throughput transaction platform requiring zero downtime during cloud migration with strict SOC 2 compliance.",
-      highlights: [
-        "Automated Terraform IaC and multi-region AWS architecture",
-        "Dual-write replication with automated cutover rollback protection",
-        "Real-time FinOps telemetry and container rightsizing",
-      ],
-      result: "Zero transaction loss, 99.995% SLA achieved, and 38% annual infrastructure cost reduction.",
-    },
-    {
-      sector: "Healthcare & Life Sciences",
-      title: "HIPAA-Compliant Kubernetes & Automated CI/CD",
-      challenge: "Fragile manual deployments and rigid patient data privacy constraints under federal HIPAA regulations.",
-      highlights: [
-        "Hardened Kubernetes cluster with zero-trust network policies",
-        "Automated CI/CD deployment pipelines with vulnerability scanning",
-        "Encrypted multi-tier database pipelines with automated backups",
-      ],
-      result: "Deployment frequency increased from bi-weekly to daily with zero audit non-conformances.",
-    },
-    {
-      sector: "Public Sector & Higher Education",
-      title: "Legacy Data Modernization & Team Handover",
-      challenge: "Siloed legacy databases causing 48-hour delays for executive and operational analytics.",
-      highlights: [
-        "Cloud analytics data warehouse modernization with Power BI dashboards",
-        "Direct pairing and production operational runbooks for internal staff",
-        "Automated ETL pipelines replacing manual spreadsheet aggregation",
-      ],
-      result: "Query response reduced from 48 hours to 15 minutes with complete internal operational autonomy.",
+      ctaHref: "/training#programs",
     },
   ];
 
@@ -136,10 +99,10 @@ export default function HomePage() {
       {/* ============ 1. HERO ============ */}
       <HomeHero />
 
-      {/* ============ 2. ENTERPRISE COLLABORATIONS & PLATFORMS STRIP ============ */}
-      <section className="hp-collabs-strip" id="collaborations" aria-label="Enterprise Platform Alignments and Certifications">
+      {/* ============ 2. ENTERPRISE PLATFORMS & TOOLCHAINS STRIP ============ */}
+      <section className="hp-collabs-strip" id="collaborations" aria-label="Enterprise Platform Ecosystems and Toolchains">
         <div className="container hp-collabs-inner">
-          <span className="hp-collabs-label">Enterprise Platform Alignments &amp; Standards</span>
+          <span className="hp-collabs-label">Enterprise Platform Ecosystems &amp; Toolchains</span>
           <div className="hp-collabs-items">
             {collabs.map((collab, i) => (
               <span key={i} className="hp-collab-badge">
@@ -151,20 +114,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ 3. ORGANIZATIONAL PEDIGREE, MILESTONES & ACHIEVEMENTS ============ */}
+      {/* ============ 3. CORE PRINCIPLES & ARCHITECTURAL SOVEREIGNTY ============ */}
       <section className="hp-pedigree-section" id="about-overview">
         <div className="container hp-pedigree-grid">
           <div className="hp-pedigree-copy reveal">
-            <span className="hp-pedigree-kicker">Corporate Pedigree &amp; Track Record</span>
-            <h2>Two Decades of Resilient Engineering &amp; Architectural Sovereignty</h2>
+            <span className="hp-pedigree-kicker">Guiding Operational Principles</span>
+            <h2>Resilient Cloud Systems &amp; Architectural Sovereignty</h2>
             <p className="hp-pedigree-lead">
-              Founded on 20 years of production infrastructure practice, {SITE_CONFIG.COMPANY} operates across
-              North America, Europe, and West Africa. We architect, migrate, and secure mission-critical cloud
-              environments while ensuring internal engineering teams retain complete operational independence.
+              {SITE_CONFIG.COMPANY} operates across North America, Europe, and West Africa. We architect,
+              migrate, and secure mission-critical cloud environments while ensuring internal engineering
+              teams retain complete operational independence.
             </p>
             <p className="hp-pedigree-sub">
-              We reject vendor lock-in. Every architecture is codified in versioned Infrastructure as Code, fully
-              documented in operational runbooks, and backed by comprehensive knowledge transfer.
+              We reject vendor lock-in. Every architecture is codified in versioned Infrastructure as Code,
+              fully documented in operational runbooks, and backed by comprehensive knowledge transfer.
             </p>
 
             <div className="hp-pedigree-trust-row">
@@ -194,7 +157,7 @@ export default function HomePage() {
           </div>
 
           <div className="hp-milestones-grid reveal">
-            {milestones.map((m, i) => (
+            {corePrinciples.map((m, i) => (
               <article key={i} className="hp-milestone-card">
                 <span className="hp-milestone-val">{m.val}</span>
                 <span className="hp-milestone-label">{m.label}</span>
@@ -427,50 +390,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ 6. VERIFIED DELIVERY OUTCOMES & CASE STUDIES ============ */}
-      <section className="section section-tint hp-outcomes-section" id="outcomes">
-        <div className="container">
-          <div className="hp-outcomes-head reveal">
-            <div>
-              <span className="hp-pillars-kicker">Verified Delivery Outcomes</span>
-              <h2>Measurable Results in Production Environments</h2>
-            </div>
-            <p className="hp-outcomes-lead">
-              Every architecture we design and deploy is measured against strict uptime, security, cost efficiency,
-              and team self-sufficiency metrics. Here is how our engineering delivered for recent enterprise clients.
-            </p>
-          </div>
-
-          <div className="hp-outcomes-grid">
-            {outcomes.map((item, i) => (
-              <article key={i} className="hp-outcome-card reveal">
-                <span className="hp-outcome-sector">{item.sector}</span>
-                <h3>{item.title}</h3>
-                <p className="hp-outcome-challenge">
-                  <strong>Challenge:</strong> {item.challenge}
-                </p>
-                <div className="hp-outcome-deliverables">
-                  <span className="hp-outcome-deliv-label">Delivered Engineering:</span>
-                  <ul className="hp-outcome-points">
-                    {item.highlights.map((pt, idx) => (
-                      <li key={idx}>
-                        <Icon id="i-check" />
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="hp-outcome-footer">
-                  <span className="hp-outcome-result-label">Quantified Outcome</span>
-                  <strong className="hp-outcome-result-val">{item.result}</strong>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 7. INDUSTRIES WE SERVE ============ */}
+      {/* ============ 6. INDUSTRIES WE SERVE ============ */}
       <section className="section" id="sectors">
         <div className="container">
           <div className="hp-approach-head reveal">
@@ -552,7 +472,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ 8. CLOSING EXECUTIVE CONSULTATION CTA POD ============ */}
+      {/* ============ 7. CLOSING EXECUTIVE CONSULTATION CTA POD ============ */}
       <section className="section hp-cta-section" id="contact-cta">
         <div className="container">
           <div className="hp-cta-card reveal">

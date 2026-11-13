@@ -12,7 +12,7 @@ const SERVICE_OPTIONS = [
   "Cloud and Infrastructure",
   "IT Staffing and Talent",
   "Corporate / Team Training",
-  "Data Analysis Programme",
+  "Data Analysis Program",
   "General Consultation",
 ] as const;
 
@@ -33,8 +33,8 @@ function normalizeDefaultService(raw?: string): string {
   if (lower.includes("security") || lower.includes("iam") || lower.includes("compliance") || lower.includes("hipaa") || lower.includes("soc")) {
     return "Cybersecurity and Protection";
   }
-  if (lower.includes("cohort") || lower.includes("academy") || lower.includes("programme")) {
-    return "Data Analysis Programme";
+  if (lower.includes("cohort") || lower.includes("academy") || lower.includes("programme") || lower.includes("program")) {
+    return "Data Analysis Program";
   }
   if (lower.includes("training") || lower.includes("workshop") || lower.includes("corporate") || lower.includes("enablement")) {
     return "Corporate / Team Training";
@@ -281,7 +281,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
         </div>
 
         <div className="field">
-          <label htmlFor="enq-org">Organisation (optional)</label>
+          <label htmlFor="enq-org">Organization (optional)</label>
           <input
             id="enq-org"
             type="text"
@@ -346,7 +346,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
             rows={5}
             required
             maxLength={1500}
-            placeholder="Tell us what your organisation is looking to achieve, current challenges, or questions..."
+            placeholder="Tell us what your organization is looking to achieve, current challenges, or questions..."
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             aria-invalid={!!errors.message}

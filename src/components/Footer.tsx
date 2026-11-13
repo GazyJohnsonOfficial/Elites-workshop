@@ -85,9 +85,9 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
 
           <div className="rf-newsletter-wrapper">
             <div className="rf-newsletter-header">
-              <h3 className="rf-newsletter-title">Infrastructure &amp; Admissions Briefing</h3>
+              <h3 className="rf-newsletter-title">Engineering Briefing &amp; Newsletter</h3>
               <p className="rf-newsletter-subtitle">
-                Quarterly architecture insights, compliance updates, and cohort schedules. Zero marketing spam.
+                Curated quarterly insights on cloud architecture, security baselines, and technical workforce enablement.
               </p>
             </div>
 
@@ -194,7 +194,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
               </span>
             </Link>
             <p className="rf-brand-desc">
-              Senior-led cloud consultancy, cybersecurity governance, automated DevOps pipelines, and certified workforce enablement for organisations across three continents.
+              Senior-led cloud consultancy, cybersecurity governance, automated DevOps pipelines, and practical technical workforce enablement for organizations across three continents.
             </p>
 
             <div className="rf-brand-trust">
@@ -352,13 +352,13 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
               &copy; {year} {SITE_CONFIG.COMPANY}. All rights reserved.
             </p>
             <span className="rf-bottom-note">
-              SOC 2 Type II and ISO 27001 Aligned Security Frameworks.
+              Architectures engineered around enterprise security and compliance baselines.
             </span>
           </div>
 
           <div className="rf-legal-links">
             <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/terms">Terms of Enrolment</Link>
+            <Link href="/terms">Terms of Service</Link>
             <Link href="/cookies">Cookie Policy</Link>
             <button type="button" onClick={handleOpenCookies}>
               Cookie settings

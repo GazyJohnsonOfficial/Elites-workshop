@@ -72,7 +72,7 @@ export default async function ContactPage({
             <span className="contact-hero-eyebrow">Technical Consultation &amp; Client Inquiries</span>
             <h1>Connect With Our Solutions Architects</h1>
             <p>
-              Tell us what your organisation is looking to achieve. Whether scoping enterprise cloud
+              Tell us what your organization is looking to achieve. Whether scoping enterprise cloud
               migration, DevOps automation, cybersecurity governance, or technical training, our senior
               engineering leads respond within one business day.
             </p>
