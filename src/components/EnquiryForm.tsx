@@ -5,6 +5,52 @@ import Link from "next/link";
 import { Icon } from "./Sprite";
 import { SITE_CONFIG } from "@/lib/config";
 
+const SERVICE_OPTIONS = [
+  "IT Consulting and Strategy",
+  "Data and Analytics",
+  "Cybersecurity and Protection",
+  "Cloud and Infrastructure",
+  "IT Staffing and Talent",
+  "Corporate / Team Training",
+  "Data Analysis Programme",
+  "General Consultation",
+] as const;
+
+function normalizeDefaultService(raw?: string): string {
+  if (!raw) return "";
+  const trimmed = raw.trim();
+  if (!trimmed) return "";
+
+  const exact = SERVICE_OPTIONS.find(
+    (opt) => opt.toLowerCase() === trimmed.toLowerCase()
+  );
+  if (exact) return exact;
+
+  const lower = trimmed.toLowerCase();
+  if (lower.includes("staff") || lower.includes("pod") || lower.includes("augment") || lower.includes("talent")) {
+    return "IT Staffing and Talent";
+  }
+  if (lower.includes("security") || lower.includes("iam") || lower.includes("compliance") || lower.includes("hipaa") || lower.includes("soc")) {
+    return "Cybersecurity and Protection";
+  }
+  if (lower.includes("cohort") || lower.includes("academy") || lower.includes("programme")) {
+    return "Data Analysis Programme";
+  }
+  if (lower.includes("training") || lower.includes("workshop") || lower.includes("corporate") || lower.includes("enablement")) {
+    return "Corporate / Team Training";
+  }
+  if (lower.includes("data") || lower.includes("analytics") || lower.includes("bi")) {
+    return "Data and Analytics";
+  }
+  if (lower.includes("devops") || lower.includes("finops") || lower.includes("strategy") || lower.includes("consulting") || lower.includes("optimization")) {
+    return "IT Consulting and Strategy";
+  }
+  if (lower.includes("cloud") || lower.includes("migration") || lower.includes("infrastructure") || lower.includes("sre") || lower.includes("hybrid") || lower.includes("native")) {
+    return "Cloud and Infrastructure";
+  }
+  return "General Consultation";
+}
+
 export function EnquiryForm({ defaultService }: { defaultService?: string }) {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -12,7 +58,7 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
     phone: "",
     organisation: "",
     region: "",
-    topic: defaultService || "",
+    topic: normalizeDefaultService(defaultService),
     message: "",
     privacyConsent: false,
     hp: "",
@@ -277,14 +323,11 @@ export function EnquiryForm({ defaultService }: { defaultService?: string }) {
             aria-invalid={!!errors.topic}
           >
             <option value="">Select a service</option>
-            <option value="IT Consulting and Strategy">IT Consulting and Strategy</option>
-            <option value="Data and Analytics">Data and Analytics</option>
-            <option value="Cybersecurity and Protection">Cybersecurity and Protection</option>
-            <option value="Cloud and Infrastructure">Cloud and Infrastructure</option>
-            <option value="IT Staffing and Talent">IT Staffing and Talent</option>
-            <option value="Corporate / Team Training">Corporate / Team Training</option>
-            <option value="Data Analysis Programme">Data Analysis Programme</option>
-            <option value="General Consultation">General Consultation</option>
+            {SERVICE_OPTIONS.map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
           </select>
           {errors.topic && <span className="error">{errors.topic}</span>}
         </div>

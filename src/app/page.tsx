@@ -65,7 +65,7 @@ export default function HomePage() {
         "Flexible Sprint Scaling & Contract-to-Hire Placement",
       ],
       ctaText: "Explore Staffing Solutions",
-      ctaHref: "/services#support",
+      ctaHref: "/services#staffing",
     },
     {
       icon: "i-building",
@@ -78,7 +78,7 @@ export default function HomePage() {
         "Measurable Skill Telemetry & Progress Reporting for Leadership",
       ],
       ctaText: "Explore Corporate Training",
-      ctaHref: "/training#pathways",
+      ctaHref: "/training#corporate",
     },
     {
       icon: "i-grad",
@@ -493,6 +493,12 @@ export default function HomePage() {
               <p>
                 Cloud, identity, and data solutions shaped around public-sector governance and data sovereignty.
               </p>
+              <div className="hp-sector-action">
+                <Link href="/services#industries" className="hp-sector-link">
+                  <span>Explore Public Sector Architecture</span>
+                  <Icon id="i-arrow-right" />
+                </Link>
+              </div>
             </article>
 
             <article className="hp-sector-card reveal">
@@ -503,6 +509,12 @@ export default function HomePage() {
               <p>
                 Infrastructure and data systems designed with strict patient information protection and privacy in mind.
               </p>
+              <div className="hp-sector-action">
+                <Link href="/services#industries" className="hp-sector-link">
+                  <span>Explore Healthcare Architecture</span>
+                  <Icon id="i-arrow-right" />
+                </Link>
+              </div>
             </article>
 
             <article className="hp-sector-card reveal">
@@ -513,6 +525,12 @@ export default function HomePage() {
               <p>
                 High-throughput cloud, security, and analytics support for transaction-critical operations.
               </p>
+              <div className="hp-sector-action">
+                <Link href="/services#industries" className="hp-sector-link">
+                  <span>Explore Fintech Architecture</span>
+                  <Icon id="i-arrow-right" />
+                </Link>
+              </div>
             </article>
 
             <article className="hp-sector-card reveal">
@@ -523,6 +541,12 @@ export default function HomePage() {
               <p>
                 Modernize legacy systems, eliminate technical debt, and build practical data capability across teams.
               </p>
+              <div className="hp-sector-action">
+                <Link href="/services#industries" className="hp-sector-link">
+                  <span>Explore Institutional Modernization</span>
+                  <Icon id="i-arrow-right" />
+                </Link>
+              </div>
             </article>
           </div>
         </div>

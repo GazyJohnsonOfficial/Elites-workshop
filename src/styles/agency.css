@@ -1037,6 +1037,65 @@
   box-shadow: 0 4px 12px rgba(7, 19, 38, 0.14);
 }
 
+/* Practice Category Dividers */
+.svc-category-band {
+  background: linear-gradient(135deg, #071326 0%, #0d2146 100%);
+  color: #ffffff;
+  padding: clamp(36px, 4.5vw, 52px) 0 clamp(32px, 4vw, 44px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  scroll-margin-top: calc(var(--header-h) + 54px);
+}
+
+.svc-category-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+
+.svc-category-band h2 {
+  font-size: clamp(1.65rem, 2.5vw, 2.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.svc-category-band p {
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.6;
+  color: #c5d5f5;
+  max-width: 68ch;
+  margin: 0;
+}
+
+/* Subtle Impact Highlight Pill */
+.svc-impact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f0f4fd;
+  border: 1px solid #d4e0fa;
+  border-radius: 6px;
+  padding: 5px 12px;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.svc-impact-pill .ico {
+  width: 14px;
+  height: 14px;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
 /* Service Offering Section */
 .svc-section {
   padding-block: clamp(52px, 6vw, 84px);
@@ -1350,7 +1409,35 @@
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--muted);
-  margin: 0;
+  margin: 0 0 16px;
+}
+
+.svc-industry-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #edf2fb;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.svc-industry-action:hover {
+  color: var(--navy);
+}
+
+.svc-industry-action .ico {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.18s ease;
+}
+
+.svc-industry-action:hover .ico {
+  transform: translateX(3px);
 }
 
 /* Guarantees Pod */
@@ -3787,6 +3874,573 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   DETAILED TECHNICAL ACADEMY STYLES
+   ========================================================= */
+
+.training-tracks-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 44px);
+}
+
+.training-track-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(24px, 3vw, 36px);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-track-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+}
+
+.training-track-top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.training-track-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.training-track-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  background: rgba(45, 79, 214, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.training-track-card h3 {
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.training-track-subtitle {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--blue);
+  margin: 0;
+}
+
+.training-track-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0;
+}
+
+.training-roles-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 2px;
+}
+
+.training-roles-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.training-role-pill {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--navy);
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+
+.training-phases-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.training-phases-heading {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  margin: 0;
+}
+
+.training-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.training-phase-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.training-phase-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+}
+
+.training-phase-card h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.training-phase-card p {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+
+.training-track-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  margin-top: auto;
+}
+
+.training-track-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.training-track-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.training-track-fact-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.training-track-fact-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.training-track-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Corporate Workforce Enablement Section */
+.training-corporate-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+}
+
+.training-corp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: clamp(28px, 3.5vw, 40px);
+}
+
+.training-corp-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-corp-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.training-corp-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.training-corp-icon svg,
+.training-corp-icon .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.training-corp-card h3 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.training-corp-card p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Corporate Specs Box */
+.training-corp-specs-box {
+  background: linear-gradient(135deg, #071326 0%, #0d1e38 100%);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: clamp(28px, 3.5vw, 40px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.85fr);
+  gap: clamp(24px, 3vw, 40px);
+  align-items: center;
+}
+
+.training-corp-specs-copy h3 {
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 10px;
+}
+
+.training-corp-specs-copy p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #b5cbe8;
+  margin: 0 0 20px;
+}
+
+.training-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.training-spec-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.training-spec-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+}
+
+.training-spec-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.training-spec-desc {
+  font-size: 0.78rem;
+  color: #9bb5e8;
+  line-height: 1.45;
+}
+
+/* Mentorship Section */
+.training-mentorship-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #f8fafc;
+  border-top: 1px solid var(--line);
+}
+
+.training-mentorship-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: clamp(28px, 3.5vw, 36px);
+}
+
+.training-mentor-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-mentor-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.training-mentor-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.training-mentor-icon svg,
+.training-mentor-icon .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.training-mentor-card h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.training-mentor-card p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Production Labs Section */
+.training-labs-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+}
+
+.training-labs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.training-lab-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.training-lab-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.training-lab-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+.training-lab-icon svg,
+.training-lab-icon .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.training-lab-card h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.training-lab-card p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* FAQ Section */
+.training-faq-section {
+  padding-block: clamp(56px, 7vw, 84px);
+  background: #f8fafc;
+  border-top: 1px solid var(--line);
+}
+
+.training-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.training-faq-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.training-faq-card h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.training-faq-card p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Responsive adjustments for Detailed Training */
+@media (max-width: 980px) {
+  .training-phases-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .training-corp-grid,
+  .training-mentorship-grid,
+  .training-labs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .training-corp-specs-box {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .training-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .training-phases-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .training-corp-grid,
+  .training-mentorship-grid,
+  .training-labs-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .training-specs-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .training-track-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Homepage Sector Card Action Link */
+.hp-sector-action {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.hp-sector-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.16s ease;
+}
+
+.hp-sector-link:hover {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.hp-sector-link svg,
+.hp-sector-link .ico {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.16s ease;
+}
+
+.hp-sector-link:hover svg,
+.hp-sector-link:hover .ico {
+  transform: translateX(3px);
+}
+
 
 .cred-grid {
   display: grid;

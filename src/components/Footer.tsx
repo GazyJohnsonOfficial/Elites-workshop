@@ -263,7 +263,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                 <Link href="/services#devops">DevOps &amp; Infrastructure as Code</Link>
               </li>
               <li>
-                <Link href="/services#consulting-staffing">IT Staff Augmentation</Link>
+                <Link href="/services#staffing">Engineering Staffing &amp; Pods</Link>
               </li>
               <li>
                 <Link href="/services#support">24/7 Managed Operations &amp; SRE</Link>
