@@ -484,7 +484,7 @@ export default function HomePage() {
                 dedicated staff augmentation pods, or custom workforce training programs.
               </p>
               <div className="hp-cta-actions">
-                <Link href="/contact#enquiry" className="btn btn-gold btn-lg">
+                <Link href="/contact#inquiry" className="btn btn-gold btn-lg">
                   <span>Request a Consultation</span>
                   <Icon id="i-arrow-right" />
                 </Link>
@@ -496,16 +496,16 @@ export default function HomePage() {
               <div className="hp-cta-topics">
                 <span className="hp-cta-topics-label">Select Your Technical Priority:</span>
                 <div className="hp-cta-topic-pills">
-                  <Link href="/contact?service=Cloud+and+Infrastructure#enquiry" className="hp-cta-topic-pill">
+                  <Link href="/contact?service=Cloud+and+Infrastructure#inquiry" className="hp-cta-topic-pill">
                     Cloud &amp; Infrastructure
                   </Link>
-                  <Link href="/contact?service=IT+Staffing+and+Talent#enquiry" className="hp-cta-topic-pill">
+                  <Link href="/contact?service=IT+Staffing+and+Talent#inquiry" className="hp-cta-topic-pill">
                     Staff Augmentation
                   </Link>
-                  <Link href="/contact?service=Cybersecurity+and+Protection#enquiry" className="hp-cta-topic-pill">
+                  <Link href="/contact?service=Cybersecurity+and+Protection#inquiry" className="hp-cta-topic-pill">
                     Cybersecurity &amp; Compliance
                   </Link>
-                  <Link href="/contact?service=Corporate+%2F+Team+Training#enquiry" className="hp-cta-topic-pill">
+                  <Link href="/contact?service=Corporate+%2F+Team+Training#inquiry" className="hp-cta-topic-pill">
                     Corporate Training
                   </Link>
                 </div>

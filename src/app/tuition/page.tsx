@@ -42,7 +42,7 @@ export default function TuitionPage() {
             <Link href="/data-analysis#register" className="btn btn-gold btn-block mb-8">
               <Icon id="i-lock" /> Register online
             </Link>
-            <Link href="/contact?service=training#enquiry" className="btn btn-outline btn-block">
+            <Link href="/contact?service=training#inquiry" className="btn btn-outline btn-block">
               Request corporate quote
             </Link>
           </aside>
@@ -124,7 +124,7 @@ export default function TuitionPage() {
 
             <p className="p-gap">
               Enrolling a team or several people?{" "}
-              <Link href="/contact?service=training#enquiry">Send us an inquiry</Link> and we will discuss
+              <Link href="/contact?service=training#inquiry">Send us an inquiry</Link> and we will discuss
               arrangements for your group.
             </p>
           </div>

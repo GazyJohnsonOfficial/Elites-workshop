@@ -200,12 +200,12 @@ export default function TrainingPage() {
       ],
       primaryAction: {
         text: "Inquire for Upcoming Cohort",
-        href: "/contact?service=devops#enquiry",
+        href: "/contact?service=devops#inquiry",
         btnClass: "btn btn-navy btn-sm",
       },
       secondaryAction: {
         text: "Request Corporate Curriculum",
-        href: "/contact?service=Corporate+%2F+Team+Training#enquiry",
+        href: "/contact?service=Corporate+%2F+Team+Training#inquiry",
         btnClass: "btn btn-outline btn-sm",
       },
     },
@@ -253,12 +253,12 @@ export default function TrainingPage() {
       ],
       primaryAction: {
         text: "Inquire for Security Cohort",
-        href: "/contact?service=Cybersecurity+and+Protection#enquiry",
+        href: "/contact?service=Cybersecurity+and+Protection#inquiry",
         btnClass: "btn btn-navy btn-sm",
       },
       secondaryAction: {
         text: "Request Corporate Security Training",
-        href: "/contact?service=Corporate+%2F+Team+Training#enquiry",
+        href: "/contact?service=Corporate+%2F+Team+Training#inquiry",
         btnClass: "btn btn-outline btn-sm",
       },
     },
@@ -614,7 +614,7 @@ export default function TrainingPage() {
                 From 5-person infrastructure squads to 50+ engineer departmental transformations, our corporate
                 training engagements are structured for seamless procurement, legal alignment, and rapid scheduling.
               </p>
-              <Link href="/contact?service=Corporate+%2F+Team+Training#enquiry" className="btn btn-navy">
+              <Link href="/contact?service=Corporate+%2F+Team+Training#inquiry" className="btn btn-navy">
                 <span>Request Custom Corporate Proposal</span>
                 <Icon id="i-arrow-right" />
               </Link>
@@ -673,7 +673,7 @@ export default function TrainingPage() {
           </div>
 
           <div style={{ textAlign: "center", marginTop: "16px" }}>
-            <Link href="/contact?service=training#enquiry" className="btn btn-navy">
+            <Link href="/contact?service=training#inquiry" className="btn btn-navy">
               <span>Book an Advisory Consultation</span>
               <Icon id="i-arrow-right" />
             </Link>
@@ -777,7 +777,7 @@ export default function TrainingPage() {
             </div>
             <div className="training-cta-actions">
               <div className="training-cta-buttons">
-                <Link href="/contact?service=Corporate+%2F+Team+Training#enquiry" className="btn btn-navy btn-lg">
+                <Link href="/contact?service=Corporate+%2F+Team+Training#inquiry" className="btn btn-navy btn-lg">
                   Request Corporate Proposal
                 </Link>
                 <a href={`tel:${primaryPhoneE164}`} className="btn btn-outline btn-lg">

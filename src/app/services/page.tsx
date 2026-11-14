@@ -497,7 +497,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="svc-hero-actions">
-            <Link href="/contact?service=Cloud+and+Infrastructure#enquiry" className="btn btn-gold btn-lg">
+            <Link href="/contact?service=Cloud+and+Infrastructure#inquiry" className="btn btn-gold btn-lg">
               Request Technical Consultation
             </Link>
             <a href="#cloud" className="btn btn-ghost btn-lg">
@@ -590,7 +590,7 @@ export default function ServicesPage() {
 
                   <div className="svc-action-wrap">
                     <Link
-                      href={`/contact?service=${encodeURIComponent(svc.contactTopic)}#enquiry`}
+                      href={`/contact?service=${encodeURIComponent(svc.contactTopic)}#inquiry`}
                       className="btn btn-navy"
                     >
                       {svc.btnText}
@@ -642,7 +642,7 @@ export default function ServicesPage() {
                 <h3>{ind.title}</h3>
                 <p>{ind.desc}</p>
                 <Link
-                  href={`/contact?service=${encodeURIComponent(ind.topic)}#enquiry`}
+                  href={`/contact?service=${encodeURIComponent(ind.topic)}#inquiry`}
                   className="svc-industry-action"
                 >
                   <span>Scope {ind.title.split("&")[0].trim()} Architecture</span>
@@ -697,7 +697,7 @@ export default function ServicesPage() {
               or scope a dedicated engineering pod.
             </p>
             <div className="svc-cta-actions">
-              <Link href="/contact?service=Cloud+and+Infrastructure#enquiry" className="btn btn-gold btn-lg">
+              <Link href="/contact?service=Cloud+and+Infrastructure#inquiry" className="btn btn-gold btn-lg">
                 Book a Technical Consultation
               </Link>
               <a href={`mailto:${SITE_CONFIG.CONTACT.EMAIL}`} className="btn btn-outline-light btn-lg">

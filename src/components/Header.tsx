@@ -85,7 +85,7 @@ export function Header() {
                 </Link>
               );
             })}
-            <Link href="/contact#enquiry" className="btn btn-gold btn-sm">
+            <Link href="/contact#inquiry" className="btn btn-gold btn-sm">
               Request a consultation
             </Link>
           </nav>

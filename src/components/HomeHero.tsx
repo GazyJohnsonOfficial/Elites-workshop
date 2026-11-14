@@ -36,7 +36,7 @@ export function HomeHero() {
           </p>
 
           <div className="hx-actions">
-            <Link href="/contact#enquiry" className="hx-btn-primary">
+            <Link href="/contact#inquiry" className="hx-btn-primary">
               Request a Consultation <Icon id="i-arrow-right" />
             </Link>
             <Link href="/services" className="hx-btn-secondary">

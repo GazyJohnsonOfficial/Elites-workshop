@@ -74,7 +74,7 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
               Engage our senior engineering squads for cloud migrations, cybersecurity governance, custom data pipelines, or technical workforce enablement across the United States, the United Kingdom, and Ghana.
             </p>
             <div className="rf-cta-actions">
-              <Link href="/contact#enquiry" className="rf-cta-btn-primary">
+              <Link href="/contact#inquiry" className="rf-cta-btn-primary">
                 Request Technical Consultation <Icon id="i-arrow-right" />
               </Link>
               <Link href="/services" className="rf-cta-link-secondary">

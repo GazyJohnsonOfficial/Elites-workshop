@@ -333,7 +333,7 @@ export default function AboutPage() {
             </div>
             <div className="about-cta-actions">
               <div className="about-cta-buttons">
-                <Link href="/contact#enquiry" className="btn btn-navy btn-lg">
+                <Link href="/contact#inquiry" className="btn btn-navy btn-lg">
                   Request a Consultation
                 </Link>
                 <a href={`tel:${primaryPhoneE164}`} className="btn btn-outline btn-lg">
