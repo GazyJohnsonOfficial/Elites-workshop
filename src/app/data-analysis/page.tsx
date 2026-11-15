@@ -22,7 +22,8 @@ export default function DataAnalysisPage() {
           <a href="#curriculum">Curriculum</a>
           <a href="#before-you-enrol">Before you enroll</a>
           <a href="#faq">FAQ</a>
-          <Link href="/tuition">Tuition and fees</Link>
+          <Link href="/academy/tuition?course=course-data-bi">Tuition &amp; calculator</Link>
+          <Link href="/academy/learn">Learner portal</Link>
           <a href="#register" className="btn btn-gold btn-sm">
             Register now
           </a>
@@ -551,8 +552,8 @@ export default function DataAnalysisPage() {
                 <li>Capstone project review</li>
                 <li>Flexible installment options available</li>
               </ul>
-              <Link href="/tuition" className="btn btn-gold btn-block">
-                View tuition and fees breakdown
+              <Link href="/academy/tuition?course=course-data-bi" className="btn btn-gold btn-block">
+                Calculate Tuition &amp; Enroll in Academy
               </Link>
             </aside>
           </div>

@@ -39,11 +39,11 @@ export default function TuitionPage() {
               <li>SQL, Python, Excel and VBA, Alteryx, Tableau and Power BI</li>
               <li>Capstone dashboard project</li>
             </ul>
-            <Link href="/data-analysis#register" className="btn btn-gold btn-block mb-8">
-              <Icon id="i-lock" /> Register online
+            <Link href="/academy/tuition?course=course-data-bi" className="btn btn-gold btn-block mb-8">
+              <Icon id="i-lock" /> Open Tuition Calculator &amp; Enroll
             </Link>
-            <Link href="/contact?service=training#inquiry" className="btn btn-outline btn-block">
-              Request corporate quote
+            <Link href="/academy/tuition?mode=corporate" className="btn btn-outline btn-block">
+              Generate Corporate Team Quote
             </Link>
           </aside>
 

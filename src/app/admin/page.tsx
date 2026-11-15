@@ -1,18 +1,24 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { verifyAdminSession } from "@/lib/auth";
+import { getAcademySession } from "@/lib/academyAuth";
+import { getAcademyStore } from "@/lib/academyStore";
 import { AdminDashboardClient } from "./AdminDashboardClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
   const session = await verifyAdminSession();
+  const acadSession = !session ? await getAcademySession() : null;
 
-  if (!session) {
+  const userEmail =
+    session?.email ||
+    (acadSession?.role === "staff_admin" ? acadSession.email : null);
+
+  if (!userEmail) {
     redirect("/admin/login");
   }
 
-  // Fetch all registrations and enquiries
   const [registrations, enquiries] = await Promise.all([
     prisma.registration.findMany({
       orderBy: { createdAt: "desc" },
@@ -21,6 +27,8 @@ export default async function AdminPage() {
       orderBy: { createdAt: "desc" },
     }),
   ]);
+
+  const academyStore = getAcademyStore();
 
   return (
     <main id="main">
@@ -33,9 +41,16 @@ export default async function AdminPage() {
           ...e,
           createdAt: e.createdAt.toISOString(),
         }))}
-        userEmail={session.email}
+        initialAcademy={{
+          courses: academyStore.courses,
+          enrollments: academyStore.enrollments,
+          payments: academyStore.payments,
+          quotes: academyStore.quotes,
+          organizations: academyStore.organizations,
+          certificates: academyStore.certificates,
+        }}
+        userEmail={userEmail}
       />
     </main>
   );
 }
-

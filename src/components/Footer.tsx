@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Icon } from "./Sprite";
 import { SITE_CONFIG } from "@/lib/config";
 
 export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
+  const pathname = usePathname();
   const [year, setYear] = useState(2026);
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState("");
@@ -61,6 +63,15 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
       setMessage("Network error. Please try again later.");
     }
   };
+
+  if (
+    pathname?.startsWith("/academy") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/signin") ||
+    pathname?.startsWith("/register")
+  ) {
+    return null;
+  }
 
   return (
     <footer className="site-footer" id="footer">
@@ -286,22 +297,22 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
             <h3>Academy &amp; Enablement</h3>
             <ul className="rf-nav-list">
               <li>
+                <Link href="/academy">Elites Tech Academy Portal</Link>
+              </li>
+              <li>
+                <Link href="/academy/learn">Learner Workspace</Link>
+              </li>
+              <li>
+                <Link href="/academy/corporate">Corporate Team Portal</Link>
+              </li>
+              <li>
+                <Link href="/academy/tuition">Tuition Calculator &amp; Quotes</Link>
+              </li>
+              <li>
                 <Link href="/data-analysis">Data Analysis Cohort</Link>
               </li>
               <li>
-                <Link href="/training">Corporate Team Workshops</Link>
-              </li>
-              <li>
-                <Link href="/data-analysis#curriculum">Curriculum &amp; Capstone Labs</Link>
-              </li>
-              <li>
-                <Link href="/tuition">Tuition, Currencies &amp; Fees</Link>
-              </li>
-              <li>
-                <Link href="/tuition#schedule">Cohort Dates &amp; Schedules</Link>
-              </li>
-              <li>
-                <Link href="/data-analysis#register">Cohort Registration</Link>
+                <Link href="/academy/verify">Verify Credential</Link>
               </li>
             </ul>
           </div>

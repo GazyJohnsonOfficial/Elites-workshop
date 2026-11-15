@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { verifyAdminSession } from "@/lib/auth";
+import { getAcademySession } from "@/lib/academyAuth";
 import { sanitizeCsvCell } from "@/lib/security";
 
 export async function GET() {
-  const session = await verifyAdminSession();
-  if (!session) {
+  const adminSession = await verifyAdminSession();
+  const acadSession = !adminSession ? await getAcademySession() : null;
+  if (!adminSession && acadSession?.role !== "staff_admin") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

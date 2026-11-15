@@ -1,9 +1,21 @@
 import { SignJWT, jwtVerify } from "jose";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { getAdminJwtSecret } from "./security";
 
 export const ADMIN_COOKIE_NAME = "ets_admin_token";
 const ADMIN_SESSION_TTL_SECONDS = 60 * 60 * 12; // 12 hours
+
+async function getAdminCookieFlags() {
+  const hdrs = await headers();
+  const proto = hdrs.get("x-forwarded-proto") || "";
+  const isHttps = proto.includes("https") || process.env.NODE_ENV === "production";
+  return {
+    httpOnly: true,
+    secure: isHttps,
+    sameSite: (isHttps ? "none" : "lax") as "none" | "lax",
+    path: "/",
+  };
+}
 
 export async function createAdminSession(email: string) {
   const token = await new SignJWT({ email, role: "admin" })
@@ -13,11 +25,9 @@ export async function createAdminSession(email: string) {
     .sign(getAdminJwtSecret());
 
   const cookieStore = await cookies();
+  const flags = await getAdminCookieFlags();
   cookieStore.set(ADMIN_COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
+    ...flags,
     maxAge: ADMIN_SESSION_TTL_SECONDS,
   });
 
@@ -46,11 +56,9 @@ export async function verifyAdminSession(): Promise<{ email: string } | null> {
 
 export async function clearAdminSession() {
   const cookieStore = await cookies();
+  const flags = await getAdminCookieFlags();
   cookieStore.set(ADMIN_COOKIE_NAME, "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
+    ...flags,
     maxAge: 0,
   });
 }

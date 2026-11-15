@@ -142,18 +142,18 @@ export default function TrainingPage() {
         { label: "Tuition", val: programme.TUITION },
       ],
       primaryAction: {
-        text: "Register for Upcoming Cohort",
-        href: "/data-analysis#register",
+        text: "Enroll in Academy Portal",
+        href: "/academy/tuition?course=course-data-bi",
         btnClass: "btn btn-navy btn-sm",
       },
       secondaryAction: {
         text: "View Full 12-Week Syllabus",
-        href: "/data-analysis",
+        href: "/academy/courses/data-analysis-bi",
         btnClass: "btn btn-outline btn-sm",
       },
       tertiaryAction: {
-        text: "Tuition & Payment Plans",
-        href: "/tuition",
+        text: "Multi-Currency Tuition Calculator",
+        href: "/academy/tuition?course=course-data-bi",
       },
     },
     {
@@ -199,13 +199,13 @@ export default function TrainingPage() {
         { label: "Deliverable", val: "Production Cluster Portfolio" },
       ],
       primaryAction: {
-        text: "Inquire for Upcoming Cohort",
-        href: "/contact?service=devops#inquiry",
+        text: "View Cloud Track in Academy",
+        href: "/academy/courses/cloud-devops-automation",
         btnClass: "btn btn-navy btn-sm",
       },
       secondaryAction: {
-        text: "Request Corporate Curriculum",
-        href: "/contact?service=Corporate+%2F+Team+Training#inquiry",
+        text: "Generate Corporate Quote",
+        href: "/academy/tuition?mode=corporate&course=course-cloud-devops",
         btnClass: "btn btn-outline btn-sm",
       },
     },
@@ -252,13 +252,13 @@ export default function TrainingPage() {
         { label: "Deliverable", val: "Auditable Security Defense Pack" },
       ],
       primaryAction: {
-        text: "Inquire for Security Cohort",
-        href: "/contact?service=Cybersecurity+and+Protection#inquiry",
+        text: "View Security Track in Academy",
+        href: "/academy/courses/cybersecurity-cloud-defense",
         btnClass: "btn btn-navy btn-sm",
       },
       secondaryAction: {
-        text: "Request Corporate Security Training",
-        href: "/contact?service=Corporate+%2F+Team+Training#inquiry",
+        text: "Request Corporate Seat Pack",
+        href: "/academy/tuition?mode=corporate&course=course-cybersecurity",
         btnClass: "btn btn-outline btn-sm",
       },
     },
@@ -402,6 +402,14 @@ export default function TrainingPage() {
               critical technical skills gaps through bespoke corporate workforce enablement, live professional cohorts,
               and rigorous 1-on-1 engineering mentorship.
             </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", marginTop: "20px" }}>
+              <Link href="/academy" className="btn btn-gold btn-md">
+                Open Elites Tech Academy Portal
+              </Link>
+              <Link href="/academy/corporate" className="btn btn-outline-light btn-md">
+                Corporate Team Portal
+              </Link>
+            </div>
           </div>
 
           {/* 4-Item Executive Metrics Strip */}
@@ -614,8 +622,8 @@ export default function TrainingPage() {
                 From 5-person infrastructure squads to 50+ engineer departmental transformations, our corporate
                 training engagements are structured for seamless procurement, legal alignment, and rapid scheduling.
               </p>
-              <Link href="/contact?service=Corporate+%2F+Team+Training#inquiry" className="btn btn-navy">
-                <span>Request Custom Corporate Proposal</span>
+              <Link href="/academy/tuition?mode=corporate" className="btn btn-navy">
+                <span>Build Instant Corporate Seat Quote</span>
                 <Icon id="i-arrow-right" />
               </Link>
             </div>

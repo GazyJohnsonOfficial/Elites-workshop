@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { verifyAdminSession } from "@/lib/auth";
+import { getAcademySession } from "@/lib/academyAuth";
 import { asTrimmedString, isSameOriginRequest } from "@/lib/security";
+
+async function hasStaffAccess() {
+  if (await verifyAdminSession()) return true;
+  const acad = await getAcademySession();
+  return acad?.role === "staff_admin";
+}
 
 const ALLOWED_ENQUIRY_STATUSES = new Set(["new", "responded", "closed"]);
 
@@ -13,8 +20,7 @@ export async function PATCH(
     return NextResponse.json({ error: "Forbidden origin" }, { status: 403 });
   }
 
-  const session = await verifyAdminSession();
-  if (!session) {
+  if (!(await hasStaffAccess())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -50,8 +56,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Forbidden origin" }, { status: 403 });
   }
 
-  const session = await verifyAdminSession();
-  if (!session) {
+  if (!(await hasStaffAccess())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

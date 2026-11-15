@@ -69,17 +69,20 @@
   max-width: 860px;
   margin: 0 0 24px;
   color: #fff;
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: clamp(2.85rem, 6.2vw, 5.4rem);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.045em;
+  font-family: var(--font-heading);
+  font-size: clamp(2.75rem, 5.8vw, 5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 
 .hx-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
   color: #fbbf24;
-  text-shadow: 0 4px 42px rgba(245, 184, 46, 0.12);
+  text-shadow: 0 4px 42px rgba(245, 184, 46, 0.16);
 }
 
 .hx-lead {

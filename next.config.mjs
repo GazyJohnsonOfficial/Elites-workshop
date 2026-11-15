@@ -14,14 +14,12 @@ const contentSecurityPolicy = [
   "connect-src 'self'",
   "form-action 'self'",
   "base-uri 'self'",
-  "frame-ancestors 'none'",
   "frame-src 'none'",
   "object-src 'none'",
 ].join("; ");
 
 const globalSecurityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
-  { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
@@ -42,6 +40,7 @@ const globalSecurityHeaders = [
 ];
 
 const nextConfig = {
+  output: "standalone",
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,

@@ -24,12 +24,23 @@ export function Header() {
     setIsOpen(false);
   }, [pathname]);
 
+  if (
+    pathname?.startsWith("/academy") ||
+    pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/signin") ||
+    pathname?.startsWith("/register")
+  ) {
+    return null;
+  }
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
     { href: "/training", label: "Training" },
+    { href: "/academy", label: "Academy" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { href: "/academy/signin", label: "Sign In" },
   ];
 
   return (
@@ -85,8 +96,8 @@ export function Header() {
                 </Link>
               );
             })}
-            <Link href="/contact#inquiry" className="btn btn-gold btn-sm">
-              Request a consultation
+            <Link href="/academy/register" className="btn btn-gold btn-sm">
+              Register Now
             </Link>
           </nav>
         </div>
