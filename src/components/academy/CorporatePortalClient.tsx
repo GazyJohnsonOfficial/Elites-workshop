@@ -3,9 +3,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Award, Download, Plus, Trash2 } from "lucide-react";
+import { Award, Building2, Download, Plus, Printer, Trash2 } from "lucide-react";
 import type { CorporateQuote, Course, Enrollment, Organization } from "@/lib/academyStore";
-import { AcademyAuthPanel } from "./AcademyAuthPanel";
+import { CORPORATE_LEARNING_PLANS } from "@/lib/curriculumAssessments";
+import { getClientDetectedRegion } from "@/lib/geoCurrency";
+import { CorporateShowcase } from "./CorporateShowcase";
 
 interface TeamEnrollment extends Enrollment {
   courseTitle: string;
@@ -13,9 +15,15 @@ interface TeamEnrollment extends Enrollment {
   totalModules: number;
 }
 
-export function CorporatePortalClient() {
-  const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+export function CorporatePortalClient({
+  initialCourses = [],
+  initialAuthenticated = false,
+}: {
+  initialCourses?: Course[];
+  initialAuthenticated?: boolean;
+}) {
+  const [loading, setLoading] = useState(initialAuthenticated);
+  const [authenticated, setAuthenticated] = useState(initialAuthenticated);
   const [org, setOrg] = useState<Organization | null>(null);
   const [quotes, setQuotes] = useState<CorporateQuote[]>([]);
   const [team, setTeam] = useState<TeamEnrollment[]>([]);
@@ -24,8 +32,14 @@ export function CorporatePortalClient() {
   // Seat assignment form
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("Ghana");
+  const [country, setCountry] = useState("United States");
   const [courseId, setCourseId] = useState("");
+  const [assignType, setAssignType] = useState<"course" | "plan">("course");
+  const [planId, setPlanId] = useState(CORPORATE_LEARNING_PLANS[0]?.id || "");
+
+  useEffect(() => {
+    setCountry(getClientDetectedRegion().defaultCountry);
+  }, []);
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "ok" | "err"; text: string } | null>(null);
 
@@ -62,28 +76,42 @@ export function CorporatePortalClient() {
   }, []);
 
   useEffect(() => {
-    loadCorporateData();
+    if (initialAuthenticated) {
+      loadCorporateData();
+    }
     const handler = () => loadCorporateData();
     window.addEventListener("ets-academy-session-changed", handler);
     return () => window.removeEventListener("ets-academy-session-changed", handler);
-  }, [loadCorporateData]);
+  }, [initialAuthenticated, loadCorporateData]);
 
   const handleAssignSeat = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     setFeedback(null);
+    const activePlan = CORPORATE_LEARNING_PLANS.find((p) => p.id === planId);
+    const payload =
+      assignType === "plan" && activePlan
+        ? { fullName, email, country, courseIds: activePlan.courseIds }
+        : { fullName, email, country, courseId };
     try {
       const res = await fetch("/api/academy/corporate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, country, courseId }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Unable to assign seat.");
+      const countAssigned = Array.isArray(data.enrollments) ? data.enrollments.length : 1;
       setFullName("");
       setEmail("");
       await loadCorporateData();
-      setFeedback({ type: "ok", text: `Seat assigned to ${fullName} (${data.enrollment.reference}).` });
+      setFeedback({
+        type: "ok",
+        text:
+          countAssigned > 1
+            ? `Assigned ${countAssigned}-course departmental pathway to ${fullName}.`
+            : `Seat assigned to ${fullName} (${data.enrollment.reference}).`,
+      });
     } catch (err) {
       setFeedback({ type: "err", text: (err as Error).message });
     } finally {
@@ -155,16 +183,7 @@ export function CorporatePortalClient() {
   }
 
   if (!authenticated) {
-    return (
-      <main id="main" className="acad-auth-section">
-        <AcademyAuthPanel
-          defaultRole="org_admin"
-          heading="Enterprise Sponsor Sign-In"
-          subheading="Sign in with your corporate L&D email or launch the Meridian Financial 15-Seat Demo Portal below."
-          onAuthenticated={() => loadCorporateData()}
-        />
-      </main>
-    );
+    return <CorporateShowcase courses={initialCourses} />;
   }
 
   if (!org) {
@@ -191,6 +210,15 @@ export function CorporatePortalClient() {
       ? Math.round(team.reduce((acc, t) => acc + t.progressPercent, 0) / team.length)
       : 0;
   const certifiedCount = team.filter((t) => Boolean(t.certificateCode)).length;
+  const teamScores = team.flatMap((t) =>
+    Object.values(t.moduleScores || {}).filter(
+      (s): s is number => typeof s === "number" && Number.isFinite(s)
+    )
+  );
+  const avgCheckpointPct =
+    teamScores.length > 0
+      ? Math.round(teamScores.reduce((acc, s) => acc + s, 0) / teamScores.length)
+      : 0;
 
   return (
     <main id="main">
@@ -201,7 +229,7 @@ export function CorporatePortalClient() {
               <div className="acad-course-meta-line" style={{ marginBottom: "4px" }}>
                 Corporate Seat Account · {org.reference} · {org.region}
               </div>
-              <h1 style={{ margin: 0 }}>{org.name} — Team Enablement Portal</h1>
+              <h1 style={{ margin: 0 }}>{org.name}: Team Enablement Portal</h1>
             </div>
             <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
               <Link href="/academy/tuition?mode=corporate" className="btn btn-outline btn-sm">
@@ -211,10 +239,19 @@ export function CorporatePortalClient() {
                 type="button"
                 onClick={handleExportCsv}
                 disabled={filteredTeam.length === 0}
-                className="btn btn-navy btn-sm"
+                className="btn btn-navy btn-sm acad-no-print"
               >
                 <Download size={15} />
                 <span>Export Telemetry CSV</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => window.print()}
+                disabled={filteredTeam.length === 0}
+                className="btn btn-outline btn-sm acad-no-print"
+              >
+                <Printer size={15} />
+                <span>Print Report</span>
               </button>
             </div>
           </div>
@@ -250,7 +287,11 @@ export function CorporatePortalClient() {
             <div className="acad-kpi-card">
               <span className="label">Avg. Team Completion</span>
               <strong style={{ color: "var(--blue)" }}>{avgProgress}%</strong>
-              <small>Across all enrolled modules</small>
+              <small>
+                {teamScores.length > 0
+                  ? `Checkpoint Avg: ${avgCheckpointPct}%`
+                  : "Across all enrolled modules"}
+              </small>
             </div>
           </motion.div>
 
@@ -261,13 +302,42 @@ export function CorporatePortalClient() {
           )}
 
           {/* Assign Seat Form */}
-          <div className="acad-card" style={{ marginBottom: "24px" }}>
-            <h2 style={{ fontSize: "1.16rem", color: "var(--navy)", marginBottom: "4px" }}>
-              Assign Seat to Team Member
-            </h2>
-            <p style={{ fontSize: "0.87rem", color: "var(--muted)", marginBottom: "16px" }}>
-              Assigned learners receive immediate access in My Learning when signing in with their work email.
-            </p>
+          <div className="acad-card acad-no-print" style={{ marginBottom: "24px" }}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "12px",
+                marginBottom: "12px",
+              }}
+            >
+              <div>
+                <h2 style={{ fontSize: "1.16rem", color: "var(--navy)", marginBottom: "4px" }}>
+                  Assign Seat or Departmental Learning Plan
+                </h2>
+                <p style={{ fontSize: "0.87rem", color: "var(--muted)", margin: 0 }}>
+                  Assign an individual program seat or provision a structured multi-course pathway (1 seat per course).
+                </p>
+              </div>
+              <div className="acad-cat-view-switch" role="group" aria-label="Assignment type">
+                <button
+                  type="button"
+                  onClick={() => setAssignType("course")}
+                  className={`acad-cat-view-btn ${assignType === "course" ? "active" : ""}`}
+                >
+                  Single Track
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAssignType("plan")}
+                  className={`acad-cat-view-btn ${assignType === "plan" ? "active" : ""}`}
+                >
+                  Learning Plan (2 Tracks)
+                </button>
+              </div>
+            </div>
             <form onSubmit={handleAssignSeat} className="acad-form-grid-auto">
               <div className="acad-field">
                 <label htmlFor="seat-name">Employee Name</label>
@@ -300,16 +370,29 @@ export function CorporatePortalClient() {
                   <option value="Remote">Remote</option>
                 </select>
               </div>
-              <div className="acad-field">
-                <label htmlFor="seat-course">Assign Program</label>
-                <select id="seat-course" value={courseId} onChange={(e) => setCourseId(e.target.value)}>
-                  {courses.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {assignType === "plan" ? (
+                <div className="acad-field">
+                  <label htmlFor="seat-plan">Departmental Pathway</label>
+                  <select id="seat-plan" value={planId} onChange={(e) => setPlanId(e.target.value)}>
+                    {CORPORATE_LEARNING_PLANS.map((plan) => (
+                      <option key={plan.id} value={plan.id}>
+                        {plan.name} ({plan.courseIds.length} seats)
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ) : (
+                <div className="acad-field">
+                  <label htmlFor="seat-course">Assign Program</label>
+                  <select id="seat-course" value={courseId} onChange={(e) => setCourseId(e.target.value)}>
+                    {courses.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div>
                 <button
                   type="submit"
@@ -318,7 +401,13 @@ export function CorporatePortalClient() {
                   style={{ height: "41px" }}
                 >
                   <Plus size={16} />
-                  <span>{availableSeats > 0 ? "Assign Seat" : "Quota Full"}</span>
+                  <span>
+                    {availableSeats <= 0
+                      ? "Quota Full"
+                      : assignType === "plan"
+                      ? "Assign Learning Plan"
+                      : "Assign Seat"}
+                  </span>
                 </button>
               </div>
             </form>

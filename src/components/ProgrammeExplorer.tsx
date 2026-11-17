@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "./Sprite";
 import { SITE_CONFIG } from "@/lib/config";
+import type { CurrencyCode } from "@/lib/academyStore";
+import { getClientDetectedRegion } from "@/lib/geoCurrency";
 
 const TOOL_DATA: Record<
   string,
@@ -68,13 +70,24 @@ const TOOL_DATA: Record<
 
 export function ProgrammeExplorer() {
   const [activeTool, setActiveTool] = useState<string>("sql");
-  const [activeCurrency, setActiveCurrency] = useState<"USD" | "GHS" | "GBP">("USD");
+  const [activeCurrency, setActiveCurrency] = useState<CurrencyCode>("USD");
   const [timeLeft, setTimeLeft] = useState({
     days: "180",
     hours: "00",
     mins: "00",
     secs: "00",
   });
+
+  useEffect(() => {
+    const syncRegion = () => {
+      setActiveCurrency(getClientDetectedRegion().currency);
+    };
+    syncRegion();
+    window.addEventListener("ets-region-currency-changed", syncRegion);
+    return () => {
+      window.removeEventListener("ets-region-currency-changed", syncRegion);
+    };
+  }, []);
 
   const tools = Object.keys(TOOL_DATA);
   const current = TOOL_DATA[activeTool];
@@ -228,30 +241,7 @@ export function ProgrammeExplorer() {
               </li>
               <li className="hp-tuition-item">
                 <div className="hp-tuition-top">
-                  <strong>Flexible Tuition</strong>
-                  <div className="hp-curr-switch" role="group" aria-label="Select currency">
-                    <button
-                      type="button"
-                      className={`hp-curr-btn ${activeCurrency === "USD" ? "active" : ""}`}
-                      onClick={() => setActiveCurrency("USD")}
-                    >
-                      USD
-                    </button>
-                    <button
-                      type="button"
-                      className={`hp-curr-btn ${activeCurrency === "GHS" ? "active" : ""}`}
-                      onClick={() => setActiveCurrency("GHS")}
-                    >
-                      GHS
-                    </button>
-                    <button
-                      type="button"
-                      className={`hp-curr-btn ${activeCurrency === "GBP" ? "active" : ""}`}
-                      onClick={() => setActiveCurrency("GBP")}
-                    >
-                      GBP
-                    </button>
-                  </div>
+                  <strong>Flexible Tuition ({activeCurrency})</strong>
                 </div>
                 <span>{getTuitionDisplay()}</span>
               </li>

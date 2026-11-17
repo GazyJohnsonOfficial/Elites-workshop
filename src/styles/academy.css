@@ -24,9 +24,26 @@
 .adm-shell h4 {
   font-family: var(--font-heading);
   font-weight: 700;
-  letter-spacing: -0.028em;
-  line-height: 1.14;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
   text-wrap: balance;
+}
+
+.acad-shell .btn,
+.adm-shell .btn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.btn-md {
+  padding: 12px 20px;
+  font-size: 0.92rem;
+  border-radius: 8px;
+}
+
+.acad-shell label {
+  margin-bottom: 0;
 }
 
 .acad-serif-accent {
@@ -40,20 +57,117 @@
   flex: 1;
 }
 
+.acad-shell .container,
+.adm-shell .container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding-inline: clamp(20px, 3.5vw, 64px) !important;
+  box-sizing: border-box !important;
+}
+
 .acad-mono,
 .acad-nums {
   font-variant-numeric: tabular-nums;
 }
 
 .acad-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
 }
 
-/* ============ SINGLE-ROW 3-ZONE ACADEMY HEADER ============ */
+/* ============ TOP AUDIENCE CONTEXT SWITCHER & SINGLE-ROW HEADER ============ */
+.acad-context-bar {
+  background: #0a1636;
+  height: 36px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.acad-context-bar-inner {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.acad-context-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.acad-context-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.74);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+
+.acad-context-tab:hover {
+  color: #ffffff;
+}
+
+.acad-context-tab.active {
+  color: #ffffff;
+  font-weight: 700;
+  border-bottom-color: #ffffff;
+}
+
+.acad-context-utils {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.acad-context-util-link {
+  font-size: 0.79rem;
+  font-weight: 500;
+  color: rgba(226, 234, 249, 0.82);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.acad-context-util-link:hover {
+  color: #ffffff;
+}
+
+.acad-mobile-context {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.acad-mobile-context-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d7e1f4;
+  background: #f6f9ff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.acad-mobile-context-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
 .acad-header {
   position: sticky;
   top: 0;
-  z-index: 60;
+  z-index: 75;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #e2e9f6;
@@ -64,7 +178,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: clamp(12px, 1.8vw, 24px);
   height: 72px;
 }
 
@@ -79,15 +193,15 @@
 }
 
 .acad-brand-logo {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .acad-brand-text {
   font-family: var(--font-heading);
-  font-size: 1.04rem;
+  font-size: 1.08rem;
   font-weight: 700;
   letter-spacing: -0.025em;
   color: var(--navy);
@@ -102,18 +216,23 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .acad-nav-link {
   position: relative;
-  padding: 8px 14px;
+  padding: 8px 13px;
   border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
   font-size: 0.91rem;
   font-weight: 600;
   color: #2c3c5e;
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
+  cursor: pointer;
   transition: background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
     color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -124,9 +243,325 @@
 }
 
 .acad-nav-link[aria-current="page"] {
-  background: var(--blue-soft);
+  background: #eff4ff;
   color: var(--blue);
   font-weight: 700;
+}
+
+.acad-nav-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.acad-nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.acad-nav-dropdown-trigger.open {
+  background: #eff4ff;
+  color: var(--blue);
+}
+
+.acad-nav-chevron {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.acad-nav-dropdown-trigger.open .acad-nav-chevron,
+.acad-nav-chevron.open {
+  transform: rotate(180deg);
+}
+
+.acad-nav-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 410px;
+  max-width: calc(100vw - 32px);
+  background: #ffffff;
+  border: 1px solid #d8e3f6;
+  border-radius: 12px;
+  box-shadow: 0 22px 48px rgba(10, 26, 64, 0.14);
+  overflow: hidden;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+}
+
+.acad-dropdown-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f7faff;
+  border-bottom: 1px solid #e6edf9;
+}
+
+.acad-dropdown-head-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4f6084;
+}
+
+.acad-dropdown-head-link {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.acad-dropdown-head-link:hover {
+  text-decoration: underline;
+}
+
+.acad-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.acad-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--navy);
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.acad-dropdown-item:hover {
+  background: #f3f7ff;
+  color: var(--blue);
+}
+
+.acad-dropdown-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #eef4ff;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.acad-dropdown-item-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.acad-dropdown-item-title {
+  font-size: 0.89rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: inherit;
+}
+
+.acad-dropdown-item-meta {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #5b6d8f;
+}
+
+.acad-dropdown-item-arrow {
+  color: #8294b6;
+  flex-shrink: 0;
+  transition: transform 0.16s ease, color 0.16s ease;
+}
+
+.acad-dropdown-item:hover .acad-dropdown-item-arrow {
+  transform: translateX(3px);
+  color: var(--blue);
+}
+
+.acad-dropdown-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-top: 1px solid #e6edf9;
+  background: #fbfcff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  transition: background-color 0.16s ease;
+}
+
+.acad-dropdown-footer:hover {
+  background: #f0f5ff;
+}
+
+.acad-header-search {
+  position: relative;
+  flex: 1 1 200px;
+  max-width: 280px;
+  min-width: 170px;
+}
+
+.acad-header-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 11px;
+  border-radius: 8px;
+  background: #f5f8fd;
+  border: 1px solid #dce5f5;
+  transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.acad-header-search-box:focus-within {
+  background: #ffffff;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(30, 86, 209, 0.12);
+}
+
+.acad-header-search-icon {
+  color: #5d6e90;
+  flex-shrink: 0;
+}
+
+.acad-header-search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.acad-header-search-input::placeholder {
+  color: #6b7b9b;
+}
+
+.acad-header-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.acad-header-search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: none;
+  background: transparent;
+  color: #5d6e90;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.acad-header-search-clear:hover {
+  color: var(--navy);
+  background: #e9effa;
+}
+
+.acad-search-results-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  background: #ffffff;
+  border: 1px solid #d8e3f6;
+  border-radius: 12px;
+  box-shadow: 0 20px 44px rgba(10, 26, 64, 0.14);
+  overflow: hidden;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+}
+
+.acad-search-results-list {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  max-height: 310px;
+  overflow-y: auto;
+}
+
+.acad-search-result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--navy);
+  transition: background-color 0.15s ease;
+}
+
+.acad-search-result-item:hover {
+  background: #f3f7ff;
+  color: var(--blue);
+}
+
+.acad-search-result-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.acad-search-result-meta {
+  font-size: 0.77rem;
+  color: #5b6d8f;
+}
+
+.acad-search-results-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  border-top: 1px solid #e6edf9;
+  background: #f8faff;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  text-align: left;
+}
+
+.acad-search-results-footer:hover {
+  background: #eef4ff;
+}
+
+.acad-search-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  color: #526384;
+}
+
+.acad-search-empty-link {
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.acad-search-empty-link:hover {
+  text-decoration: underline;
 }
 
 .acad-header-actions {
@@ -188,6 +623,18 @@
   display: block;
 }
 
+.acad-mobile-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: #f5f8fd;
+  border: 1px solid #dce5f5;
+}
+
 .acad-mobile-links {
   display: flex;
   flex-direction: column;
@@ -205,9 +652,55 @@
 }
 
 .acad-mobile-links a[aria-current="page"] {
-  background: var(--blue-soft);
+  background: #eff4ff;
   color: var(--blue);
   font-weight: 700;
+}
+
+.acad-mobile-programs-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #f6f9ff;
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--navy);
+  cursor: pointer;
+  text-align: left;
+}
+
+.acad-mobile-programs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 0 6px 12px;
+  border-left: 2px solid #dbe5f8;
+  margin-left: 10px;
+  margin-bottom: 6px;
+}
+
+.acad-mobile-program-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px !important;
+}
+
+.acad-mobile-program-meta {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #5b6d8f;
+}
+
+.acad-mobile-program-all {
+  font-size: 0.86rem !important;
+  font-weight: 700 !important;
+  color: var(--blue) !important;
 }
 
 .acad-mobile-divider {
@@ -216,258 +709,872 @@
   margin: 8px 0;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1240px) {
+  .acad-nav-link {
+    padding: 7px 10px;
+    font-size: 0.88rem;
+  }
+
+  .acad-header-search {
+    max-width: 220px;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .acad-context-bar {
+    display: none;
+  }
+
   .acad-header-inner {
     height: 64px;
   }
+
   .acad-nav,
+  .acad-header-search,
   .acad-header-actions {
     display: none;
   }
+
   .acad-nav-toggle {
     display: inline-flex;
   }
 }
 
-/* ============ EDITORIAL HERO (PORTAL LANDING) ============ */
-.acad-hero {
+/* ============ HERO (PORTAL LANDING) ============ */
+.acad-hero2 {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+  border-bottom: 1px solid #e1e9f8;
+  padding: clamp(36px, 4.5vw, 68px) 0 clamp(28px, 3.5vw, 48px);
+  isolation: isolate;
+}
+
+.acad-hero-pixel-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+.acad-hero-pixel-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.acad-hero2-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background:
-    radial-gradient(circle at 86% 18%, rgba(45, 79, 214, 0.34), transparent 46%),
-    radial-gradient(circle at 12% 88%, rgba(25, 181, 232, 0.14), transparent 42%),
-    linear-gradient(162deg, #050e26 0%, #0b1c47 54%, #0f2557 100%);
-  color: #ffffff;
-  padding: 44px 0 48px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    radial-gradient(circle at 26% 38%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.55) 48%, rgba(244, 248, 255, 0.2) 100%);
 }
 
-.acad-hero-topbar {
+.acad-hero2>.container {
+  position: relative;
+  z-index: 2;
+}
+
+.acad-hero2-stage {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
-}
-
-.acad-hero-backlink {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.78);
-  text-decoration: none;
-  transition: color 0.15s ease, transform 0.15s ease;
-}
-
-.acad-hero-backlink:hover {
-  color: var(--gold);
-  transform: translateX(-2px);
-}
-
-.acad-hero-quicklinks {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px;
-  font-size: 0.84rem;
-}
-
-.acad-hero-quicklinks a {
-  color: rgba(255, 255, 255, 0.78);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.15s ease;
-}
-
-.acad-hero-quicklinks a:hover {
-  color: #ffffff;
-}
-
-.acad-hero-grid {
-  display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
-  gap: 44px;
   align-items: stretch;
+  justify-content: space-between;
+  gap: clamp(32px, 4vw, 64px);
 }
 
-.acad-hero-copy {
+/* ---- Left Editorial Column ---- */
+.acad-hero2-left {
+  flex: 1 1 52%;
+  max-width: 660px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 }
 
-.acad-kicker {
+.acad-hero2-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
+  padding: 6px 14px 6px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #d8e3f8;
+  box-shadow: 0 2px 10px rgba(10, 26, 64, 0.04);
+  font-family: var(--font-heading);
   font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+
+.acad-hero2-eyebrow-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.acad-hero2-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-heading);
+  font-size: clamp(2.35rem, 4.3vw, 4.15rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: #0a1a40;
+  margin: 0 0 20px;
+}
+
+.acad-hero2-title-line {
+  display: block;
+}
+
+.acad-hero2-title-inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.acad-hero2-title-accent {
+  color: #2d4fd6;
+}
+
+.acad-hero2-avatar-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1.5px solid #d6e2f8;
+  box-shadow: 0 6px 18px rgba(15, 37, 87, 0.09);
+  vertical-align: middle;
+}
+
+.acad-hero2-avatar-pill img {
+  width: clamp(30px, 2.8vw, 40px);
+  height: clamp(30px, 2.8vw, 40px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  margin-left: -10px;
+  background: #e2e8f0;
+}
+
+.acad-hero2-avatar-pill img:first-child {
+  margin-left: 0;
+}
+
+.acad-hero2-lead {
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  line-height: 1.66;
+  color: #42526e;
+  max-width: 56ch;
+  margin: 0 0 28px;
+}
+
+.acad-hero2-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.acad-hero2-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 52px;
+  padding: 0 10px 0 24px;
+  border-radius: 12px;
+  background: #0a1a40;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.94rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -6px rgba(10, 26, 64, 0.28);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acad-hero2-btn-primary:hover {
+  background: #142c66;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -6px rgba(45, 79, 214, 0.32);
+}
+
+.acad-hero2-btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #2d4fd6;
+  color: #ffffff;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.acad-hero2-btn-primary:hover .acad-hero2-btn-arrow {
+  background: #f5b82e;
+  color: #0a1a40;
+  transform: translateX(2px);
+}
+
+.acad-hero2-link-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 0;
+  font-family: var(--font-heading);
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #0f2557;
+  text-decoration: none;
+  border-bottom: 2px solid #0f2557;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.acad-hero2-link-secondary:hover {
+  color: #2d4fd6;
+  border-color: #2d4fd6;
+}
+
+/* ---- Bottom-Left Authentic System Metrics Row ---- */
+.acad-hero2-metrics {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(18px, 2.4vw, 32px);
+  padding-top: 22px;
+  border-top: 1px solid #dce5f5;
+  width: 100%;
+}
+
+.acad-hero2-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.acad-hero2-metric strong {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-weight: 800;
+  color: #0a1a40;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.acad-hero2-metric span {
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.09em;
+  color: #5b6b88;
+}
+
+.acad-hero2-metric-divider {
+  width: 1px;
+  height: 38px;
+  background: #d5e0f4;
+  flex-shrink: 0;
+}
+
+/* ---- Right Architectural & Telemetry Stage ---- */
+.acad-hero2-right {
+  flex: 1 1 48%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.acad-hero2-visual-top {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 370px;
+  padding: 22px 18px 18px 28px;
+}
+
+/* Architectural Corrugated / Ribbed Slatted Fins (Image 1 Inspiration) */
+.acad-hero2-fin {
+  position: absolute;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.acad-hero2-fin-silver {
+  top: 4px;
+  left: 16%;
+  width: 44%;
+  height: 76%;
+  transform: skewY(-11deg);
+  background: repeating-linear-gradient(90deg,
+      #e9f0fc 0px,
+      #e9f0fc 7px,
+      #d6e2f7 7px,
+      #d6e2f7 11px);
+  border: 1px solid #cfddf5;
+  box-shadow: 0 10px 24px rgba(10, 26, 64, 0.05);
+}
+
+.acad-hero2-fin-gold {
+  top: 12px;
+  right: 4%;
+  width: 42%;
+  height: 74%;
+  transform: skewY(-11deg);
+  background: repeating-linear-gradient(90deg,
+      #f5b82e 0px,
+      #f5b82e 7px,
+      #df9f14 7px,
+      #df9f14 11px);
+  border: 1px solid #d8960c;
+  box-shadow: 0 12px 26px rgba(245, 184, 46, 0.22);
+}
+
+/* Main Portrait Frame with Live MeshGradient Backdrop */
+.acad-hero2-portrait-frame {
+  position: relative;
+  z-index: 1;
+  width: 82%;
+  height: 330px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 22px 48px -12px rgba(10, 26, 64, 0.24);
+  background: #0a1a40;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.acad-hero-mesh-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.acad-hero-mesh-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.acad-hero2-portrait-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  mix-blend-mode: normal;
+}
+
+.acad-hero2-portrait-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg,
+      rgba(10, 26, 64, 0.04) 0%,
+      rgba(10, 26, 64, 0.14) 65%,
+      rgba(10, 26, 64, 0.52) 100%);
+  pointer-events: none;
+}
+
+/* Top-Right Floating Check Pills (Image 2 Inspiration) */
+.acad-hero2-check-stack {
+  position: absolute;
+  top: 22px;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.acad-hero2-check-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border: 1px solid #d8e3f8;
+  box-shadow: 0 8px 20px rgba(10, 26, 64, 0.1);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #0a1a40;
+  white-space: nowrap;
+}
+
+.acad-hero2-check-pill svg {
+  color: #2d4fd6;
+  flex-shrink: 0;
+}
+
+/* Left Floating Blue Card (Image 2 Inspiration) */
+.acad-hero2-blue-card {
+  position: absolute;
+  top: 86px;
+  left: 0;
+  z-index: 3;
+  width: 132px;
+  padding: 14px 15px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #2d4fd6 0%, #1b38ad 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 16px 32px -6px rgba(45, 79, 214, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.acad-hero2-blue-card strong {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.acad-hero2-blue-card span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Bottom-Left Overlapping Interactive Capability Card (Image 2 "Add your Skills" Inspiration) */
+.acad-hero2-skills-card {
+  position: absolute;
+  bottom: -6px;
+  left: -4px;
+  z-index: 4;
+  max-width: 318px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border: 1px solid #d6e2f8;
+  box-shadow: 0 16px 36px -8px rgba(10, 26, 64, 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-hero2-skills-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0a1a40;
+}
+
+.acad-hero2-skills-head svg {
+  color: #f5b82e;
+}
+
+.acad-hero2-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.acad-hero2-skill-chip {
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid #d5e0f4;
+  background: #ffffff;
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.acad-hero2-skill-chip:hover {
+  background: #2d4fd6;
+  border-color: #2d4fd6;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Bottom Dark Progression Card with Rising Bars (Image 3 Inspiration) */
+.acad-hero2-telemetry-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0a1a40 0%, #07122e 100%);
+  color: #ffffff;
+  border: 1px solid #1c3575;
+  box-shadow: 0 16px 34px -10px rgba(10, 26, 64, 0.28);
+}
+
+.acad-hero2-telemetry-mesh {
+  border-radius: 15px;
+  opacity: 0.42;
+}
+
+.acad-hero2-telemetry-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 285px;
+}
+
+.acad-hero2-telemetry-kicker {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #93b4ff;
+}
+
+.acad-hero2-telemetry-title {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.32;
+  color: #ffffff;
+}
+
+.acad-hero2-telemetry-bars {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 86px;
+  flex-shrink: 0;
+}
+
+.acad-hero2-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  height: 100%;
+}
+
+.acad-hero2-bar {
+  width: 36px;
+  border-radius: 6px 6px 2px 2px;
+  flex-shrink: 0;
+  transform-origin: bottom;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  animation: acadHeroBarPulse 3.6s ease-in-out infinite alternate;
+}
+
+.acad-hero2-bar-1 {
+  height: 32px;
+  background: linear-gradient(180deg, #93c5fd 0%, #3b82f6 100%);
+  animation-delay: 0s;
+}
+
+.acad-hero2-bar-2 {
+  height: 48px;
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+  animation-delay: 0.4s;
+}
+
+.acad-hero2-bar-3 {
+  height: 66px;
+  background: linear-gradient(180deg, #fde047 0%, #f5b82e 100%);
+  animation-delay: 0.8s;
+}
+
+.acad-hero2-bar-col span {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.acad-hero2-telemetry-badge {
+  position: absolute;
+  top: -14px;
+  right: 18px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #0a1a40;
+  border: 2px solid #ffffff;
+  color: #f5b82e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(10, 26, 64, 0.22);
+}
+
+@keyframes acadHeroBarPulse {
+  0% {
+    transform: scaleY(0.94);
+  }
+
+  100% {
+    transform: scaleY(1.04);
+  }
+}
+
+/* ---- Bottom Vector Toolchain Marquee Bar (Image 3 + Snippet 1) ---- */
+.acad-hero2-marquee-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin-top: clamp(28px, 3.5vw, 44px);
+  padding-top: 20px;
+  border-top: 1px solid #dce5f5;
+}
+
+.acad-hero2-marquee-label {
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #5b6b88;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.acad-hero2-marquee-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.acad-hero2-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: acadHeroMarquee 28s linear infinite;
+}
+
+.acad-hero2-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.acad-hero2-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  padding-right: 44px;
+}
+
+.acad-hero2-marquee-slot {
+  display: inline-flex;
+  align-items: center;
+  color: #3b4c6e;
+  opacity: 0.78;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.acad-hero2-marquee-slot:hover {
+  opacity: 1;
+  color: #0a1a40;
+}
+
+.acad-hero-logo-svg {
+  width: auto;
+  display: block;
+}
+
+.acad-hero-logo-aws {
+  height: 24px;
+}
+
+.acad-hero-logo-nextjs {
+  height: 15px;
+}
+
+.acad-hero-logo-tailwind {
+  height: 20px;
+}
+
+.acad-hero-logo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.acad-hero-logo-mark {
+  width: 18px;
+  height: 18px;
+  color: #2d4fd6;
+}
+
+@keyframes acadHeroMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1120px) {
+  .acad-hero2-stage {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acad-hero2-left,
+  .acad-hero2-right {
+    max-width: 100%;
+    flex: 1 1 auto;
+  }
+
+  .acad-hero2-visual-top {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 680px) {
+  .acad-hero2 {
+    padding: 24px 0 28px;
+  }
+
+  .acad-hero2-eyebrow {
+    font-size: 0.66rem;
+    padding: 5px 10px;
+  }
+
+  .acad-hero2-title {
+    font-size: clamp(1.95rem, 8.2vw, 2.5rem);
+  }
+
+  .acad-hero2-actions {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .acad-hero2-metric-divider {
+    display: none;
+  }
+
+  .acad-hero2-metrics {
+    gap: 16px 24px;
+  }
+
+  .acad-hero2-visual-top {
+    min-height: 310px;
+    padding: 16px 6px 28px;
+  }
+
+  .acad-hero2-portrait-frame {
+    width: 92%;
+    height: 270px;
+  }
+
+  .acad-hero2-blue-card {
+    top: 14px;
+    left: 4px;
+    width: 112px;
+    padding: 10px 12px;
+  }
+
+  .acad-hero2-blue-card strong {
+    font-size: 1.35rem;
+  }
+
+  .acad-hero2-check-stack {
+    top: 12px;
+    right: 4px;
+  }
+
+  .acad-hero2-check-pill {
+    font-size: 0.68rem;
+    padding: 5px 10px;
+  }
+
+  .acad-hero2-skills-card {
+    max-width: calc(100% - 8px);
+    padding: 10px 12px;
+  }
+
+  .acad-hero2-telemetry-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px;
+  }
+
+  .acad-hero2-marquee-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .acad-hero2-marquee-viewport {
+    width: 100%;
+  }
+}
+
+/* Shared eyebrow used outside the hero */
+.acad-kicker {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 14px;
 }
 
-.acad-kicker::before {
-  content: "";
-  width: 22px;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 2px;
-}
-
-.acad-hero h1 {
-  font-size: clamp(2.1rem, 3.6vw, 3.25rem);
-  line-height: 1.07;
-  color: #ffffff;
-  margin-bottom: 18px;
-}
-
-.acad-hero h1 .acad-serif-accent {
-  color: #ffd166;
-  font-weight: 600;
-}
-
-.acad-hero-lead {
-  font-size: 1.04rem;
-  line-height: 1.65;
-  color: rgba(235, 242, 255, 0.86);
-  max-width: 58ch;
-  margin-bottom: 28px;
-}
-
-.acad-hero-cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.acad-hero-visual {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: #081538;
-  box-shadow: 0 24px 54px -12px rgba(3, 9, 26, 0.55);
-}
-
-.acad-hero-media-frame {
-  position: relative;
-  flex: 1;
-  min-height: 290px;
-  background: #0a1a40;
-  overflow: hidden;
-}
-
-.acad-hero-media-frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.acad-hero-visual:hover .acad-hero-media-frame img {
-  transform: scale(1.03);
-}
-
-.acad-hero-caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 18px;
-  background: rgba(6, 16, 42, 0.96);
-  font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.9);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.acad-hero-caption a {
-  color: var(--gold);
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.acad-hero-caption a:hover {
-  text-decoration: underline;
-}
-
-/* 4-column balanced summary capability rail below hero split */
-.acad-hero-rail {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
-  margin-top: 38px;
-  padding-top: 26px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.acad-hero-rail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding-right: 12px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.acad-hero-rail-item:last-child {
-  border-right: 0;
-}
-
-.acad-hero-rail-item strong {
-  font-family: var(--font-mono);
-  font-size: 1.18rem;
-  font-weight: 700;
-  color: #ffffff;
-  font-variant-numeric: tabular-nums;
-}
-
-.acad-hero-rail-item span {
-  font-size: 0.83rem;
-  color: rgba(226, 236, 255, 0.76);
-  line-height: 1.42;
-}
-
-@media (max-width: 960px) {
-  .acad-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .acad-hero-rail {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .acad-hero-rail-item {
-    border-right: 0;
-  }
-}
-
-@media (max-width: 560px) {
-  .acad-hero {
-    padding: 32px 0 36px;
-  }
-  .acad-hero-rail {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-}
-
 /* ============ SECTIONS & STRUCTURED LEARNING PATH CARDS ============ */
 .acad-section {
-  padding: 64px 0;
+  padding: 56px 0;
 }
 
 .acad-section-compact {
-  padding: 32px 0 64px;
+  padding: 36px 0 56px;
 }
 
 .acad-section-tint {
@@ -482,20 +1589,26 @@
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .acad-section-head h2 {
-  font-size: clamp(1.55rem, 2.5vw, 2.05rem);
+  font-family: var(--font-heading);
+  font-size: clamp(1.48rem, 2.3vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
   color: var(--navy);
-  margin: 0 0 6px;
+  margin: 0 0 8px;
 }
 
 .acad-section-head p {
+  font-family: var(--font-body);
   color: var(--muted);
   margin: 0;
   max-width: 62ch;
-  font-size: 0.98rem;
+  font-size: 0.96rem;
+  line-height: 1.55;
 }
 
 .acad-paths-grid {
@@ -577,20 +1690,22 @@
 }
 
 .acad-path-index {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--muted);
 }
 
 .acad-path-card h3 {
-  font-size: 1.08rem;
+  font-size: 1.1rem;
+  line-height: 1.28;
   color: var(--navy);
   margin-bottom: 8px;
 }
 
 .acad-path-card p {
-  font-size: 0.88rem;
+  font-size: 0.89rem;
   line-height: 1.56;
   color: var(--muted);
   margin-bottom: 18px;
@@ -612,8 +1727,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.79rem;
   color: var(--blue);
   font-weight: 700;
 }
@@ -646,7 +1762,8 @@
   border: 0;
   border-radius: 6px;
   background: transparent;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--muted);
@@ -788,6 +1905,7 @@
   align-items: center;
   gap: 6px;
   height: 100%;
+  margin: 0;
   padding: 0 10px 0 12px;
   background: #f8faff;
   border-right: 1px solid #e3ebfa;
@@ -800,11 +1918,13 @@
 }
 
 .acad-sort-select {
+  width: auto;
   height: 100%;
   border: 0;
   border-radius: 0;
+  background: transparent;
   padding: 0 12px 0 10px;
-  font-weight: 600;
+  font: 600 0.86rem/1.2 var(--font-body);
   color: var(--navy);
   cursor: pointer;
 }
@@ -1069,511 +2189,16 @@
   color: var(--ok-text);
 }
 
-.acad-courses-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-}
-
-/* ============ VERTICAL FILTER SIDEBAR & CATALOG TWO-COLUMN LAYOUT ============ */
-.acad-catalog-layout {
-  display: grid;
-  grid-template-columns: 272px minmax(0, 1fr);
-  gap: 28px;
-  align-items: start;
-}
-
-.acad-filter-sidebar,
-.academy-catalog-sidebar {
-  position: sticky;
-  top: 88px;
-  background: var(--white);
-  border: 1px solid #dce5f5;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(10, 26, 64, 0.03);
-  transform: translateZ(0);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease, box-shadow 0.25s ease;
-}
-
-.acad-filter-sidebar:hover,
-.academy-catalog-sidebar:hover {
-  border-color: #cbdcfc;
-  box-shadow: 0 12px 32px -6px rgba(15, 37, 87, 0.1);
-  transform: translateY(-2px);
-}
-
-.acad-sidebar-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #e6edf9;
-}
-
-.acad-sidebar-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-heading);
-  font-size: 0.96rem;
-  font-weight: 700;
-  color: var(--navy);
-}
-
-.acad-sidebar-title svg {
-  color: var(--blue);
-}
-
-.acad-sidebar-reset {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 8px;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--blue);
-  font: 600 0.8rem/1.2 var(--font-body);
-  cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.acad-sidebar-reset:hover {
-  background: var(--blue-soft);
-  color: var(--navy);
-}
-
-.acad-sidebar-group {
-  padding: 16px 0;
-  border-bottom: 1px solid #edf2fb;
-}
-
-.acad-sidebar-group:last-child {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
-.acad-sidebar-group-label {
-  font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 10px;
-}
-
-.acad-sidebar-options {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.acad-sidebar-option {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 38px;
-  padding: 7px 10px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background: transparent;
-  color: #2f4062;
-  font: 500 0.86rem/1.25 var(--font-body);
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-.acad-sidebar-option:hover {
-  background: #f4f7ff;
-  color: var(--navy);
-}
-
-.acad-sidebar-option:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 1px;
-}
-
-.acad-sidebar-option.active {
-  background: var(--blue-soft);
-  border-color: #c5d6f5;
-  color: var(--blue);
-  font-weight: 700;
-}
-
-.acad-sidebar-checkbox-option {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 36px;
-  padding: 6px 10px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background: transparent;
-  color: #2f4062;
-  font: 500 0.85rem/1.25 var(--font-body);
-  text-align: left;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-.acad-sidebar-checkbox-option input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-
-.acad-sidebar-checkbox-option:hover {
-  background: #f4f7ff;
-  color: var(--navy);
-}
-
-.acad-sidebar-checkbox-option.active {
-  background: var(--blue-soft);
-  border-color: #c5d6f5;
-  color: var(--blue);
-  font-weight: 700;
-}
-
-.acad-sidebar-checkbox-box {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  border: 1.5px solid #b5c7ea;
-  background: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  flex-shrink: 0;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-}
-
-.acad-sidebar-checkbox-option.active .acad-sidebar-checkbox-box {
-  background: var(--blue);
-  border-color: var(--blue);
-}
-
-.acad-sidebar-scroll {
-  max-height: 220px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.acad-sidebar-radio {
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
-  border: 1.5px solid #b5c7ea;
-  background: #ffffff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: border-color 0.15s ease;
-}
-
-.acad-sidebar-option.active .acad-sidebar-radio {
-  border-color: var(--blue);
-}
-
-.acad-sidebar-radio-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--blue);
-  transform: scale(0);
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.acad-sidebar-option.active .acad-sidebar-radio-dot {
-  transform: scale(1);
-}
-
-.acad-sidebar-option-text {
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.acad-sidebar-count {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--muted);
-  flex-shrink: 0;
-}
-
-.acad-sidebar-option.active .acad-sidebar-count {
-  color: var(--blue);
-}
-
-.acad-sidebar-seat-toggle {
-  width: 100%;
-}
-
-.acad-seat-switch-card {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  border: 1px solid #d5e0f4;
-  border-radius: 10px;
-  background: #f8faff;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.16s ease, border-color 0.16s ease;
-}
-
-.acad-seat-switch-card:hover {
-  border-color: #9cb6eb;
-  background: #f2f6ff;
-}
-
-.acad-seat-switch-card:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
-}
-
-.acad-seat-switch-card.active {
-  background: var(--blue-soft);
-  border-color: var(--blue);
-}
-
-.acad-seat-switch-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.acad-seat-switch-title {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1.25;
-}
-
-.acad-seat-switch-card.active .acad-seat-switch-title {
-  color: var(--blue);
-}
-
-.acad-seat-switch-sub {
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.3;
-}
-
-.acad-switch-track {
-  position: relative;
-  width: 38px;
-  height: 22px;
-  border-radius: 999px;
-  background: #cbd7ee;
-  flex-shrink: 0;
-  transition: background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.acad-switch-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: #ffffff;
-  box-shadow: 0 1px 3px rgba(10, 26, 64, 0.25);
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.acad-seat-switch-card.active .acad-switch-track {
-  background: var(--blue);
-}
-
-.acad-seat-switch-card.active .acad-switch-thumb {
-  transform: translateX(16px);
-}
-
-.acad-catalog-main {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.acad-catalog-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px;
-  background: var(--white);
-  border: 1px solid #dce5f5;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(10, 26, 64, 0.03);
-}
-
-.acad-catalog-search {
-  flex: 1;
-  min-width: 220px;
-}
-
-.acad-catalog-search .acad-input {
-  width: 100%;
-  padding-left: 38px;
-}
-
-.acad-catalog-toolbar-right {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
-}
-
-.acad-active-filters-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 2px 4px;
-  font-size: 0.84rem;
-  color: var(--muted);
-}
-
-.acad-active-filters-clear {
-  border: 0;
-  background: transparent;
-  padding: 2px 6px;
-  color: var(--blue);
-  font: 600 0.83rem/1.2 var(--font-body);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.acad-active-filters-clear:hover {
-  color: var(--navy);
-}
-
-.acad-courses-grid-sidebar {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-@media (max-width: 960px) {
-  .acad-catalog-layout {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .acad-filter-sidebar {
-    position: static;
-  }
-}
-
-.acad-course-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--white);
-  border: 1px solid #dce5f5;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px -4px rgba(10, 26, 64, 0.04);
-  transition: border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.acad-course-card:hover {
-  border-color: #8faef8;
-  transform: translateY(-6px);
-  box-shadow: 0 22px 44px -12px rgba(15, 37, 87, 0.14);
-}
-
-.acad-course-card.comparing {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 2px rgba(45, 79, 214, 0.2), 0 14px 32px -10px rgba(45, 79, 214, 0.18);
-}
-
-.acad-course-thumb-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: var(--navy);
-  border-bottom: 1px solid #dce5f5;
-  overflow: hidden;
-}
-
-.acad-course-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.acad-course-card:hover .acad-course-thumb {
-  transform: scale(1.06);
-}
-
-.acad-course-thumb-scrim {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 24px 16px 10px;
-  background: linear-gradient(180deg, transparent 0%, rgba(7, 18, 44, 0.88) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-}
-
-.acad-course-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 22px;
-}
-
-.acad-course-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.acad-course-meta-line {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--blue);
-}
-
 .acad-compare-card-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 5px 11px;
+  border-radius: 7px;
   border: 1px solid #d5e0f4;
   background: #f8faff;
   color: var(--navy);
-  font: 600 0.75rem/1.2 var(--font-body);
+  font: 600 0.76rem/1.2 var(--font-body);
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
@@ -1595,745 +2220,1326 @@
   cursor: not-allowed;
 }
 
-.acad-course-card h3 {
-  font-size: 1.15rem;
-  line-height: 1.24;
-  color: var(--navy);
-  margin-bottom: 8px;
-}
-
-.acad-course-card h3 a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.acad-course-card h3 a:hover {
-  color: var(--blue);
-}
-
-.acad-course-sub {
-  font-size: 0.9rem;
-  line-height: 1.56;
-  color: var(--muted);
-  margin-bottom: 18px;
-  flex: 1;
-}
-
-/* Structured 2x2 Spec Grid inside Course Card */
-.acad-course-spec-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid #e6edf9;
-  border-bottom: 1px solid #e6edf9;
-  margin-bottom: 16px;
-}
-
-.acad-course-spec-cell {
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.acad-course-spec-cell:nth-child(odd) {
-  padding-right: 12px;
-  border-right: 1px solid #e6edf9;
-}
-
-.acad-course-spec-cell:nth-child(even) {
-  padding-left: 12px;
-}
-
-.acad-course-spec-cell:nth-child(1),
-.acad-course-spec-cell:nth-child(2) {
-  border-bottom: 1px solid #e6edf9;
-}
-
-.acad-course-spec-cell small {
-  font-size: 0.69rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-}
-
-.acad-course-spec-cell strong {
-  font-size: 0.81rem;
-  font-weight: 700;
-  color: var(--navy);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.acad-course-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding-top: 4px;
-}
-
-.acad-course-price strong {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 1.16rem;
-  font-weight: 700;
-  color: var(--navy);
-  font-variant-numeric: tabular-nums;
-}
-
-.acad-course-price span {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.acad-course-actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 1080px) {
-  .acad-courses-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 680px) {
-  .acad-courses-grid,
-  .acad-courses-grid-sidebar {
-    grid-template-columns: 1fr;
-  }
-  .acad-sidebar-option {
-    min-height: 44px;
-  }
-}
-
-.acad-calendar-jump-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  height: 40px;
-  padding: 0 13px;
-  border: 1px solid #d5e0f4;
-  border-radius: 8px;
-  background: #f8faff;
-  color: var(--navy);
-  font: 600 0.84rem/1 var(--font-body);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
-}
-
-.acad-calendar-jump-btn:hover {
-  border-color: var(--blue);
-  background: var(--blue-soft);
-  color: var(--blue);
-}
-
-/* ============ COHORT CALENDAR & ENROLLMENT WINDOW VISUALIZATION ============ */
-.acad-calendar-panel {
-  margin-top: 38px;
-  padding: 28px;
+/* ============ ARCHITECTURAL CURRICULUM CATALOG STUDIO (#catalog) ============ */
+.acad-cat-section {
   background: var(--white);
-  border: 1px solid #dce5f5;
-  border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(10, 26, 64, 0.04);
-  scroll-margin-top: 88px;
 }
 
-.acad-calendar-head {
+.acad-cat-header {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 18px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e6edf9;
-  margin-bottom: 22px;
-}
-
-.acad-calendar-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--blue);
-  margin-bottom: 6px;
-}
-
-.acad-calendar-head h3 {
-  font-size: 1.32rem;
-  color: var(--navy);
-  margin: 0 0 6px;
-}
-
-.acad-calendar-head p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin: 0;
-  max-width: 62ch;
-}
-
-.acad-calendar-legend {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.acad-cal-legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  white-space: nowrap;
-}
-
-.acad-cal-swatch {
-  width: 14px;
-  height: 10px;
-  border-radius: 3px;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.acad-cal-swatch.start {
-  background: var(--navy);
-}
-
-.acad-cal-swatch.window {
-  background: #dbe6fd;
-  border: 1px solid #9ab5f2;
-}
-
-.acad-cal-swatch.full {
-  background: #fde8e8;
-  border: 1px solid #f3c5c0;
-}
-
-.acad-cal-swatch.today {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 2px solid var(--blue);
-}
-
-.acad-calendar-body {
-  display: grid;
-  grid-template-columns: 1.32fr 0.88fr;
   gap: 24px;
-  align-items: start;
+  margin-bottom: 26px;
 }
 
-.acad-cal-grid-wrap {
+.acad-cat-header-copy {
+  flex: 1 1 520px;
   min-width: 0;
 }
 
-.acad-cal-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.acad-cal-month-nav {
+.acad-cat-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
 }
 
-.acad-cal-nav-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+.acad-cat-header-copy h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.48rem, 2.3vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+
+.acad-cat-header-copy p {
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  line-height: 1.56;
+  color: var(--muted);
+  max-width: 62ch;
+  margin: 0;
+}
+
+/* Catalog Two-Column Flexbox Shell (Left Program Sidebar + Right Results Stage) */
+.acad-cat-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.acad-cat-sidebar {
+  flex: 0 0 288px;
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px -16px rgba(10, 26, 64, 0.08);
+}
+
+.acad-sb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e6edf9;
+}
+
+.acad-sb-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #0a1a40;
+}
+
+.acad-sb-reset {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   border: 1px solid #d5e0f4;
   background: #ffffff;
   color: var(--navy);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
-.acad-cal-nav-btn:hover {
+.acad-sb-reset:hover {
+  background: #f8fafc;
   border-color: var(--blue);
-  background: var(--blue-soft);
   color: var(--blue);
 }
 
-.acad-cal-month-title {
-  font-family: var(--font-heading);
+.acad-sb-mobile-close {
+  display: none;
+  appearance: none;
+  border: 1px solid #dce5f5;
+  background: #f8faff;
+  color: #0a1a40;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
   font-size: 1.05rem;
-  color: var(--navy);
-  min-width: 148px;
-  text-align: center;
+  line-height: 1;
+  cursor: pointer;
 }
 
-.acad-cal-quick-months {
+.acad-sb-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acad-sb-section+.acad-sb-section {
+  padding-top: 14px;
+  border-top: 1px solid #eef3fb;
+}
+
+.acad-sb-section-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.acad-sb-all-btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #dce5f5;
+  border-radius: 10px;
+  background: #f8faff;
+  color: #0a1a40;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.acad-sb-all-btn:hover {
+  background: #eff5ff;
+  border-color: #c7d9f8;
+}
+
+.acad-sb-all-btn.active {
+  background: #0a1a40;
+  border-color: #0a1a40;
+  color: var(--white);
+}
+
+.acad-sb-programs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-sb-program-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.acad-sb-program-btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #1e293b;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.acad-sb-program-btn:hover {
+  background: #f4f7fd;
+  color: #0a1a40;
+}
+
+.acad-sb-program-btn.active {
+  background: #eff5ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.acad-sb-program-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #eef3fb;
+  color: #1d4ed8;
+}
+
+.acad-sb-program-btn.active .acad-sb-program-icon {
+  background: #1d4ed8;
+  color: var(--white);
+}
+
+.acad-sb-program-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.acad-sb-course-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 6px 0 2px 12px;
+  padding-left: 10px;
+  border-left: 2px solid #dfe7f6;
+}
+
+.acad-sb-course-btn {
+  appearance: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #475569;
+  font-family: var(--font-body);
+  font-size: 0.79rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.acad-sb-course-btn:hover {
+  background: #f8faff;
+  color: #0a1a40;
+}
+
+.acad-sb-course-btn.active {
+  background: #eff5ff;
+  border-color: #c7d9f8;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.acad-sb-course-dot {
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: #94a3b8;
+  transition: background-color 150ms ease;
+}
+
+.acad-sb-course-btn:hover .acad-sb-course-dot {
+  background: #3b82f6;
+}
+
+.acad-sb-course-btn.active .acad-sb-course-dot {
+  background: #1d4ed8;
+}
+
+.acad-sb-course-name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.acad-sb-pills {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.acad-cal-month-chip {
+.acad-sb-pills>button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid #d5e0f4;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #334155;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.acad-sb-pills>button:hover {
+  background: #f8fafc;
+  border-color: #93b0f5;
+  color: var(--navy);
+}
+
+.acad-sb-pills>button.active {
+  background: #0a1a40;
+  border-color: #0a1a40;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.acad-sb-tools-scroll {
+  max-height: 164px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.acad-cat-stage {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.acad-cat-mobile-btn {
+  display: none;
+  appearance: none;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 13px;
+  border: 1px solid #d5e0f4;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease;
+}
+
+.acad-cat-mobile-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.acad-cat-mobile-btn.active {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* Control Studio Box */
+.acad-cat-studio {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 18px;
+  margin-bottom: 28px;
+  background: #f8faff;
+  border: 1px solid #dce5f5;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px -12px rgba(10, 26, 64, 0.07);
+}
+
+.acad-cat-view-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: #eaf0fc;
+  border: 1px solid #d5e0f4;
+  border-radius: 9px;
+}
+
+.acad-cat-view-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   padding: 6px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 0.78rem/1 var(--font-body);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.acad-cat-view-btn:hover:not(.active) {
+  color: var(--navy);
+}
+
+.acad-cat-view-btn.active {
+  background: var(--white);
+  color: var(--navy);
+  box-shadow: 0 1px 4px rgba(10, 26, 64, 0.12);
+}
+
+.acad-cat-dock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.acad-cat-search {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.acad-cat-search .acad-input {
+  width: 100%;
+  height: 42px;
+  padding-left: 38px;
+  padding-right: 34px;
+  background: var(--white);
+}
+
+.acad-cat-search .acad-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.acad-cat-search-clear {
+  position: absolute;
+  right: 9px;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 999px;
+  background: #edf2fb;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.acad-cat-search-clear:hover {
+  background: #dbe5f7;
+  color: var(--navy);
+}
+
+.acad-cat-dock-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.acad-cat-enroll-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 13px;
+  border: 1px solid #d5e0f4;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font: 600 0.84rem/1 var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease;
+}
+
+.acad-cat-enroll-toggle:hover {
+  border-color: #9bb5ed;
+}
+
+.acad-cat-enroll-toggle.active {
+  background: #edfbf2;
+  border-color: #86efac;
+  color: var(--ok-text);
+}
+
+.acad-cat-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #94a3b8;
+  transition: background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.acad-cat-enroll-toggle.active .acad-cat-toggle-dot {
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
+}
+
+.acad-cat-toggle-num {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.acad-cat-enroll-toggle.active .acad-cat-toggle-num {
+  color: var(--ok-text);
+}
+
+.acad-cat-dock-actions .acad-sort-wrap {
+  height: 42px;
+}
+
+.acad-cat-refine-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid #d5e0f4;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font: 600 0.84rem/1 var(--font-body);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.16s ease;
+}
+
+.acad-cat-refine-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.acad-cat-refine-btn.active {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.acad-cat-refine-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 5px;
+  background: var(--blue);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Expandable Facet Tray */
+.acad-cat-tray {
+  overflow: hidden;
+}
+
+.acad-cat-tray-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  padding: 16px;
+  margin-top: 2px;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 12px;
+}
+
+.acad-cat-facet-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 1 auto;
+}
+
+.acad-cat-facet-wide {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.acad-cat-facet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.acad-cat-facet-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.acad-cat-tray-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--blue);
+  font: 600 0.76rem/1 var(--font-body);
+  cursor: pointer;
+}
+
+.acad-cat-tray-reset:hover {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.acad-cat-facet-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.acad-cat-facet-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
   border-radius: 7px;
   border: 1px solid #dce5f5;
   background: #f8faff;
   color: #36476a;
-  font: 600 0.78rem/1.2 var(--font-body);
+  font-family: var(--font-body);
+  font-size: 0.79rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: all 0.14s ease;
 }
 
-.acad-cal-month-chip:hover {
-  border-color: #b4c8f2;
+.acad-cat-facet-chip:hover {
+  border-color: #a9c0f3;
   color: var(--navy);
 }
 
-.acad-cal-month-chip.active {
+.acad-cat-facet-chip.active {
   background: var(--navy);
   border-color: var(--navy);
   color: #ffffff;
 }
 
-.acad-cal-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  border: 1px solid #dce5f5;
-  border-bottom: 0;
-  border-radius: 10px 10px 0 0;
-  background: #f4f7ff;
+.acad-cat-facet-chip span.acad-mono {
+  font-size: 0.7rem;
+  opacity: 0.75;
 }
 
-.acad-cal-weekday {
-  padding: 9px 6px;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.acad-cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  border-top: 1px solid #dce5f5;
-  border-left: 1px solid #dce5f5;
-  border-radius: 0 0 10px 10px;
-  overflow: hidden;
-}
-
-.acad-cal-cell {
-  min-height: 88px;
-  padding: 7px 6px;
-  border: 0;
-  border-right: 1px solid #e6edf9;
-  border-bottom: 1px solid #e6edf9;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.14s ease, box-shadow 0.14s ease;
-}
-
-.acad-cal-cell:hover {
-  background: #f7faff;
-}
-
-.acad-cal-cell:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: -2px;
-}
-
-.acad-cal-cell.outside {
-  background: #fafcff;
-}
-
-.acad-cal-cell.outside .acad-cal-day-num {
-  color: #9ba9c4;
-}
-
-.acad-cal-cell.has-window {
-  background: #f5f8ff;
-}
-
-.acad-cal-cell.has-window-full {
-  background: #fff9f9;
-}
-
-.acad-cal-cell.active-window {
-  background: #eaf1ff;
-}
-
-.acad-cal-cell.active-start {
-  background: #e1ebff;
-}
-
-.acad-cal-cell.selected-day {
-  box-shadow: inset 0 0 0 2px var(--blue);
-}
-
-.acad-cal-cell-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
-}
-
-.acad-cal-day-num {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1;
-}
-
-.acad-cal-cell.today .acad-cal-day-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 22px;
-  height: 22px;
-  padding: 0 4px;
-  border-radius: 999px;
-  border: 1.5px solid var(--blue);
-  color: var(--blue);
-}
-
-.acad-cal-today-tag {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--blue);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.acad-cal-cell-events {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-top: 6px;
-}
-
-.acad-cal-start-marker {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
-  padding: 3px 5px;
-  border-radius: 5px;
-  font-size: 0.66rem;
-  font-weight: 700;
-  line-height: 1.15;
-  overflow: hidden;
-}
-
-.acad-cal-start-marker span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.acad-cal-start-marker.open {
-  background: var(--navy);
-  color: #ffffff;
-}
-
-.acad-cal-start-marker.open.focused {
-  background: var(--blue);
-}
-
-.acad-cal-start-marker.full {
-  background: #fde8e8;
-  border: 1px solid #f3c5c0;
-  color: var(--danger);
-}
-
-.acad-cal-window-bar {
-  display: block;
-  padding: 2px 5px;
-  border-radius: 4px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.acad-cal-window-bar.open {
-  background: #dce7fe;
-  color: #1f3c8d;
-}
-
-.acad-cal-window-bar.open.focused {
-  background: #c7d9fd;
-  color: var(--navy);
-  font-weight: 700;
-}
-
-.acad-cal-window-bar.full {
-  background: #fbecec;
-  color: #9e2a25;
-}
-
-.acad-cal-inspector {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 0;
-}
-
-.acad-cal-detail-card {
-  padding: 20px;
-  border: 1px solid #d5e0f4;
-  border-radius: 12px;
-  background: #f9fbff;
-}
-
-.acad-cal-detail-top {
+/* Active Filters Ribbon */
+.acad-cat-active-strip {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 8px 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e3ebfa;
 }
 
-.acad-cal-detail-code {
+.acad-cat-active-title {
+  font-family: var(--font-heading);
   font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--blue);
+  color: var(--muted);
 }
 
-.acad-cal-detail-status {
+.acad-cat-active-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+}
+
+.acad-cat-active-chip {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #d5e0f4;
+  background: #ffffff;
+  color: var(--navy);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+}
+
+.acad-cat-active-chip:hover {
+  background: #f8fafc;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.acad-cat-clear-all {
+  border: 0;
+  background: transparent;
+  padding: 2px 4px;
+  color: var(--blue);
+  font: 600 0.8rem/1.2 var(--font-body);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.acad-cat-clear-all:hover {
+  color: var(--navy);
+}
+
+/* Empty State */
+.acad-cat-empty {
+  text-align: center;
+  padding: 52px 24px;
+  background: #f8faff;
+  border: 1px dashed #c7d6f2;
+  border-radius: 14px;
+}
+
+.acad-cat-empty h3 {
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+
+.acad-cat-empty p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 48ch;
+  margin: 0 auto 20px;
+}
+
+/* ============ FLEXBOX ARCHITECTURAL CARDS VIEW ============ */
+.acad-prog-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.acad-prog-card {
+  flex: 0 1 calc(50% - 11px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px -6px rgba(10, 26, 64, 0.05);
+  transition: border-color 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.acad-prog-card:hover {
+  border-color: #93b0f5;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -14px rgba(15, 37, 87, 0.14);
+}
+
+.acad-prog-card.comparing {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(45, 79, 214, 0.2), 0 14px 32px -10px rgba(45, 79, 214, 0.18);
+}
+
+.acad-prog-media {
+  position: relative;
+  height: 184px;
+  background: var(--navy);
+  overflow: hidden;
+  border-bottom: 1px solid #dce5f5;
+}
+
+.acad-prog-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.acad-prog-card:hover .acad-prog-thumb {
+  transform: scale(1.05);
+}
+
+.acad-prog-media-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(10, 26, 64, 0.5) 0%,
+      rgba(10, 26, 64, 0.14) 45%,
+      rgba(7, 18, 44, 0.9) 100%);
+  pointer-events: none;
+}
+
+.acad-prog-media-top,
+.acad-prog-media-bottom {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 2;
+}
+
+.acad-prog-media-top {
+  top: 12px;
+}
+
+.acad-prog-media-bottom {
+  bottom: 12px;
+}
+
+.acad-prog-domain-pill {
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(10, 26, 64, 0.72);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.acad-prog-compare-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: var(--navy);
+  font: 700 0.73rem/1.1 var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.acad-prog-compare-pill:hover:not(:disabled) {
+  background: #ffffff;
+  color: var(--blue);
+}
+
+.acad-prog-compare-pill.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #ffffff;
+}
+
+.acad-prog-compare-pill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.acad-prog-seat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 0.74rem;
   font-weight: 700;
 }
 
-.acad-cal-detail-status.open {
-  color: var(--ok-text);
+.acad-prog-seat-pill.open {
+  background: rgba(16, 185, 129, 0.22);
+  border: 1px solid rgba(110, 231, 183, 0.45);
+  color: #d1fae5;
 }
 
-.acad-cal-detail-status.full {
-  color: var(--danger);
+.acad-prog-seat-pill.closed {
+  background: rgba(239, 68, 68, 0.22);
+  border: 1px solid rgba(252, 165, 165, 0.45);
+  color: #fee2e2;
 }
 
-.acad-cal-detail-card h4 {
-  font-size: 1.06rem;
+.acad-prog-session-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.acad-prog-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 22px 22px;
+  gap: 14px;
+}
+
+.acad-prog-heading-block h3 {
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.26;
+  letter-spacing: -0.015em;
   color: var(--navy);
-  margin: 0 0 14px;
-  line-height: 1.3;
+  margin: 0 0 6px;
 }
 
-.acad-cal-detail-card h4 a {
+.acad-prog-heading-block h3 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.acad-prog-heading-block h3 a:hover {
+  color: var(--blue);
+}
+
+.acad-prog-sub {
+  font-size: 0.9rem;
+  line-height: 1.54;
+  color: var(--muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.75em;
+}
+
+/* Flexbox Specification Strip */
+.acad-prog-specs {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: #f8faff;
+  border: 1px solid #e3ebfa;
+}
+
+.acad-prog-spec {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.acad-prog-spec:first-child {
+  flex: 0 0 auto;
+}
+
+.acad-prog-spec small {
+  font-family: var(--font-heading);
+  font-size: 0.69rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.acad-prog-spec strong {
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.acad-prog-spec-div {
+  width: 1px;
+  background: #dce5f5;
+  flex-shrink: 0;
+}
+
+.acad-prog-intake-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.acad-prog-intake-inline svg {
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.acad-prog-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-prog-roles {
+  font-size: 0.79rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.acad-prog-roles span {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 4px;
+}
+
+.acad-prog-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.acad-prog-tool-btn {
+  padding: 4px 9px;
+  border-radius: 5px;
+  border: 1px solid #dbe5f5;
+  background: #f4f7fc;
+  color: var(--navy);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.acad-prog-tool-btn:hover {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.acad-prog-tool-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
+.acad-prog-tool-more {
+  padding: 4px 8px;
+  border-radius: 5px;
+  border: 1px dashed #cbd7ee;
+  color: var(--muted);
+  font-size: 0.73rem;
+  font-weight: 600;
+}
+
+.acad-prog-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #edf2fb;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.acad-prog-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.acad-prog-footer .acad-prog-actions {
+  width: 100%;
+}
+
+.acad-prog-footer .acad-prog-actions .btn {
+  flex: 1 1 0;
+  justify-content: center;
+}
+
+/* ============ COMPACT FLEXBOX INDEX / LIST VIEW ============ */
+.acad-prog-index {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.acad-prog-row {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px -5px rgba(10, 26, 64, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acad-prog-row:hover {
+  border-color: #93b0f5;
+  box-shadow: 0 12px 28px -10px rgba(15, 37, 87, 0.1);
+}
+
+.acad-prog-row.comparing {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(45, 79, 214, 0.18);
+}
+
+.acad-prog-row-thumb {
+  position: relative;
+  width: 210px;
+  min-height: 148px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--navy);
+  flex-shrink: 0;
+}
+
+.acad-prog-row-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.acad-prog-row-cat {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: rgba(10, 26, 64, 0.8);
+  color: #ffffff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.acad-prog-row-main {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acad-prog-row-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.acad-prog-row-top h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 4px;
+}
+
+.acad-prog-row-top h3 a {
   color: inherit;
   text-decoration: none;
 }
 
-.acad-cal-detail-card h4 a:hover {
+.acad-prog-row-top h3 a:hover {
   color: var(--blue);
-  text-decoration: underline;
 }
 
-.acad-cal-detail-meta {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  padding: 12px 0;
-  border-top: 1px solid #e3ebfa;
-  border-bottom: 1px solid #e3ebfa;
-  margin-bottom: 12px;
-}
-
-.acad-cal-detail-meta small {
-  display: block;
-  font-size: 0.69rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.acad-prog-row-sub {
+  font-size: 0.86rem;
+  line-height: 1.48;
   color: var(--muted);
-  margin-bottom: 2px;
+  margin: 0;
 }
 
-.acad-cal-detail-meta strong {
-  font-size: 0.84rem;
-  color: var(--navy);
-  font-variant-numeric: tabular-nums;
-}
-
-.acad-cal-detail-schedule {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  font-size: 0.81rem;
-  line-height: 1.45;
-  color: var(--muted);
-  margin-bottom: 14px;
-}
-
-.acad-cal-detail-schedule svg {
-  color: var(--blue);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.acad-cal-day-multi {
-  font-size: 0.78rem;
-  color: var(--navy);
-  padding: 8px 10px;
-  border-radius: 7px;
-  background: #edf3ff;
-  margin-bottom: 14px;
-  line-height: 1.45;
-}
-
-.acad-cal-detail-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.acad-cal-timeline {
-  border: 1px solid #dce5f5;
-  border-radius: 12px;
-  background: var(--white);
-  overflow: hidden;
-}
-
-.acad-cal-timeline-head {
-  display: flex;
+.acad-prog-status {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 11px 14px;
-  background: #f4f7ff;
-  border-bottom: 1px solid #e3ebfa;
-  font-size: 0.8rem;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--navy);
+  white-space: nowrap;
 }
 
-.acad-cal-timeline-head span.acad-mono {
-  color: var(--muted);
-  font-size: 0.74rem;
-}
-
-.acad-cal-timeline-list {
-  max-height: 280px;
-  overflow-y: auto;
-}
-
-.acad-cal-timeline-item {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 11px 14px;
-  border: 0;
-  border-bottom: 1px solid #edf2fb;
-  background: transparent;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.14s ease;
-}
-
-.acad-cal-timeline-item:last-child {
-  border-bottom: 0;
-}
-
-.acad-cal-timeline-item:hover {
-  background: #f6f9ff;
-}
-
-.acad-cal-timeline-item.active {
-  background: var(--blue-soft);
-}
-
-.acad-cal-timeline-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: var(--navy);
-}
-
-.acad-cal-timeline-seats {
-  font-weight: 700;
-  font-size: 0.74rem;
-}
-
-.acad-cal-timeline-seats.open {
+.acad-prog-status.open {
+  background: #edfbf2;
   color: var(--ok-text);
 }
 
-.acad-cal-timeline-seats.full {
+.acad-prog-status.closed {
+  background: #fef2f2;
   color: var(--danger);
 }
 
-.acad-cal-timeline-title {
-  font-size: 0.83rem;
-  font-weight: 600;
-  color: var(--navy);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.acad-prog-specs-row {
+  padding: 8px 12px;
 }
 
-.acad-cal-timeline-dates {
-  font-size: 0.75rem;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
+.acad-prog-row-cta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  padding-left: 18px;
+  border-left: 1px solid #e6edf9;
+  min-width: 196px;
+  flex-shrink: 0;
 }
 
-@media (max-width: 1024px) {
-  .acad-calendar-body {
-    grid-template-columns: 1fr;
+.acad-prog-row-cta .acad-prog-actions {
+  justify-content: flex-end;
+}
+
+@media (max-width: 1120px) {
+  .acad-prog-card {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 960px) {
+  .acad-cat-shell {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .acad-cat-sidebar {
+    display: none;
+    position: static;
+    top: auto;
+    flex: none;
+    width: 100%;
+  }
+
+  .acad-cat-sidebar.mobile-open {
+    display: flex;
+  }
+
+  .acad-sb-mobile-close {
+    display: inline-flex;
+  }
+
+  .acad-cat-stage {
+    width: 100%;
+    flex: none;
+  }
+
+  .acad-cat-mobile-btn {
+    display: inline-flex;
+  }
+
+  .acad-prog-card {
+    flex: 1 1 100%;
+  }
+
+  .acad-prog-row {
+    flex-direction: column;
+  }
+
+  .acad-prog-row-thumb {
+    width: 100%;
+    height: 168px;
+  }
+
+  .acad-prog-row-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 0;
+    padding-top: 14px;
+    border-left: 0;
+    border-top: 1px solid #e6edf9;
+    min-width: 0;
   }
 }
 
 @media (max-width: 640px) {
-  .acad-calendar-panel {
-    padding: 18px;
+  .acad-cat-studio {
+    padding: 14px;
   }
-  .acad-cal-cell {
-    min-height: 64px;
-    padding: 5px 4px;
+
+  .acad-prog-specs {
+    flex-direction: column;
+    gap: 8px;
   }
-  .acad-cal-window-bar {
-    font-size: 0.58rem;
-  }
-  .acad-cal-start-marker {
-    font-size: 0.6rem;
-  }
-  .acad-cal-detail-meta {
-    grid-template-columns: 1fr;
+
+  .acad-prog-spec-div {
+    width: 100%;
+    height: 1px;
   }
 }
 
@@ -2443,11 +3649,11 @@
 
 .acad-compare-col-cat {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--blue);
   margin-bottom: 4px;
 }
@@ -2521,13 +3727,28 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 60;
+  z-index: 65;
   background: rgba(10, 26, 64, 0.96);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 -10px 30px rgba(7, 18, 44, 0.28);
   padding: 12px 0;
   color: #ffffff;
+}
+
+body:has(.acad-compare-dock) .to-top {
+  bottom: 92px;
+  z-index: 70;
+}
+
+body:has(.acad-compare-dock) .acad-footer {
+  padding-bottom: 84px;
+}
+
+@media (max-width: 720px) {
+  body:has(.acad-compare-dock) .to-top {
+    bottom: 122px;
+  }
 }
 
 .acad-compare-dock-inner {
@@ -2612,10 +3833,12 @@
   .acad-compare-panel {
     padding: 18px;
   }
+
   .acad-compare-dock-inner {
     flex-direction: column;
     align-items: stretch;
   }
+
   .acad-compare-dock-actions {
     justify-content: flex-end;
   }
@@ -2638,14 +3861,16 @@
 
 .acad-banner-split h2 {
   color: #ffffff;
-  font-size: clamp(1.4rem, 2.3vw, 1.75rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.78rem);
+  line-height: 1.2;
   margin-bottom: 10px;
 }
 
 .acad-banner-split p {
-  color: rgba(255, 255, 255, 0.84);
+  color: rgba(255, 255, 255, 0.86);
   margin-bottom: 0;
   font-size: 0.96rem;
+  line-height: 1.55;
   max-width: 62ch;
 }
 
@@ -2656,13 +3881,24 @@
   align-items: flex-end;
 }
 
+.acad-banner-actions .btn {
+  width: 100%;
+  max-width: 280px;
+  justify-content: center;
+}
+
 @media (max-width: 820px) {
   .acad-banner-split {
     grid-template-columns: 1fr;
     padding: 28px;
   }
+
   .acad-banner-actions {
     align-items: stretch;
+  }
+
+  .acad-banner-actions .btn {
+    max-width: none;
   }
 }
 
@@ -2770,7 +4006,8 @@
 }
 
 .acad-module-week {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--blue);
@@ -2809,7 +4046,7 @@
 
 .acad-side-card {
   position: sticky;
-  top: 90px;
+  top: 124px;
   border: 1px solid #dce5f5;
   border-radius: 12px;
   padding: 26px;
@@ -2817,8 +4054,13 @@
   box-shadow: 0 10px 28px -8px rgba(10, 26, 64, 0.07);
 }
 
+.acad-detail-grid .acad-side-card {
+  top: 180px;
+}
+
 .acad-side-price {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 2.05rem;
   font-weight: 700;
   color: var(--navy);
@@ -2859,6 +4101,7 @@
   .acad-detail-grid {
     grid-template-columns: 1fr;
   }
+
   .acad-side-card {
     position: static;
   }
@@ -3068,12 +4311,14 @@
   .acad-tuition-grid {
     grid-template-columns: 1fr;
   }
+
   .acad-card-sticky {
     position: static;
   }
 }
 
 @media (max-width: 600px) {
+
   .acad-form-grid,
   .acad-mode-switch,
   .acad-tier-row {
@@ -3096,11 +4341,11 @@
 }
 
 .acad-ld-eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--blue);
   margin-bottom: 4px;
 }
@@ -3465,6 +4710,7 @@
   .acad-ld-cards-grid {
     grid-template-columns: 1fr;
   }
+
   .acad-ld-kpi-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3587,6 +4833,7 @@
   .acad-workspace-grid {
     grid-template-columns: 1fr;
   }
+
   .acad-outline-card {
     position: static;
   }
@@ -3620,7 +4867,7 @@
 
 .acad-kpi-card strong {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 1.72rem;
   font-weight: 700;
   color: var(--navy);
@@ -3823,11 +5070,11 @@
 }
 
 .acad-auth-demo-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--gold);
   margin-bottom: 10px;
 }
@@ -3919,6 +5166,7 @@
   .acad-auth-split {
     grid-template-columns: 1fr;
   }
+
   .acad-auth-aside,
   .acad-auth-main {
     padding: 30px 24px;
@@ -4061,9 +5309,11 @@
   .acad-modal-grid {
     grid-template-columns: 1fr;
   }
+
   .acad-modal-aside {
     padding: 24px 22px;
   }
+
   .acad-modal-main {
     padding: 24px 22px;
   }
@@ -4273,7 +5523,7 @@
 
 .acad-bauhaus-frame {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   background: #ffffff;
   border: 0;
   border-radius: 0;
@@ -4285,26 +5535,76 @@
 }
 
 .acad-bauhaus-left {
-  padding: clamp(24px, 3vw, 44px) clamp(28px, 4vw, 56px);
+  padding: clamp(24px, 3vw, 38px) clamp(28px, 4.5vw, 68px);
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
-  gap: 20px;
   z-index: 2;
   width: 100%;
+  min-height: 100vh;
 }
 
 .acad-bauhaus-left-inner {
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: 460px;
+  margin: auto;
+  padding: clamp(16px, 2.5vh, 32px) 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  flex: 1;
-  gap: 20px;
+  gap: 16px;
+}
+
+.acad-auth-header {
+  margin-bottom: 2px;
+}
+
+.acad-auth-title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0a1a40;
+  margin: 0 0 6px 0;
+  line-height: 1.18;
+}
+
+.acad-auth-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0;
+}
+
+.acad-auth-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 3px;
+  border-radius: 8px;
+  gap: 3px;
+}
+
+.acad-auth-switch-tab {
+  border: 0;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.acad-auth-switch-tab.active {
+  background: #ffffff;
+  color: #0a1a40;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(10, 26, 64, 0.1);
 }
 
 .acad-bauhaus-globe {
@@ -4312,85 +5612,177 @@
 }
 
 .acad-bauhaus-welcome {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.55rem, 2vw, 1.85rem);
-  line-height: 1.15;
-  color: var(--blue);
-  margin-bottom: 4px;
+  display: none;
 }
 
 .acad-bauhaus-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 3.1vw, 2.85rem);
-  font-weight: 800;
-  line-height: 1.06;
-  letter-spacing: -0.03em;
-  color: var(--navy-deep);
-  margin: 0 0 10px;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0a1a40;
+  margin: 0 0 8px;
+  line-height: 1.18;
 }
 
 .acad-bauhaus-desc,
 .acad-bauhaus-copy {
   font-size: 0.9rem;
-  line-height: 1.58;
-  color: var(--muted);
-  margin: 0 0 16px;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0 0 14px;
   max-width: none;
 }
 
 .acad-bauhaus-switch-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
+  display: none;
 }
 
-.acad-bauhaus-social-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: 4px;
+.acad-bauhaus-social-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 2px;
+  width: 100%;
+}
+
+.acad-bauhaus-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .acad-bauhaus-social-btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  height: 42px;
-  padding: 0 14px;
-  border-radius: 8px;
-  border: 1.5px solid var(--line);
-  background: #ffffff;
-  color: var(--navy-deep);
-  font-family: var(--font-body);
-  font-size: 0.84rem;
-  font-weight: 700;
+  width: 72px;
+  height: 48px;
+  padding: 0;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
 }
 
-.acad-bauhaus-social-btn:hover {
-  background: var(--paper);
-  border-color: var(--blue);
-  transform: translateY(-1px);
+.acad-bauhaus-social-btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 55%;
+  height: 200%;
+  transform: skewX(-22deg);
+  transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.acad-bauhaus-social-btn:hover::after,
+.acad-bauhaus-social-btn:focus-visible::after {
+  left: 135%;
+}
+
+.acad-bauhaus-social-icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.acad-bauhaus-social-google {
+  border: 1.5px solid #dbe4f3;
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  color: #0a1a40;
+  box-shadow: 0 3px 0 #dfe7f5, 0 6px 14px rgba(10, 26, 64, 0.06);
+}
+
+.acad-bauhaus-social-google::after {
+  background: linear-gradient(105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.9) 50%,
+      transparent 80%);
+}
+
+.acad-bauhaus-social-google:hover {
+  border-color: #7ca7ff;
+  background: linear-gradient(180deg, #ffffff 0%, #eef5ff 100%);
+  box-shadow: 0 5px 0 #cbddff, 0 12px 24px rgba(66, 133, 244, 0.16);
+}
+
+.acad-bauhaus-social-google:hover .acad-bauhaus-social-icon {
+  transform: scale(1.14) rotate(-5deg);
+}
+
+.acad-bauhaus-social-google:active {
+  box-shadow: 0 1px 0 #d5e0f2, 0 3px 6px rgba(10, 26, 64, 0.08);
+}
+
+.acad-bauhaus-social-apple {
+  border: 1.5px solid #162e6b;
+  background: linear-gradient(180deg, #102559 0%, #0a1a40 100%);
+  color: #ffffff;
+  box-shadow: 0 3px 0 #050d24, 0 6px 16px rgba(10, 26, 64, 0.2);
+}
+
+.acad-bauhaus-social-apple::after {
+  background: linear-gradient(105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.24) 50%,
+      transparent 80%);
+}
+
+.acad-bauhaus-social-apple:hover {
+  border-color: #3b66f5;
+  background: linear-gradient(180deg, #163278 0%, #0d2152 100%);
+  box-shadow: 0 5px 0 #071233, 0 12px 24px rgba(15, 37, 87, 0.28);
+}
+
+.acad-bauhaus-social-apple:hover .acad-bauhaus-social-icon {
+  transform: scale(1.14) rotate(5deg);
+}
+
+.acad-bauhaus-social-apple:active {
+  box-shadow: 0 1px 0 #050d24, 0 3px 8px rgba(10, 26, 64, 0.2);
+}
+
+.acad-bauhaus-social-btn:focus-visible {
+  outline: 2px solid #2d4fd6;
+  outline-offset: 3px;
 }
 
 .acad-bauhaus-social-notice {
-  margin-top: 8px;
-  padding: 9px 13px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
   border-radius: 8px;
   background: var(--blue-soft);
   border: 1px solid #c7d5ff;
   color: var(--navy);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   line-height: 1.45;
+}
+
+.acad-bauhaus-social-dismiss {
+  background: transparent;
+  border: 0;
+  padding: 2px 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.acad-bauhaus-social-dismiss:hover {
+  text-decoration: underline;
+  color: var(--navy);
 }
 
 .acad-bauhaus-tabs {
@@ -4488,31 +5880,27 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
-.acad-bauhaus-input-wrap > svg {
+.acad-bauhaus-input-wrap>svg {
   position: absolute;
-  left: 13px;
-  color: var(--muted);
+  left: 14px;
+  color: #64748b;
   pointer-events: none;
   z-index: 2;
-}
-
-.acad-bauhaus-input-wrap input {
-  width: 100%;
-  padding-left: 38px;
-  padding-right: 42px;
 }
 
 .acad-bauhaus-field input,
 .acad-bauhaus-field select,
 .acad-bauhaus-select {
+  width: 100%;
   height: 44px;
-  padding: 0 13px;
-  border: 1.5px solid var(--line);
+  padding: 0 14px;
+  border: 1.5px solid #dce5f5;
   border-radius: 8px;
   background: #f8faff;
-  color: var(--ink);
+  color: #0a1a40;
   font-size: 0.9rem;
   font-family: var(--font-body);
   transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
@@ -4522,9 +5910,16 @@
 .acad-bauhaus-field select:focus,
 .acad-bauhaus-select:focus {
   outline: none;
-  border-color: var(--blue);
+  border-color: #2d4fd6;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(45, 79, 214, 0.12);
+}
+
+/* Enforce high-specificity horizontal padding so input text never collides with icons */
+.acad-bauhaus-field .acad-bauhaus-input-wrap input,
+.acad-bauhaus-input-wrap input {
+  padding-left: 42px !important;
+  padding-right: 42px !important;
 }
 
 .acad-bauhaus-btn-primary {
@@ -4533,37 +5928,43 @@
   margin-top: 6px;
   border: 0;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+  background: #0f2557;
   color: #ffffff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   font-family: var(--font-heading);
-  font-size: 0.86rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
   cursor: pointer;
-  box-shadow: 0 8px 20px -6px rgba(45, 79, 214, 0.45);
-  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease, opacity 0.16s ease;
+  box-shadow: 0 4px 14px rgba(15, 37, 87, 0.22);
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .acad-bauhaus-btn-primary:hover:not(:disabled) {
-  filter: brightness(1.06);
+  background: #2d4fd6;
   transform: translateY(-1px);
-  box-shadow: 0 12px 24px -6px rgba(45, 79, 214, 0.55);
+  box-shadow: 0 8px 20px -4px rgba(45, 79, 214, 0.38);
+}
+
+.acad-bauhaus-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .acad-bauhaus-btn-primary:disabled {
-  opacity: 0.88;
-  cursor: wait;
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 @keyframes acad-spin {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -4612,22 +6013,26 @@ svg.acad-btn-spinner {
 .acad-bauhaus-btn-secondary {
   width: 100%;
   height: 46px;
-  border: 1.5px solid var(--navy);
+  border: 1.5px solid #0f2557;
   border-radius: 8px;
   background: #ffffff;
-  color: var(--navy);
+  color: #0f2557;
   font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: none;
   cursor: pointer;
   transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
 }
 
-.acad-bauhaus-btn-secondary:hover {
-  background: var(--navy);
+.acad-bauhaus-btn-secondary:hover:not(:disabled) {
+  background: #0f2557;
   color: #ffffff;
+}
+
+.acad-bauhaus-btn-secondary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .acad-bauhaus-forgot-row {
@@ -4725,10 +6130,11 @@ svg.acad-btn-spinner {
 }
 
 .acad-bauhaus-token-code {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: var(--navy);
 }
 
@@ -4861,10 +6267,13 @@ svg.acad-btn-spinner {
 }
 
 .acad-bauhaus-right {
-  position: relative;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  min-height: 100vh;
+  align-self: start;
   background: #ffffff;
   overflow: hidden;
-  min-height: 100vh;
   border-left: 1px solid #eef2fb;
 }
 
@@ -4882,80 +6291,2938 @@ svg.acad-btn-spinner {
   position: absolute;
   left: 25%;
   top: 5.5%;
-  width: 26%;
+  width: min(21%, 20vh);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 12px 28px rgba(10, 26, 64, 0.24);
   z-index: 2;
-}
-
-.acad-bauhaus-portrait-sm img {
-  position: absolute;
-  width: 800%;
-  height: 600%;
-  max-width: none;
-  left: -456%;
-  top: -108%;
-  object-fit: fill;
-  user-select: none;
-  pointer-events: none;
+  border: 4px solid #ffffff;
+  background: #ffffff;
 }
 
 .acad-bauhaus-portrait-lg {
   position: absolute;
-  left: 40%;
-  top: 25%;
-  width: 56%;
+  left: 42%;
+  top: 27%;
+  width: min(44%, 44vh);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 18px 42px rgba(10, 26, 64, 0.28);
   z-index: 3;
+  border: 5px solid #ffffff;
+  background: #ffffff;
 }
 
+.acad-scholar-img,
+.acad-bauhaus-portrait-sm img,
 .acad-bauhaus-portrait-lg img {
-  position: absolute;
-  width: 353.4%;
-  height: 265%;
-  max-width: none;
-  left: -227.9%;
-  top: -83%;
-  object-fit: fill;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
   user-select: none;
   pointer-events: none;
 }
 
+/* Modal Variant & Compact Layout */
+.acad-bauhaus-frame.acad-modal-frame {
+  grid-template-columns: 1fr;
+  min-height: auto;
+  box-shadow: none;
+  border: 0;
+}
+
+.acad-modal-frame .acad-bauhaus-left {
+  min-height: auto;
+  padding: 32px 28px 24px;
+  gap: 12px;
+}
+
+.acad-modal-frame .acad-bauhaus-left-inner {
+  margin: 0;
+  padding: 0;
+  gap: 14px;
+}
+
+.acad-modal-frame .acad-bauhaus-welcome {
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+}
+
+.acad-modal-frame .acad-bauhaus-title {
+  font-size: 1.65rem;
+  margin-bottom: 6px;
+}
+
+.acad-modal-frame .acad-bauhaus-desc {
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+/* Top Nav Strip & Nav Links */
+.acad-bauhaus-top-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e6edf8;
+}
+
+.acad-bauhaus-brand-logo {
+  width: 50px;
+  height: 50px;
+}
+
+.acad-bauhaus-top-nav .acad-brand-text {
+  font-size: 1.24rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.acad-bauhaus-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.acad-bauhaus-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #dce5f5;
+  background: #f8faff;
+  color: #0f2557;
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 600;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.acad-bauhaus-nav-link:hover {
+  color: #2d4fd6;
+  background: #eef3ff;
+  border-color: #2d4fd6;
+}
+
+/* Field Stack for Vertically Stacked Form Controls */
+.acad-bauhaus-field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* SSO Coming Soon Badge */
+.acad-sso-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  margin-left: 4px;
+}
+
+/* Portal Gate Cards for Unauthenticated States */
+.acad-gate-card {
+  text-align: center;
+  padding: 48px 32px;
+  background: #ffffff;
+  border: 1px solid #dce5f5;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(10, 26, 64, 0.04);
+}
+
+.acad-gate-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.acad-gate-card h2 {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 10px 0;
+}
+
+.acad-gate-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.58;
+  max-width: 520px;
+  margin: 0 auto 24px auto;
+}
+
+.acad-gate-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.acad-gate-footnote {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ============ NAVBAR SIGN IN LINK ============ */
+.acad-nav-signin-link {
+  color: var(--navy);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.acad-nav-signin-link:hover {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+/* ============ GET STARTED FULL-PAGE ONBOARDING ============ */
+.acad-getstarted-inner {
+  max-width: 500px;
+  gap: 22px;
+  padding-bottom: clamp(28px, 6vh, 64px);
+}
+
+.acad-getstarted-title {
+  font-family: var(--font-heading, "Sora", sans-serif);
+  font-size: clamp(2.45rem, 4vw, 3.35rem);
+  font-weight: 800;
+  color: #0a1a40;
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  margin: 0;
+}
+
+.acad-getstarted-desc {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #475569;
+  margin: 14px 0 0;
+  max-width: 60ch;
+}
+
+.acad-getstarted-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.acad-getstarted-actions .acad-bauhaus-btn-primary,
+.acad-getstarted-actions .acad-bauhaus-btn-secondary {
+  height: 54px;
+  font-size: 0.98rem;
+  width: 100%;
+}
+
+.acad-auth-alt-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid #edf2fb;
+  font-size: 0.84rem;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.acad-auth-alt-link a {
+  color: #2d4fd6;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.acad-auth-alt-link a:hover {
+  text-decoration: underline;
+  color: #0f2557;
+}
+
 @media (max-width: 980px) {
   .acad-bauhaus-frame {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-height: auto;
   }
+
   .acad-bauhaus-left {
-    padding: 36px 24px;
+    min-height: 100vh;
+    padding: 24px 20px;
   }
+
   .acad-bauhaus-right {
-    min-height: 500px;
-    border-left: 0;
-    border-top: 1px solid var(--line);
+    display: none !important;
   }
 }
 
 @media (max-width: 560px) {
+
   .acad-bauhaus-field-grid,
   .acad-bauhaus-grid-2 {
     grid-template-columns: 1fr;
   }
+
+  .acad-bauhaus-top-nav {
+    gap: 10px;
+  }
+
+  .acad-bauhaus-top-nav .acad-brand {
+    gap: 8px;
+  }
+
+  .acad-bauhaus-brand-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .acad-bauhaus-top-nav .acad-brand-text {
+    font-size: 0.96rem;
+  }
+
+  .acad-bauhaus-nav-link {
+    padding: 6px 10px;
+    font-size: 0.76rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }
 
-/* ============ PRINT RULES FOR CERTIFICATES ============ */
+/* ============ INDUSTRY TRENDS & DOCUMENTATION ADVISOR ============ */
+.acad-advisor {
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 24px rgba(10, 26, 64, 0.04);
+}
+
+.acad-advisor-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.acad-advisor-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.acad-advisor-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.acad-advisor-title h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.28rem, 2vw, 1.48rem);
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+}
+
+.acad-advisor-title p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.acad-advisor-presets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.acad-advisor-preset {
+  background: #ffffff;
+  border: 1px solid #d5e0f4;
+  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.acad-advisor-preset:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: var(--blue);
+  color: var(--blue);
+  transform: translateY(-1px);
+}
+
+.acad-advisor-preset:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.acad-advisor-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.acad-advisor-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+}
+
+.acad-advisor-input-wrap svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.acad-advisor-input-wrap .acad-input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px 0 42px;
+  border-radius: 10px;
+  border: 1px solid #dce5f5;
+  background: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--navy);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.acad-advisor-input-wrap .acad-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(45, 79, 214, 0.12);
+}
+
+.acad-advisor-error {
+  padding: 12px 16px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #991b1b;
+  font-size: 0.88rem;
+  margin-top: 16px;
+}
+
+.acad-advisor-result {
+  background: #f8fafd;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 22px;
+}
+
+.acad-advisor-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.acad-advisor-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--blue);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: acad-spin 0.8s linear infinite;
+}
+
+@keyframes acad-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.acad-advisor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.acad-advisor-badge.live {
+  background: #ffffff;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.acad-advisor-badge.curated {
+  background: #ffffff;
+  color: var(--navy);
+  border: 1px solid #d5e0f4;
+}
+
+.acad-advisor-prose {
+  font-size: 0.92rem;
+  line-height: 1.68;
+  color: var(--navy);
+}
+
+.acad-advisor-h3 {
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 18px 0 8px 0;
+}
+
+.acad-advisor-h3:first-child {
+  margin-top: 0;
+}
+
+.acad-advisor-h4 {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin: 14px 0 6px 0;
+}
+
+.acad-advisor-h4:first-child {
+  margin-top: 0;
+}
+
+.acad-advisor-p {
+  margin: 0 0 10px 0;
+}
+
+.acad-advisor-list {
+  margin: 0 0 12px 0;
+  padding-left: 22px;
+}
+
+ul.acad-advisor-list {
+  list-style: disc;
+}
+
+ol.acad-advisor-list {
+  list-style: decimal;
+}
+
+.acad-advisor-list li {
+  margin-bottom: 6px;
+}
+
+.acad-advisor-inline-code {
+  background: #f1f5f9;
+  color: #0f172a;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: var(--font-mono, monospace);
+  border: 1px solid #e2e8f0;
+}
+
+.acad-advisor-sources {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+  margin-top: 18px;
+}
+
+.acad-advisor-sources-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.acad-advisor-sources-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.acad-advisor-sources-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #dce5f5;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.acad-advisor-sources-list a:hover {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .acad-advisor {
+    padding: 20px;
+  }
+
+  .acad-advisor-head {
+    flex-direction: column;
+  }
+
+  .acad-advisor-title {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .acad-advisor-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acad-advisor-form .btn-navy {
+    width: 100%;
+  }
+}
+
+/* ============ ROLE & SKILL-GAP PATHFINDER STUDIO ============ */
+.acad-pathfinder {
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.acad-pathfinder-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 22px;
+  background: var(--white);
+  border: 1.5px solid #c5d6f5;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px -12px rgba(10, 26, 64, 0.08);
+}
+
+.acad-pathfinder-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.acad-pathfinder-field {
+  flex: 1 1 220px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acad-pathfinder-field label {
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+  margin: 0;
+}
+
+.acad-pathfinder-field .acad-select {
+  width: 100%;
+}
+
+.acad-pathfinder-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: #f6f9ff;
+  border: 1px solid #d5e0f4;
+}
+
+.acad-pathfinder-result-copy {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.acad-pathfinder-result-copy h3 {
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 6px;
+}
+
+.acad-pathfinder-result-copy p {
+  font-size: 0.89rem;
+  line-height: 1.54;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+.acad-pathfinder-gaps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.acad-pathfinder-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ============ ACADEMY HOME & COURSE FAQ SECTION (FLEXBOX) ============ */
+.acad-faq-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+}
+
+.acad-faq-intro {
+  flex: 0 0 340px;
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acad-faq-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+}
+
+.acad-faq-intro h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.3vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: var(--navy);
+  margin: 0;
+}
+
+.acad-faq-intro>p {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.56;
+  color: var(--muted);
+  margin: 0;
+}
+
+.acad-faq-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.acad-faq-tab {
+  appearance: none;
+  padding: 7px 13px;
+  border-radius: 8px;
+  border: 1px solid #d5e0f4;
+  background: var(--white);
+  color: #334155;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.acad-faq-tab:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: #f8faff;
+}
+
+.acad-faq-tab.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+.acad-faq-tab:focus-visible,
+.acad-faq-trigger:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.acad-faq-callout {
+  margin-top: 8px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  box-shadow: 0 8px 22px -14px rgba(10, 26, 64, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-faq-callout strong {
+  font-family: var(--font-heading);
+  font-size: 0.94rem;
+  color: var(--navy);
+  line-height: 1.35;
+}
+
+.acad-faq-callout p {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+.acad-faq-callout-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.acad-faq-stage {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.acad-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acad-faq-item {
+  border: 1px solid #dce5f5;
+  border-radius: 12px;
+  background: var(--white);
+  overflow: hidden;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.acad-faq-item:hover {
+  border-color: #b8caf0;
+}
+
+.acad-faq-item.is-open {
+  border-color: #a9c0f3;
+  box-shadow: 0 10px 24px -14px rgba(15, 37, 87, 0.12);
+}
+
+.acad-faq-trigger {
+  appearance: none;
+  width: 100%;
+  padding: 17px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.acad-faq-trigger-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  min-width: 0;
+}
+
+.acad-faq-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--blue);
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.acad-faq-question {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.98rem;
+  line-height: 1.38;
+  color: var(--navy);
+}
+
+.acad-faq-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--blue);
+  transition: transform 200ms ease;
+}
+
+.acad-faq-item.is-open .acad-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.acad-faq-panel {
+  padding: 13px 20px 18px;
+  border-top: 1px solid #e6edf9;
+  background: #f8faff;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.acad-faq-course-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.acad-faq-course-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--blue-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+@media (max-width: 960px) {
+  .acad-faq-shell {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .acad-faq-intro {
+    position: static;
+    top: auto;
+    flex: none;
+    width: 100%;
+  }
+
+  .acad-faq-stage {
+    width: 100%;
+    flex: none;
+  }
+}
+
+/* ============ FULL-WIDTH CORPORATE / BUSINESS CTA SECTION ============ */
+.acad-corp-cta-band {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(58px, 6.5vw, 88px) 0;
+  background: linear-gradient(135deg, #07122f 0%, #0d2154 55%, #14327a 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.acad-corp-cta-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 35%, transparent 100%);
+}
+
+.acad-corp-cta-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.4;
+}
+
+.acad-corp-cta-glow-a {
+  width: 380px;
+  height: 380px;
+  top: -150px;
+  left: -80px;
+  background: rgba(45, 79, 214, 0.52);
+  animation: acadCorpGlowDrift 14s ease-in-out infinite alternate;
+}
+
+.acad-corp-cta-glow-b {
+  width: 340px;
+  height: 340px;
+  bottom: -160px;
+  right: -60px;
+  background: rgba(245, 184, 46, 0.24);
+  animation: acadCorpGlowDrift 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes acadCorpGlowDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(28px, -18px, 0) scale(1.08);
+  }
+}
+
+.acad-corp-cta-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(28px, 4.5vw, 56px);
+}
+
+.acad-corp-cta-copy {
+  flex: 1.15 1 500px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.acad-corp-cta-kicker {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.acad-corp-cta-copy h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.65rem, 2.7vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.16;
+  color: #ffffff;
+  margin: 0;
+  max-width: 22ch;
+}
+
+.acad-corp-cta-copy p {
+  font-family: var(--font-body);
+  font-size: 0.99rem;
+  line-height: 1.65;
+  color: rgba(226, 234, 250, 0.9);
+  margin: 0;
+  max-width: 58ch;
+}
+
+.acad-corp-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.acad-corp-cta-actions .btn {
+  white-space: nowrap;
+}
+
+.acad-corp-cta-pillars {
+  flex: 0.85 1 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: clamp(24px, 3.5vw, 48px);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.acad-corp-cta-pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.acad-corp-cta-pillar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.acad-corp-cta-pillar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.acad-corp-cta-pillar-text strong {
+  font-family: var(--font-heading);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.acad-corp-cta-pillar-text p {
+  font-family: var(--font-body);
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: rgba(203, 213, 232, 0.86);
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .acad-corp-cta-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  .acad-corp-cta-copy {
+    flex: none;
+    width: 100%;
+  }
+
+  .acad-corp-cta-pillars {
+    flex: none;
+    width: 100%;
+    padding-left: 0;
+    padding-top: 26px;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .acad-corp-cta-glow-a,
+  .acad-corp-cta-glow-b {
+    animation: none;
+  }
+}
+
+/* ============ BLOG / INDUSTRY BRIEFS SECTION (WHY OUR PROGRAMS STAND OUT) ============ */
+.acad-blog-section {
+  background: var(--white);
+  border-bottom: 1px solid #e6edf9;
+}
+
+.acad-blog-kicker {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.acad-blog-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.acad-blog-card {
+  flex: 1 1 calc(33.333% - 16px);
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px -8px rgba(10, 26, 64, 0.06);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.acad-blog-card:hover {
+  border-color: #93b0f5;
+  box-shadow: 0 14px 30px -12px rgba(15, 37, 87, 0.14);
+  transform: translateY(-2px);
+}
+
+.acad-blog-media {
+  position: relative;
+  height: 184px;
+  background: var(--navy);
+  overflow: hidden;
+  border-bottom: 1px solid #e6edf9;
+}
+
+.acad-blog-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.acad-blog-card:hover .acad-blog-media img {
+  transform: scale(1.04);
+}
+
+.acad-blog-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px 22px;
+}
+
+.acad-blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-size: 0.77rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.acad-blog-cat {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.acad-blog-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  margin: 0;
+}
+
+.acad-blog-excerpt {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.56;
+  color: var(--muted);
+  margin: 0;
+}
+
+.acad-blog-foot {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #edf2fb;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.acad-blog-track-ref {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.acad-blog-track-ref span {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.acad-blog-track-ref a {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.acad-blog-track-ref a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.acad-blog-read-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 150ms ease, gap 150ms ease;
+}
+
+.acad-blog-read-btn:hover {
+  color: var(--navy);
+  gap: 9px;
+}
+
+/* Dispatch Reader Modal */
+.acad-blog-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(7, 18, 47, 0.62);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.acad-blog-modal {
+  width: 100%;
+  max-width: 680px;
+  background: var(--white);
+  border: 1px solid #dce5f5;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 28px 64px -12px rgba(7, 18, 47, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: auto;
+}
+
+.acad-blog-modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.acad-blog-modal-close {
+  appearance: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #dce5f5;
+  background: #f8fafc;
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.acad-blog-modal-close:hover {
+  background: #eef3fb;
+}
+
+.acad-blog-modal-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.24;
+  color: var(--navy);
+  margin: 0;
+}
+
+.acad-blog-modal-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acad-blog-modal-prose p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.64;
+  color: var(--ink);
+  margin: 0;
+}
+
+.acad-blog-standout-box {
+  background: #f8faff;
+  border: 1px solid #dce5f5;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acad-blog-standout-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--blue);
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+}
+
+.acad-blog-standout-box > p {
+  font-family: var(--font-body);
+  font-size: 0.91rem;
+  line-height: 1.56;
+  color: var(--muted);
+  margin: 0;
+}
+
+.acad-blog-takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.acad-blog-takeaways li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.acad-blog-takeaways li svg {
+  color: var(--ok);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.acad-blog-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #edf2fb;
+}
+
+@media (max-width: 1060px) {
+  .acad-blog-card {
+    flex: 1 1 calc(50% - 12px);
+  }
+}
+
+@media (max-width: 680px) {
+  .acad-blog-card {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .acad-blog-modal {
+    padding: 20px;
+  }
+}
+
+/* ============ GUIDED 3-STEP ONBOARDING WIZARD (/academy/get-started) ============ */
+.acad-getstarted-wizard {
+  max-width: 540px;
+  gap: 18px;
+  padding-bottom: clamp(28px, 6vh, 64px);
+}
+
+.acad-onboard-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.acad-onboard-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 1px solid #e1e8f6;
+  background: #f8fafe;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5b6d8f;
+}
+
+.acad-onboard-step.active {
+  background: #ffffff;
+  border-color: var(--blue);
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.acad-onboard-step.done {
+  background: #f2fbf5;
+  border-color: #c5e6d3;
+  color: var(--ok-text);
+}
+
+.acad-onboard-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: #eaf0fc;
+  color: var(--blue);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.acad-onboard-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.acad-onboard-audience-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.acad-onboard-choice-card {
+  flex: 1 1 210px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #dbe4f5;
+  background: #ffffff;
+  color: var(--navy);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.acad-onboard-choice-card svg {
+  color: var(--blue);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.acad-onboard-choice-card strong {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.acad-onboard-choice-card span {
+  display: block;
+  font-size: 0.79rem;
+  color: #5b6d8f;
+  line-height: 1.38;
+}
+
+.acad-onboard-choice-card.selected {
+  border-color: var(--blue);
+  background: #f5f8ff;
+  box-shadow: 0 0 0 3px rgba(30, 86, 209, 0.1);
+}
+
+.acad-onboard-subhead {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.acad-onboard-goal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-onboard-goal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 9px;
+  border: 1px solid #dde6f5;
+  background: #ffffff;
+  color: var(--navy);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.acad-onboard-goal-item svg {
+  color: #5d6f91;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.acad-onboard-goal-item strong {
+  display: block;
+  font-size: 0.89rem;
+  font-weight: 700;
+}
+
+.acad-onboard-goal-item span {
+  display: block;
+  font-size: 0.78rem;
+  color: #5b6d8f;
+}
+
+.acad-onboard-goal-item.selected {
+  border-color: var(--blue);
+  background: #f4f7ff;
+}
+
+.acad-onboard-goal-item.selected svg {
+  color: var(--blue);
+}
+
+.acad-onboard-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-onboard-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.acad-onboard-chip {
+  padding: 8px 13px;
+  border-radius: 8px;
+  border: 1px solid #d8e2f5;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.acad-onboard-chip.selected {
+  border-color: var(--blue);
+  background: var(--navy);
+  color: #ffffff;
+}
+
+.acad-onboard-biz-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acad-onboard-biz-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #dce5f5;
+  background: #f7faff;
+}
+
+.acad-onboard-biz-card strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.acad-onboard-biz-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #536485;
+  line-height: 1.5;
+}
+
+.acad-onboard-text-btn {
+  border: none;
+  background: transparent;
+  padding: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  text-align: center;
+}
+
+.acad-onboard-text-btn:hover {
+  text-decoration: underline;
+}
+
+.acad-onboard-summary-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 9px;
+  background: #eef4ff;
+  border: 1px solid #d5e2fb;
+  color: var(--navy);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.acad-onboard-summary-banner svg {
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.acad-onboard-rec-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1.5px solid #d4e0f6;
+  background: #ffffff;
+}
+
+.acad-onboard-rec-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.acad-onboard-rec-card h2 {
+  font-size: 1.14rem;
+  color: var(--navy);
+  margin: 0 0 6px;
+}
+
+.acad-onboard-rec-card p {
+  font-size: 0.86rem;
+  color: #536485;
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.acad-onboard-rec-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.79rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.acad-onboard-rec-meta span {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #f4f7fd;
+  border: 1px solid #e2e9f8;
+}
+
+.acad-onboard-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.acad-onboard-skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: #f4fbf7;
+  border: 1px solid #cde9d9;
+  font-size: 0.77rem;
+  font-weight: 600;
+  color: var(--ok-text);
+}
+
+.acad-onboard-next-track {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 13px;
+  border-radius: 8px;
+  border: 1px solid #e1e8f6;
+  background: #f9fbff;
+  font-size: 0.84rem;
+  color: var(--ink);
+}
+
+.acad-onboard-next-track a {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.acad-onboard-next-track a:hover {
+  text-decoration: underline;
+}
+
+.acad-onboard-secondary-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.acad-onboard-auth-footnote {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e8eef9;
+  font-size: 0.83rem;
+  color: #5b6d8f;
+}
+
+.acad-onboard-auth-footnote a {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.acad-onboard-auth-footnote a:hover {
+  text-decoration: underline;
+}
+
+/* ============ COURSE DETAIL SPLIT HERO, STICKY BAR & OUTCOMES MATRIX ============ */
+.acad-course-hero-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.acad-course-hero-copy {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+
+.acad-course-hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+  font-size: 0.87rem;
+  font-weight: 600;
+  color: #dbe6ff;
+}
+
+.acad-course-hero-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.acad-course-hero-media {
+  flex: 0 1 380px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 22px 46px rgba(4, 10, 28, 0.35);
+  background: #0d1f4c;
+}
+
+.acad-course-hero-media img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+
+.acad-course-sticky-bar {
+  position: sticky;
+  top: 108px;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e1e8f5;
+  box-shadow: 0 4px 14px rgba(10, 26, 64, 0.04);
+}
+
+.acad-course-sticky-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 54px;
+}
+
+.acad-course-sticky-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.acad-course-sticky-tab {
+  padding: 15px 12px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #4f6084;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+
+.acad-course-sticky-tab:hover {
+  color: var(--navy);
+}
+
+.acad-course-sticky-tab.active {
+  color: var(--blue);
+  font-weight: 700;
+  border-bottom-color: var(--blue);
+}
+
+.acad-course-sticky-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.acad-course-sticky-title {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.acad-anchor-section {
+  scroll-margin-top: 174px;
+}
+
+.acad-outcomes-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.acad-outcomes-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #f2fbf6;
+  border: 1px solid #cce8d9;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ok-text);
+}
+
+.acad-outcomes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.acad-outcomes-metrics {
+  flex: 1 1 310px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.acad-outcomes-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acad-outcomes-bar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.84rem;
+}
+
+.acad-outcomes-bar-head strong {
+  color: var(--navy);
+}
+
+.acad-outcomes-bar-head span {
+  color: #5b6d8f;
+  font-weight: 600;
+}
+
+.acad-outcomes-bar-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 6px;
+  background: #ebf0fa;
+  overflow: hidden;
+}
+
+.acad-outcomes-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--blue) 0%, #3d7cf7 100%);
+}
+
+.acad-outcomes-roles-box {
+  flex: 1 1 240px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #f8fafe;
+  border: 1px solid #e2e9f7;
+}
+
+.acad-outcomes-note {
+  font-size: 0.82rem;
+  color: #56688a;
+  line-height: 1.5;
+}
+
+@media (max-width: 1080px) {
+  .acad-course-sticky-bar {
+    top: 64px;
+  }
+
+  .acad-anchor-section {
+    scroll-margin-top: 130px;
+  }
+
+  .acad-course-sticky-title {
+    display: none;
+  }
+}
+
+/* ============ FOR BUSINESS SHOWCASE, COMPARISON & TELEMETRY PREVIEW ============ */
+.acad-biz-hero {
+  background: linear-gradient(135deg, #071436 0%, #0d2359 60%, #153787 100%);
+  color: #ffffff;
+  padding: clamp(42px, 5vw, 68px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.acad-biz-hero-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.acad-biz-hero-copy {
+  flex: 1 1 520px;
+  max-width: 640px;
+}
+
+.acad-biz-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.83rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.acad-biz-hero-copy h1 {
+  margin: 0 0 14px;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.3vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.acad-biz-hero-lead {
+  font-size: 1.03rem;
+  line-height: 1.62;
+  color: rgba(235, 242, 255, 0.88);
+  margin: 0 0 22px;
+}
+
+.acad-biz-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.acad-biz-btn-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.acad-biz-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.acad-biz-hero-stats {
+  flex: 1 1 360px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.acad-biz-stat-item {
+  flex: 1 1 calc(50% - 12px);
+  min-width: 170px;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.acad-biz-stat-item strong {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.acad-biz-stat-item span {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.42;
+  color: rgba(226, 236, 255, 0.82);
+}
+
+.acad-biz-plan-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.acad-biz-pathway-card {
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #dfe7f6;
+  box-shadow: 0 10px 26px rgba(10, 26, 64, 0.05);
+}
+
+.acad-biz-pathway-dept {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--blue);
+}
+
+.acad-biz-pathway-card h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  color: var(--navy);
+}
+
+.acad-biz-pathway-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #536485;
+  line-height: 1.5;
+}
+
+.acad-biz-pathway-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.acad-biz-pathway-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.acad-biz-pathway-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #edf2fb;
+}
+
+.acad-biz-pathway-links a {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.acad-biz-pathway-links a:hover {
+  text-decoration: underline;
+}
+
+.acad-biz-compare-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.acad-biz-estimator {
+  flex: 1 1 340px;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+}
+
+.acad-biz-est-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+}
+
+.acad-biz-est-head h3 {
+  margin: 0;
+  font-size: 1.12rem;
+  color: var(--navy);
+}
+
+.acad-biz-seat-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.acad-biz-seat-btn {
+  flex: 1 1 calc(33.33% - 7px);
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d7e1f4;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.acad-biz-seat-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
+.acad-biz-est-totals {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: #f5f8ff;
+  border: 1px solid #dce6f8;
+  margin-bottom: 14px;
+}
+
+.acad-biz-est-totals div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.acad-biz-est-totals span {
+  font-size: 0.77rem;
+  font-weight: 600;
+  color: #5b6d8f;
+}
+
+.acad-biz-matrix-card {
+  flex: 1.4 1 480px;
+  min-width: 0;
+  width: 100%;
+}
+
+.acad-biz-compare-cap {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.acad-biz-cell-check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.acad-biz-cell-check svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.acad-biz-telemetry-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.acad-biz-telemetry-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.acad-biz-preview-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #f2f6ff;
+  border: 1px solid #dce5f7;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.acad-biz-preview-kpis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.acad-biz-preview-kpi {
+  flex: 1 1 180px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #f8fafe;
+  border: 1px solid #e2e9f7;
+}
+
+.acad-biz-preview-kpi span {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5b6d8f;
+  margin-bottom: 4px;
+}
+
+.acad-biz-preview-kpi strong {
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.acad-biz-comp-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.acad-biz-admin-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: #f4f7ff;
+  border: 1px solid #d5e1f7;
+}
+
+.acad-biz-admin-copy {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 1 360px;
+}
+
+.acad-biz-admin-copy svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.acad-biz-admin-copy strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.96rem;
+  margin-bottom: 2px;
+}
+
+.acad-biz-admin-copy span {
+  display: block;
+  font-size: 0.85rem;
+  color: #536485;
+}
+
+.acad-biz-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 720px) {
+  .acad-biz-estimator {
+    max-width: 100%;
+  }
+
+  .acad-biz-matrix-card {
+    flex: 1 1 100%;
+    padding: 14px;
+  }
+
+  .acad-biz-stat-item {
+    flex: 1 1 100%;
+  }
+
+  .acad-biz-compare-table thead {
+    display: none;
+  }
+
+  .acad-biz-compare-table,
+  .acad-biz-compare-table tbody,
+  .acad-biz-compare-table tr,
+  .acad-biz-compare-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .acad-biz-compare-table tr {
+    padding: 12px 14px;
+    border-bottom: 1px solid #e6edf8;
+  }
+
+  .acad-biz-compare-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .acad-biz-compare-table td {
+    padding: 4px 0;
+    border: none;
+  }
+
+  .acad-biz-compare-table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #5b6d8f;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+}
+
+/* ============ EXPERIENCE-GATED SYLLABUS DOWNLOAD MODAL ============ */
+.acad-syllabus-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(10, 25, 47, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 32px);
+  overflow-y: auto;
+}
+
+.acad-syllabus-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(10, 25, 47, 0.28), 0 0 0 1px rgba(10, 25, 47, 0.08);
+  max-width: 580px;
+  width: 100%;
+  position: relative;
+  padding: clamp(24px, 4vw, 36px);
+  margin: auto;
+}
+
+.acad-syllabus-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.acad-syllabus-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.acad-syllabus-modal-head {
+  margin-bottom: 20px;
+  padding-right: 36px;
+}
+
+.acad-syllabus-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: #eaf1fb;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.acad-syllabus-modal-head h3 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.28rem, 2vw, 1.55rem);
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 4px;
+  line-height: 1.25;
+}
+
+.acad-syllabus-course-name {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--blue);
+  margin: 0 0 6px;
+}
+
+.acad-syllabus-subtitle {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.acad-syllabus-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.acad-syllabus-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.acad-syllabus-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acad-syllabus-field label {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.acad-syllabus-field .acad-input,
+.acad-syllabus-field .acad-select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: var(--navy);
+  font-size: 0.9rem;
+}
+
+.acad-syllabus-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: var(--ink);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.acad-syllabus-checkbox input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--blue);
+}
+
+@media (max-width: 600px) {
+  .acad-syllabus-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.acad-syllabus-actions {
+  margin-top: 6px;
+}
+
+.acad-syllabus-privacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.77rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.acad-syllabus-success {
+  text-align: center;
+  padding: 10px 4px;
+}
+
+.acad-success-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #eaf7f0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.acad-syllabus-success h3 {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 6px;
+}
+
+.acad-success-lead {
+  font-size: 0.93rem;
+  color: var(--ink);
+  margin: 0 0 18px;
+  line-height: 1.55;
+}
+
+.acad-success-summary-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.acad-success-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.86rem;
+}
+
+.acad-success-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+}
+
+.acad-success-row strong {
+  color: var(--navy);
+  text-align: right;
+}
+
+.acad-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.acad-success-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: #1e40af;
+  text-align: left;
+  margin-top: 14px;
+  line-height: 1.45;
+}
+
+/* ============ 3-TIER ENTERPRISE CAPABILITY FRAMEWORK ============ */
+.acad-biz-framework-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.5vw, 28px);
+  margin-top: 24px;
+}
+
+@media (max-width: 1024px) {
+  .acad-biz-framework-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.acad-biz-tier-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: clamp(20px, 3vw, 28px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  position: relative;
+}
+
+.acad-biz-tier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.09);
+  border-color: #cbd5e1;
+}
+
+.acad-biz-tier-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.acad-biz-tier-num {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.acad-biz-tier-badge {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.acad-biz-tier-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.acad-biz-tier-summary {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+
+.acad-biz-tier-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.acad-biz-tier-meta-lbl {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.acad-biz-tier-meta strong {
+  font-size: 0.84rem;
+  color: var(--navy);
+  line-height: 1.35;
+}
+
+.acad-biz-tier-comps {
+  margin-bottom: 16px;
+}
+
+.acad-biz-tier-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acad-biz-tier-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.acad-biz-tier-deliverable {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 0.81rem;
+  color: #92400e;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.acad-biz-tier-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.acad-biz-tier-tool {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--navy);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+.acad-biz-tier-action {
+  margin-top: auto;
+}
+
+/* ============ PRINT RULES FOR CERTIFICATES & SYLLABI ============ */
 @media print {
+
   .acad-header,
   .acad-page-hero,
   .acad-footer,
   .acad-no-print {
     display: none !important;
   }
+
+  .acad-detail-grid {
+    display: block !important;
+  }
+
+  .acad-side-card {
+    margin-top: 24px;
+    break-inside: avoid;
+  }
+
   .acad-cert-sheet {
     border: 2px solid #0f2557;
     box-shadow: none;

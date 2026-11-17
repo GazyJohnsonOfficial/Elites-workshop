@@ -96,8 +96,8 @@ export function Header() {
                 </Link>
               );
             })}
-            <Link href="/academy/register" className="btn btn-gold btn-sm">
-              Register Now
+            <Link href="/academy/get-started" className="btn btn-gold btn-sm">
+              Get Started
             </Link>
           </nav>
         </div>

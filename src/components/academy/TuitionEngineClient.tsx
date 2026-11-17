@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2, CheckCircle2, CreditCard, Landmark, Smartphone } from "lucide-react";
 import {
@@ -10,6 +10,11 @@ import {
   type Course,
   type CurrencyCode,
 } from "@/lib/academyStore";
+import {
+  mapCountryCodeToCurrency,
+  mapCountryNameToCurrency,
+  mapCurrencyToDefaultCountry,
+} from "@/lib/geoCurrency";
 import { SITE_CONFIG } from "@/lib/config";
 
 export function TuitionEngineClient({
@@ -18,15 +23,20 @@ export function TuitionEngineClient({
   initialCourseId,
   initialCohortId,
   initialMode,
+  initialCurrency = "USD",
+  initialCountry,
 }: {
   courses: Course[];
   cohorts: Cohort[];
   initialCourseId: string;
   initialCohortId: string;
   initialMode: "individual" | "corporate";
+  initialCurrency?: CurrencyCode;
+  initialCountry?: string;
 }) {
+  const defaultCountry = initialCountry || mapCurrencyToDefaultCountry(initialCurrency);
   const [mode, setMode] = useState<"individual" | "corporate">(initialMode);
-  const [currency, setCurrency] = useState<CurrencyCode>("USD");
+  const [currency, setCurrency] = useState<CurrencyCode>(initialCurrency);
   const [selectedCourseId, setSelectedCourseId] = useState<string>(
     initialCourseId || courses[0]?.id || ""
   );
@@ -38,7 +48,7 @@ export function TuitionEngineClient({
   const [indName, setIndName] = useState("");
   const [indEmail, setIndEmail] = useState("");
   const [indPhone, setIndPhone] = useState("");
-  const [indCountry, setIndCountry] = useState("Ghana");
+  const [indCountry, setIndCountry] = useState(defaultCountry);
 
   // Corporate state
   const [seatCount, setSeatCount] = useState<number>(10);
@@ -47,8 +57,60 @@ export function TuitionEngineClient({
   const [corpContactName, setCorpContactName] = useState("");
   const [corpContactEmail, setCorpContactEmail] = useState("");
   const [corpPhone, setCorpPhone] = useState("");
-  const [corpRegion, setCorpRegion] = useState("Ghana");
+  const [corpRegion, setCorpRegion] = useState(defaultCountry);
   const [corpNotes, setCorpNotes] = useState("");
+  const hasManualRegionEdit = useRef(false);
+
+  useEffect(() => {
+    if (hasManualRegionEdit.current) return;
+    setCurrency(initialCurrency);
+    const derived = initialCountry || mapCurrencyToDefaultCountry(initialCurrency);
+    setIndCountry(derived);
+    setCorpRegion(derived);
+  }, [initialCurrency, initialCountry]);
+
+  useEffect(() => {
+    const handleRegionChange = (event: Event) => {
+      if (hasManualRegionEdit.current) return;
+      const detail = (event as CustomEvent<{ currency?: CurrencyCode; countryCode?: string }>).detail;
+      const nextCurr =
+        detail?.currency ||
+        (detail?.countryCode ? mapCountryCodeToCurrency(detail.countryCode) : null);
+      if (nextCurr) {
+        const nextCountry = mapCurrencyToDefaultCountry(nextCurr);
+        setCurrency(nextCurr);
+        setIndCountry(nextCountry);
+        setCorpRegion(nextCountry);
+      }
+    };
+    window.addEventListener("ets-region-currency-changed", handleRegionChange);
+    return () => {
+      window.removeEventListener("ets-region-currency-changed", handleRegionChange);
+    };
+  }, []);
+
+  const handleModeChange = (nextMode: "individual" | "corporate") => {
+    setMode(nextMode);
+    setError("");
+    const activeTarget = nextMode === "individual" ? indCountry : corpRegion;
+    setCurrency(mapCountryNameToCurrency(activeTarget));
+  };
+
+  const handleIndividualCountryChange = (nextCountry: string) => {
+    hasManualRegionEdit.current = true;
+    setIndCountry(nextCountry);
+    const nextCurrency = mapCountryNameToCurrency(nextCountry);
+    setCurrency(nextCurrency);
+    if (nextCurrency !== "GHS" && channel === "Mobile Money (MoMo)") {
+      setChannel("Bank Transfer");
+    }
+  };
+
+  const handleCorporateRegionChange = (nextRegion: string) => {
+    hasManualRegionEdit.current = true;
+    setCorpRegion(nextRegion);
+    setCurrency(mapCountryNameToCurrency(nextRegion));
+  };
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -179,23 +241,10 @@ export function TuitionEngineClient({
           </div>
           <div className="acad-page-hero-row">
             <div>
-              <h1>Multi-Currency Tuition, Installments &amp; Corporate Seat Quotes</h1>
+              <h1>Tuition Enrollment, Installments &amp; Corporate Quotes</h1>
               <p className="lead">
-                Calculate fees in USD, GHS, or GBP, enroll individually on a full or 2-installment schedule, or generate an instant corporate volume quote with Net-30 PO options.
+                Pricing is automatically displayed in your local settlement currency ({currency}). Enroll individually on a full or 2-installment schedule, or generate an instant corporate volume quote tailored to your hub.
               </p>
-            </div>
-            <div className="acad-currency-switch" role="group" aria-label="Settlement currency">
-              {(["USD", "GHS", "GBP"] as CurrencyCode[]).map((code) => (
-                <button
-                  key={code}
-                  type="button"
-                  onClick={() => setCurrency(code)}
-                  className={`acad-currency-btn ${currency === code ? "active" : ""}`}
-                  aria-pressed={currency === code}
-                >
-                  {code}
-                </button>
-              ))}
             </div>
           </div>
         </div>
@@ -262,7 +311,7 @@ export function TuitionEngineClient({
                     type="button"
                     role="tab"
                     aria-selected={mode === "individual"}
-                    onClick={() => { setMode("individual"); setError(""); }}
+                    onClick={() => handleModeChange("individual")}
                     className={`acad-mode-btn ${mode === "individual" ? "active" : ""}`}
                   >
                     <strong>Individual Learner</strong>
@@ -272,7 +321,7 @@ export function TuitionEngineClient({
                     type="button"
                     role="tab"
                     aria-selected={mode === "corporate"}
-                    onClick={() => { setMode("corporate"); setError(""); }}
+                    onClick={() => handleModeChange("corporate")}
                     className={`acad-mode-btn ${mode === "corporate" ? "active" : ""}`}
                   >
                     <strong>Corporate Team Pack (5+ Seats)</strong>
@@ -299,7 +348,7 @@ export function TuitionEngineClient({
                     >
                       {courses.map((c) => (
                         <option key={c.id} value={c.id}>
-                          {c.title} — {formatCurrencyAmount(c.tuitionUsd, currency)} ({c.durationWeeks} wks)
+                          {c.title} · {formatCurrencyAmount(c.tuitionUsd, currency)} ({c.durationWeeks} wks)
                         </option>
                       ))}
                     </select>
@@ -445,7 +494,7 @@ export function TuitionEngineClient({
                       <select
                         id="ind-country"
                         value={indCountry}
-                        onChange={(e) => setIndCountry(e.target.value)}
+                        onChange={(e) => handleIndividualCountryChange(e.target.value)}
                       >
                         <option value="Ghana">Ghana</option>
                         <option value="United States">United States</option>
@@ -534,7 +583,7 @@ export function TuitionEngineClient({
                       <select
                         id="corp-region"
                         value={corpRegion}
-                        onChange={(e) => setCorpRegion(e.target.value)}
+                        onChange={(e) => handleCorporateRegionChange(e.target.value)}
                       >
                         <option value="Ghana">Ghana</option>
                         <option value="United States">United States</option>

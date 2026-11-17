@@ -10,8 +10,12 @@ export function AcademyFooter() {
   if (
     pathname === "/academy/signin" ||
     pathname === "/academy/register" ||
+    pathname === "/academy/get-started" ||
+    pathname === "/academy/corporate/signin" ||
+    pathname === "/academy/corporate/register" ||
     pathname === "/signin" ||
-    pathname === "/register"
+    pathname === "/register" ||
+    pathname === "/get-started"
   ) {
     return null;
   }
@@ -22,7 +26,7 @@ export function AcademyFooter() {
           <div>
             <h3>Elites Tech Academy</h3>
             <p className="acad-footer-copy">
-              The workforce enablement and credentialing portal of {SITE_CONFIG.COMPANY}, delivering live practitioner cohorts and corporate cloud bootcamps across North America, EMEA, and West Africa.
+              The workforce enablement and credentialing portal of {SITE_CONFIG.COMPANY}, delivering instructor-led practitioner tracks and corporate cloud bootcamps across North America, EMEA, and West Africa.
             </p>
           </div>
 
@@ -54,13 +58,10 @@ export function AcademyFooter() {
                 <Link href="/academy/verify">Verify a Certificate</Link>
               </li>
               <li>
-                <Link href="/academy/verify/ETS-CERT-9482AX">Sample Credential</Link>
+                <Link href="/academy/get-started">Workspace Setup Guide</Link>
               </li>
               <li>
-                <Link href="/admin">Unified Staff Admin</Link>
-              </li>
-              <li>
-                <Link href="/data-analysis">Data Analysis Brochure</Link>
+                <Link href="/academy#paths">Learning Paths</Link>
               </li>
             </ul>
           </div>

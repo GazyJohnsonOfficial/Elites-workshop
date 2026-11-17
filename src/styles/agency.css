@@ -130,14 +130,6 @@
   margin-bottom: 14px;
 }
 
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--gold);
-}
-
 .on-dark .eyebrow {
   color: var(--cyan);
 }
@@ -896,7 +888,7 @@
 
 .svc-hero-eyebrow {
   display: inline-block;
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1052,11 +1044,11 @@
 
 .svc-category-eyebrow {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: var(--cyan);
   margin-bottom: 8px;
 }
@@ -1140,7 +1132,8 @@
 }
 
 .svc-phase-idx {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 0.82rem;
   font-weight: 800;
   color: var(--blue);
@@ -1391,14 +1384,14 @@
 .svc-industry-std {
   display: inline-block;
   align-self: flex-start;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--blue);
-  background: rgba(45, 79, 214, 0.07);
-  border: 1px solid rgba(45, 79, 214, 0.18);
-  border-radius: 4px;
+  letter-spacing: 0.02em;
+  color: var(--navy);
+  background: #f8fafc;
+  border: 1px solid #dce5f5;
+  border-radius: 6px;
   padding: 4px 9px;
   margin-bottom: 14px;
 }
@@ -1821,11 +1814,11 @@
 
 .contact-hero-eyebrow {
   display: inline-block;
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: var(--cyan);
   margin-bottom: 12px;
   animation: svcContentEnter 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
@@ -2006,7 +1999,8 @@
   background: rgba(45, 79, 214, 0.08);
   border: 1px solid rgba(45, 79, 214, 0.2);
   color: var(--blue);
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 0.85rem;
   font-weight: 800;
   flex-shrink: 0;
@@ -2820,7 +2814,8 @@
 }
 
 .about-principle-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-heading);
+  font-variant-numeric: tabular-nums;
   font-size: 0.8rem;
   font-weight: 800;
   color: var(--muted);
@@ -7530,7 +7525,7 @@
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
+  border-radius: 8px;
   padding: 5px 12px;
   text-decoration: none;
   transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;

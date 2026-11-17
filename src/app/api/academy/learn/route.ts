@@ -82,6 +82,15 @@ export async function PATCH(req: Request) {
     const data = body as Record<string, unknown>;
     const enrollmentId = asTrimmedString(data.enrollmentId, 80);
     const toggleModuleId = asTrimmedString(data.toggleModuleId, 80);
+    const quizRaw =
+      data.quizSubmission && typeof data.quizSubmission === "object"
+        ? (data.quizSubmission as Record<string, unknown>)
+        : null;
+    const quizModuleId = quizRaw ? asTrimmedString(quizRaw.moduleId, 80) : "";
+    const quizScorePct =
+      quizRaw && typeof quizRaw.scorePct === "number" && Number.isFinite(quizRaw.scorePct)
+        ? Math.max(0, Math.min(100, Math.round(quizRaw.scorePct)))
+        : null;
     const capstoneUrl = typeof data.capstoneUrl === "string" ? asTrimmedString(data.capstoneUrl, 300) : undefined;
     const capstoneNotes = typeof data.capstoneNotes === "string" ? asTrimmedString(data.capstoneNotes, 1000) : undefined;
     const claimCertificate = data.claimCertificate === true;
@@ -113,6 +122,19 @@ export async function PATCH(req: Request) {
           );
         } else {
           enrollment.completedModuleIds = [...enrollment.completedModuleIds, toggleModuleId];
+        }
+      }
+    }
+
+    if (quizModuleId && quizScorePct !== null) {
+      const validModule = course.modules.some((m) => m.id === quizModuleId);
+      if (validModule) {
+        enrollment.moduleScores = {
+          ...(enrollment.moduleScores || {}),
+          [quizModuleId]: quizScorePct,
+        };
+        if (quizScorePct >= 80 && !enrollment.completedModuleIds.includes(quizModuleId)) {
+          enrollment.completedModuleIds = [...enrollment.completedModuleIds, quizModuleId];
         }
       }
     }

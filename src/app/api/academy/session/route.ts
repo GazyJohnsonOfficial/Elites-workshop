@@ -9,6 +9,7 @@ import {
   type UserRole,
 } from "@/lib/academyStore";
 import { asTrimmedString, isSameOriginRequest, isValidEmail } from "@/lib/security";
+import { mapCountryNameToCurrency, normalizeCurrencyCode } from "@/lib/geoCurrency";
 
 export async function GET() {
   const session = await getAcademySession();
@@ -27,18 +28,11 @@ export async function POST(req: Request) {
     }
 
     const data = body as Record<string, unknown>;
-    const demoRole = asTrimmedString(data.demoRole, 32);
     const store = getAcademyStore();
 
     let user: AcademyUser | undefined;
 
-    if (demoRole === "learner") {
-      user = store.users.find((u) => u.id === "user-learner-demo");
-    } else if (demoRole === "org_admin") {
-      user = store.users.find((u) => u.id === "user-corp-demo");
-    } else if (demoRole === "staff_admin") {
-      user = store.users.find((u) => u.id === "user-staff-demo");
-    } else {
+    {
       const email = asTrimmedString(data.email, 254).toLowerCase();
       const fullName = asTrimmedString(data.fullName, 120);
       const password = asTrimmedString(data.password, 128);
@@ -48,26 +42,59 @@ export async function POST(req: Request) {
       const courseId = asTrimmedString(data.courseId, 80);
       const paymentPlan: "full" | "installment_2" =
         asTrimmedString(data.paymentPlan, 32) === "full" ? "full" : "installment_2";
-      const rawCurrency = asTrimmedString(data.currency, 8).toUpperCase();
+      const rawCurrency = asTrimmedString(data.currency, 8);
       const currency: CurrencyCode =
-        rawCurrency === "GHS" || rawCurrency === "GBP" ? rawCurrency : "USD";
+        normalizeCurrencyCode(rawCurrency) || mapCountryNameToCurrency(country);
+
+      const authMode = asTrimmedString(data.authMode, 32) || "signin";
 
       if (!isValidEmail(email)) {
         return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
       }
 
       user = store.users.find((u) => u.email.toLowerCase() === email);
-      if (!user) {
+
+      if (authMode === "signin") {
+        if (!user || user.role === "staff_admin") {
+          return NextResponse.json(
+            { error: "No account found with this email address. Please register or apply first." },
+            { status: 404 }
+          );
+        }
+
+        if (!user.password || !password || password !== user.password) {
+          return NextResponse.json(
+            { error: "Invalid email or passphrase. Please try again." },
+            { status: 401 }
+          );
+        }
+      } else {
+        // Register mode: prevent duplicate registration
+        if (user) {
+          return NextResponse.json(
+            { error: "An account with this email already exists. Please sign in instead." },
+            { status: 409 }
+          );
+        }
+
+        if (!password || password.length < 6) {
+          return NextResponse.json(
+            { error: "Passphrase must be at least 6 characters long." },
+            { status: 400 }
+          );
+        }
+
         const resolvedName =
           fullName.length >= 2
             ? fullName
             : email
-                .split("@")[0]
-                .replace(/[._-]+/g, " ")
-                .replace(/\b\w/g, (l) => l.toUpperCase());
+              .split("@")[0]
+              .replace(/[._-]+/g, " ")
+              .replace(/\b\w/g, (l) => l.toUpperCase());
 
         const safeRole: UserRole =
           requestedRole === "org_admin" ? "org_admin" : "learner";
+        const organizationName = asTrimmedString(data.organizationName, 140);
 
         user = {
           id: `user-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
@@ -75,10 +102,38 @@ export async function POST(req: Request) {
           fullName: resolvedName,
           role: safeRole,
           country,
-          password: password || undefined,
+          password,
           createdAt: new Date().toISOString(),
         };
+
+        // Provision a workspace organization for new corporate administrators
+        if (safeRole === "org_admin") {
+          const domainPart = email.split("@")[1]?.split(".")[0] || "";
+          const inferredCompany =
+            organizationName.length >= 2
+              ? organizationName
+              : domainPart && domainPart !== "gmail" && domainPart !== "yahoo"
+                ? `${domainPart.charAt(0).toUpperCase()}${domainPart.slice(1)} Group`
+                : `${resolvedName} Organization`;
+          const newOrgId = `org-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+          store.organizations.push({
+            id: newOrgId,
+            reference: createNewReference("ETS-CORP"),
+            name: inferredCompany,
+            billingEmail: email,
+            contactName: resolvedName,
+            phone,
+            region: country,
+            seatQuota: 5,
+            seatsUsed: 0,
+            billingStatus: "quote_pending",
+            createdAt: new Date().toISOString(),
+          });
+          user.organizationId = newOrgId;
+        }
+
         store.users.push(user);
+
         // Auto-link any existing enrollments matching this email
         for (const enr of store.enrollments) {
           if (enr.learnerEmail.toLowerCase() === email) {
@@ -88,8 +143,6 @@ export async function POST(req: Request) {
             }
           }
         }
-      } else if (password && !user.password) {
-        user.password = password;
       }
 
       // If registering with a selected courseId (or if learner has zero enrollments and courseId is provided), provision enrollment

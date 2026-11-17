@@ -6,16 +6,14 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import {
   ArrowLeft,
-  ArrowRight,
   KeyRound,
   Lock,
   Mail,
-  ShieldCheck,
 } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/config";
 import { BauhausThemeArt } from "@/components/academy/AcademyAuthPanel";
 
-export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
+export function AdminLoginClient() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -39,27 +37,6 @@ export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
         throw new Error(data.error || "Login failed");
       }
 
-      router.push("/admin");
-      router.refresh();
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePreviewEnter = async () => {
-    setError("");
-    setLoading(true);
-    try {
-      const res = await fetch("/api/academy/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ demoRole: "staff_admin" }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Unable to open preview admin session.");
-      window.dispatchEvent(new Event("ets-academy-session-changed"));
       router.push("/admin");
       router.refresh();
     } catch (err) {
@@ -98,36 +75,20 @@ export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
                   </span>
                 </Link>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                  <Link
-                    href="/"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "5px",
-                      color: "var(--muted)",
-                      textDecoration: "none",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <ArrowLeft size={13} />
-                    <span>Website</span>
-                  </Link>
-                  <Link
-                    href="/academy/signin"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "5px",
-                      color: "var(--blue)",
-                      textDecoration: "none",
-                      fontWeight: 700,
-                    }}
-                  >
-                    <span>Student Sign In</span>
-                    <ArrowRight size={13} />
-                  </Link>
-                </div>
+                <Link
+                  href="/"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    color: "var(--muted)",
+                    textDecoration: "none",
+                    fontWeight: 600,
+                  }}
+                >
+                  <ArrowLeft size={13} />
+                  <span>Website</span>
+                </Link>
               </div>
 
               <div className="acad-bauhaus-globe" aria-hidden="true">
@@ -146,11 +107,8 @@ export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
                 </svg>
               </div>
 
-              <div className="acad-bauhaus-welcome">Welcome!</div>
               <h1 className="acad-bauhaus-title">
-                Staff Operations
-                <br />
-                Starts Here
+                Staff Operations Console
               </h1>
 
               <p className="acad-bauhaus-copy">
@@ -166,7 +124,7 @@ export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
 
               <form onSubmit={handleLogin} className="acad-bauhaus-form">
                 <div className="acad-bauhaus-field">
-                  <label htmlFor="admin-email">Authorized Staff Email</label>
+                  <label htmlFor="admin-email">Staff Email Address</label>
                   <div className="acad-bauhaus-input-wrap">
                     <Mail size={15} />
                     <input
@@ -182,14 +140,14 @@ export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
                 </div>
 
                 <div className="acad-bauhaus-field">
-                  <label htmlFor="admin-password">Staff Passphrase</label>
+                  <label htmlFor="admin-password">Staff Password</label>
                   <div className="acad-bauhaus-input-wrap">
                     <KeyRound size={15} />
                     <input
                       id="admin-password"
                       type="password"
                       required
-                      placeholder="••••••••••••"
+                      placeholder="Enter staff password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -203,45 +161,16 @@ export function AdminLoginClient({ allowPreview }: { allowPreview: boolean }) {
                   aria-busy={loading}
                 >
                   {loading && <span className="acad-btn-spinner" aria-hidden="true" />}
-                  <span>{loading ? "AUTHENTICATING..." : "START NOW!"}</span>
+                  <span>{loading ? "Authenticating..." : "Sign In to Console"}</span>
                 </button>
               </form>
-
-              {allowPreview && (
-                <>
-                  <div className="acad-bauhaus-or">
-                    <span className="acad-bauhaus-or-line" />
-                    <span className="acad-bauhaus-or-text">OR</span>
-                    <span className="acad-bauhaus-or-line" />
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handlePreviewEnter}
-                    disabled={loading}
-                    className="acad-bauhaus-btn-secondary"
-                  >
-                    ENTER AS ACADEMY DIRECTOR (PREVIEW)
-                  </button>
-                </>
-              )}
             </div>
 
             <div className="acad-bauhaus-demo-bar">
               <span className="acad-bauhaus-demo-title">
                 <Lock size={12} style={{ display: "inline", marginRight: "5px" }} />
-                Zero-Trust Governance · Medford NJ · Rugby UK · Takoradi GH
+                Authorized Staff Only · Restricted Operations Console
               </span>
-              <div className="acad-bauhaus-demo-chips">
-                <Link
-                  href="/academy/signin"
-                  className="acad-bauhaus-chip"
-                  style={{ textDecoration: "none" }}
-                >
-                  <ShieldCheck size={13} />
-                  <span>Switch to Learner / Corporate Login</span>
-                </Link>
-              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,11 @@ import Link from "next/link";
 import { Icon } from "@/components/Sprite";
 import { Countdown } from "@/components/Countdown";
 import { RegistrationForm } from "@/components/RegistrationForm";
+import { formatCurrencyAmount } from "@/lib/academyStore";
+import { getServerRegionContext } from "@/lib/serverCurrency";
 import { SITE_CONFIG } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `${SITE_CONFIG.PROGRAMME.NAME} | ${SITE_CONFIG.COMPANY}`,
@@ -11,7 +15,13 @@ export const metadata: Metadata = {
     "A practical, hands-on program that takes working professionals from messy data to clear, decision-ready insights across SQL, Python, Excel, Alteryx, Tableau and Power BI.",
 };
 
-export default function DataAnalysisPage() {
+export default async function DataAnalysisPage() {
+  const region = await getServerRegionContext();
+  const localizedTuition = formatCurrencyAmount(
+    SITE_CONFIG.PAYMENT.TUITION_FULL_USD,
+    region.currency
+  );
+
   return (
     <main id="main">
       {/* ============ IN-PAGE SUBNAV ============ */}
@@ -361,7 +371,7 @@ export default function DataAnalysisPage() {
           </div>
           <div className="reveal">
             <Icon id="i-landmark" />
-            <strong>{SITE_CONFIG.PROGRAMME.TUITION}</strong>
+            <strong>{localizedTuition}</strong>
             <span>
               <Link href="/tuition" className="link-inherit">
                 Tuition &amp; fees
@@ -543,8 +553,8 @@ export default function DataAnalysisPage() {
             </dl>
 
             <aside className="tuition reveal">
-              <p className="tuition-label">Fees</p>
-              <p className="price fee-note">{SITE_CONFIG.PROGRAMME.TUITION}</p>
+              <p className="tuition-label">Fees ({region.currency})</p>
+              <p className="price fee-note">{localizedTuition}</p>
               <p>Standard tuition covers all 36 live sessions, course materials and capstone feedback.</p>
               <ul className="check-list">
                 <li>36 live Zoom sessions</li>

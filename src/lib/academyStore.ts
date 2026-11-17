@@ -5,12 +5,69 @@ export type AcademyCategory =
   | "Data & BI"
   | "Cloud & DevOps"
   | "Cybersecurity"
-  | "AI & Automation";
+  | "Data & Automation";
 
-export type DeliveryMode = "Live Cohort" | "Self-Paced" | "Corporate Bootcamp";
+export type DeliveryMode = "Instructor-Led" | "Self-Paced" | "Corporate Bootcamp";
 export type SkillLevel = "Beginner" | "Intermediate" | "Advanced";
 export type CurrencyCode = "USD" | "GHS" | "GBP";
 export type UserRole = "learner" | "org_admin" | "staff_admin";
+
+export const ACADEMY_CATEGORIES: AcademyCategory[] = [
+  "Data & BI",
+  "Cloud & DevOps",
+  "Cybersecurity",
+  "Data & Automation",
+];
+
+export const DELIVERY_MODES: DeliveryMode[] = [
+  "Instructor-Led",
+  "Self-Paced",
+  "Corporate Bootcamp",
+];
+
+export function normalizeAcademyCategory(value?: string): AcademyCategory {
+  if (value === "AI & Automation" || value === "Data & Automation") {
+    return "Data & Automation";
+  }
+  if (
+    value === "Data & BI" ||
+    value === "Cloud & DevOps" ||
+    value === "Cybersecurity"
+  ) {
+    return value;
+  }
+  return "Cloud & DevOps";
+}
+
+export function normalizeDeliveryMode(value?: string): DeliveryMode {
+  if (value === "Live Cohort" || value === "Instructor-Led") {
+    return "Instructor-Led";
+  }
+  if (value === "Self-Paced" || value === "Corporate Bootcamp") {
+    return value;
+  }
+  return "Instructor-Led";
+}
+
+export function getTodayUtcIsoKey(now = new Date()): string {
+  return now.toISOString().slice(0, 10);
+}
+
+export function getCourseUpcomingCohorts(
+  course: Pick<Course, "id" | "deliveryMode">,
+  cohorts: Cohort[],
+  todayKey = getTodayUtcIsoKey()
+): Cohort[] {
+  return cohorts
+    .filter((coh) => {
+      if (coh.courseId !== course.id) return false;
+      if (coh.status !== "open") return false;
+      if (coh.seatCapacity - coh.seatsTaken <= 0) return false;
+      if (course.deliveryMode === "Self-Paced") return true;
+      return coh.startDateIso.slice(0, 10) >= todayKey;
+    })
+    .sort((a, b) => a.startDateIso.localeCompare(b.startDateIso));
+}
 
 export interface CourseModule {
   id: string;
@@ -55,7 +112,7 @@ export interface Cohort {
   format: string;
   seatCapacity: number;
   seatsTaken: number;
-  status: "open" | "in_progress" | "completed";
+  status: "open" | "full" | "in_progress" | "completed";
 }
 
 export interface AcademyUser {
@@ -124,6 +181,7 @@ export interface Enrollment {
   paymentStatus: "pending" | "deposit_paid" | "paid_in_full" | "corporate_sponsored";
   status: "pending" | "active" | "completed" | "cancelled";
   completedModuleIds: string[];
+  moduleScores?: Record<string, number>;
   capstoneUrl: string;
   capstoneNotes: string;
   certificateCode?: string;
@@ -292,16 +350,16 @@ function createSeedState(): AcademyStoreState {
       title: "Data Analysis & Business Intelligence Engineering",
       subtitle: "From raw messy enterprise schemas to automated executive dashboards in 12 weeks",
       category: "Data & BI",
-      deliveryMode: "Live Cohort",
+      deliveryMode: "Instructor-Led",
       level: "Beginner",
       durationWeeks: 12,
       sessionCount: 36,
       tuitionUsd: 1000,
-      heroImage: "/academy/track-data.jpg",
+      heroImage: "/academy/prog-data-bi.jpg",
       tools: ["SQL", "Python", "Excel & VBA", "Alteryx", "Tableau", "Power BI"],
       roles: ["Data Analyst", "BI Developer", "Analytics Engineer", "Operations Analyst"],
       description:
-        "Our flagship live practitioner cohort connecting SQL relational querying, Python Pandas cleaning, Excel/VBA automation, Alteryx ETL blending, and executive storytelling in Tableau & Power BI.",
+        "Our flagship practitioner track connecting SQL relational querying, Python Pandas cleaning, Excel/VBA automation, Alteryx ETL blending, and executive storytelling in Tableau & Power BI.",
       featured: true,
       status: "active",
       createdAt: "2026-06-15T09:00:00Z",
@@ -319,7 +377,7 @@ function createSeedState(): AcademyStoreState {
             "Write automated VBA macros for weekly report generation",
           ],
           labTask: "Automate a 12-region quarterly sales reconciliation workbook with zero manual copy-paste.",
-          resourceNote: "Zoom Session Pack 01–06 + Regional Retail Dataset (180k rows)",
+          resourceNote: "Practitioner Session Pack 01–06 + Regional Retail Dataset (180k rows)",
         },
         {
           id: "mod-da-2",
@@ -402,12 +460,12 @@ function createSeedState(): AcademyStoreState {
       title: "Cloud Systems Architecture & DevOps Automation",
       subtitle: "Multi-cloud landing zones, immutable Terraform IaC, Docker, and Kubernetes operations",
       category: "Cloud & DevOps",
-      deliveryMode: "Live Cohort",
+      deliveryMode: "Instructor-Led",
       level: "Intermediate",
       durationWeeks: 12,
       sessionCount: 36,
       tuitionUsd: 1250,
-      heroImage: "/academy/track-cloud.jpg",
+      heroImage: "/academy/prog-cloud-devops.jpg",
       tools: ["AWS", "Microsoft Azure", "Terraform", "Docker", "Kubernetes", "GitHub Actions"],
       roles: ["Cloud Architect", "DevOps Engineer", "Platform Engineer", "Site Reliability Engineer"],
       description:
@@ -480,12 +538,12 @@ function createSeedState(): AcademyStoreState {
       title: "Cybersecurity Operations, Cloud Defense & Compliance",
       subtitle: "Zero-trust identity governance, vulnerability scanning, and automated incident response",
       category: "Cybersecurity",
-      deliveryMode: "Live Cohort",
+      deliveryMode: "Instructor-Led",
       level: "Intermediate",
       durationWeeks: 12,
       sessionCount: 36,
       tuitionUsd: 1250,
-      heroImage: "/academy/hero-workspace.jpg",
+      heroImage: "/academy/prog-cybersecurity.jpg",
       tools: ["Zero Trust IAM", "CloudTrail", "GuardDuty", "HashiCorp Vault", "Trivy", "Policy-as-Code"],
       roles: ["Cloud Security Analyst", "DevSecOps Engineer", "Security Architect", "Compliance Auditor"],
       description:
@@ -557,13 +615,13 @@ function createSeedState(): AcademyStoreState {
       slug: "python-data-engineering",
       title: "Enterprise Python, ETL & Analytics Automation",
       subtitle: "Build resilient API extractors, PostgreSQL warehouses, and scheduled transformation pipelines",
-      category: "AI & Automation",
+      category: "Data & Automation",
       deliveryMode: "Self-Paced",
       level: "Intermediate",
       durationWeeks: 8,
       sessionCount: 24,
       tuitionUsd: 850,
-      heroImage: "/academy/track-data.jpg",
+      heroImage: "/academy/prog-python-etl.jpg",
       tools: ["Python", "PostgreSQL", "dbt", "FastAPI", "Pandas", "Docker"],
       roles: ["Data Engineer", "Analytics Automation Engineer", "Backend Data Specialist"],
       description:
@@ -627,7 +685,7 @@ function createSeedState(): AcademyStoreState {
       durationWeeks: 4,
       sessionCount: 12,
       tuitionUsd: 600,
-      heroImage: "/academy/hero-workspace.jpg",
+      heroImage: "/academy/prog-exec-bi.jpg",
       tools: ["Power BI", "Excel Power Query", "SQL Basics", "KPI Governance"],
       roles: ["Department Lead", "Finance Manager", "Operations Director", "Business Analyst"],
       description:
@@ -677,7 +735,7 @@ function createSeedState(): AcademyStoreState {
       durationWeeks: 6,
       sessionCount: 18,
       tuitionUsd: 750,
-      heroImage: "/academy/track-cloud.jpg",
+      heroImage: "/academy/prog-k8s-sre.jpg",
       tools: ["Kubernetes", "Helm", "Prometheus", "Grafana", "OpenTelemetry"],
       roles: ["Site Reliability Engineer", "Platform Engineer", "Senior Infrastructure Lead"],
       description:
@@ -704,7 +762,7 @@ function createSeedState(): AcademyStoreState {
           id: "mod-k8-2",
           order: 2,
           weekLabel: "Weeks 4–6",
-          title: "SLO Engineering, Alert Hygiene & Live Chaos Drills",
+          title: "SLO Engineering, Alert Hygiene & Resilience Drills",
           summary: "Define actionable error budgets and diagnose broken deployments under realistic latency spikes.",
           durationHours: 9,
           objectives: [
@@ -725,11 +783,11 @@ function createSeedState(): AcademyStoreState {
       code: "DA-2026-Q4",
       startDateText: SITE_CONFIG.PROGRAMME.START_DATE_TEXT,
       startDateIso: SITE_CONFIG.PROGRAMME.START_DATE_ISO,
-      schedule: SITE_CONFIG.PROGRAMME.SCHEDULE,
-      format: SITE_CONFIG.PROGRAMME.FORMAT,
+      schedule: "3 guided sessions per week, 1 hour each (36 total)",
+      format: "Instructor-Led Online · Academy Sandbox",
       seatCapacity: 30,
-      seatsTaken: 19,
-      status: "open",
+      seatsTaken: 30,
+      status: "full",
     },
     {
       id: "cohort-da-jan27",
@@ -737,8 +795,8 @@ function createSeedState(): AcademyStoreState {
       code: "DA-2027-Q1",
       startDateText: "January 18, 2027",
       startDateIso: "2027-01-18T00:00:00Z",
-      schedule: "3 live sessions per week, 1 hour each (36 sessions)",
-      format: "Online, live on Zoom",
+      schedule: "3 guided sessions per week, 1 hour each (36 total)",
+      format: "Instructor-Led Online · Academy Sandbox",
       seatCapacity: 30,
       seatsTaken: 6,
       status: "open",
@@ -750,7 +808,7 @@ function createSeedState(): AcademyStoreState {
       startDateText: "December 1, 2026",
       startDateIso: "2026-12-01T00:00:00Z",
       schedule: "Tue & Thu evenings + Sat Lab (36 sessions)",
-      format: "Online, live on Zoom + AWS/Azure Sandboxes",
+      format: "Instructor-Led Online + AWS/Azure Sandboxes",
       seatCapacity: 24,
       seatsTaken: 14,
       status: "open",
@@ -762,7 +820,7 @@ function createSeedState(): AcademyStoreState {
       startDateText: "December 8, 2026",
       startDateIso: "2026-12-08T00:00:00Z",
       schedule: "Mon & Wed evenings + Sat Threat Lab (36 sessions)",
-      format: "Online, live on Zoom + Threat Labs",
+      format: "Instructor-Led Online + Threat Labs",
       seatCapacity: 24,
       seatsTaken: 11,
       status: "open",
@@ -771,10 +829,10 @@ function createSeedState(): AcademyStoreState {
       id: "cohort-pe-rolling",
       courseId: "course-python-etl",
       code: "PE-FLEX-01",
-      startDateText: "Immediate Start (Rolling Weekly Mentor Check-ins)",
+      startDateText: "Rolling Enrollment (Immediate Access)",
       startDateIso: "2026-11-15T00:00:00Z",
-      schedule: "Self-paced modules + Friday Live Architect Office Hours",
-      format: "Portal Self-Paced + Weekly Live Q&A",
+      schedule: "Self-paced modules + Friday Architect Office Hours",
+      format: "On-Demand Portal + Weekly Mentor Q&A",
       seatCapacity: 50,
       seatsTaken: 18,
       status: "open",
@@ -785,11 +843,11 @@ function createSeedState(): AcademyStoreState {
       code: "DA-2026-Q3",
       startDateText: "October 12, 2026",
       startDateIso: "2026-10-12T00:00:00Z",
-      schedule: "3 live sessions per week, 1 hour each (36 sessions)",
-      format: "Online, live on Zoom",
+      schedule: "3 guided sessions per week, 1 hour each (36 total)",
+      format: "Instructor-Led Online · Academy Sandbox",
       seatCapacity: 30,
       seatsTaken: 30,
-      status: "open",
+      status: "completed",
     },
     {
       id: "cohort-ex-nov26",
@@ -797,10 +855,10 @@ function createSeedState(): AcademyStoreState {
       code: "EX-2026-Q4",
       startDateText: "November 24, 2026",
       startDateIso: "2026-11-24T00:00:00Z",
-      schedule: "Tue & Thu Executive Sessions (12 sessions)",
-      format: "Corporate Live Executive Cohort",
+      schedule: "Tue & Thu Executive Workshops (12 sessions)",
+      format: "Executive Corporate Cohort",
       seatCapacity: 20,
-      seatsTaken: 20,
+      seatsTaken: 11,
       status: "open",
     },
     {
@@ -812,7 +870,7 @@ function createSeedState(): AcademyStoreState {
       schedule: "Mon, Wed & Sat Cluster Labs (18 sessions)",
       format: "Corporate Sandbox Residency",
       seatCapacity: 15,
-      seatsTaken: 15,
+      seatsTaken: 8,
       status: "open",
     },
   ];
@@ -851,14 +909,6 @@ function createSeedState(): AcademyStoreState {
       country: "United Kingdom",
       organizationId: orgId,
       createdAt: "2026-10-12T09:30:00Z",
-    },
-    {
-      id: "user-staff-demo",
-      email: "director@elitestechsolutions.com",
-      fullName: "Elites Academy Operations",
-      role: "staff_admin",
-      country: "United States",
-      createdAt: "2026-10-01T08:00:00Z",
     },
   ];
 
@@ -904,6 +954,7 @@ function createSeedState(): AcademyStoreState {
       paymentStatus: "deposit_paid",
       status: "active",
       completedModuleIds: ["mod-da-1", "mod-da-2", "mod-da-3"],
+      moduleScores: { "mod-da-1": 94, "mod-da-2": 91, "mod-da-3": 88 },
       capstoneUrl: "",
       capstoneNotes: "",
       lastActiveAt: "2026-11-13T16:40:00Z",
@@ -926,6 +977,7 @@ function createSeedState(): AcademyStoreState {
       paymentStatus: "paid_in_full",
       status: "completed",
       completedModuleIds: ["mod-pe-1", "mod-pe-2", "mod-pe-3"],
+      moduleScores: { "mod-pe-1": 96, "mod-pe-2": 92, "mod-pe-3": 95 },
       capstoneUrl: "https://github.com/akua-mensah-analytics/etl-dbt-warehouse",
       capstoneNotes: "Delivered incremental dbt warehouse with PostgreSQL validation suite.",
       certificateCode: "ETS-CERT-9482AX",
@@ -950,6 +1002,7 @@ function createSeedState(): AcademyStoreState {
       paymentStatus: "corporate_sponsored",
       status: "active",
       completedModuleIds: ["mod-da-1", "mod-da-2", "mod-da-3", "mod-da-4"],
+      moduleScores: { "mod-da-1": 90, "mod-da-2": 87, "mod-da-3": 92, "mod-da-4": 89 },
       capstoneUrl: "",
       capstoneNotes: "",
       lastActiveAt: "2026-11-13T18:10:00Z",
@@ -973,6 +1026,7 @@ function createSeedState(): AcademyStoreState {
       paymentStatus: "corporate_sponsored",
       status: "active",
       completedModuleIds: ["mod-da-1", "mod-da-2"],
+      moduleScores: { "mod-da-1": 85, "mod-da-2": 89 },
       capstoneUrl: "",
       capstoneNotes: "",
       lastActiveAt: "2026-11-12T15:20:00Z",
@@ -996,6 +1050,7 @@ function createSeedState(): AcademyStoreState {
       paymentStatus: "corporate_sponsored",
       status: "active",
       completedModuleIds: ["mod-cd-1"],
+      moduleScores: { "mod-cd-1": 91 },
       capstoneUrl: "",
       capstoneNotes: "",
       lastActiveAt: "2026-11-11T12:00:00Z",
@@ -1019,6 +1074,14 @@ function createSeedState(): AcademyStoreState {
       paymentStatus: "corporate_sponsored",
       status: "completed",
       completedModuleIds: ["mod-da-1", "mod-da-2", "mod-da-3", "mod-da-4", "mod-da-5", "mod-da-6"],
+      moduleScores: {
+        "mod-da-1": 95,
+        "mod-da-2": 93,
+        "mod-da-3": 90,
+        "mod-da-4": 94,
+        "mod-da-5": 96,
+        "mod-da-6": 98,
+      },
       capstoneUrl: "https://github.com/meridian-analytics/treasury-bi-capstone",
       capstoneNotes: "Executive Treasury Power BI dashboard approved by lead architect.",
       certificateCode: "ETS-CERT-7120MK",
@@ -1104,7 +1167,7 @@ function createSeedState(): AcademyStoreState {
       learnerName: "Akua Mensah",
       learnerEmail: "learner@elitestech-demo.com",
       courseTitle: "Enterprise Python, ETL & Analytics Automation",
-      category: "AI & Automation",
+      category: "Data & Automation",
       durationWeeks: 8,
       issuedAt: "2026-11-10T14:30:00Z",
       instructorName: "Principal Solutions Architecture Board",

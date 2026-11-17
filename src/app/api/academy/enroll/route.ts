@@ -69,6 +69,11 @@ export async function POST(req: Request) {
         createdAt: new Date().toISOString(),
       };
       store.users.push(user);
+    } else if (user.role === "staff_admin") {
+      return NextResponse.json(
+        { error: "Please use a student or corporate email address for enrollment." },
+        { status: 403 }
+      );
     }
 
     const reference = createNewReference("ETS-ACAD");

@@ -1,129 +1,172 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowLeft,
-  Building2,
-  Check,
   CheckCircle2,
-  Copy,
   Eye,
   EyeOff,
-  GraduationCap,
   KeyRound,
   Loader2,
   Lock,
   Mail,
 } from "lucide-react";
+import {
+  getClientDetectedRegion,
+  mapCountryNameToCurrency,
+} from "@/lib/geoCurrency";
+import { SITE_CONFIG } from "@/lib/config";
 import type { AcademySessionUser } from "./AcademySignInModal";
 
 const COURSE_OPTIONS = [
   { id: "course-data-bi", label: "Data Analysis & BI Engineering (12 Weeks)" },
   { id: "course-cloud-devops", label: "Cloud & DevOps Automation (12 Weeks)" },
-  { id: "course-cyber-secops", label: "Cybersecurity & Compliance Operations (10 Weeks)" },
+  { id: "course-cybersecurity", label: "Cybersecurity & Compliance Operations (10 Weeks)" },
   { id: "course-python-etl", label: "Python & Pipeline Automation (8 Weeks)" },
+  { id: "course-exec-literacy", label: "Executive AI & Data Governance (4 Weeks)" },
+  { id: "course-k8s-sre", label: "Kubernetes & Cloud-Native SRE (10 Weeks)" },
 ];
 
 /**
- * Full-Bleed Bauhaus Geometric Artwork & Circular Student Portraits
- * Fills 100% of the right viewport column edge-to-edge (x=0..500, y=0..620)
- * using the Elites Tech Solutions page theme (--navy-deep #0a1a40, --blue #2d4fd6, --gold #f5b82e).
+ * Bauhaus Geometric Visual Showcase
+ * Solid color blocks (--navy #0a1a40, --blue #2d4fd6, --gold #f5b82e)
+ * with authentic circular portraits of Academy scholars.
  */
 export function BauhausThemeArt() {
   return (
     <div className="acad-bauhaus-right" aria-hidden="true">
       <svg
         className="acad-bauhaus-svg"
-        viewBox="0 0 500 620"
+        viewBox="0 0 580 620"
         fill="none"
-        preserveAspectRatio="none"
+        preserveAspectRatio="xMidYMid slice"
       >
-        {/* Full-Canvas Edge-to-Edge Base */}
-        <rect x="0" y="0" width="500" height="620" fill="#eef3ff" />
+        {/* Base Canvas */}
+        <rect x="0" y="0" width="580" height="620" fill="#eef3ff" />
 
-        {/* Band 1 (x=0..96): Left Geometric Strip — Zero Empty White Margin */}
-        <rect x="0" y="0" width="96" height="620" fill="#eef3ff" />
-        <path d="M 0 0 H 96 V 136 C 96 168 68 192 34 192 H 0 Z" fill="#0f2557" />
-        <circle cx="48" cy="92" r="18" fill="#f5b82e" />
+        {/* Left Geometric Pillar */}
+        <rect x="0" y="0" width="112" height="620" fill="#eef3ff" />
+        <path d="M 0 0 H 112 V 132 C 112 164 80 186 42 186 H 0 Z" fill="#0f2557" />
+        <circle cx="62" cy="88" r="16" fill="#f5b82e" />
 
-        {/* 4 Vertical Navy Dots */}
-        <circle cx="48" cy="252" r="9.5" fill="#0a1a40" />
-        <circle cx="48" cy="298" r="9.5" fill="#0a1a40" />
-        <circle cx="48" cy="344" r="9.5" fill="#0a1a40" />
-        <circle cx="48" cy="390" r="9.5" fill="#0a1a40" />
+        {/* Vertical Graphic Dots */}
+        <circle cx="64" cy="242" r="9" fill="#0a1a40" />
+        <circle cx="64" cy="286" r="9" fill="#0a1a40" />
+        <circle cx="64" cy="330" r="9" fill="#0a1a40" />
+        <circle cx="64" cy="374" r="9" fill="#0a1a40" />
 
-        {/* Band 1 Bottom: Royal Blue Rounded-Top Arch */}
+        {/* Royal Blue Bottom Arch */}
         <path
-          d="M 0 486 C 0 454 22 432 48 432 C 74 432 96 454 96 486 V 620 H 0 Z"
+          d="M 0 482 C 0 450 24 428 56 428 C 88 428 112 450 112 482 V 620 H 0 Z"
           fill="#2d4fd6"
         />
 
-        {/* Band 2 (x=96..292): Deep Navy Base + Gold S-Curve Block */}
-        <rect x="96" y="0" width="196" height="412" fill="#0a1a40" />
+        {/* Center Navy Block with Gold S-Curve */}
+        <rect x="112" y="0" width="224" height="410" fill="#0a1a40" />
         <path
-          d="M 96 0 H 292 V 198 C 220 198 194 250 194 316 C 194 374 154 402 96 402 Z"
+          d="M 112 0 H 336 V 196 C 254 196 224 250 224 312 C 224 370 176 398 112 398 Z"
           fill="#f5b82e"
         />
+        <circle cx="144" cy="48" r="14" fill="#0a1a40" />
+        <circle cx="158" cy="218" r="17" fill="#0a1a40" />
 
-        {/* Two Deep Navy Circles inside Gold Block */}
-        <circle cx="128" cy="44" r="15" fill="#0a1a40" />
-        <circle cx="142" cy="190" r="20" fill="#0a1a40" />
+        {/* Horizontal Stripes */}
+        <rect x="112" y="410" width="224" height="210" fill="#ffffff" />
+        <rect x="112" y="410" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="437" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="464" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="491" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="518" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="545" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="572" width="224" height="14" fill="#0a1a40" />
+        <rect x="112" y="599" width="224" height="14" fill="#0a1a40" />
 
-        {/* Band 2 Bottom (y=412..620): Horizontal Navy & White Stripes */}
-        <rect x="96" y="412" width="196" height="208" fill="#ffffff" />
-        <rect x="96" y="412" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="440" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="468" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="496" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="524" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="552" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="580" width="196" height="15" fill="#0a1a40" />
-        <rect x="96" y="606" width="196" height="14" fill="#0a1a40" />
-
-        {/* Band 3 (x=292..404): Royal Blue Vertical Column + Deep Navy Lower Block */}
-        <rect x="292" y="0" width="112" height="620" fill="#0f2557" />
+        {/* Right Vertical Pillar */}
+        <rect x="336" y="0" width="128" height="620" fill="#0f2557" />
         <path
-          d="M 292 0 H 404 V 525 C 404 578 364 620 308 620 H 292 Z"
+          d="M 336 0 H 464 V 524 C 464 578 416 620 354 620 H 336 Z"
           fill="#2d4fd6"
         />
 
-        {/* Band 4 (x=404..500): Far-Right Geometric Strip Flush to Right Edge */}
-        <rect x="404" y="0" width="96" height="620" fill="#e4ecff" />
-        <circle cx="446" cy="52" r="20" fill="#0a1a40" />
-        <circle cx="464" cy="128" r="34" fill="#f5b82e" />
-
-        {/* Band 4 Bottom-Right: Royal Blue Rounded-Top Pillar Flush to Right Edge */}
+        {/* Far-Right Column */}
+        <rect x="464" y="0" width="116" height="620" fill="#e4ecff" />
+        <circle cx="508" cy="68" r="17" fill="#0a1a40" />
+        <circle cx="522" cy="142" r="30" fill="#f5b82e" />
         <path
-          d="M 404 452 C 404 422 426 398 452 398 C 478 398 500 422 500 452 V 620 H 404 Z"
+          d="M 464 456 C 464 426 488 402 522 402 C 556 402 580 426 580 456 V 620 H 464 Z"
           fill="#2d4fd6"
         />
-        <circle cx="452" cy="556" r="22" fill="#f5b82e" />
+        <circle cx="514" cy="548" r="19" fill="#f5b82e" />
       </svg>
 
-      {/* Top Small Circular Portrait */}
+      {/* Top Circular Portrait */}
       <div className="acad-bauhaus-portrait-sm">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/aistudio/original-a08e19b7d3de655050076a2e7b8651f7_e59ab2bc.webp"
-          alt=""
-          referrerPolicy="no-referrer"
+          src="/assets/academy/portrait_sm.webp"
+          alt="Academy engineering scholar"
+          className="acad-scholar-img"
         />
       </div>
 
-      {/* Main Large Circular Portrait */}
+      {/* Large Circular Portrait */}
       <div className="acad-bauhaus-portrait-lg">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/aistudio/original-a08e19b7d3de655050076a2e7b8651f7_e59ab2bc.webp"
-          alt=""
-          referrerPolicy="no-referrer"
+          src="/assets/academy/portrait_lg.webp"
+          alt="Academy cloud graduate"
+          className="acad-scholar-img"
         />
       </div>
     </div>
   );
 }
+
+const SOCIAL_PROVIDERS: ReadonlyArray<{
+  id: "google" | "apple";
+  name: "Google" | "Apple";
+  variantClass: string;
+  icon: React.ReactNode;
+}> = [
+  {
+    id: "google",
+    name: "Google",
+    variantClass: "acad-bauhaus-social-google",
+    icon: (
+      <svg width="21" height="21" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="#4285F4"
+          d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
+        />
+        <path
+          fill="#34A853"
+          d="M12 24c3.3 0 6.08-1.09 8.1-2.96l-3.88-3.05c-1.08.72-2.46 1.15-4.22 1.15-3.24 0-5.99-2.19-6.97-5.14H1.02v3.14C3.03 21.14 7.18 24 12 24Z"
+        />
+        <path
+          fill="#FBBC05"
+          d="M5.03 14.01c-.25-.72-.39-1.49-.39-2.29s.14-1.57.39-2.29V6.29H1.02A11.97 11.97 0 0 0 0 11.72c0 1.93.46 3.76 1.02 5.43l4.01-3.14Z"
+        />
+        <path
+          fill="#EA4335"
+          d="M12 4.75c1.79 0 3.4.62 4.66 1.83l3.5-3.5C18.07 1.19 15.3 0 12 0 7.18 0 3.03 2.86 1.02 7.29l4.01 3.14C6.01 7.48 8.76 4.75 12 4.75Z"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: "apple",
+    name: "Apple",
+    variantClass: "acad-bauhaus-social-apple",
+    icon: (
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43Zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45Z" />
+      </svg>
+    ),
+  },
+];
 
 export function AcademyAuthPanel({
   defaultRole = "learner",
@@ -131,6 +174,7 @@ export function AcademyAuthPanel({
   defaultCourseId = "course-data-bi",
   heading,
   subheading,
+  variant = "page",
   onAuthenticated,
 }: {
   defaultRole?: "learner" | "org_admin";
@@ -138,13 +182,15 @@ export function AcademyAuthPanel({
   defaultCourseId?: string;
   heading?: string;
   subheading?: string;
+  variant?: "page" | "modal";
   onAuthenticated?: (user: AcademySessionUser) => void;
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const isCorporate = defaultRole === "org_admin";
   const [authMode, setAuthMode] = useState<"signin" | "register" | "forgot" | "reset">(initialAuthMode);
-  const [role, setRole] = useState<"learner" | "org_admin">(defaultRole);
   const [fullName, setFullName] = useState("");
+  const [organizationName, setOrganizationName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -153,18 +199,17 @@ export function AcademyAuthPanel({
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
   const [showRegisterConfirmPassword, setShowRegisterConfirmPassword] = useState(false);
   const [phone, setPhone] = useState("");
-  const [country, setCountry] = useState("Ghana");
+  const [country, setCountry] = useState("United States");
+  const hasEditedCountry = useRef(false);
   const [courseId, setCourseId] = useState(defaultCourseId);
   const [paymentPlan, setPaymentPlan] = useState<"installment_2" | "full">("installment_2");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [socialNotice, setSocialNotice] = useState("");
+  const [socialNotice, setSocialNotice] = useState<"Google" | "Apple" | null>(null);
 
   // Password Recovery States
   const [recoveryEmail, setRecoveryEmail] = useState("");
   const [recoverySent, setRecoverySent] = useState(false);
-  const [generatedToken, setGeneratedToken] = useState("");
-  const [copiedToken, setCopiedToken] = useState(false);
 
   // Set New Password (Reset) States
   const [resetToken, setResetToken] = useState("");
@@ -178,10 +223,20 @@ export function AcademyAuthPanel({
   }, [initialAuthMode]);
 
   useEffect(() => {
-    setRole(defaultRole);
-  }, [defaultRole]);
+    if (!hasEditedCountry.current) {
+      setCountry(getClientDetectedRegion().defaultCountry);
+    }
+    const syncCountry = () => {
+      if (!hasEditedCountry.current) {
+        setCountry(getClientDetectedRegion().defaultCountry);
+      }
+    };
+    window.addEventListener("ets-region-currency-changed", syncCountry);
+    return () => {
+      window.removeEventListener("ets-region-currency-changed", syncCountry);
+    };
+  }, []);
 
-  // Read URL query parameters on mount (e.g. ?mode=forgot or ?token=RESET-XXXX&mode=reset)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
@@ -201,7 +256,7 @@ export function AcademyAuthPanel({
 
   const switchMode = (targetMode: "signin" | "register" | "forgot" | "reset") => {
     setError("");
-    setSocialNotice("");
+    setSocialNotice(null);
     setRecoverySent(false);
     setResetSuccess(false);
 
@@ -216,21 +271,23 @@ export function AcademyAuthPanel({
       return;
     }
 
-    if (pathname === "/academy/signin" && targetMode === "register") {
-      router.push("/academy/register");
-      return;
-    }
-    if (pathname === "/academy/register" && targetMode === "signin") {
-      router.push("/academy/signin");
-      return;
-    }
-    if (pathname === "/signin" && targetMode === "register") {
-      router.push("/register");
-      return;
-    }
-    if (pathname === "/register" && targetMode === "signin") {
-      router.push("/signin");
-      return;
+    if (variant === "page") {
+      if (pathname === "/academy/signin" && targetMode === "register") {
+        router.push("/academy/register");
+        return;
+      }
+      if (pathname === "/academy/register" && targetMode === "signin") {
+        router.push("/academy/signin");
+        return;
+      }
+      if (pathname === "/academy/corporate/signin" && targetMode === "register") {
+        router.push("/academy/corporate/register");
+        return;
+      }
+      if (pathname === "/academy/corporate/register" && targetMode === "signin") {
+        router.push("/academy/corporate/signin");
+        return;
+      }
     }
     setAuthMode(targetMode);
   };
@@ -241,9 +298,7 @@ export function AcademyAuthPanel({
       onAuthenticated(user);
       return;
     }
-    if (user.role === "staff_admin") {
-      router.push("/admin");
-    } else if (user.role === "org_admin") {
+    if (user.role === "org_admin") {
       router.push("/academy/corporate");
     } else {
       router.push("/academy/learn");
@@ -254,15 +309,20 @@ export function AcademyAuthPanel({
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setSocialNotice("");
+    setSocialNotice(null);
 
     if (authMode === "register") {
       if (!registerPassword || registerPassword.length < 6) {
-        setError("Please choose a passphrase of at least 6 characters.");
+        setError("Password must be at least 6 characters long.");
         return;
       }
       if (registerPassword !== registerConfirmPassword) {
-        setError("Passphrases do not match. Please ensure both fields are identical.");
+        setError("Passwords do not match. Please ensure both fields are identical.");
+        return;
+      }
+    } else {
+      if (!password) {
+        setError("Please enter your password.");
         return;
       }
     }
@@ -275,13 +335,15 @@ export function AcademyAuthPanel({
         body: JSON.stringify({
           authMode: authMode === "register" ? "register" : "signin",
           fullName,
+          organizationName: isCorporate ? organizationName : undefined,
           email,
           password: authMode === "register" ? registerPassword : password,
           phone,
           country,
-          role,
-          courseId: authMode === "register" ? courseId : undefined,
-          paymentPlan: authMode === "register" ? paymentPlan : undefined,
+          currency: mapCountryNameToCurrency(country),
+          role: defaultRole,
+          courseId: authMode === "register" && !isCorporate ? courseId : undefined,
+          paymentPlan: authMode === "register" && !isCorporate ? paymentPlan : undefined,
         }),
       });
       const data = await res.json();
@@ -316,9 +378,6 @@ export function AcademyAuthPanel({
       if (!res.ok) {
         throw new Error(data.error || "Unable to send password recovery instructions.");
       }
-
-      setGeneratedToken(data.token || "");
-      setResetToken(data.token || "");
       setRecoverySent(true);
     } catch (err) {
       setError((err as Error).message);
@@ -337,12 +396,12 @@ export function AcademyAuthPanel({
     }
 
     if (!newPassword || newPassword.length < 6) {
-      setError("New passphrase must be at least 6 characters long.");
+      setError("New password must be at least 6 characters long.");
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError("Passphrases do not match. Please ensure both fields are identical.");
+      setError("Passwords do not match. Please ensure both fields are identical.");
       return;
     }
 
@@ -358,7 +417,7 @@ export function AcademyAuthPanel({
       });
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Unable to update passphrase.");
+        throw new Error(data.error || "Unable to update password.");
       }
 
       setResetSuccess(true);
@@ -372,156 +431,145 @@ export function AcademyAuthPanel({
     }
   };
 
-  const copyTokenToClipboard = (tokenText: string) => {
-    if (!tokenText) return;
-    navigator.clipboard?.writeText(tokenText);
-    setCopiedToken(true);
-    setTimeout(() => setCopiedToken(false), 2000);
-  };
-
-  const handleSocialClick = (provider: "Google" | "Apple") => {
-    setError("");
-    setSocialNotice(
-      `${provider} Single Sign-On UI is ready and will be connected to your identity provider soon. Please sign in or register using your email below.`
-    );
-  };
-
   const displayTitle =
     authMode === "forgot"
-      ? "Password Recovery"
+      ? "Reset Password"
       : authMode === "reset"
-      ? "Set New Passphrase"
-      : heading || "Your Journey Starts Here";
+        ? "Set New Password"
+        : heading ||
+        (isCorporate
+          ? authMode === "register"
+            ? "Corporate Account Setup"
+            : "Corporate Sign In"
+          : authMode === "register"
+            ? "Create an Account"
+            : "Individual Sign In");
 
   const displayDesc =
     authMode === "forgot"
-      ? "Enter the email address associated with your learner workspace or corporate portal. We will dispatch verified password recovery instructions to your inbox."
+      ? "Enter your registered email address to receive password reset instructions."
       : authMode === "reset"
-      ? "Enter your one-time security recovery token and set a fresh, secure passphrase for your Academy workspace account."
-      : subheading ||
-        (authMode === "register"
-          ? "The application should take approximately 2 minutes to complete. You can complete your registration now or return later to finish. Don't worry, we'll save your information so you can pick up where you left off."
-          : "Sign in with your enrolled email address to resume your learning modules, capstone labs, or corporate seat portal. Don't worry, we save your progress automatically so you can pick up where you left off.");
+        ? "Enter the security token sent to your email and set a new password."
+        : subheading ||
+        (isCorporate
+          ? authMode === "register"
+            ? "Create your organization administrator account to manage team training seats and quotes."
+            : "Sign in with your corporate administrator credentials to manage seats and telemetry."
+          : authMode === "register"
+            ? "Apply for an upcoming cohort and set up your student workspace."
+            : "Sign in with your registered email and password to access your modules.");
+
+  const isModal = variant === "modal";
 
   return (
-    <motion.div
-      className="acad-bauhaus-frame"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.25 }}
-    >
-      {/* Left Interactive Sign In / Register / Forgot Password / Reset Password Column */}
+    <div className={`acad-bauhaus-frame ${isModal ? "acad-modal-frame" : ""}`}>
+      {/* Form Column */}
       <div className="acad-bauhaus-left">
+        {/* Top Brand & Nav Bar */}
+        {!isModal && (
+          <div className="acad-bauhaus-top-nav">
+            <Link href="/academy" className="acad-brand" style={{ textDecoration: "none" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-mark.png"
+                alt={SITE_CONFIG.COMPANY}
+                width={50}
+                height={50}
+                className="acad-brand-logo acad-bauhaus-brand-logo"
+              />
+              <span className="acad-brand-text">
+                Elites Tech <span>Academy</span>
+              </span>
+            </Link>
+
+            <Link href="/academy" className="acad-bauhaus-nav-link">
+              <ArrowLeft size={15} />
+              <span>Back to Academy</span>
+            </Link>
+          </div>
+        )}
+
         <div className="acad-bauhaus-left-inner">
-          <div>
-            {/* Brand-Themed Wireframe Globe Icon (--blue & --gold) */}
-            <div className="acad-bauhaus-globe" aria-hidden="true">
-              <svg width="46" height="46" viewBox="0 0 48 48" fill="none">
-                <circle cx="24" cy="24" r="20" stroke="#2d4fd6" strokeWidth="2.2" />
-                <ellipse cx="24" cy="24" rx="10" ry="20" stroke="#2d4fd6" strokeWidth="1.9" />
-                <line x1="24" y1="4" x2="24" y2="44" stroke="#f5b82e" strokeWidth="2" />
-                <line x1="4" y1="24" x2="44" y2="24" stroke="#2d4fd6" strokeWidth="1.9" />
-                <path d="M7 15C13 18 35 18 41 15" stroke="#2d4fd6" strokeWidth="1.8" />
-                <path d="M7 33C13 30 35 30 41 33" stroke="#2d4fd6" strokeWidth="1.8" />
-              </svg>
+          {/* Heading Block (No badges, no italic accents, no gradients) */}
+          <div className="acad-auth-header">
+            <h1 className="acad-auth-title">{displayTitle}</h1>
+            <p className="acad-auth-desc">{displayDesc}</p>
+          </div>
+
+          {/* Clean Segmented Mode Switcher (Sign In vs Register only, rectangular, no pills) */}
+          {(authMode === "signin" || authMode === "register") && (
+            <div className="acad-auth-switcher" role="tablist" aria-label="Sign in or register">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={authMode === "signin"}
+                onClick={() => switchMode("signin")}
+                className={`acad-auth-switch-tab ${authMode === "signin" ? "active" : ""}`}
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={authMode === "register"}
+                onClick={() => switchMode("register")}
+                className={`acad-auth-switch-tab ${authMode === "register" ? "active" : ""}`}
+              >
+                Register
+              </button>
             </div>
+          )}
 
-            <div className="acad-bauhaus-welcome">
-              {authMode === "forgot" || authMode === "reset" ? "Account Recovery" : "Welcome!"}
+          {error && (
+            <div className="acad-bauhaus-error" role="alert">
+              {error}
             </div>
+          )}
 
-            <h1 className="acad-bauhaus-title">{displayTitle}</h1>
-
-            <p className="acad-bauhaus-desc">{displayDesc}</p>
-
+          <AnimatePresence mode="wait" initial={false}>
             {authMode === "forgot" ? (
-              /* ============ 1. FORGOT PASSWORD / REQUEST RECOVERY FORM VIEW ============ */
-              <div className="acad-bauhaus-recovery-view">
-                {error && (
-                  <div className="acad-bauhaus-error" role="alert">
-                    {error}
-                  </div>
-                )}
-
+              /* ============ 1. FORGOT PASSWORD VIEW ============ */
+              <motion.div
+                key="forgot"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.16 }}
+                className="acad-bauhaus-recovery-view"
+              >
                 {recoverySent ? (
                   <div className="acad-bauhaus-recovery-box" role="status">
                     <div className="acad-bauhaus-recovery-head">
-                      <CheckCircle2 size={22} />
-                      <strong>Recovery Instructions Dispatched</strong>
+                      <CheckCircle2 size={20} />
+                      <strong>Instructions Dispatched</strong>
                     </div>
                     <p>
-                      We have generated your secure recovery link and dispatched password reset instructions to{" "}
-                      <strong>{recoveryEmail}</strong>.
+                      If an account exists for <strong>{recoveryEmail}</strong>, instructions and a one-time token
+                      have been sent to your inbox.
                     </p>
 
-                    {generatedToken && (
-                      <div>
-                        <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--navy)", marginBottom: "4px" }}>
-                          ONE-TIME SECURITY TOKEN:
-                        </div>
-                        <div className="acad-bauhaus-token-chip">
-                          <span className="acad-bauhaus-token-code">{generatedToken}</span>
-                          <button
-                            type="button"
-                            onClick={() => copyTokenToClipboard(generatedToken)}
-                            className="acad-bauhaus-token-copy"
-                            title="Copy recovery token"
-                          >
-                            {copiedToken ? (
-                              <>
-                                <Check size={13} />
-                                <span>COPIED!</span>
-                              </>
-                            ) : (
-                              <>
-                                <Copy size={13} />
-                                <span>COPY</span>
-                              </>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    <ol className="acad-bauhaus-recovery-steps">
-                      <li>Check your inbox for the email from <strong>Elites Tech Academy Security</strong>.</li>
-                      <li>Use the security token above or click the direct button below to set a new passphrase.</li>
-                      <li>Token remains valid for 60 minutes across any browser session.</li>
-                    </ol>
-
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "18px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "16px" }}>
                       <button
                         type="button"
-                        onClick={() => {
-                          setResetToken(generatedToken);
-                          switchMode("reset");
-                        }}
+                        onClick={() => switchMode("reset")}
                         className="acad-bauhaus-btn-primary"
                       >
-                        <span>SET NEW PASSPHRASE NOW &rarr;</span>
+                        Enter Token &amp; Set New Password
                       </button>
-
-                      <div className="acad-bauhaus-or" style={{ margin: "2px 0" }}>
-                        <span className="acad-bauhaus-or-line" />
-                        <span className="acad-bauhaus-or-text">OR</span>
-                        <span className="acad-bauhaus-or-line" />
-                      </div>
 
                       <button
                         type="button"
                         onClick={() => switchMode("signin")}
                         className="acad-bauhaus-btn-secondary"
-                        style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
                       >
-                        <ArrowLeft size={14} />
-                        <span>RETURN TO SIGN IN</span>
+                        Return to Sign In
                       </button>
                     </div>
                   </div>
                 ) : (
                   <form onSubmit={handleRecoverySubmit} className="acad-bauhaus-form">
                     <div className="acad-bauhaus-field">
-                      <label htmlFor="bh-recovery-email">Registered Email Address *</label>
+                      <label htmlFor="bh-recovery-email">Registered Email Address</label>
                       <div className="acad-bauhaus-input-wrap">
                         <Mail size={16} />
                         <input
@@ -529,18 +577,12 @@ export function AcademyAuthPanel({
                           type="email"
                           required
                           autoFocus
-                          placeholder="akua.mensah@meridianfin.com"
+                          autoComplete="email"
+                          placeholder="name@example.com"
                           value={recoveryEmail}
                           onChange={(e) => setRecoveryEmail(e.target.value)}
                         />
                       </div>
-                    </div>
-
-                    <div className="acad-bauhaus-recovery-hint">
-                      <KeyRound size={16} />
-                      <span>
-                        Enter your enrolled learner email or corporate sponsor address to receive an instant verification link and passphrase reset instructions.
-                      </span>
                     </div>
 
                     <button
@@ -549,97 +591,87 @@ export function AcademyAuthPanel({
                       aria-busy={loading}
                       className="acad-bauhaus-btn-primary"
                     >
-                      {loading && <Loader2 size={18} className="acad-btn-spinner" aria-hidden="true" />}
-                      <span>
-                        {loading ? "DISPATCHING INSTRUCTIONS..." : "SEND RECOVERY INSTRUCTIONS!"}
-                      </span>
+                      {loading && <Loader2 size={16} className="acad-btn-spinner" aria-hidden="true" />}
+                      <span>{loading ? "Sending..." : "Send Reset Link"}</span>
                     </button>
 
-                    <div className="acad-bauhaus-or">
-                      <span className="acad-bauhaus-or-line" />
-                      <span className="acad-bauhaus-or-text">OR</span>
-                      <span className="acad-bauhaus-or-line" />
-                    </div>
-
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginTop: "6px" }}>
                       <button
                         type="button"
                         disabled={loading}
                         onClick={() => switchMode("signin")}
                         className="acad-bauhaus-btn-secondary"
-                        style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
                       >
-                        <ArrowLeft size={14} />
-                        <span>BACK TO SIGN IN</span>
+                        Back to Sign In
                       </button>
                       <button
                         type="button"
                         disabled={loading}
                         onClick={() => switchMode("reset")}
                         className="acad-bauhaus-btn-secondary"
-                        style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
                       >
-                        <KeyRound size={14} />
-                        <span>HAVE A TOKEN?</span>
+                        Have a Token?
                       </button>
                     </div>
                   </form>
                 )}
-              </div>
+              </motion.div>
             ) : authMode === "reset" ? (
-              /* ============ 2. SET NEW PASSPHRASE (RESET TOKEN) FORM VIEW ============ */
-              <div className="acad-bauhaus-recovery-view">
-                {error && (
-                  <div className="acad-bauhaus-error" role="alert">
-                    {error}
-                  </div>
-                )}
-
+              /* ============ 2. SET NEW PASSWORD VIEW ============ */
+              <motion.div
+                key="reset"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.16 }}
+                className="acad-bauhaus-recovery-view"
+              >
                 {resetSuccess ? (
                   <div className="acad-bauhaus-recovery-box" role="status">
                     <div className="acad-bauhaus-recovery-head">
-                      <CheckCircle2 size={22} />
-                      <strong>Passphrase Successfully Updated!</strong>
+                      <CheckCircle2 size={20} />
+                      <strong>Password Updated</strong>
                     </div>
                     <p>
-                      Your new secure passphrase has been applied to your workspace account. You can now sign in immediately with your updated credentials.
+                      Your new password has been saved. You can now sign in with your updated credentials.
                     </p>
                     <button
                       type="button"
                       onClick={() => switchMode("signin")}
                       className="acad-bauhaus-btn-primary"
                     >
-                      <span>SIGN IN TO WORKSPACE NOW &rarr;</span>
+                      Sign In Now
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleResetSubmit} className="acad-bauhaus-form">
                     <div className="acad-bauhaus-field">
-                      <label htmlFor="bh-reset-token">One-Time Recovery Token *</label>
+                      <label htmlFor="bh-reset-token">One-Time Recovery Token</label>
                       <div className="acad-bauhaus-input-wrap">
                         <KeyRound size={16} />
                         <input
                           id="bh-reset-token"
                           type="text"
                           required
-                          placeholder="e.g. RESET-9B2F4K7A"
+                          placeholder="RESET-XXXXX"
                           value={resetToken}
                           onChange={(e) => setResetToken(e.target.value.toUpperCase())}
-                          style={{ fontFamily: "var(--font-mono)", letterSpacing: "1px" }}
+                          style={{ letterSpacing: "1px" }}
                         />
                       </div>
                     </div>
 
                     <div className="acad-bauhaus-field-grid">
                       <div className="acad-bauhaus-field">
-                        <label htmlFor="bh-new-password">New Passphrase *</label>
+                        <label htmlFor="bh-new-password">New Password</label>
                         <div className="acad-bauhaus-input-wrap">
                           <Lock size={15} />
                           <input
                             id="bh-new-password"
                             type={showNewPassword ? "text" : "password"}
                             required
-                            placeholder="At least 6 characters"
+                            autoComplete="new-password"
+                            placeholder="Min. 6 characters"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                           />
@@ -647,7 +679,7 @@ export function AcademyAuthPanel({
                             type="button"
                             onClick={() => setShowNewPassword(!showNewPassword)}
                             className="acad-bauhaus-toggle-pw"
-                            title={showNewPassword ? "Hide passphrase" : "Show passphrase"}
+                            title={showNewPassword ? "Hide password" : "Show password"}
                           >
                             {showNewPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                           </button>
@@ -655,14 +687,15 @@ export function AcademyAuthPanel({
                       </div>
 
                       <div className="acad-bauhaus-field">
-                        <label htmlFor="bh-confirm-password">Confirm Passphrase *</label>
+                        <label htmlFor="bh-confirm-password">Confirm Password</label>
                         <div className="acad-bauhaus-input-wrap">
                           <Lock size={15} />
                           <input
                             id="bh-confirm-password"
                             type={showNewPassword ? "text" : "password"}
                             required
-                            placeholder="Re-enter passphrase"
+                            autoComplete="new-password"
+                            placeholder="Re-enter password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                           />
@@ -674,11 +707,10 @@ export function AcademyAuthPanel({
                       <div className="acad-bauhaus-pw-hint">
                         <span>Minimum 6 characters</span>
                         <span
-                          className={`acad-bauhaus-pw-match ${
-                            newPassword === confirmPassword ? "ok" : "err"
-                          }`}
+                          className={`acad-bauhaus-pw-match ${newPassword === confirmPassword ? "ok" : "err"
+                            }`}
                         >
-                          {newPassword === confirmPassword ? "✓ Passphrases match" : "✕ Passphrases do not match"}
+                          {newPassword === confirmPassword ? "Passwords match" : "Passwords do not match"}
                         </span>
                       </div>
                     )}
@@ -689,28 +721,18 @@ export function AcademyAuthPanel({
                       aria-busy={loading}
                       className="acad-bauhaus-btn-primary"
                     >
-                      {loading && <Loader2 size={18} className="acad-btn-spinner" aria-hidden="true" />}
-                      <span>
-                        {loading ? "UPDATING PASSPHRASE..." : "CONFIRM & UPDATE PASSPHRASE!"}
-                      </span>
+                      {loading && <Loader2 size={16} className="acad-btn-spinner" aria-hidden="true" />}
+                      <span>{loading ? "Updating..." : "Save New Password"}</span>
                     </button>
 
-                    <div className="acad-bauhaus-or">
-                      <span className="acad-bauhaus-or-line" />
-                      <span className="acad-bauhaus-or-text">OR</span>
-                      <span className="acad-bauhaus-or-line" />
-                    </div>
-
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginTop: "6px" }}>
                       <button
                         type="button"
                         disabled={loading}
                         onClick={() => switchMode("forgot")}
                         className="acad-bauhaus-btn-secondary"
-                        style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
                       >
-                        <ArrowLeft size={14} />
-                        <span>REQUEST NEW TOKEN</span>
+                        Request New Token
                       </button>
                       <button
                         type="button"
@@ -718,380 +740,391 @@ export function AcademyAuthPanel({
                         onClick={() => switchMode("signin")}
                         className="acad-bauhaus-btn-secondary"
                       >
-                        <span>CANCEL &amp; SIGN IN</span>
+                        Cancel
                       </button>
                     </div>
                   </form>
                 )}
-              </div>
+              </motion.div>
+            ) : authMode === "signin" ? (
+              /* ============ 3. SIGN IN VIEW ============ */
+              <motion.form
+                key="signin"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.16 }}
+                onSubmit={handleFormSubmit}
+                className="acad-bauhaus-form"
+              >
+                <div className="acad-bauhaus-field">
+                  <label htmlFor="bh-sign-email">Email Address</label>
+                  <div className="acad-bauhaus-input-wrap">
+                    <Mail size={16} />
+                    <input
+                      id="bh-sign-email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="acad-bauhaus-field">
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                    <label htmlFor="bh-sign-password" style={{ margin: 0 }}>Password</label>
+                    <button
+                      type="button"
+                      onClick={() => switchMode("forgot")}
+                      className="acad-bauhaus-forgot-link"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+                  <div className="acad-bauhaus-input-wrap">
+                    <Lock size={15} />
+                    <input
+                      id="bh-sign-password"
+                      type={showPassword ? "text" : "password"}
+                      required
+                      autoComplete="current-password"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="acad-bauhaus-toggle-pw"
+                      title={showPassword ? "Hide password" : "Show password"}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  aria-busy={loading}
+                  className="acad-bauhaus-btn-primary"
+                  style={{ marginTop: "10px" }}
+                >
+                  {loading && <Loader2 size={16} className="acad-btn-spinner" aria-hidden="true" />}
+                  <span>{loading ? "Signing In..." : "Sign In"}</span>
+                </button>
+              </motion.form>
             ) : (
-              /* ============ 3. STANDARD SIGN IN & REGISTER VIEW ============ */
-              <>
-                {/* Mode & Account Type Switcher */}
-                <div className="acad-bauhaus-switch-row">
-                  <div className="acad-bauhaus-tabs" role="tablist" aria-label="Authentication mode">
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={authMode === "register"}
-                      onClick={() => switchMode("register")}
-                      className={`acad-bauhaus-tab ${authMode === "register" ? "active" : ""}`}
-                    >
-                      Register / New Application
-                    </button>
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={authMode === "signin"}
-                      onClick={() => switchMode("signin")}
-                      className={`acad-bauhaus-tab ${authMode === "signin" ? "active" : ""}`}
-                    >
-                      Sign In / Continue
-                    </button>
+              /* ============ 4. REGISTER VIEW ============ */
+              <motion.form
+                key="register"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.16 }}
+                onSubmit={handleFormSubmit}
+                className="acad-bauhaus-form"
+              >
+                <div className="acad-bauhaus-field-grid">
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-name">Full Name</label>
+                    <input
+                      id="bh-reg-name"
+                      type="text"
+                      required
+                      autoComplete="name"
+                      placeholder="e.g. Akua Mensah"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
                   </div>
-
-                  <div className="acad-bauhaus-role-pills" role="group" aria-label="Account role">
-                    <button
-                      type="button"
-                      onClick={() => setRole("learner")}
-                      className={`acad-bauhaus-role-btn ${role === "learner" ? "active" : ""}`}
-                    >
-                      <GraduationCap size={14} />
-                      <span>Learner</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setRole("org_admin")}
-                      className={`acad-bauhaus-role-btn ${role === "org_admin" ? "active" : ""}`}
-                    >
-                      <Building2 size={14} />
-                      <span>Corporate</span>
-                    </button>
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-email">Email Address</label>
+                    <input
+                      id="bh-reg-email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </div>
                 </div>
 
-                {/* Social Login Buttons (Google & Apple — UI Ready) */}
-                <div className="acad-bauhaus-social-grid">
-                  <button
-                    type="button"
-                    onClick={() => handleSocialClick("Google")}
-                    className="acad-bauhaus-social-btn"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-                      <path
-                        fill="#EA4335"
-                        d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"
+                <div className="acad-bauhaus-field-grid">
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-password">Password</label>
+                    <div className="acad-bauhaus-input-wrap">
+                      <Lock size={15} />
+                      <input
+                        id="bh-reg-password"
+                        type={showRegisterPassword ? "text" : "password"}
+                        required
+                        autoComplete="new-password"
+                        placeholder="Min. 6 characters"
+                        value={registerPassword}
+                        onChange={(e) => setRegisterPassword(e.target.value)}
                       />
-                      <path
-                        fill="#4285F4"
-                        d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.7z"
-                      />
-                      <path
-                        fill="#FBBC05"
-                        d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"
-                      />
-                      <path
-                        fill="#34A853"
-                        d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.9C3.5 21.4 7.4 24 12 24z"
-                      />
-                    </svg>
-                    <span>Continue with Google</span>
-                  </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowRegisterPassword(!showRegisterPassword)}
+                        className="acad-bauhaus-toggle-pw"
+                        title={showRegisterPassword ? "Hide password" : "Show password"}
+                        aria-label={showRegisterPassword ? "Hide password" : "Show password"}
+                      >
+                        {showRegisterPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      </button>
+                    </div>
+                  </div>
 
-                  <button
-                    type="button"
-                    onClick={() => handleSocialClick("Apple")}
-                    className="acad-bauhaus-social-btn"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-                    </svg>
-                    <span>Continue with Apple</span>
-                  </button>
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-confirm-password">Confirm Password</label>
+                    <div className="acad-bauhaus-input-wrap">
+                      <Lock size={15} />
+                      <input
+                        id="bh-reg-confirm-password"
+                        type={showRegisterConfirmPassword ? "text" : "password"}
+                        required
+                        autoComplete="new-password"
+                        placeholder="Re-enter password"
+                        value={registerConfirmPassword}
+                        onChange={(e) => setRegisterConfirmPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowRegisterConfirmPassword(!showRegisterConfirmPassword)}
+                        className="acad-bauhaus-toggle-pw"
+                        title={showRegisterConfirmPassword ? "Hide password" : "Show password"}
+                        aria-label={showRegisterConfirmPassword ? "Hide password" : "Show password"}
+                      >
+                        {showRegisterConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                {socialNotice && (
-                  <div className="acad-bauhaus-social-notice" role="status">
-                    {socialNotice}
+                {registerConfirmPassword && (
+                  <div className="acad-bauhaus-pw-hint" style={{ marginTop: "-4px" }}>
+                    <span>Minimum 6 characters</span>
+                    <span
+                      className={`acad-bauhaus-pw-match ${registerPassword === registerConfirmPassword ? "ok" : "err"
+                        }`}
+                    >
+                      {registerPassword === registerConfirmPassword
+                        ? "Passwords match"
+                        : "Passwords do not match"}
+                    </span>
                   </div>
                 )}
 
-                <div className="acad-bauhaus-or" style={{ margin: "12px 0" }}>
-                  <span className="acad-bauhaus-or-line" />
-                  <span className="acad-bauhaus-or-text">OR CONTINUE WITH EMAIL</span>
-                  <span className="acad-bauhaus-or-line" />
+                <div className="acad-bauhaus-field-grid">
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-phone">Phone / WhatsApp</label>
+                    <input
+                      id="bh-reg-phone"
+                      type="tel"
+                      required
+                      autoComplete="tel"
+                      placeholder="+233 53 353 4687"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-country">Country</label>
+                    <select
+                      id="bh-reg-country"
+                      value={country}
+                      onChange={(e) => {
+                        hasEditedCountry.current = true;
+                        setCountry(e.target.value);
+                      }}
+                    >
+                      <option value="Ghana">Ghana</option>
+                      <option value="United States">United States</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                      <option value="Nigeria">Nigeria</option>
+                      <option value="Canada">Canada</option>
+                      <option value="Germany">Germany</option>
+                    </select>
+                  </div>
                 </div>
 
-                {error && (
-                  <div className="acad-bauhaus-error" role="alert">
-                    {error}
+                {isCorporate ? (
+                  <div className="acad-bauhaus-field">
+                    <label htmlFor="bh-reg-org">Organization / Company Name</label>
+                    <input
+                      id="bh-reg-org"
+                      type="text"
+                      required
+                      autoComplete="organization"
+                      placeholder="e.g. Acme Engineering Ltd"
+                      value={organizationName}
+                      onChange={(e) => setOrganizationName(e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  <div className="acad-bauhaus-field-grid">
+                    <div className="acad-bauhaus-field">
+                      <label htmlFor="bh-reg-course">Selected Cohort Track</label>
+                      <select
+                        id="bh-reg-course"
+                        value={courseId}
+                        onChange={(e) => setCourseId(e.target.value)}
+                      >
+                        {COURSE_OPTIONS.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="acad-bauhaus-field">
+                      <label htmlFor="bh-reg-plan">Tuition Plan</label>
+                      <select
+                        id="bh-reg-plan"
+                        value={paymentPlan}
+                        onChange={(e) =>
+                          setPaymentPlan(e.target.value as "installment_2" | "full")
+                        }
+                      >
+                        <option value="installment_2">2 Installments (50% Deposit)</option>
+                        <option value="full">Full Tuition Settlement</option>
+                      </select>
+                    </div>
                   </div>
                 )}
 
-                <form onSubmit={handleFormSubmit} className="acad-bauhaus-form">
-                  {authMode === "register" ? (
-                    <>
-                      <div className="acad-bauhaus-field-grid">
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-name">
-                            {role === "org_admin" ? "Sponsor Full Name *" : "Full Name *"}
-                          </label>
-                          <input
-                            id="bh-reg-name"
-                            type="text"
-                            required
-                            placeholder={role === "org_admin" ? "David Osei-Bonsu" : "Akua Mensah"}
-                            value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
-                          />
-                        </div>
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-email">
-                            {role === "org_admin" ? "Work Email *" : "Email Address *"}
-                          </label>
-                          <input
-                            id="bh-reg-email"
-                            type="email"
-                            required
-                            placeholder={
-                              role === "org_admin"
-                                ? "learning@meridianfin.com"
-                                : "akua.mensah@meridianfin.com"
-                            }
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="acad-bauhaus-field-grid">
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-password">Create Passphrase *</label>
-                          <div className="acad-bauhaus-input-wrap">
-                            <Lock size={15} />
-                            <input
-                              id="bh-reg-password"
-                              type={showRegisterPassword ? "text" : "password"}
-                              required
-                              placeholder="At least 6 characters"
-                              value={registerPassword}
-                              onChange={(e) => setRegisterPassword(e.target.value)}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowRegisterPassword(!showRegisterPassword)}
-                              className="acad-bauhaus-toggle-pw"
-                              title={showRegisterPassword ? "Hide passphrase" : "Show passphrase"}
-                              aria-label={showRegisterPassword ? "Hide passphrase" : "Show passphrase"}
-                            >
-                              {showRegisterPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-confirm-password">Confirm Passphrase *</label>
-                          <div className="acad-bauhaus-input-wrap">
-                            <Lock size={15} />
-                            <input
-                              id="bh-reg-confirm-password"
-                              type={showRegisterConfirmPassword ? "text" : "password"}
-                              required
-                              placeholder="Re-enter passphrase"
-                              value={registerConfirmPassword}
-                              onChange={(e) => setRegisterConfirmPassword(e.target.value)}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowRegisterConfirmPassword(!showRegisterConfirmPassword)}
-                              className="acad-bauhaus-toggle-pw"
-                              title={showRegisterConfirmPassword ? "Hide passphrase" : "Show passphrase"}
-                              aria-label={showRegisterConfirmPassword ? "Hide passphrase" : "Show passphrase"}
-                            >
-                              {showRegisterConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      {registerConfirmPassword && (
-                        <div className="acad-bauhaus-pw-hint" style={{ marginTop: "-2px", marginBottom: "4px" }}>
-                          <span>Minimum 6 characters</span>
-                          <span
-                            className={`acad-bauhaus-pw-match ${
-                              registerPassword === registerConfirmPassword ? "ok" : "err"
-                            }`}
-                          >
-                            {registerPassword === registerConfirmPassword
-                              ? "✓ Passphrases match"
-                              : "✕ Passphrases do not match"}
-                          </span>
-                        </div>
-                      )}
-
-                      <div className="acad-bauhaus-field-grid">
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-phone">Phone / WhatsApp *</label>
-                          <input
-                            id="bh-reg-phone"
-                            type="tel"
-                            required
-                            placeholder="+233 53 353 4687"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                          />
-                        </div>
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-country">Country *</label>
-                          <select
-                            id="bh-reg-country"
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                          >
-                            <option value="Ghana">Ghana</option>
-                            <option value="United States">United States</option>
-                            <option value="United Kingdom">United Kingdom</option>
-                            <option value="Nigeria">Nigeria</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Germany">Germany</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="acad-bauhaus-field-grid">
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-course">Select Cohort Track</label>
-                          <select
-                            id="bh-reg-course"
-                            value={courseId}
-                            onChange={(e) => setCourseId(e.target.value)}
-                          >
-                            {COURSE_OPTIONS.map((c) => (
-                              <option key={c.id} value={c.id}>
-                                {c.label}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-reg-plan">Tuition Schedule</label>
-                          <select
-                            id="bh-reg-plan"
-                            value={paymentPlan}
-                            onChange={(e) =>
-                              setPaymentPlan(e.target.value as "installment_2" | "full")
-                            }
-                          >
-                            <option value="installment_2">2 Monthly Installments (50% Deposit)</option>
-                            <option value="full">Full Tuition Settlement</option>
-                          </select>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="acad-bauhaus-field-grid">
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-sign-email">
-                            {role === "org_admin" ? "Corporate Work Email *" : "Registered Email Address *"}
-                          </label>
-                          <input
-                            id="bh-sign-email"
-                            type="email"
-                            required
-                            placeholder={
-                              role === "org_admin"
-                                ? "learning@meridianfin.com"
-                                : "akua.mensah@meridianfin.com"
-                            }
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </div>
-                        <div className="acad-bauhaus-field">
-                          <label htmlFor="bh-sign-password">Passphrase / Access Key</label>
-                          <div className="acad-bauhaus-input-wrap">
-                            <Lock size={15} />
-                            <input
-                              id="bh-sign-password"
-                              type={showPassword ? "text" : "password"}
-                              placeholder="••••••••••••"
-                              value={password}
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="acad-bauhaus-toggle-pw"
-                              title={showPassword ? "Hide passphrase" : "Show passphrase"}
-                              aria-label={showPassword ? "Hide passphrase" : "Show passphrase"}
-                            >
-                              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="acad-bauhaus-forgot-row">
-                        <button
-                          type="button"
-                          onClick={() => switchMode("forgot")}
-                          className="acad-bauhaus-forgot-link"
-                        >
-                          Forgot password?
-                        </button>
-                      </div>
-                    </>
-                  )}
-
-                  {/* Primary Button ("START NOW!" / "SIGN IN") with Animated Loading Spinner */}
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    aria-busy={loading}
-                    className="acad-bauhaus-btn-primary"
-                  >
-                    {loading && <Loader2 size={18} className="acad-btn-spinner" aria-hidden="true" />}
-                    <span>
-                      {loading
-                        ? authMode === "register"
-                          ? "REGISTERING APPLICATION..."
-                          : "SIGNING IN TO WORKSPACE..."
-                        : authMode === "register"
-                        ? "START NOW!"
-                        : "SIGN IN TO WORKSPACE!"}
-                    </span>
-                  </button>
-
-                  {/* OR Divider */}
-                  <div className="acad-bauhaus-or">
-                    <span className="acad-bauhaus-or-line" />
-                    <span className="acad-bauhaus-or-text">OR</span>
-                    <span className="acad-bauhaus-or-line" />
-                  </div>
-
-                  {/* Outlined Secondary Button ("CONTINUE YOUR APPLICATION") */}
-                  <button
-                    type="button"
-                    disabled={loading}
-                    onClick={() => switchMode(authMode === "register" ? "signin" : "register")}
-                    className="acad-bauhaus-btn-secondary"
-                  >
-                    <span>
-                      {authMode === "register"
-                        ? "CONTINUE YOUR APPLICATION"
-                        : "START NEW APPLICATION"}
-                    </span>
-                  </button>
-                </form>
-              </>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  aria-busy={loading}
+                  className="acad-bauhaus-btn-primary"
+                  style={{ marginTop: "10px" }}
+                >
+                  {loading && <Loader2 size={16} className="acad-btn-spinner" aria-hidden="true" />}
+                  <span>
+                    {loading
+                      ? "Creating Account..."
+                      : isCorporate
+                        ? "Create Corporate Account"
+                        : "Create Account & Apply"}
+                  </span>
+                </button>
+              </motion.form>
             )}
-          </div>
+          </AnimatePresence>
+
+          {(authMode === "signin" || authMode === "register") && (
+            <div className="acad-bauhaus-social-wrap">
+              <div className="acad-bauhaus-or">
+                <span className="acad-bauhaus-or-line" />
+                <span className="acad-bauhaus-or-text">
+                  {authMode === "register" ? "OR SIGN UP WITH" : "OR CONTINUE WITH"}
+                </span>
+                <span className="acad-bauhaus-or-line" />
+              </div>
+
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={`social-${authMode}`}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="acad-bauhaus-social-row"
+                >
+                  {SOCIAL_PROVIDERS.map((provider, idx) => {
+                    const actionLabel =
+                      authMode === "register"
+                        ? `Sign up with ${provider.name}`
+                        : `Continue with ${provider.name}`;
+                    return (
+                      <motion.button
+                        key={provider.id}
+                        type="button"
+                        onClick={() => {
+                          setError("");
+                          setSocialNotice(provider.name);
+                        }}
+                        initial={{ opacity: 0, y: 8, scale: 0.94 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          scale: 1,
+                          transition: {
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 24,
+                            delay: idx * 0.06,
+                          },
+                        }}
+                        whileHover={{ y: -3, scale: 1.06 }}
+                        whileTap={{ y: 1, scale: 0.93 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 460,
+                          damping: 22,
+                        }}
+                        className={`acad-bauhaus-social-btn ${provider.variantClass}`}
+                        aria-label={actionLabel}
+                        title={actionLabel}
+                      >
+                        <span className="acad-bauhaus-social-icon" aria-hidden="true">
+                          {provider.icon}
+                        </span>
+                      </motion.button>
+                    );
+                  })}
+                </motion.div>
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {socialNotice && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                    transition={{ duration: 0.18 }}
+                    className="acad-bauhaus-social-notice"
+                    role="status"
+                  >
+                    <span>
+                      {socialNotice} single sign-on is not enabled in this local environment yet. Please use email and password above to{" "}
+                      {authMode === "register" ? "register" : "sign in"}.
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setSocialNotice(null)}
+                      className="acad-bauhaus-social-dismiss"
+                      aria-label="Dismiss notice"
+                    >
+                      Dismiss
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+          {!isModal && (authMode === "signin" || authMode === "register") && (
+            <div className="acad-auth-alt-link">
+              <span>{isCorporate ? "Joining as a solo student?" : "Upskilling a company team?"}</span>
+              <Link href={isCorporate ? "/academy/signin" : "/academy/corporate/signin"}>
+                {isCorporate ? "Individual Sign In" : "Corporate Sign In"}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Right Bauhaus Geometric Collage & Portraits in Page Theme */}
-      <BauhausThemeArt />
-    </motion.div>
+      {/* Right Column: Bauhaus Geometric Artwork with Clean Circular Scholar Portraits */}
+      {!isModal && <BauhausThemeArt />}
+    </div>
   );
 }

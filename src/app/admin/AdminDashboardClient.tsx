@@ -87,7 +87,7 @@ export function AdminDashboardClient({
   const [newTitle, setNewTitle] = useState("");
   const [newSubtitle, setNewSubtitle] = useState("");
   const [newCategory, setNewCategory] = useState("Cloud & DevOps");
-  const [newMode, setNewMode] = useState("Live Cohort");
+  const [newMode, setNewMode] = useState("Instructor-Led");
   const [newLevel, setNewLevel] = useState("Intermediate");
   const [newWeeks, setNewWeeks] = useState(8);
   const [newTuitionUsd, setNewTuitionUsd] = useState(950);
@@ -773,13 +773,13 @@ export function AdminDashboardClient({
                           <option value="Cloud & DevOps">Cloud &amp; DevOps</option>
                           <option value="Data & BI">Data &amp; BI</option>
                           <option value="Cybersecurity">Cybersecurity</option>
-                          <option value="AI & Automation">AI &amp; Automation</option>
+                          <option value="Data & Automation">Data &amp; Automation</option>
                         </select>
                       </div>
                       <div className="acad-field">
                         <label htmlFor="new-course-mode">Delivery Format</label>
                         <select id="new-course-mode" value={newMode} onChange={(e) => setNewMode(e.target.value)}>
-                          <option value="Live Cohort">Live Cohort</option>
+                          <option value="Instructor-Led">Instructor-Led</option>
                           <option value="Self-Paced">Self-Paced</option>
                           <option value="Corporate Bootcamp">Corporate Bootcamp</option>
                         </select>

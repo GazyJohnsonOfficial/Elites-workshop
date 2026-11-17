@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import "@fontsource/sora/latin-400.css";
 import "@fontsource/sora/latin-500.css";
 import "@fontsource/sora/latin-600.css";
 import "@fontsource/sora/latin-700.css";
@@ -16,6 +17,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ScrollEffects } from "@/components/ScrollEffects";
 import { CookieConsent } from "@/components/CookieConsent";
+import { RegionLocaleSync } from "@/components/RegionLocaleSync";
 import { SITE_CONFIG } from "@/lib/config";
 
 export const viewport: Viewport = {
@@ -75,6 +77,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <ScrollEffects />
+        <RegionLocaleSync />
         <CookieConsent />
       </body>
     </html>

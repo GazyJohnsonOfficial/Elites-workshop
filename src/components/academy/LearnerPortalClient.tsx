@@ -8,7 +8,10 @@ import {
   BookOpen,
   CheckCircle2,
   Circle,
+  ClipboardCheck,
   ExternalLink,
+  GraduationCap,
+  Lock,
   Printer,
   X,
 } from "lucide-react";
@@ -20,7 +23,8 @@ import {
   type Enrollment,
   type TuitionPayment,
 } from "@/lib/academyStore";
-import { AcademyAuthPanel } from "./AcademyAuthPanel";
+import { buildLinkedInCertificationUrl } from "@/lib/credentialUtils";
+import { getModuleCheckpointQuestions } from "@/lib/curriculumAssessments";
 import { LearnerDashboard } from "./LearnerDashboard";
 import { LearnerSkillTelemetry } from "./LearnerSkillTelemetry";
 import { CareerRoadmapTab } from "./CareerRoadmapTab";
@@ -46,6 +50,8 @@ export function LearnerPortalClient() {
   const [feedback, setFeedback] = useState<{ type: "ok" | "err"; text: string } | null>(null);
   const [showCertModal, setShowCertModal] = useState(false);
   const [activeWorkspaceTab, setActiveWorkspaceTab] = useState<"curriculum" | "roadmap">("curriculum");
+  const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
+  const [quizResult, setQuizResult] = useState<{ scorePct: number; passed: boolean } | null>(null);
 
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
@@ -142,6 +148,46 @@ export function LearnerPortalClient() {
     }
   };
 
+  const handleGradeCheckpoint = async (moduleId: string, category: Course["category"], order: number) => {
+    if (!activeEnrollment) return;
+    const questions = getModuleCheckpointQuestions(category, order);
+    const allAnswered = questions.every((q) => typeof quizAnswers[q.id] === "number");
+    if (!allAnswered) {
+      setFeedback({ type: "err", text: "Answer all 3 checkpoint questions before grading." });
+      return;
+    }
+    const correctCount = questions.filter((q) => quizAnswers[q.id] === q.correctIndex).length;
+    const scorePct = Math.round((correctCount / questions.length) * 100);
+    const passed = scorePct >= 80;
+    setQuizResult({ scorePct, passed });
+
+    setActionBusy(true);
+    setFeedback(null);
+    try {
+      const res = await fetch("/api/academy/learn", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          enrollmentId: activeEnrollment.id,
+          quizSubmission: { moduleId, scorePct },
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Unable to record checkpoint score.");
+      await loadWorkspace();
+      setFeedback({
+        type: passed ? "ok" : "err",
+        text: passed
+          ? `Knowledge checkpoint passed (${scorePct}%). Module telemetry updated.`
+          : `Scored ${scorePct}%. Review rationales below and retake to clear the 80% gate.`,
+      });
+    } catch (err) {
+      setFeedback({ type: "err", text: (err as Error).message });
+    } finally {
+      setActionBusy(false);
+    }
+  };
+
   const handleCapstoneSubmit = async (claimCertificate: boolean) => {
     if (!activeEnrollment) return;
     setActionBusy(true);
@@ -188,13 +234,33 @@ export function LearnerPortalClient() {
 
   if (!authenticated) {
     return (
-      <main id="main" className="acad-auth-section">
-        <AcademyAuthPanel
-          defaultRole="learner"
-          heading="Sign In to My Learning"
-          subheading="Enter your enrolled email or launch the Akua Mensah Demo Learner profile below to access your modules, telemetry, and career roadmap."
-          onAuthenticated={() => loadWorkspace()}
-        />
+      <main id="main" className="acad-section">
+        <div className="container" style={{ maxWidth: "680px", margin: "40px auto" }}>
+          <div className="acad-gate-card">
+            <div className="acad-gate-icon">
+              <GraduationCap size={32} />
+            </div>
+            <h2>Learner Workspace Sign In Required</h2>
+            <p>
+              Please sign in with your enrolled student account to access your live technical modules,
+              capstone laboratory submissions, and verifiable credentials.
+            </p>
+            <div className="acad-gate-actions">
+              <Link href="/academy/signin" className="btn btn-navy" style={{ padding: "12px 24px" }}>
+                Sign In to Workspace
+              </Link>
+              <Link href="/academy/register" className="btn btn-outline" style={{ padding: "12px 24px" }}>
+                Create Learner Account
+              </Link>
+            </div>
+            <div className="acad-gate-footnote">
+              New to Elites Tech Academy?{" "}
+              <Link href="/academy/register" style={{ color: "var(--blue)", fontWeight: 600 }}>
+                Apply for an upcoming cohort
+              </Link>
+            </div>
+          </div>
+        </div>
       </main>
     );
   }
@@ -432,7 +498,11 @@ export function LearnerPortalClient() {
           </div>
 
           {/* Skill Telemetry Dashboard */}
-          <LearnerSkillTelemetry learnerName={userName} courseTitle={activeCourse.title} />
+          <LearnerSkillTelemetry
+            learnerName={userName}
+            course={activeCourse}
+            enrollment={activeEnrollment}
+          />
 
           {activeWorkspaceTab === "roadmap" ? (
             <CareerRoadmapTab
@@ -465,7 +535,11 @@ export function LearnerPortalClient() {
                       <button
                         key={mod.id}
                         type="button"
-                        onClick={() => setSelectedModuleId(mod.id)}
+                        onClick={() => {
+                          setSelectedModuleId(mod.id);
+                          setQuizAnswers({});
+                          setQuizResult(null);
+                        }}
                         className={`acad-outline-item ${isCurrent ? "active" : ""}`}
                       >
                         {done ? (
@@ -545,6 +619,183 @@ export function LearnerPortalClient() {
                         <span>Session Pack: {activeModule.resourceNote}</span>
                       </div>
                     </div>
+
+                    {/* Interactive Module Knowledge Checkpoint (80% Passing Gate) */}
+                    {(() => {
+                      const checkpointQuestions = getModuleCheckpointQuestions(
+                        activeCourse.category,
+                        activeModule.order
+                      );
+                      const existingScore = activeEnrollment.moduleScores?.[activeModule.id];
+                      return (
+                        <div
+                          style={{
+                            marginTop: "18px",
+                            padding: "18px",
+                            borderRadius: "12px",
+                            border: "1px solid #d5e0f4",
+                            background: "#f8faff",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              flexWrap: "wrap",
+                              gap: "10px",
+                              marginBottom: "12px",
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                              <ClipboardCheck size={17} color="var(--blue)" />
+                              <strong style={{ fontSize: "0.94rem", color: "var(--navy)" }}>
+                                Module Knowledge Checkpoint
+                              </strong>
+                            </div>
+                            <span
+                              className="acad-mono"
+                              style={{
+                                fontSize: "0.76rem",
+                                fontWeight: 700,
+                                color:
+                                  typeof existingScore === "number" && existingScore >= 80
+                                    ? "var(--ok-text)"
+                                    : "var(--blue)",
+                              }}
+                            >
+                              {typeof existingScore === "number"
+                                ? `Recorded Score: ${existingScore}%`
+                                : "3 Questions · 80% Passing"}
+                            </span>
+                          </div>
+
+                          <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                            {checkpointQuestions.map((q, qIdx) => {
+                              const picked = quizAnswers[q.id];
+                              return (
+                                <div
+                                  key={q.id}
+                                  style={{
+                                    background: "#ffffff",
+                                    border: "1px solid #dce5f5",
+                                    borderRadius: "10px",
+                                    padding: "12px 14px",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      fontSize: "0.85rem",
+                                      fontWeight: 700,
+                                      color: "var(--navy)",
+                                      marginBottom: "8px",
+                                    }}
+                                  >
+                                    {qIdx + 1}. {q.prompt}
+                                  </div>
+                                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                                    {q.options.map((opt, optIdx) => {
+                                      const selected = picked === optIdx;
+                                      const showRight =
+                                        quizResult && optIdx === q.correctIndex;
+                                      const showWrong =
+                                        quizResult && selected && optIdx !== q.correctIndex;
+                                      return (
+                                        <button
+                                          key={optIdx}
+                                          type="button"
+                                          onClick={() =>
+                                            setQuizAnswers((prev) => ({ ...prev, [q.id]: optIdx }))
+                                          }
+                                          style={{
+                                            textAlign: "left",
+                                            padding: "8px 10px",
+                                            borderRadius: "7px",
+                                            border: showRight
+                                              ? "1px solid #22c55e"
+                                              : showWrong
+                                              ? "1px solid #ef4444"
+                                              : selected
+                                              ? "1px solid var(--blue)"
+                                              : "1px solid #e3ebfa",
+                                            background: showRight
+                                              ? "#f0fdf4"
+                                              : showWrong
+                                              ? "#fef2f2"
+                                              : selected
+                                              ? "var(--blue-soft)"
+                                              : "#ffffff",
+                                            color: "var(--navy)",
+                                            fontSize: "0.81rem",
+                                            fontWeight: selected ? 700 : 500,
+                                            cursor: "pointer",
+                                          }}
+                                        >
+                                          {opt}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                  {quizResult && (
+                                    <div
+                                      style={{
+                                        marginTop: "8px",
+                                        fontSize: "0.78rem",
+                                        color: "var(--muted)",
+                                        lineHeight: 1.45,
+                                      }}
+                                    >
+                                      <strong>Rationale:</strong> {q.rationale}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              flexWrap: "wrap",
+                              gap: "10px",
+                              marginTop: "14px",
+                            }}
+                          >
+                            <button
+                              type="button"
+                              disabled={actionBusy}
+                              onClick={() =>
+                                handleGradeCheckpoint(
+                                  activeModule.id,
+                                  activeCourse.category,
+                                  activeModule.order
+                                )
+                              }
+                              className="btn btn-navy btn-sm"
+                            >
+                              <ClipboardCheck size={14} />
+                              <span>Grade &amp; Record Checkpoint</span>
+                            </button>
+                            {quizResult && (
+                              <span
+                                className="acad-mono"
+                                style={{
+                                  fontSize: "0.82rem",
+                                  fontWeight: 700,
+                                  color: quizResult.passed ? "var(--ok-text)" : "var(--danger)",
+                                }}
+                              >
+                                {quizResult.passed
+                                  ? `Passed (${quizResult.scorePct}%)`
+                                  : `Score: ${quizResult.scorePct}% (Need 80%)`}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </motion.article>
                 )}
 
@@ -688,7 +939,18 @@ export function LearnerPortalClient() {
                   <span className="acad-kicker">Elites Tech Academy · High-Resolution PDF Service</span>
                   <h2 style={{ fontSize: "1.25rem", color: "var(--navy)", margin: 0 }}>Official Branded Graduate Credential</h2>
                 </div>
-                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                  {activeEnrollment.certificateCode && (
+                    <a
+                      href={buildLinkedInCertificationUrl(certData)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-gold btn-sm"
+                    >
+                      <ExternalLink size={15} />
+                      <span>Add to LinkedIn</span>
+                    </a>
+                  )}
                   <button
                     type="button"
                     onClick={() => window.print()}
@@ -744,7 +1006,7 @@ export function LearnerPortalClient() {
                 </h2>
 
                 <p style={{ color: "var(--muted)", marginBottom: "24px", maxWidth: "60ch", lineHeight: 1.6 }}>
-                  has successfully demonstrated rigorous mastery through live practitioner cohorts, practical code laboratories, and capstone defense requirements for the professional curriculum:
+                  has successfully demonstrated rigorous mastery through instructor-led practitioner tracks, practical code laboratories, and capstone defense requirements for the professional curriculum:
                 </p>
 
                 <div className="acad-cert-program" style={{ background: "#f8fafd", border: "1px solid #dce5f5", borderRadius: "10px", padding: "22px", marginBottom: "28px" }}>

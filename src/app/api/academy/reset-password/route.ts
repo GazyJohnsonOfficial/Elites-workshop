@@ -72,6 +72,14 @@ export async function POST(req: Request) {
     const store = getAcademyStore();
     const user = store.users.find((u) => u.email.toLowerCase() === email);
 
+    if (user?.role === "staff_admin") {
+      return NextResponse.json({
+        success: true,
+        message: "If an account exists with this email, recovery instructions have been dispatched to your inbox.",
+        email,
+      });
+    }
+
     // Create password reset request record in store
     const resetReq = createPasswordResetRequest(email);
 
@@ -87,11 +95,15 @@ export async function POST(req: Request) {
       resetUrl,
     });
 
+    // Log token in non-production server environment for local dev testing
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`[ETS ACADEMY DEV] Password reset token for ${resetReq.email}: ${resetReq.token}`);
+    }
+
     return NextResponse.json({
       success: true,
-      message: "Password recovery instructions and security token dispatched.",
+      message: "If an account exists with this email, recovery instructions have been dispatched to your inbox.",
       email: resetReq.email,
-      token: resetReq.token, // Returned for instant demo testing and fast UX feedback
       expiresAt: resetReq.expiresAt,
     });
   } catch (error) {

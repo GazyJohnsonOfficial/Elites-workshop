@@ -73,11 +73,17 @@ export async function POST(req: Request) {
     const email = asTrimmedString(data.email, 254).toLowerCase();
     const phone = asTrimmedString(data.phone, 32) || "Corporate Assigned";
     const country = asTrimmedString(data.country, 80) || "United States";
-    const courseId = asTrimmedString(data.courseId, 80);
+    const rawCourseIds = Array.isArray(data.courseIds)
+      ? data.courseIds.map((id) => asTrimmedString(id, 80)).filter(Boolean)
+      : [];
+    const singleCourseId = asTrimmedString(data.courseId, 80);
+    const requestedCourseIds = Array.from(
+      new Set(rawCourseIds.length > 0 ? rawCourseIds : singleCourseId ? [singleCourseId] : [])
+    );
 
-    if (fullName.length < 2 || !isValidEmail(email) || !courseId) {
+    if (fullName.length < 2 || !isValidEmail(email) || requestedCourseIds.length === 0) {
       return NextResponse.json(
-        { error: "Provide employee full name, valid work email, and course." },
+        { error: "Provide employee full name, valid work email, and at least one course." },
         { status: 400 }
       );
     }
@@ -98,32 +104,38 @@ export async function POST(req: Request) {
       );
     }
 
-    if (org.seatsUsed >= org.seatQuota) {
-      return NextResponse.json(
-        { error: "All purchased seats are currently assigned. Request additional seats via Tuition & Quotes." },
-        { status: 400 }
-      );
+    const targetCourses = requestedCourseIds
+      .map((id) => store.courses.find((c) => c.id === id))
+      .filter((c): c is NonNullable<typeof c> => Boolean(c));
+    if (targetCourses.length !== requestedCourseIds.length) {
+      return NextResponse.json({ error: "One or more selected courses were not found." }, { status: 404 });
     }
 
-    const duplicate = store.enrollments.find(
-      (e) =>
-        e.organizationId === org.id &&
-        e.learnerEmail.toLowerCase() === email &&
-        e.courseId === courseId
+    const unallocatedCourses = targetCourses.filter(
+      (c) =>
+        !store.enrollments.some(
+          (e) =>
+            e.organizationId === org.id &&
+            e.learnerEmail.toLowerCase() === email &&
+            e.courseId === c.id
+        )
     );
-    if (duplicate) {
+
+    if (unallocatedCourses.length === 0) {
       return NextResponse.json(
-        { error: "This team member is already assigned to the selected track." },
+        { error: "This team member is already assigned to all selected track(s)." },
         { status: 400 }
       );
     }
 
-    const course = store.courses.find((c) => c.id === courseId);
-    if (!course) {
-      return NextResponse.json({ error: "Course not found." }, { status: 404 });
+    if (org.seatsUsed + unallocatedCourses.length > org.seatQuota) {
+      return NextResponse.json(
+        {
+          error: `Insufficient corporate seats (${org.seatQuota - org.seatsUsed} remaining, ${unallocatedCourses.length} required). Request additional seats via Tuition & Quotes.`,
+        },
+        { status: 400 }
+      );
     }
-
-    const cohort = store.cohorts.find((c) => c.courseId === course.id && c.status === "open");
 
     let learner = store.users.find((u) => u.email.toLowerCase() === email);
     if (!learner) {
@@ -140,44 +152,52 @@ export async function POST(req: Request) {
     }
 
     const nowIso = new Date().toISOString();
-    const newEnrollment = {
-      id: `enr-corp-${Date.now()}`,
-      reference: createNewReference("ETS-ACAD"),
-      userId: learner.id,
-      learnerName: fullName,
-      learnerEmail: email,
-      learnerPhone: phone,
-      country,
-      courseId: course.id,
-      cohortId: cohort?.id,
-      organizationId: org.id,
-      paymentPlan: "corporate_seat" as const,
-      currency: "USD" as const,
-      totalUsd: course.tuitionUsd,
-      amountPaidUsd: course.tuitionUsd,
-      paymentStatus: "corporate_sponsored" as const,
-      status: "active" as const,
-      completedModuleIds: [],
-      capstoneUrl: "",
-      capstoneNotes: "",
-      lastActiveAt: nowIso,
-      createdAt: nowIso,
-    };
+    const createdEnrollments = [];
 
-    store.enrollments.unshift(newEnrollment);
-    org.seatsUsed += 1;
-    if (cohort && cohort.seatsTaken < cohort.seatCapacity) {
-      cohort.seatsTaken += 1;
-    }
-
-    return NextResponse.json({
-      success: true,
-      enrollment: {
+    for (let idx = 0; idx < unallocatedCourses.length; idx++) {
+      const course = unallocatedCourses[idx];
+      const cohort = store.cohorts.find((c) => c.courseId === course.id && c.status === "open");
+      const newEnrollment = {
+        id: `enr-corp-${Date.now()}-${idx}`,
+        reference: createNewReference("ETS-ACAD"),
+        userId: learner.id,
+        learnerName: fullName,
+        learnerEmail: email,
+        learnerPhone: phone,
+        country,
+        courseId: course.id,
+        cohortId: cohort?.id,
+        organizationId: org.id,
+        paymentPlan: "corporate_seat" as const,
+        currency: "USD" as const,
+        totalUsd: course.tuitionUsd,
+        amountPaidUsd: course.tuitionUsd,
+        paymentStatus: "corporate_sponsored" as const,
+        status: "active" as const,
+        completedModuleIds: [],
+        moduleScores: {},
+        capstoneUrl: "",
+        capstoneNotes: "",
+        lastActiveAt: nowIso,
+        createdAt: nowIso,
+      };
+      store.enrollments.unshift(newEnrollment);
+      org.seatsUsed += 1;
+      if (cohort && cohort.seatsTaken < cohort.seatCapacity) {
+        cohort.seatsTaken += 1;
+      }
+      createdEnrollments.push({
         ...newEnrollment,
         courseTitle: course.title,
         progressPercent: 0,
         totalModules: course.modules.length,
-      },
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      enrollment: createdEnrollments[0],
+      enrollments: createdEnrollments,
       organization: org,
     });
   } catch {

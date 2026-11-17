@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Award, CheckCircle2, Printer, Search, XCircle } from "lucide-react";
+import { Award, Check, CheckCircle2, Copy, ExternalLink, Printer, Search, XCircle } from "lucide-react";
 import type { Certificate } from "@/lib/academyStore";
+import { buildLinkedInCertificationUrl } from "@/lib/credentialUtils";
 
 export function VerifyCertificateClient({
   initialCode,
@@ -20,6 +21,19 @@ export function VerifyCertificateClient({
   const [cert, setCert] = useState<Certificate | null>(initialCertificate);
   const [searched, setSearched] = useState(initialSearched);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    if (typeof window !== "undefined") {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      } catch {
+        // Fallback if clipboard API restricted
+      }
+    }
+  };
 
   const handleLookup = async (targetCode: string) => {
     const clean = targetCode.trim().toUpperCase();
@@ -71,7 +85,7 @@ export function VerifyCertificateClient({
               <input
                 type="text"
                 className="acad-input acad-mono"
-                placeholder="Enter Credential Code (e.g. ETS-CERT-9482AX)"
+                placeholder="Enter Credential Code (e.g. ETS-CERT-XXXXXX)"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 style={{ flex: 1, minWidth: "240px", textTransform: "uppercase" }}
@@ -82,30 +96,6 @@ export function VerifyCertificateClient({
                 <span>{loading ? "Verifying..." : "Verify Credential"}</span>
               </button>
             </form>
-
-            <div style={{ marginTop: "12px", fontSize: "0.84rem", color: "var(--muted)", display: "flex", flexWrap: "wrap", gap: "12px" }}>
-              <span>Sample active credentials:</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setCode("ETS-CERT-9482AX");
-                  handleLookup("ETS-CERT-9482AX");
-                }}
-                style={{ background: "none", border: 0, padding: 0, color: "var(--blue)", cursor: "pointer", fontFamily: "var(--font-mono)", fontWeight: 700 }}
-              >
-                ETS-CERT-9482AX
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCode("ETS-CERT-7120MK");
-                  handleLookup("ETS-CERT-7120MK");
-                }}
-                style={{ background: "none", border: 0, padding: 0, color: "var(--blue)", cursor: "pointer", fontFamily: "var(--font-mono)", fontWeight: 700 }}
-              >
-                ETS-CERT-7120MK
-              </button>
-            </div>
           </div>
 
           {searched && !cert && (
@@ -125,14 +115,35 @@ export function VerifyCertificateClient({
                   <CheckCircle2 size={20} />
                   <span>Verified Official Credential</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="btn btn-outline btn-sm acad-no-print"
-                >
-                  <Printer size={15} />
-                  <span>Print Credential</span>
-                </button>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }} className="acad-no-print">
+                  <a
+                    href={buildLinkedInCertificationUrl(cert)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-gold btn-sm"
+                    title="Add verified certification directly to your LinkedIn profile"
+                  >
+                    <ExternalLink size={15} />
+                    <span>Add to LinkedIn</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyLink}
+                    className="btn btn-outline btn-sm"
+                    title="Copy verification link to share"
+                  >
+                    {copied ? <Check size={15} color="var(--ok)" /> : <Copy size={15} />}
+                    <span>{copied ? "Link Copied!" : "Share Link"}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="btn btn-navy btn-sm"
+                  >
+                    <Printer size={15} />
+                    <span>Print Credential</span>
+                  </button>
+                </div>
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "18px" }}>
@@ -178,6 +189,33 @@ export function VerifyCertificateClient({
                   <div className="acad-overview-label">Issuing Authority</div>
                   <strong style={{ color: "var(--navy)" }}>{cert.instructorName}</strong>
                 </div>
+              </div>
+
+              <div
+                className="acad-no-print"
+                style={{
+                  marginTop: "18px",
+                  paddingTop: "14px",
+                  borderTop: "1px dashed #d5e0f4",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "10px",
+                  fontSize: "0.8rem",
+                  color: "var(--muted)",
+                }}
+              >
+                <span>Open Badges v2 verifiable assertion available for ATS &amp; HR systems:</span>
+                <a
+                  href={`/api/academy/badges/${encodeURIComponent(cert.code)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="acad-mono"
+                  style={{ color: "var(--blue)", fontWeight: 700, textDecoration: "none" }}
+                >
+                  /api/academy/badges/{cert.code} ↗
+                </a>
               </div>
             </article>
           )}

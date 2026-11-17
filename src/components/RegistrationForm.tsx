@@ -185,7 +185,7 @@ export function RegistrationForm() {
               navigator.clipboard?.writeText(result.reference || "");
             }}
           >
-            COPY REFERENCE NUMBER
+            Copy Reference Number
           </button>
 
           <div className="acad-bauhaus-or">
@@ -216,7 +216,7 @@ export function RegistrationForm() {
               });
             }}
           >
-            SUBMIT ANOTHER APPLICATION
+            Submit Another Application
           </button>
         </div>
 
@@ -246,16 +246,12 @@ export function RegistrationForm() {
           </svg>
         </div>
 
-        <div className="acad-bauhaus-welcome">Welcome!</div>
         <h3 className="acad-bauhaus-title">
-          Your Journey
-          <br />
-          Starts Here
+          Cohort Registration
         </h3>
         <p className="acad-bauhaus-copy">
-          The application should take approximately 10 minutes to complete. You can complete your
-          application now or return later to finish. Don&apos;t worry, we&apos;ll save your
-          information so you can pick up where you left off.
+          Complete your application for the {SITE_CONFIG.PROGRAMME.NAME}. We will review your background
+          and confirm your seat within 24 business hours.
         </p>
 
         {result && !result.success && (
@@ -467,7 +463,7 @@ export function RegistrationForm() {
             aria-busy={isSubmitting}
           >
             {isSubmitting && <span className="acad-btn-spinner" aria-hidden="true" />}
-            <span>{isSubmitting ? "SUBMITTING APPLICATION..." : "START NOW!"}</span>
+            <span>{isSubmitting ? "Submitting Application..." : "Submit Application"}</span>
           </button>
         </form>
 
@@ -482,7 +478,7 @@ export function RegistrationForm() {
           className="acad-bauhaus-btn-secondary"
           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}
         >
-          CONTINUE YOUR APPLICATION
+          Sign In to Existing Application
         </Link>
       </div>
 

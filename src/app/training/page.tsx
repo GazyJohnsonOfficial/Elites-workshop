@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Sprite";
+import { formatCurrencyAmount } from "@/lib/academyStore";
+import { getServerRegionContext } from "@/lib/serverCurrency";
 import { SITE_CONFIG } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `Technical Academy & Workforce Enablement | ${SITE_CONFIG.COMPANY}`,
@@ -35,10 +39,15 @@ interface CurriculumTrack {
   tertiaryAction?: { text: string; href: string };
 }
 
-export default function TrainingPage() {
+export default async function TrainingPage() {
   const primaryPhone = SITE_CONFIG.CONTACT.PHONE_DISPLAY;
   const primaryPhoneE164 = SITE_CONFIG.CONTACT.PHONE_E164;
   const programme = SITE_CONFIG.PROGRAMME;
+  const region = await getServerRegionContext();
+  const localizedTuition = formatCurrencyAmount(
+    SITE_CONFIG.PAYMENT.TUITION_FULL_USD,
+    region.currency
+  );
 
   const jumpLinks = [
     { href: "#pathways", label: "01 Learning Pathways" },
@@ -139,7 +148,7 @@ export default function TrainingPage() {
       facts: [
         { label: "Cohort Start", val: programme.START_DATE_TEXT },
         { label: "Live Contact", val: "36 Live Zoom Sessions" },
-        { label: "Tuition", val: programme.TUITION },
+        { label: `Tuition (${region.currency})`, val: localizedTuition },
       ],
       primaryAction: {
         text: "Enroll in Academy Portal",
@@ -152,7 +161,7 @@ export default function TrainingPage() {
         btnClass: "btn btn-outline btn-sm",
       },
       tertiaryAction: {
-        text: "Multi-Currency Tuition Calculator",
+        text: "Tuition Calculator & Installments",
         href: "/academy/tuition?course=course-data-bi",
       },
     },

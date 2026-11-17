@@ -1,5 +1,6 @@
 import { getAcademySession } from "@/lib/academyAuth";
 import { getAcademyStore, getCourseCompletionSummaries } from "@/lib/academyStore";
+import { getServerRegionContext } from "@/lib/serverCurrency";
 import { AcademyCatalogClient } from "@/components/academy/AcademyCatalogClient";
 
 export const dynamic = "force-dynamic";
@@ -8,6 +9,7 @@ export default async function AcademyHomePage() {
   const store = getAcademyStore();
   const activeCourses = store.courses.filter((c) => c.status === "active");
   const session = await getAcademySession();
+  const region = await getServerRegionContext();
   const courseProgress = getCourseCompletionSummaries(
     store,
     session?.userId,
@@ -20,6 +22,7 @@ export default async function AcademyHomePage() {
       cohorts={store.cohorts}
       courseProgress={courseProgress}
       isAuthenticated={Boolean(session)}
+      initialCurrency={region.currency}
     />
   );
 }

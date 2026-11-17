@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@/components/Sprite";
+import { formatCurrencyAmount } from "@/lib/academyStore";
+import { getServerRegionContext } from "@/lib/serverCurrency";
 import { SITE_CONFIG } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: `Tuition and Fees | ${SITE_CONFIG.COMPANY}`,
   description:
-    "Clear, transparent fee structure for the Data Analysis Program. Details on standard tuition ($1,000), installment options ($500), and enrollment terms.",
+    "Clear, transparent fee structure for the Data Analysis Program with localized tuition and 2-monthly installment options.",
 };
 
-export default function TuitionPage() {
+export default async function TuitionPage() {
+  const region = await getServerRegionContext();
+  const fullFormatted = formatCurrencyAmount(SITE_CONFIG.PAYMENT.TUITION_FULL_USD, region.currency);
+  const depositFormatted = formatCurrencyAmount(
+    SITE_CONFIG.PAYMENT.TUITION_DEPOSIT_USD,
+    region.currency
+  );
+
   return (
     <main id="main">
       {/* ============ PHERO ============ */}
@@ -31,8 +42,8 @@ export default function TuitionPage() {
       <section className="section">
         <div className="container fee-grid">
           <aside className="fee-card reveal">
-            <p className="lab">Tuition</p>
-            <p className="amt">{SITE_CONFIG.PROGRAMME.TUITION}</p>
+            <p className="lab">Tuition ({region.currency})</p>
+            <p className="amt">{fullFormatted}</p>
             <p className="per">For the full 3-month Data Analysis Program</p>
             <ul className="check-list">
               <li>36 live sessions on Zoom</li>
@@ -73,8 +84,8 @@ export default function TuitionPage() {
                     <td>{SITE_CONFIG.PROGRAMME.FORMAT}</td>
                   </tr>
                   <tr>
-                    <th scope="row">Tuition</th>
-                    <td>{SITE_CONFIG.PROGRAMME.TUITION} for the full program</td>
+                    <th scope="row">Tuition ({region.currency})</th>
+                    <td>{fullFormatted} for the full program</td>
                   </tr>
                 </tbody>
               </table>
@@ -87,8 +98,8 @@ export default function TuitionPage() {
                 <div>
                   <strong>Register or choose your plan</strong>
                   <span className="d">
-                    Register online or proceed directly to payment. Choose full tuition (USD 1,000)
-                    or split into two monthly installments (USD 500 deposit).
+                    Register online or proceed directly to payment. Choose full tuition ({fullFormatted})
+                    or split into two monthly installments ({depositFormatted} deposit).
                   </span>
                 </div>
               </li>

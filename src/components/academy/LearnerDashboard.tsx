@@ -37,7 +37,7 @@ interface UpcomingSessionItem {
   timeLabel: string;
   topicTitle: string;
   moduleId?: string;
-  sessionKind: "Live Cohort Session" | "Mentor Office Hours";
+  sessionKind: "Instructor-Led Session" | "Mentor Office Hours";
 }
 
 interface ModuleActivityItem {
@@ -88,20 +88,25 @@ function getCohortSessionDays(schedule: string): number[] {
   if (lower.includes("mon") && lower.includes("wed")) {
     return [1, 3, 6]; // Mon, Wed, Sat Lab
   }
-  return [1, 3, 5]; // Default 3 live sessions/week (Mon, Wed, Fri)
+  return [1, 3, 5]; // Default 3 guided sessions/week (Mon, Wed, Fri)
 }
 
 function buildUpcomingSessions(
   enrollments: LearnerDashboardEnrollment[]
 ): UpcomingSessionItem[] {
-  const anchorUtc = Date.UTC(2026, 10, 14); // Baseline reference date (Nov 14, 2026)
+  const todayUtc = new Date();
+  const anchorUtc = Date.UTC(
+    todayUtc.getUTCFullYear(),
+    todayUtc.getUTCMonth(),
+    todayUtc.getUTCDate()
+  );
   const sessions: Array<UpcomingSessionItem & { sortMs: number }> = [];
 
   for (const enr of enrollments) {
     if (!enr.course || enr.status === "cancelled") continue;
 
     const cohortCode = enr.cohort?.code || "FLEX-TRACK";
-    const schedule = enr.cohort?.schedule || "Weekly live mentor check-ins";
+    const schedule = enr.cohort?.schedule || "Weekly mentor check-ins";
     const format = enr.cohort?.format || enr.course.deliveryMode;
     const isCompletedCourse =
       enr.status === "completed" ||
@@ -150,9 +155,9 @@ function buildUpcomingSessions(
           ? "Architect Office Hours & Code Review"
           : modForSession
           ? `Module ${String(modForSession.order).padStart(2, "0")}: ${modForSession.title}`
-          : "Live Cohort Workshop",
+          : "Instructor-Led Workshop",
         moduleId: modForSession?.id,
-        sessionKind: isOfficeHours ? "Mentor Office Hours" : "Live Cohort Session",
+        sessionKind: isOfficeHours ? "Mentor Office Hours" : "Instructor-Led Session",
         sortMs: candidate.getTime(),
       });
       foundCount += 1;
@@ -325,7 +330,7 @@ export function LearnerDashboard({
         <div className="acad-ld-kpi-card">
           <span className="acad-ld-kpi-label">Upcoming Sessions</span>
           <strong className="acad-mono">{upcomingSessions.length}</strong>
-          <small>Next live workshops &amp; labs</small>
+          <small>Next scheduled workshops &amp; labs</small>
         </div>
 
         <div className="acad-ld-kpi-card">
@@ -401,7 +406,7 @@ export function LearnerDashboard({
                   <div className="acad-ld-course-foot">
                     <span className="acad-ld-next-label">
                       {nextMod
-                        ? `Next: Mod ${String(nextMod.order).padStart(2, "0")} — ${nextMod.title}`
+                        ? `Next: Mod ${String(nextMod.order).padStart(2, "0")} · ${nextMod.title}`
                         : enr.certificateCode
                         ? `Credential ${enr.certificateCode} issued`
                         : "Ready for capstone certificate claim"}
@@ -435,7 +440,7 @@ export function LearnerDashboard({
 
           {upcomingSessions.length === 0 ? (
             <div className="acad-ld-empty">
-              No live sessions scheduled. Open any track below to continue self-paced modules.
+              No upcoming workshops scheduled. Open any track below to continue self-paced modules.
             </div>
           ) : (
             <div className="acad-ld-list">

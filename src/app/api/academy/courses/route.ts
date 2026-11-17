@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getAcademySession } from "@/lib/academyAuth";
 import {
   getAcademyStore,
+  normalizeAcademyCategory,
+  normalizeDeliveryMode,
   type AcademyCategory,
   type Course,
   type DeliveryMode,
@@ -93,17 +95,13 @@ export async function POST(req: Request) {
       slug,
       title,
       subtitle,
-      category: ["Data & BI", "Cloud & DevOps", "Cybersecurity", "AI & Automation"].includes(category)
-        ? category
-        : "Cloud & DevOps",
-      deliveryMode: ["Live Cohort", "Self-Paced", "Corporate Bootcamp"].includes(deliveryMode)
-        ? deliveryMode
-        : "Live Cohort",
+      category: normalizeAcademyCategory(category),
+      deliveryMode: normalizeDeliveryMode(deliveryMode),
       level: ["Beginner", "Intermediate", "Advanced"].includes(level) ? level : "Intermediate",
       durationWeeks: Math.max(1, Math.min(52, durationWeeks)),
       sessionCount: Math.max(1, Math.min(200, sessionCount)),
       tuitionUsd: Math.max(100, Math.min(25000, tuitionUsd)),
-      heroImage: category === "Data & BI" ? "/academy/track-data.jpg" : "/academy/track-cloud.jpg",
+      heroImage: category === "Data & BI" ? "/academy/prog-data-bi.jpg" : "/academy/prog-cloud-devops.jpg",
       tools: toolsRaw
         ? toolsRaw.split(",").map((s) => s.trim()).filter(Boolean)
         : ["SQL", "Cloud Architecture"],
@@ -124,7 +122,7 @@ export async function POST(req: Request) {
           durationHours: Math.max(4, Math.round(sessionCount / 2)),
           objectives: ["Configure production-grade tooling", "Execute core architecture labs"],
           labTask: "Complete foundational lab workflow and submit repository checkpoint.",
-          resourceNote: "Live Workshop Deck + Lab Environment",
+          resourceNote: "Instructor Workshop Deck + Lab Environment",
         },
         {
           id: `mod-${Date.now()}-2`,

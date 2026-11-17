@@ -133,8 +133,13 @@ export async function POST(req: Request) {
         createdAt: nowIso,
       };
       store.users.push(user);
+    } else if (user.role === "staff_admin") {
+      return NextResponse.json(
+        { error: "Please use a corporate or team manager email address." },
+        { status: 403 }
+      );
     } else {
-      user.role = user.role === "staff_admin" ? "staff_admin" : "org_admin";
+      user.role = "org_admin";
       user.organizationId = org.id;
     }
 
