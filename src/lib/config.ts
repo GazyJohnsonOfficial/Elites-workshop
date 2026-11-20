@@ -113,7 +113,7 @@ export const SITE_CONFIG: SiteConfig = {
     DURATION: "3 months (12 weeks)",
     SCHEDULE: "3 live sessions per week, 1 hour each (36 sessions in total)",
     FORMAT: "Online, live on Zoom",
-    TUITION: "USD 1,000",
+    TUITION: "USD 3,000",
     TUITION_URL: "/tuition",
   },
 
@@ -131,8 +131,8 @@ export const SITE_CONFIG: SiteConfig = {
 
   PAYMENT: {
     CHECKOUT_URL: "/tuition",
-    TUITION_FULL_USD: 1000,
-    TUITION_DEPOSIT_USD: 500,
+    TUITION_FULL_USD: 3000,
+    TUITION_DEPOSIT_USD: 1500,
     CURRENCIES: {
       USD: { SYMBOL: "$", CODE: "USD", RATE: 1.0, NAME: "US Dollar" },
       GHS: { SYMBOL: "GH₵", CODE: "GHS", RATE: 15.5, NAME: "Ghana Cedi" },

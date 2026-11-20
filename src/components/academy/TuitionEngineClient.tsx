@@ -178,7 +178,7 @@ export function TuitionEngineClient({
     ? selectedCohortId
     : availableCohorts[0]?.id || "";
 
-  const unitUsd = selectedCourse?.tuitionUsd || 1000;
+  const unitUsd = selectedCourse?.tuitionUsd || 3000;
   const indDueNowUsd = paymentPlan === "installment_2" ? Math.ceil(unitUsd / 2) : unitUsd;
   const indBalanceLaterUsd = unitUsd - indDueNowUsd;
 

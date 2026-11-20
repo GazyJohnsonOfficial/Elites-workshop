@@ -90,7 +90,7 @@ export function AdminDashboardClient({
   const [newMode, setNewMode] = useState("Instructor-Led");
   const [newLevel, setNewLevel] = useState("Intermediate");
   const [newWeeks, setNewWeeks] = useState(8);
-  const [newTuitionUsd, setNewTuitionUsd] = useState(950);
+  const [newTuitionUsd, setNewTuitionUsd] = useState(3000);
   const [newTools, setNewTools] = useState("Terraform, AWS, Docker");
 
   const router = useRouter();
@@ -811,7 +811,7 @@ export function AdminDashboardClient({
                           min={100}
                           max={25000}
                           value={newTuitionUsd}
-                          onChange={(e) => setNewTuitionUsd(Number(e.target.value) || 950)}
+                          onChange={(e) => setNewTuitionUsd(Number(e.target.value) || 3000)}
                         />
                       </div>
                       <div className="acad-field">

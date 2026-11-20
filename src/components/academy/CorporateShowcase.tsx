@@ -355,7 +355,7 @@ export function CorporateShowcase({
     [businessCourses, selectedCourseId]
   );
 
-  const baseUnitUsd = selectedCourse?.tuitionUsd || 1000;
+  const baseUnitUsd = selectedCourse?.tuitionUsd || 3000;
   const netTotalUsd = baseUnitUsd * seatCount;
   const activeTierLabel =
     seatCount >= 30

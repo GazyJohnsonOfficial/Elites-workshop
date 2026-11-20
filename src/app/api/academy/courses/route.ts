@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     const level = asTrimmedString(data.level, 40) as SkillLevel;
     const durationWeeks = Number(data.durationWeeks) || 8;
     const sessionCount = Number(data.sessionCount) || durationWeeks * 3;
-    const tuitionUsd = Number(data.tuitionUsd) || 1000;
+    const tuitionUsd = Number(data.tuitionUsd) || 3000;
     const toolsRaw = asTrimmedString(data.tools, 300);
     const rolesRaw = asTrimmedString(data.roles, 300);
 
