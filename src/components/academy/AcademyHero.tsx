@@ -1,20 +1,14 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
-import {
-  ArrowRight,
-  Award,
-  CheckCircle2,
-  ShieldCheck,
-  TrendingUp,
-} from "lucide-react";
+import { Icon } from "@/components/Sprite";
 import type { AcademyCategory } from "@/lib/academyStore";
 
 /* -----------------------------------------------------------------------------
  * 1. VECTOR BRAND & TOOLCHAIN LOGO COMPONENTS
- * Inline vectors styled for the Elites Tech Academy architectural theme
+ * Exported for CorporateHero and other Academy components
  * -------------------------------------------------------------------------- */
 
 export const BRAND_LOGOS: Array<{ name: string; render: () => React.ReactNode }> = [
@@ -105,7 +99,7 @@ export const BRAND_LOGOS: Array<{ name: string; render: () => React.ReactNode }>
 
 /* -----------------------------------------------------------------------------
  * 2. CANVAS STAGGERED PHYSICS ENGINE (PixelCanvas)
- * Calibrated outward expansion ripple and subtle ambient shimmer
+ * Exported for CorporateHero and other components that reference it
  * -------------------------------------------------------------------------- */
 
 type Pixel = {
@@ -296,7 +290,7 @@ export function PixelCanvas({ colors, gap = 10, speed = 28 }: PixelCanvasProps) 
 
 /* -----------------------------------------------------------------------------
  * 3. ANIMATED MESH GRADIENT SHADER (MeshGradient)
- * Organic multi-stop animated canvas mesh matching the Academy palette
+ * Exported for CorporateHero
  * -------------------------------------------------------------------------- */
 
 export interface MeshGradientProps {
@@ -352,15 +346,13 @@ export const MeshGradient = React.memo(function MeshGradient({
     const start = performance.now();
 
     const renderFrame = (now: number) => {
-      const t = reduced ? 0 : ((now - start) * 0.00065 * speed);
+      const t = reduced ? 0 : (now - start) * 0.00065 * speed;
       const w = canvas.width;
       const h = canvas.height;
 
-      // Base deep navy fill
       ctx.fillStyle = colors[2] || "#0a1a4a";
       ctx.fillRect(0, 0, w, h);
 
-      // Animated organic mesh nodes
       const nodes = [
         {
           color: colors[0] || "#4c9bff",
@@ -409,274 +401,134 @@ export const MeshGradient = React.memo(function MeshGradient({
 });
 
 /* -----------------------------------------------------------------------------
- * 4. ACADEMY HERO SECTION
- * Inspired by the 3 provided editorial/architectural references + animated canvas
- * Strict Flexbox layout (no CSS grid), no "live cohort" copy, zero fake metrics
+ * 4. ACADEMY HERO SECTION (Styled Exactly Like Main Homepage HomeHero)
+ * Cinematic full-bleed background, Fraunces serif italic accent, zero grid lines,
+ * no cluttered cards, elegant editorial copy, and platform collaborations strip.
  * -------------------------------------------------------------------------- */
 
-const CAPABILITY_PILLS: Array<{ label: string; category: AcademyCategory }> = [
-  { label: "+SQL & Power BI", category: "Data & BI" },
-  { label: "+IT Support & Linux", category: "Cloud & DevOps" },
-  { label: "+AWS & Terraform", category: "Cloud & DevOps" },
-  { label: "+Cybersecurity", category: "Cybersecurity" },
-  { label: "+Python & AI", category: "Data & Automation" },
+const ACADEMY_ENGAGEMENT_PILLARS = [
+  "100% Hands-On Portfolio Labs",
+  "Live Cohorts & Self-Paced Tracks",
+  "Employer-Verifiable Open Badges v2",
+  "Flexible 2-Part Installments",
+];
+
+const ACADEMY_TOOLCHAINS: Array<{ name: string; icon: string }> = [
+  { name: "AWS Well-Architected Framework", icon: "i-cloud" },
+  { name: "Microsoft Azure Solutions", icon: "i-server" },
+  { name: "HashiCorp Terraform Ecosystem", icon: "i-code" },
+  { name: "Linux Enterprise Environments", icon: "i-terminal" },
+  { name: "Python, SQL & dbt Core", icon: "i-db" },
+  { name: "Power BI & Decision Intelligence", icon: "i-chart" },
+  { name: "Cybersecurity & Cloud Defense", icon: "i-shield" },
 ];
 
 export interface AcademyHeroProps {
-  courseCount: number;
+  courseCount?: number;
   isAuthenticated?: boolean;
   onSelectTrack?: (category: AcademyCategory) => void;
 }
 
 export function AcademyHero({
-  courseCount,
+  courseCount = 9,
   isAuthenticated = false,
   onSelectTrack,
 }: AcademyHeroProps) {
-  const pixelColors = useMemo(
-    () => [
-      "rgba(45, 79, 214, 0.22)",
-      "rgba(76, 155, 255, 0.26)",
-      "rgba(15, 37, 87, 0.14)",
-      "rgba(245, 184, 46, 0.25)",
-    ],
-    []
-  );
-
-  const handleSkillClick = (category: AcademyCategory) => {
-    if (onSelectTrack) {
-      onSelectTrack(category);
-    } else {
-      document.getElementById("catalog")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
   return (
-    <section className="acad-hero2" aria-labelledby="acad-hero2-title">
-      {/* Staggered Outward Ripple Pixel Canvas Backdrop */}
-      <PixelCanvas colors={pixelColors} gap={11} speed={26} />
-      <div className="acad-hero2-vignette" aria-hidden="true" />
+    <>
+      {/* ============ 1. CINEMATIC HERO (MATCHING MAIN HOMEPAGE HOMEHERO) ============ */}
+      <section className="hx acad-hx" id="hero" aria-labelledby="acad-hx-title">
+        <Image
+          src="/hero-academy.jpg"
+          alt="Modern enterprise technology learning and infrastructure environment"
+          fill
+          priority
+          sizes="100vw"
+          className="hx-img"
+        />
+        <div className="hx-overlay" aria-hidden="true" />
+        <div className="hx-atmosphere" aria-hidden="true">
+          <span className="hx-glow" />
+        </div>
 
-      <div className="container">
-        {/* Main Two-Column Flexbox Stage */}
-        <div className="acad-hero2-stage">
-          {/* ============ LEFT EDITORIAL COLUMN ============ */}
-          <motion.div
-            className="acad-hero2-left"
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Monumental Display Headline with Inline Overlapping Portraits */}
-            <h1 id="acad-hero2-title" className="acad-hero2-title">
-              <span className="acad-hero2-title-line">LEARN THE</span>
-              <span className="acad-hero2-title-line acad-hero2-title-inline">
-                <span>CLOUD</span>
-                <span className="acad-hero2-avatar-pill" aria-hidden="true">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/assets/academy/portrait_sm.webp" alt="" width={38} height={38} />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/assets/academy/portrait_lg.webp" alt="" width={38} height={38} />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/academy/hero-avatar-3.jpg" alt="" width={38} height={38} />
-                </span>
-                <span className="acad-hero2-title-accent">&amp; DATA</span>
-              </span>
-              <span className="acad-hero2-title-line">SKILLS CAREERS NEED.</span>
+        <div className="container hx-inner">
+          <div className="hx-copy">
+            <div className="acad-hx-kicker">
+              <Icon id="i-grad" />
+              <span>Elites Technology Systems · Professional Tech Academy</span>
+            </div>
+
+            <h1 id="acad-hx-title">
+              Technology careers built on{" "}
+              <span className="hx-accent">production-grade skills</span>
             </h1>
 
-            {/* Concise System Description */}
-            <p className="acad-hero2-lead">
-              Practical online courses in IT Support, Data Analysis, Cloud &amp; DevOps,
-              Cybersecurity, Python, and Applied AI. Learn through live workshops or self-paced
-              labs, pay in 2 flexible installments, and graduate with verifiable credentials.
+            <p className="hx-lead">
+              Practical, job-ready programs in Data Analysis, Cloud Architecture &amp; DevOps,
+              Cybersecurity, Python, and Applied AI. Grounded in active enterprise consulting,
+              delivered in flexible live and self-paced tracks, and verified by employers with
+              portable credentials.
             </p>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="acad-hero2-actions">
-              <Link
-                href="#catalog"
-                className="acad-hero2-btn-primary"
-              >
-                <span>Explore Courses</span>
-                <span className="acad-hero2-btn-arrow" aria-hidden="true">
-                  <ArrowRight size={16} />
-                </span>
+            <div className="hx-actions">
+              <a href="#catalog" className="hx-btn-primary">
+                Explore Courses <Icon id="i-arrow-right" />
+              </a>
+              <Link href="/academy/paths" className="hx-btn-secondary">
+                Explore Career Paths <Icon id="i-arrow-right" />
               </Link>
               <Link
                 href={isAuthenticated ? "/academy/learn" : "/academy/get-started"}
-                className="btn btn-outline"
-                style={{ borderRadius: "999px", padding: "12px 22px", fontWeight: 700 }}
+                className="acad-hx-link"
               >
-                <span>{isAuthenticated ? "Open Learner Workspace" : "Find My Career Path"}</span>
+                <span>{isAuthenticated ? "Open Learner Workspace" : "Match My Career Track"}</span>
+                <Icon id="i-arrow-right" />
               </Link>
             </div>
 
-            {/* Authentic System Proof Row with Vertical Hairline Dividers */}
-            <div className="acad-hero2-metrics" aria-label="Individual learning benefits">
-              <div className="acad-hero2-metric">
-                <strong className="acad-nums">100%</strong>
-                <span>Hands-On Portfolio Labs</span>
-              </div>
-              <div className="acad-hero2-metric-divider" aria-hidden="true" />
-              <div className="acad-hero2-metric">
-                <strong className="acad-nums">Flexible</strong>
-                <span>Live &amp; Self-Paced Tracks</span>
-              </div>
-              <div className="acad-hero2-metric-divider" aria-hidden="true" />
-              <div className="acad-hero2-metric">
-                <strong className="acad-nums">2-Part</strong>
-                <span>Regional Installments</span>
-              </div>
+            <div className="hx-approach">
+              <span className="hx-approach-label">Guiding Principles</span>
+              <ul className="hx-trust">
+                {ACADEMY_ENGAGEMENT_PILLARS.map((pillar) => (
+                  <li key={pillar}>
+                    <Icon id="i-check" /> {pillar}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </motion.div>
+          </div>
 
-          {/* ============ RIGHT ARCHITECTURAL & TELEMETRY STAGE ============ */}
-          <motion.div
-            className="acad-hero2-right"
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          <a
+            className="hx-scroll"
+            href="#catalog"
+            aria-label="Scroll to course catalog and career tracks"
           >
-            {/* Upper Architectural Frame with Slatted Fins + MeshGradient + Portrait + Floating Cards */}
-            <div className="acad-hero2-visual-top">
-              {/* Architectural Corrugated Fins (Inspired by Image 1) */}
-              <div className="acad-hero2-fin acad-hero2-fin-silver" aria-hidden="true" />
-              <div className="acad-hero2-fin acad-hero2-fin-gold" aria-hidden="true" />
-
-              {/* Main Visual Card */}
-              <div className="acad-hero2-portrait-frame">
-                <MeshGradient
-                  color1="#4c9bff"
-                  color2="#1f4fd8"
-                  color3="#0a1a4a"
-                  color4="#f5b82e"
-                  speed={1}
-                  swirl={0.57}
-                  scale={1.45}
-                  rotation={120}
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/academy/hero-engineering.jpg"
-                  alt="Software and cloud engineers collaborating over production code and analytics workflows"
-                  width={640}
-                  height={460}
-                  className="acad-hero2-portrait-img"
-                />
-                <div className="acad-hero2-portrait-scrim" aria-hidden="true" />
-              </div>
-
-              {/* Top-Right Stacked Capability Badges */}
-              <div className="acad-hero2-check-stack">
-                <div className="acad-hero2-check-pill">
-                  <CheckCircle2 size={15} />
-                  <span>Hands-On Portfolio Labs</span>
-                </div>
-                <div className="acad-hero2-check-pill">
-                  <ShieldCheck size={15} />
-                  <span>Flexible 2-Part Installments</span>
-                </div>
-              </div>
-
-              {/* Floating Blue Accent Card */}
-              <div className="acad-hero2-blue-card">
-                <strong className="acad-nums">{String(courseCount).padStart(2, "0")}</strong>
-                <span>Individual IT &amp; Tech Courses</span>
-              </div>
-
-              {/* Interactive Focus Your Stack Card */}
-              <div className="acad-hero2-skills-card">
-                <div className="acad-hero2-skills-head">
-                  <Award size={15} />
-                  <span>Explore by Topic</span>
-                </div>
-                <div className="acad-hero2-skills-list">
-                  {CAPABILITY_PILLS.map((pill) => (
-                    <button
-                      key={pill.label}
-                      type="button"
-                      onClick={() => handleSkillClick(pill.category)}
-                      className="acad-hero2-skill-chip"
-                    >
-                      {pill.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Dark Architectural Progression Card with Rising Bars */}
-            <div className="acad-hero2-telemetry-card">
-              <MeshGradient
-                className="acad-hero2-telemetry-mesh"
-                color1="#4c9bff"
-                color2="#1f4fd8"
-                color3="#0a1a4a"
-                color4="#f5b82e"
-                speed={0.85}
-                swirl={0.6}
-                scale={1.35}
-                rotation={140}
-              />
-              <div className="acad-hero2-telemetry-copy">
-                <div className="acad-hero2-telemetry-kicker">
-                  <span>Your Learning Progression</span>
-                </div>
-                <div className="acad-hero2-telemetry-title">
-                  Guided labs, portfolio capstone &amp; verifiable career badge
-                </div>
-              </div>
-
-              <div className="acad-hero2-telemetry-bars" aria-hidden="true">
-                <div className="acad-hero2-bar-col">
-                  <div className="acad-hero2-bar acad-hero2-bar-1" />
-                  <span>Labs</span>
-                </div>
-                <div className="acad-hero2-bar-col">
-                  <div className="acad-hero2-bar acad-hero2-bar-2" />
-                  <span>Portfolio</span>
-                </div>
-                <div className="acad-hero2-bar-col">
-                  <div className="acad-hero2-bar acad-hero2-bar-3" />
-                  <span>Certified</span>
-                </div>
-              </div>
-
-              <div className="acad-hero2-telemetry-badge" aria-hidden="true">
-                <TrendingUp size={16} />
-              </div>
-            </div>
-          </motion.div>
+            <span className="hx-scroll-line" aria-hidden="true" />
+            Scroll to explore
+          </a>
         </div>
+      </section>
 
-        {/* ============ BOTTOM VECTOR TOOLCHAIN MARQUEE BAR ============ */}
-        <div className="acad-hero2-marquee-row">
-          <div className="acad-hero2-marquee-label">
-            <span>Tools &amp; Platforms You Will Master</span>
-          </div>
-
-          <div className="acad-hero2-marquee-viewport">
-            <div className="acad-hero2-marquee-track">
-              <div className="acad-hero2-marquee-group">
-                {BRAND_LOGOS.map((item) => (
-                  <div key={item.name} className="acad-hero2-marquee-slot">
-                    {item.render()}
-                  </div>
-                ))}
-              </div>
-              <div className="acad-hero2-marquee-group" aria-hidden="true">
-                {BRAND_LOGOS.map((item) => (
-                  <div key={`dup-${item.name}`} className="acad-hero2-marquee-slot">
-                    {item.render()}
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* ============ 2. ENTERPRISE PLATFORMS & TOOLCHAINS STRIP ============ */}
+      <section
+        className="hp-collabs-strip"
+        id="academy-toolchains"
+        aria-label="Enterprise Platform Ecosystems and Toolchains"
+      >
+        <div className="container hp-collabs-inner">
+          <span className="hp-collabs-label">Enterprise Platform Ecosystems &amp; Toolchains</span>
+          <div className="hp-collabs-items">
+            {ACADEMY_TOOLCHAINS.map((collab, i) => (
+              <span key={i} className="hp-collab-badge">
+                <Icon id={collab.icon} />
+                <span>{collab.name}</span>
+              </span>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
+
 export default AcademyHero;

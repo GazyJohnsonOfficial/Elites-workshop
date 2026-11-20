@@ -105,14 +105,14 @@ export function LearningPathsSection({
       <div className="container">
         <div className="acad-section-head">
           <div>
-            <h2>Career Tracks for Individual Learners</h2>
+            <h2>Career Domains &amp; Market Opportunities</h2>
             <p>
-              Choose a role-focused learning path from beginner IT and Applied AI to Data Analytics, Cloud, and Cybersecurity.
+              Explore real tech career trajectories, hiring market demand, required practitioner expertise, and matching Academy programs across four core domains.
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
             <Link href="/academy/paths" className="btn btn-navy btn-sm">
-              <span>Explore All Career Paths</span>
+              <span>Explore Career Intelligence Guide</span>
               <ArrowRight size={14} aria-hidden="true" />
             </Link>
 

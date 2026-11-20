@@ -6,9 +6,9 @@ import { CareerPathsClient } from "@/components/academy/CareerPathsClient";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Individual Career Paths & Tech Roadmaps | Elites Tech Academy",
+  title: "Tech Career Paths, Job Market & Expertise Guide | Elites Tech Academy",
   description:
-    "Step-by-step IT, Data Analysis, Cloud & DevOps, Cybersecurity SOC, Python, and Applied AI career paths for individual learners with portfolio capstones and verified credentials.",
+    "Explore high-demand career opportunities, compensation benchmarks, progression ladders, core technical expertise, and best-fit academy programs in Data & BI, Cloud & DevOps, Cybersecurity, and Applied AI.",
 };
 
 export default async function IndividualCareerPathsPage() {

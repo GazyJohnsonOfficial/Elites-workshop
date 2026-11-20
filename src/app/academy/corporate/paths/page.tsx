@@ -6,9 +6,9 @@ import { CareerPathsClient } from "@/components/academy/CareerPathsClient";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Corporate Team Pathways & Workforce Roadmaps | Elites Tech Academy",
+  title: "Enterprise Workforce Pathways & Capability Strategy | Elites Tech Academy",
   description:
-    "Structured departmental upskilling pathways for Cloud Platform & Kubernetes SRE, Enterprise Data & BI, Zero-Trust DevSecOps, Cloud FinOps, and Workforce AI teams.",
+    "Explore organizational capability tracks, talent market economics, maturity ladders, team expertise standards, and recommended corporate programs for Cloud, Data, DevSecOps, FinOps, and Workforce AI.",
 };
 
 export default async function BusinessCareerPathsPage() {
