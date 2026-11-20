@@ -3,17 +3,22 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowRight,
+  ArrowUpRight,
   Award,
   BookOpen,
   Building2,
   Calculator,
   ChevronDown,
+  ChevronRight,
   Cloud,
   Compass,
   Cpu,
   Database,
+  GraduationCap,
+  Layers,
   LogOut,
   Menu,
   Search,
@@ -51,11 +56,14 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
   const [programsOpen, setProgramsOpen] = useState(false);
+  const [menuAudience, setMenuAudience] = useState<"individual" | "business">("individual");
+  const [menuDomain, setMenuDomain] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [tuitionIsCorporate, setTuitionIsCorporate] = useState(false);
 
   const programsDropdownRef = useRef<HTMLDivElement | null>(null);
+  const megaMenuPanelRef = useRef<HTMLDivElement | null>(null);
   const searchWrapRef = useRef<HTMLFormElement | null>(null);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -128,7 +136,11 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       const target = event.target as Node;
-      if (programsDropdownRef.current && !programsDropdownRef.current.contains(target)) {
+      const insideTrigger =
+        programsDropdownRef.current && programsDropdownRef.current.contains(target);
+      const insidePanel =
+        megaMenuPanelRef.current && megaMenuPanelRef.current.contains(target);
+      if (!insideTrigger && !insidePanel) {
         setProgramsOpen(false);
       }
       if (searchWrapRef.current && !searchWrapRef.current.contains(target)) {
@@ -174,6 +186,16 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
     [programs]
   );
 
+  const businessCatalogPrograms = useMemo(() => {
+    const filtered = programs.filter((p) => p.audience !== "individual");
+    return [...filtered].sort((a, b) => {
+      const aBiz = a.audience === "business" ? 0 : 1;
+      const bBiz = b.audience === "business" ? 0 : 1;
+      if (aBiz !== bBiz) return aBiz - bBiz;
+      return a.title.localeCompare(b.title);
+    });
+  }, [programs]);
+
   const viewingBusinessCourse = useMemo(() => {
     if (!pathname?.startsWith("/academy/courses/")) return false;
     const slug = pathname.replace("/academy/courses/", "").split("/")[0];
@@ -185,6 +207,58 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
     Boolean(pathname?.startsWith("/academy/corporate")) ||
     tuitionIsCorporate ||
     viewingBusinessCourse;
+
+  const openProgramsMenu = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setSearchOpen(false);
+    if (!programsOpen) {
+      setMenuAudience(isBusinessContext ? "business" : "individual");
+      setMenuDomain("all");
+    }
+    setProgramsOpen(true);
+  };
+
+  const activeAudiencePrograms = useMemo(
+    () =>
+      menuAudience === "business"
+        ? businessCatalogPrograms
+        : individualPrograms,
+    [menuAudience, businessCatalogPrograms, individualPrograms]
+  );
+
+  const menuDomainItems = useMemo(() => {
+    const base: Array<{ id: string; label: string; count: number; isBootcamp?: boolean }> = [
+      {
+        id: "all",
+        label: menuAudience === "business" ? "All Business Tracks" : "All Individual Courses",
+        count: activeAudiencePrograms.length,
+      },
+    ];
+    if (menuAudience === "business") {
+      base.push({
+        id: "bootcamps",
+        label: "Corporate Bootcamps",
+        count: businessOnlyPrograms.length,
+        isBootcamp: true,
+      });
+    }
+    const categories = ["Data & BI", "Cloud & DevOps", "Cybersecurity", "Data & Automation"];
+    for (const cat of categories) {
+      const count = activeAudiencePrograms.filter((p) => p.category === cat).length;
+      if (count > 0) {
+        base.push({ id: cat, label: cat, count });
+      }
+    }
+    return base;
+  }, [menuAudience, activeAudiencePrograms, businessOnlyPrograms.length]);
+
+  const visibleMenuPrograms = useMemo(() => {
+    if (menuDomain === "all") return activeAudiencePrograms;
+    if (menuDomain === "bootcamps") return businessOnlyPrograms;
+    return activeAudiencePrograms.filter((p) => p.category === menuDomain);
+  }, [menuDomain, activeAudiencePrograms, businessOnlyPrograms]);
 
   const trimmedQuery = searchQuery.trim();
   const filteredPrograms = useMemo(() => {
@@ -253,21 +327,22 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
   };
 
   const handleProgramsMouseEnter = () => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    setSearchOpen(false);
-    setProgramsOpen(true);
+    openProgramsMenu();
   };
 
   const handleProgramsMouseLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
       setProgramsOpen(false);
-    }, 150);
+    }, 170);
   };
 
   const navLinks = isBusinessContext
     ? [
+        {
+          href: "/academy/corporate/paths",
+          label: "Team Paths",
+          match: (p: string) => p.startsWith("/academy/corporate/paths"),
+        },
         {
           href: "/academy/corporate#enterprise-framework",
           label: "Solutions",
@@ -286,9 +361,9 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
       ]
     : [
         {
-          href: "/academy#paths",
+          href: "/academy/paths",
           label: "Career Paths",
-          match: () => false,
+          match: (p: string) => p.startsWith("/academy/paths"),
         },
         {
           href: "/academy/tuition",
@@ -392,7 +467,13 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
               aria-expanded={programsOpen}
               aria-haspopup="menu"
               aria-current={isProgramsActive ? "page" : undefined}
-              onClick={() => setProgramsOpen((prev) => !prev)}
+              onClick={() => {
+                if (programsOpen) {
+                  setProgramsOpen(false);
+                } else {
+                  openProgramsMenu();
+                }
+              }}
             >
               <span>Programs</span>
               <ChevronDown
@@ -401,171 +482,6 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
                 aria-hidden="true"
               />
             </button>
-
-            {programsOpen && (
-              <div
-                className="acad-nav-dropdown-panel acad-mega-dropdown"
-                role="menu"
-                aria-label="Academy programs"
-              >
-                <div className="acad-mega-columns">
-                  {/* Left Column: Individual Career Tracks */}
-                  <div
-                    className={`acad-mega-col acad-mega-col-main ${
-                      !isBusinessContext ? "is-active-context" : ""
-                    }`}
-                  >
-                    <div className="acad-dropdown-head">
-                      <span className="acad-dropdown-head-title">
-                        For Individuals ({individualPrograms.length})
-                      </span>
-                      <Link
-                        href="/academy#catalog"
-                        className="acad-dropdown-head-link"
-                        onClick={() => setProgramsOpen(false)}
-                      >
-                        Browse catalog
-                      </Link>
-                    </div>
-
-                    <div className="acad-mega-list">
-                      {individualPrograms.map((program) => (
-                        <Link
-                          key={program.id}
-                          href={`/academy/courses/${program.slug}`}
-                          className="acad-dropdown-item"
-                          role="menuitem"
-                          onClick={() => setProgramsOpen(false)}
-                        >
-                          <span
-                            className="acad-dropdown-item-icon"
-                            aria-hidden="true"
-                          >
-                            <ProgramCategoryIcon category={program.category} />
-                          </span>
-                          <span className="acad-dropdown-item-copy">
-                            <span className="acad-dropdown-item-title">
-                              {program.title}
-                            </span>
-                            <span className="acad-dropdown-item-meta">
-                              {program.level} · {program.durationWeeks} Wks ·{" "}
-                              {program.deliveryMode}
-                            </span>
-                          </span>
-                          <ArrowRight
-                            size={14}
-                            className="acad-dropdown-item-arrow"
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Column: Corporate Team Bootcamps & Quick Links */}
-                  <div
-                    className={`acad-mega-col acad-mega-col-biz ${
-                      isBusinessContext ? "is-active-context" : ""
-                    }`}
-                  >
-                    <div className="acad-dropdown-head">
-                      <span className="acad-dropdown-head-title">
-                        For Businesses ({businessOnlyPrograms.length} Bootcamps)
-                      </span>
-                      <Link
-                        href="/academy/corporate#corporate-catalog"
-                        className="acad-dropdown-head-link"
-                        onClick={() => setProgramsOpen(false)}
-                      >
-                        Enterprise Hub
-                      </Link>
-                    </div>
-
-                    <div className="acad-mega-list">
-                      {businessOnlyPrograms.map((program) => (
-                        <Link
-                          key={program.id}
-                          href={`/academy/courses/${program.slug}`}
-                          className="acad-dropdown-item acad-dropdown-item-biz"
-                          role="menuitem"
-                          onClick={() => setProgramsOpen(false)}
-                        >
-                          <span
-                            className="acad-dropdown-item-icon acad-dropdown-icon-biz"
-                            aria-hidden="true"
-                          >
-                            <Building2 size={15} />
-                          </span>
-                          <span className="acad-dropdown-item-copy">
-                            <span className="acad-dropdown-item-title">
-                              {program.title}
-                            </span>
-                            <span className="acad-dropdown-item-meta">
-                              {program.durationWeeks} Wks · {program.level} · 5+
-                              Seats
-                            </span>
-                          </span>
-                          <ArrowRight
-                            size={14}
-                            className="acad-dropdown-item-arrow"
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      ))}
-                    </div>
-
-                    <div className="acad-mega-quick-box">
-                      <div className="acad-mega-quick-title">Quick Tools</div>
-                      <Link
-                        href="/academy/get-started"
-                        className="acad-mega-quick-link"
-                        role="menuitem"
-                        onClick={() => setProgramsOpen(false)}
-                      >
-                        <Compass size={14} aria-hidden="true" />
-                        <span>Career Track Finder</span>
-                      </Link>
-                      <Link
-                        href="/academy/tuition?mode=corporate"
-                        className="acad-mega-quick-link"
-                        role="menuitem"
-                        onClick={() => setProgramsOpen(false)}
-                      >
-                        <Calculator size={14} aria-hidden="true" />
-                        <span>Team Seat Quote Calculator</span>
-                      </Link>
-                      <Link
-                        href="/academy/verify"
-                        className="acad-mega-quick-link"
-                        role="menuitem"
-                        onClick={() => setProgramsOpen(false)}
-                      >
-                        <Award size={14} aria-hidden="true" />
-                        <span>Verify a Graduate Credential</span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                <Link
-                  href={
-                    isBusinessContext
-                      ? "/academy/corporate#corporate-catalog"
-                      : "/academy#catalog"
-                  }
-                  className="acad-dropdown-footer"
-                  role="menuitem"
-                  onClick={() => setProgramsOpen(false)}
-                >
-                  <span>
-                    {isBusinessContext
-                      ? "Explore All Enterprise Tracks & Team Seat Rates"
-                      : "Explore All Individual Courses & Upcoming Cohorts"}
-                  </span>
-                  <ArrowRight size={14} aria-hidden="true" />
-                </Link>
-              </div>
-            )}
           </div>
 
           {navLinks.map((item) => {
@@ -728,6 +644,320 @@ export function AcademyHeader({ programs = [] }: { programs?: HeaderProgramItem[
           {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
+
+      <AnimatePresence>
+        {programsOpen && (
+          <>
+            <motion.div
+              className="acad-mega2-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16 }}
+              onClick={() => setProgramsOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              ref={megaMenuPanelRef}
+              className="acad-mega2-shell"
+              role="menu"
+              aria-label="Academy programs explorer"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              onMouseEnter={handleProgramsMouseEnter}
+              onMouseLeave={handleProgramsMouseLeave}
+            >
+              <div className="container">
+                <div className="acad-mega2-panel">
+                  {/* Top Segmented Audience Switcher Bar */}
+                  <div className="acad-mega2-topbar">
+                    <div
+                      className="acad-mega2-audience-tabs"
+                      role="tablist"
+                      aria-label="Select program audience"
+                    >
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={menuAudience === "individual"}
+                        onClick={() => {
+                          setMenuAudience("individual");
+                          setMenuDomain("all");
+                        }}
+                        className={`acad-mega2-aud-tab ${
+                          menuAudience === "individual" ? "active" : ""
+                        }`}
+                      >
+                        <GraduationCap size={15} aria-hidden="true" />
+                        <span>For Individuals</span>
+                        <span className="acad-mega2-aud-count">
+                          {individualPrograms.length}
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        role="tab"
+                        aria-selected={menuAudience === "business"}
+                        onClick={() => {
+                          setMenuAudience("business");
+                          setMenuDomain("all");
+                        }}
+                        className={`acad-mega2-aud-tab ${
+                          menuAudience === "business" ? "active" : ""
+                        }`}
+                      >
+                        <Building2 size={15} aria-hidden="true" />
+                        <span>For Businesses</span>
+                        <span className="acad-mega2-aud-count">
+                          {businessCatalogPrograms.length}
+                        </span>
+                      </button>
+                    </div>
+
+                    <div className="acad-mega2-topbar-right">
+                      <Link
+                        href={
+                          menuAudience === "business"
+                            ? "/academy/corporate#corporate-catalog"
+                            : "/academy#catalog"
+                        }
+                        className="acad-mega2-viewall-link"
+                        onClick={() => setProgramsOpen(false)}
+                      >
+                        <span>
+                          {menuAudience === "business"
+                            ? "Open Full Business Catalog"
+                            : "Open Full Course Catalog"}
+                        </span>
+                        <ArrowRight size={14} aria-hidden="true" />
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setProgramsOpen(false)}
+                        className="acad-mega2-close-btn"
+                        aria-label="Close programs menu"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 3-Zone Architectural Body */}
+                  <div className="acad-mega2-body">
+                    {/* Zone 1: Left Domain Rail */}
+                    <div className="acad-mega2-rail" aria-label="Filter programs by track">
+                      <div className="acad-mega2-rail-label">Filter by Domain</div>
+                      <div className="acad-mega2-rail-list">
+                        {menuDomainItems.map((item) => {
+                          const active = menuDomain === item.id;
+                          return (
+                            <button
+                              key={item.id}
+                              type="button"
+                              onClick={() => setMenuDomain(item.id)}
+                              onMouseEnter={() => setMenuDomain(item.id)}
+                              className={`acad-mega2-rail-btn ${active ? "active" : ""} ${
+                                item.isBootcamp ? "is-bootcamp" : ""
+                              }`}
+                            >
+                              <span className="acad-mega2-rail-icon" aria-hidden="true">
+                                {item.id === "all" ? (
+                                  <Layers size={15} />
+                                ) : item.id === "bootcamps" ? (
+                                  <Building2 size={15} />
+                                ) : (
+                                  <ProgramCategoryIcon category={item.id} />
+                                )}
+                              </span>
+                              <span className="acad-mega2-rail-name">{item.label}</span>
+                              <span className="acad-mega2-rail-count">{item.count}</span>
+                              <ChevronRight
+                                size={14}
+                                className="acad-mega2-rail-chev"
+                                aria-hidden="true"
+                              />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Zone 2: Center 2-Column Interactive Course Cards */}
+                    <div className="acad-mega2-stage">
+                      <div className="acad-mega2-stage-head">
+                        <span className="acad-mega2-stage-title">
+                          {menuDomain === "all"
+                            ? menuAudience === "business"
+                              ? "Enterprise Bootcamps & Team-Ready Programs"
+                              : "Individual Career Tracks"
+                            : menuDomain === "bootcamps"
+                              ? "Exclusive Corporate Team Bootcamps"
+                              : `${menuDomain} Programs`}
+                        </span>
+                        <span className="acad-mega2-stage-sub">
+                          {visibleMenuPrograms.length}{" "}
+                          {visibleMenuPrograms.length === 1 ? "program" : "programs"}
+                        </span>
+                      </div>
+
+                      <div className="acad-mega2-cards">
+                        {visibleMenuPrograms.map((program) => {
+                          const isCorpBootcamp = program.audience === "business";
+                          return (
+                            <Link
+                              key={program.id}
+                              href={`/academy/courses/${program.slug}`}
+                              className={`acad-mega2-card ${
+                                isCorpBootcamp ? "is-bootcamp" : ""
+                              }`}
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <div className="acad-mega2-card-top">
+                                <span
+                                  className={`acad-mega2-card-tag ${
+                                    isCorpBootcamp ? "gold" : ""
+                                  }`}
+                                >
+                                  {isCorpBootcamp
+                                    ? "Corporate Bootcamp"
+                                    : program.category}
+                                </span>
+                                <ArrowUpRight
+                                  size={15}
+                                  className="acad-mega2-card-arrow"
+                                  aria-hidden="true"
+                                />
+                              </div>
+
+                              <div className="acad-mega2-card-title">
+                                {program.title}
+                              </div>
+
+                              <div className="acad-mega2-card-meta">
+                                <span>{program.level}</span>
+                                <span aria-hidden="true">·</span>
+                                <span>{program.durationWeeks} Weeks</span>
+                                <span aria-hidden="true">·</span>
+                                <span>{program.deliveryMode}</span>
+                              </div>
+
+                              <div className="acad-mega2-card-tools">
+                                {program.tools.slice(0, 3).join(" · ")}
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Zone 3: Right Obsidian Navy Action Spotlight */}
+                    <div className="acad-mega2-spotlight">
+                      {menuAudience === "business" ? (
+                        <>
+                          <span className="acad-mega2-spot-kicker">
+                            Enterprise Enablement
+                          </span>
+                          <h4>Upskilling 5 or more engineers or analysts?</h4>
+                          <p>
+                            Provision shared cohorts or private team bootcamps with
+                            Net-30 PO invoicing and manager telemetry.
+                          </p>
+                          <Link
+                            href="/academy/tuition?mode=corporate"
+                            className="btn btn-gold btn-sm btn-block"
+                            role="menuitem"
+                            onClick={() => setProgramsOpen(false)}
+                          >
+                            <span>Configure Seat Quote</span>
+                            <ArrowRight size={14} aria-hidden="true" />
+                          </Link>
+
+                          <div className="acad-mega2-spot-links">
+                            <Link
+                              href="/academy/corporate/paths"
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <Layers size={14} aria-hidden="true" />
+                              <span>Business Team Pathways</span>
+                            </Link>
+                            <Link
+                              href="/academy/corporate"
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <Building2 size={14} aria-hidden="true" />
+                              <span>Explore Enterprise Hub</span>
+                            </Link>
+                            <Link
+                              href="/academy/corporate#request-demo"
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <Compass size={14} aria-hidden="true" />
+                              <span>Schedule Private Scoping</span>
+                            </Link>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <span className="acad-mega2-spot-kicker">
+                            Guided Track Finder
+                          </span>
+                          <h4>Not sure which course fits your career goal?</h4>
+                          <p>
+                            Match your current background and target IT or data role
+                            to a structured track in under 30 seconds.
+                          </p>
+                          <Link
+                            href="/academy/get-started"
+                            className="btn btn-gold btn-sm btn-block"
+                            role="menuitem"
+                            onClick={() => setProgramsOpen(false)}
+                          >
+                            <span>Find My Career Path</span>
+                            <ArrowRight size={14} aria-hidden="true" />
+                          </Link>
+
+                          <div className="acad-mega2-spot-links">
+                            <Link
+                              href="/academy/paths"
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <Layers size={14} aria-hidden="true" />
+                              <span>Explore Career Paths</span>
+                            </Link>
+                            <Link
+                              href="/academy/tuition"
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <Calculator size={14} aria-hidden="true" />
+                              <span>Tuition &amp; 2-Part Installments</span>
+                            </Link>
+                            <Link
+                              href="/academy/verify"
+                              role="menuitem"
+                              onClick={() => setProgramsOpen(false)}
+                            >
+                              <Award size={14} aria-hidden="true" />
+                              <span>Verify Graduate Credential</span>
+                            </Link>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <div className={`acad-mobile-menu ${mobileOpen ? "open" : ""}`}>
         <div className="acad-mobile-context" role="group" aria-label="Select portal view">

@@ -508,13 +508,22 @@ export function CorporateShowcase({
                 operations.
               </p>
             </div>
-            <Link
-              href={`/academy/tuition?mode=corporate&seats=${seatCount}`}
-              className="btn btn-navy btn-sm"
-            >
-              <span>Quote Any Pathway</span>
-              <ArrowRight size={14} />
-            </Link>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              <Link
+                href="/academy/corporate/paths"
+                className="btn btn-outline btn-sm"
+              >
+                <span>Explore All Business Pathways</span>
+                <ArrowRight size={14} />
+              </Link>
+              <Link
+                href={`/academy/tuition?mode=corporate&seats=${seatCount}`}
+                className="btn btn-navy btn-sm"
+              >
+                <span>Quote Any Pathway</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
           </div>
 
           <div className="acad-biz-plan-cards">

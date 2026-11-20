@@ -49,27 +49,35 @@ export interface CorporateLearningPlan {
 export const CORPORATE_LEARNING_PLANS: CorporateLearningPlan[] = [
   {
     id: "plan-analytics-pipeline",
-    name: "Analytics & Automated ETL Pathway",
+    name: "Enterprise Data, Warehousing & Automated BI Pathway",
     targetDepartment: "Finance, BI & Data Operations",
     description:
-      "Pairs executive BI & SQL analytics with production Python & dbt warehouse automation.",
-    courseIds: ["course-data-bi", "course-python-etl"],
+      "Pairs executive BI & SQL analytics with dimensional dbt Core warehousing and Python ETL automation.",
+    courseIds: ["course-data-bi", "course-sql-warehouse", "course-python-etl"],
   },
   {
     id: "plan-cloud-platform",
     name: "Cloud Architecture & Kubernetes SRE Pathway",
     targetDepartment: "Infrastructure & Platform Engineering",
     description:
-      "Builds immutable Terraform & AWS foundations before scaling into Kubernetes reliability.",
+      "Builds immutable Terraform & AWS foundations before scaling into Kubernetes production reliability.",
     courseIds: ["course-cloud-devops", "course-k8s-sre"],
   },
   {
     id: "plan-secops-defense",
-    name: "Zero-Trust Cloud Security Pathway",
+    name: "Zero-Trust Cloud Security & DevSecOps Pathway",
     targetDepartment: "Security, Compliance & Cloud Ops",
     description:
-      "Combines IAM governance, Vault/Trivy security pipelines, and resilient cloud landing zones.",
-    courseIds: ["course-cybersecurity", "course-cloud-devops"],
+      "Combines IAM governance and Vault/Trivy pipelines with continuous NIST CSF 2.0 and SOC 2 automation.",
+    courseIds: ["course-cybersecurity", "course-devsecops-bootcamp"],
+  },
+  {
+    id: "plan-arch-finops",
+    name: "Multi-Cloud Architecture & FinOps Governance Pathway",
+    targetDepartment: "Architecture, FinOps & Engineering Leadership",
+    description:
+      "Equips senior architects and VPs with multi-region AWS/Azure blueprints, cloud unit economics, and AI risk controls.",
+    courseIds: ["course-azure-aws-architect", "course-finops-governance"],
   },
 ];
 
@@ -99,12 +107,14 @@ export function recommendTrackPathway(
     if (input.background === "developer" || input.background === "sysadmin") {
       primaryCourseId = "course-cloud-devops";
       secondaryCourseId =
-        input.audience === "individual" ? "course-cybersecurity" : "course-k8s-sre";
+        input.audience === "individual"
+          ? "course-azure-aws-architect"
+          : "course-k8s-sre";
       summary =
         input.audience === "individual"
-          ? "Your technical background transitions directly into Terraform Infrastructure-as-Code and AWS/Azure landing zones, followed by zero-trust cloud security."
+          ? "Your technical background transitions directly into Terraform Infrastructure-as-Code and AWS/Azure landing zones, followed by Multi-Cloud Solutions Architecture."
           : "Your technical background transitions directly into Terraform Infrastructure-as-Code and AWS/Azure landing zones, followed by production Kubernetes SRE.";
-      skillGaps = ["Terraform State & Modules", "CI/CD Container Pipelines", "Kubernetes Ingress & Autoscaling"];
+      skillGaps = ["Terraform State & Modules", "CI/CD Container Pipelines", "Multi-Cloud & Kubernetes Architecture"];
     } else {
       primaryCourseId =
         input.audience === "individual" && input.background === "none"
@@ -113,42 +123,53 @@ export function recommendTrackPathway(
       secondaryCourseId =
         input.audience === "individual" && input.background === "none"
           ? "course-cloud-devops"
-          : "course-cybersecurity";
+          : "course-azure-aws-architect";
       summary =
         input.audience === "individual" && input.background === "none"
           ? "Start with Linux, networking, and systems troubleshooting foundations before stepping into AWS/Azure cloud automation and Terraform."
-          : "Build foundational Linux, networking, and IaC cloud automation before adding zero-trust IAM compliance controls.";
-      skillGaps = ["VPC & Cloud Networking", "Terraform Automation", "Docker & Prometheus Monitoring"];
+          : "Build foundational Linux, networking, and IaC cloud automation before stepping into multi-region AWS and Azure architecture.";
+      skillGaps = ["VPC & Cloud Networking", "Terraform Automation", "Multi-Region High Availability"];
     }
   } else if (input.targetRole === "security") {
-    primaryCourseId = "course-cybersecurity";
-    secondaryCourseId =
-      input.audience === "individual" && input.background === "none"
-        ? "course-it-foundations"
-        : "course-cloud-devops";
-    summary =
-      "Establish least-privilege IAM boundaries, HashiCorp Vault secrets hygiene, and Trivy scanning before expanding full cloud automation.";
-    skillGaps = ["Zero-Trust IAM Policies", "Container Vulnerability Gates", "CloudTrail Forensics"];
+    if (input.audience === "individual" && input.background === "none") {
+      primaryCourseId = "course-soc-analyst";
+      secondaryCourseId = "course-cybersecurity";
+      summary =
+        "Launch your security career with SIEM alert triage, Wireshark packet analysis, and incident playbooks, then advance into zero-trust cloud defense.";
+      skillGaps = ["SIEM & Log Triage", "Wireshark PCAP Forensics", "Zero-Trust Cloud IAM"];
+    } else if (input.audience === "business") {
+      primaryCourseId = "course-cybersecurity";
+      secondaryCourseId = "course-devsecops-bootcamp";
+      summary =
+        "Establish least-privilege IAM boundaries and Vault secrets hygiene, then embed automated SBOMs, OPA policies, and SOC 2 evidence into CI/CD.";
+      skillGaps = ["Zero-Trust IAM Policies", "Policy-as-Code & SBOMs", "NIST CSF 2.0 Automation"];
+    } else {
+      primaryCourseId = "course-cybersecurity";
+      secondaryCourseId = "course-cloud-devops";
+      summary =
+        "Establish least-privilege IAM boundaries, HashiCorp Vault secrets hygiene, and Trivy scanning before expanding full cloud automation.";
+      skillGaps = ["Zero-Trust IAM Policies", "Container Vulnerability Gates", "CloudTrail Forensics"];
+    }
   } else if (input.targetRole === "data_eng") {
     if (input.background === "analyst" || input.background === "developer") {
       primaryCourseId = "course-python-etl";
-      secondaryCourseId = "course-cloud-devops";
+      secondaryCourseId = "course-sql-warehouse";
       summary =
-        "Move straight into Python extractors, SQL transformations, and dbt data quality tests, then layer on cloud container orchestration.";
-      skillGaps = ["Incremental dbt Models", "Idempotent API Extractors", "Automated Schema Assertions"];
+        "Move straight into Python extractors, SQL transformations, and dbt data quality tests, then deepen dimensional cloud warehousing.";
+      skillGaps = ["Incremental dbt Models", "Idempotent API Extractors", "Dimensional Star Schemas"];
     } else {
       primaryCourseId = "course-data-bi";
-      secondaryCourseId = "course-python-etl";
+      secondaryCourseId = "course-sql-warehouse";
       summary =
-        "Master core SQL joins, Excel/Alteryx workflows, and dimensional modeling first before engineering automated Python/dbt pipelines.";
-      skillGaps = ["SQL Joins & Window Functions", "Dimensional Star Schemas", "Python ETL Automation"];
+        "Master core SQL joins, Excel/Alteryx workflows, and BI dashboards first before engineering tested cloud warehouses with dbt Core.";
+      skillGaps = ["SQL Joins & Window Functions", "Dimensional Star Schemas", "dbt Core Testing"];
     }
   } else if (input.targetRole === "exec_leader") {
     primaryCourseId = "course-exec-literacy";
-    secondaryCourseId = "course-data-bi";
+    secondaryCourseId = "course-finops-governance";
     summary =
-      "Complete the 4-week governance intensive for technical architecture & KPI oversight, then pair with practical BI literacy as needed.";
-    skillGaps = ["Metric Governance & SLAs", "Build-vs-Buy AI/Cloud Evaluation", "Vendor Risk Frameworks"];
+      "Complete the 4-week Executive Data Literacy intensive for KPI governance, then pair with Enterprise Cloud FinOps & AI Governance.";
+    skillGaps = ["Metric Governance & SLAs", "Cloud FinOps Unit Economics", "NIST AI Risk Controls"];
   }
 
   // Respect delivery pace preference if Self-Paced explicitly chosen

@@ -29,37 +29,37 @@ const PATH_ITEMS: Array<{
   {
     num: "01",
     category: "Data & BI",
-    title: "Data Analysis & BI",
-    roles: "Data Analyst · BI Developer · Reporting Specialist",
+    title: "Data Analysis & Warehousing",
+    roles: "Data Analyst · BI Developer · Analytics Engineer",
     summary:
-      "Master SQL queries, Python data cleaning, Excel/Power Query, Tableau, and Power BI dashboards from scratch.",
+      "Master SQL queries, Python data cleaning, Power BI DAX dashboards, dimensional star schemas, and tested dbt Core warehouses.",
     icon: "db",
   },
   {
     num: "02",
     category: "Cloud & DevOps",
-    title: "IT Support, Linux & Cloud",
-    roles: "IT Support Specialist · Junior SysAdmin · Cloud Engineer",
+    title: "IT Support, Cloud & Architecture",
+    roles: "IT Support · Cloud Engineer · Multi-Cloud Architect",
     summary:
-      "Start with networking and Linux fundamentals, then advance into AWS, Azure, Terraform, Docker, and CI/CD.",
+      "Start with networking and Linux fundamentals, build Terraform and Docker pipelines, and scale into AWS & Azure architecture.",
     icon: "cloud",
   },
   {
     num: "03",
     category: "Cybersecurity",
-    title: "Cybersecurity & Defense",
+    title: "SOC Defense & Cloud Security",
     roles: "SOC Analyst · Cloud Security · IAM Specialist",
     summary:
-      "Build practical cloud defense skills with zero-trust IAM policies, Vault secret management, and log forensics.",
+      "Launch with SIEM monitoring, Wireshark forensics, and incident playbooks, then harden zero-trust IAM and HashiCorp Vault.",
     icon: "shield",
   },
   {
     num: "04",
     category: "Data & Automation",
-    title: "Python & Applied AI",
-    roles: "Python Developer · Workflow Specialist · Data Engineer",
+    title: "Applied AI & Python Pipelines",
+    roles: "AI Workflow Specialist · Python & Data Engineer",
     summary:
-      "Automate daily work with practical AI workflows, Python scripts, API integrations, and tested dbt pipelines.",
+      "Build privacy-safe AI workflows and RAG assistants, then engineer automated Python REST extractors and Docker pipelines.",
     icon: "cpu",
   },
 ];
@@ -111,6 +111,11 @@ export function LearningPathsSection({
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            <Link href="/academy/paths" className="btn btn-navy btn-sm">
+              <span>Explore All Career Paths</span>
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+
             <button
               type="button"
               onClick={() => setPathfinderOpen((prev) => !prev)}

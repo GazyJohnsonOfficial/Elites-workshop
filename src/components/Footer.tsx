@@ -305,16 +305,16 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
                 <Link href="/academy">Elites Tech Academy Portal</Link>
               </li>
               <li>
-                <Link href="/academy/learn">Learner Workspace</Link>
+                <Link href="/academy/paths">Individual Career Paths</Link>
               </li>
               <li>
                 <Link href="/academy/corporate">Corporate Team Portal</Link>
               </li>
               <li>
-                <Link href="/academy/tuition">Tuition Calculator &amp; Quotes</Link>
+                <Link href="/academy/corporate/paths">Business Team Pathways</Link>
               </li>
               <li>
-                <Link href="/data-analysis">Data Analysis Cohort</Link>
+                <Link href="/academy/tuition">Tuition Calculator &amp; Quotes</Link>
               </li>
               <li>
                 <Link href="/academy/verify">Verify Credential</Link>

@@ -32,7 +32,7 @@ const TIER_PRESETS: Record<string, { label: string; courseId: string; seats: num
   },
   "tier-leadership": {
     label: "Tier 03: Platform Architecture, FinOps & Cloud Governance",
-    courseId: "course-exec-literacy",
+    courseId: "course-finops-governance",
     seats: 10,
   },
 };

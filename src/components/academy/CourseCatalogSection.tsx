@@ -41,10 +41,13 @@ const SKILL_LEVELS = ["Beginner", "Intermediate", "Advanced"] as const;
 const RECOMMENDED_ORDER: Record<string, number> = {
   "course-data-bi": 1,
   "course-it-foundations": 2,
-  "course-ai-productivity": 3,
-  "course-cloud-devops": 4,
-  "course-cybersecurity": 5,
-  "course-python-etl": 6,
+  "course-soc-analyst": 3,
+  "course-ai-productivity": 4,
+  "course-sql-warehouse": 5,
+  "course-cloud-devops": 6,
+  "course-cybersecurity": 7,
+  "course-python-etl": 8,
+  "course-azure-aws-architect": 9,
 };
 
 interface FilterPredicateOptions {

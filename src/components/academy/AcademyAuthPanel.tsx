@@ -29,10 +29,13 @@ export interface AuthCourseOption {
 const DEFAULT_INDIVIDUAL_COURSE_OPTIONS: AuthCourseOption[] = [
   { id: "course-data-bi", label: "Data Analysis & Business Intelligence Engineering (12 Weeks)" },
   { id: "course-it-foundations", label: "IT Support, Networking & Linux Fundamentals (8 Weeks)" },
+  { id: "course-soc-analyst", label: "SOC Analyst, SIEM Monitoring & Incident Response (10 Weeks)" },
   { id: "course-ai-productivity", label: "Applied AI & Workflow Automation for Professionals (6 Weeks)" },
+  { id: "course-sql-warehouse", label: "SQL Analytics Engineering & Cloud Data Warehousing (8 Weeks)" },
   { id: "course-cloud-devops", label: "Cloud & DevOps Engineering (12 Weeks)" },
   { id: "course-cybersecurity", label: "Cybersecurity & Compliance Operations (10 Weeks)" },
   { id: "course-python-etl", label: "Python Programming, ETL & Data Automation (8 Weeks)" },
+  { id: "course-azure-aws-architect", label: "Multi-Cloud Solutions Architecture (AWS & Azure) (12 Weeks)" },
 ];
 
 /**
