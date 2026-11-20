@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import {
   ACADEMY_CATEGORIES,
-  formatCurrencyAmount,
   getCourseUpcomingCohorts,
   getTodayUtcIsoKey,
   type AcademyCategory,
@@ -876,13 +875,6 @@ export function CourseCatalogSection({
                               <small>Level</small>
                               <strong>{course.level}</strong>
                             </div>
-                            <div className="acad-prog-spec-div" aria-hidden="true" />
-                            <div className="acad-prog-spec">
-                              <small>Tuition ({currency})</small>
-                              <strong>
-                                {formatCurrencyAmount(course.tuitionUsd, currency)}
-                              </strong>
-                            </div>
                           </div>
 
                           <div className="acad-prog-tools">
@@ -1056,13 +1048,6 @@ export function CourseCatalogSection({
                             <div className="acad-prog-spec">
                               <small>Level</small>
                               <strong>{course.level}</strong>
-                            </div>
-                            <div className="acad-prog-spec-div" aria-hidden="true" />
-                            <div className="acad-prog-spec">
-                              <small>Tuition ({currency})</small>
-                              <strong>
-                                {formatCurrencyAmount(course.tuitionUsd, currency)}
-                              </strong>
                             </div>
                           </div>
 
