@@ -58,7 +58,7 @@ export default async function DataAnalysisPage() {
               </h1>
               <p className="lead">
                 A practical, hands-on program that takes working professionals from messy data to
-                clear, decision-ready insights across four tools over three months.
+                clear, decision-ready insights across six tools over three months.
               </p>
 
               <div className="hero-actions">

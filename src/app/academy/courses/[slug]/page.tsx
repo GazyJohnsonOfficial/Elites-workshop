@@ -12,7 +12,13 @@ import {
   Layers,
   ShieldCheck,
 } from "lucide-react";
-import { formatCurrencyAmount, getAcademyStore } from "@/lib/academyStore";
+import {
+  formatCurrencyAmount,
+  getAcademyStore,
+  getCourseUpcomingCohorts,
+  getTodayUtcIsoKey,
+} from "@/lib/academyStore";
+import { getAcademySession } from "@/lib/academyAuth";
 import { getServerRegionContext } from "@/lib/serverCurrency";
 import { SITE_CONFIG } from "@/lib/config";
 import { AcademyCourseFAQ } from "@/components/academy/AcademyCourseFAQ";
@@ -52,10 +58,22 @@ export default async function AcademyCourseDetailPage({
     notFound();
   }
 
-  const courseCohorts = store.cohorts.filter((c) => c.courseId === course.id);
+  const isBusinessOnly = course.audience === "business";
+  const isSharedTrack = course.audience === "both";
+  const courseCohorts = getCourseUpcomingCohorts(
+    course,
+    store.cohorts,
+    getTodayUtcIsoKey()
+  );
   const totalHours = course.modules.reduce((acc, m) => acc + m.durationHours, 0);
   const totalObjectives = course.modules.reduce((acc, m) => acc + m.objectives.length, 0);
   const region = await getServerRegionContext();
+  const session = await getAcademySession();
+  const isAuthenticated = Boolean(session && session.role !== "staff_admin");
+
+  const primaryCtaHref = isBusinessOnly
+    ? `/academy/tuition?mode=corporate&course=${course.id}`
+    : `/academy/tuition?course=${course.id}`;
 
   const competencyBreakdown = [
     {
@@ -74,8 +92,8 @@ export default async function AcademyCourseDetailPage({
       pct: Math.min(100, Math.round((totalObjectives / 24) * 100)),
     },
     {
-      label: "Production Platform Toolchain",
-      value: `${course.tools.length} enterprise platforms verified`,
+      label: "Practical Platform Toolchain",
+      value: `${course.tools.length} industry tools & workflows`,
       pct: Math.min(100, Math.round((course.tools.length / 8) * 100)),
     },
   ];
@@ -86,7 +104,9 @@ export default async function AcademyCourseDetailPage({
         <div className="container acad-course-hero-split">
           <div className="acad-course-hero-copy">
             <div className="acad-crumbs">
-              <Link href="/academy">Academy Catalog</Link>
+              <Link href={isBusinessOnly ? "/academy/corporate" : "/academy"}>
+                {isBusinessOnly ? "For Businesses" : "For Individuals"}
+              </Link>
               <span>/</span>
               <span>{course.category}</span>
               <span>/</span>
@@ -94,7 +114,8 @@ export default async function AcademyCourseDetailPage({
             </div>
 
             <div className="acad-course-meta-line" style={{ marginBottom: "8px" }}>
-              {course.category} · {course.deliveryMode} · {course.level} · {course.durationWeeks} Weeks
+              {isBusinessOnly ? "Corporate Team Bootcamp" : course.deliveryMode} ·{" "}
+              {course.category} · {course.level} · {course.durationWeeks} Weeks
             </div>
             <h1>{course.title}</h1>
             <p className="lead">{course.subtitle}</p>
@@ -128,7 +149,8 @@ export default async function AcademyCourseDetailPage({
 
       <CourseStickyNav
         courseTitle={course.title}
-        enrollHref={`/academy/tuition?course=${course.id}`}
+        enrollHref={primaryCtaHref}
+        ctaLabel={isBusinessOnly ? "Request Team Quote" : "Enroll Now"}
         hasCohorts={courseCohorts.length > 0}
       />
 
@@ -150,7 +172,9 @@ export default async function AcademyCourseDetailPage({
                     </div>
                   </div>
                   <div>
-                    <div className="acad-overview-label">Target Career Roles</div>
+                    <div className="acad-overview-label">
+                      {isBusinessOnly ? "Target Team Roles" : "Target Career Roles"}
+                    </div>
                     <div style={{ fontWeight: 600, color: "var(--navy)", fontSize: "0.94rem" }}>
                       {course.roles.join(", ")}
                     </div>
@@ -163,10 +187,12 @@ export default async function AcademyCourseDetailPage({
                 <div className="acad-outcomes-header">
                   <div>
                     <h2 style={{ fontSize: "1.3rem", color: "var(--navy)", marginBottom: "6px" }}>
-                      Career Readiness &amp; Curriculum Depth
+                      {isBusinessOnly
+                        ? "Team Readiness & Curriculum Depth"
+                        : "Career Readiness & Curriculum Depth"}
                     </h2>
                     <p style={{ fontSize: "0.9rem", color: "var(--muted)", margin: 0 }}>
-                      Every module concludes with an applied engineering lab and formal checkpoint verification.
+                      Every module concludes with an applied hands-on lab and formal checkpoint verification.
                     </p>
                   </div>
                   <div className="acad-outcomes-badge">
@@ -192,7 +218,9 @@ export default async function AcademyCourseDetailPage({
 
                   <div className="acad-outcomes-roles-box">
                     <div className="acad-overview-label" style={{ marginBottom: "10px" }}>
-                      Target Roles &amp; Applied Deliverables
+                      {isBusinessOnly
+                        ? "Target Team Functions & Deliverables"
+                        : "Target Roles & Applied Deliverables"}
                     </div>
                     <ul className="acad-obj-list" style={{ marginBottom: "12px" }}>
                       {course.roles.map((role) => (
@@ -207,7 +235,12 @@ export default async function AcademyCourseDetailPage({
                       <Link href="/academy/verify" style={{ color: "var(--blue)", fontWeight: 600 }}>
                         public certificate verification
                       </Link>
-                      , JSON-LD badge metadata, and Net-30 invoicing readiness for teams of 5+.
+                      , JSON-LD Open Badges v2 metadata,{" "}
+                      {isBusinessOnly
+                        ? "Net-30 corporate PO invoicing, and manager completion telemetry for teams of 5+."
+                        : isSharedTrack
+                          ? "flexible 2-part installments for individuals, and multi-seat enrollment for organizations."
+                          : "and flexible 2-part installment billing for individual learners."}
                     </div>
                   </div>
                 </div>
@@ -252,7 +285,7 @@ export default async function AcademyCourseDetailPage({
               {courseCohorts.length > 0 && (
                 <div id="cohorts" className="acad-anchor-section" style={{ marginBottom: "24px" }}>
                   <h2 style={{ fontSize: "1.28rem", color: "var(--navy)", marginBottom: "12px" }}>
-                    Upcoming Cohorts &amp; Schedules
+                    {isBusinessOnly ? "Upcoming Team Cohort Windows" : "Upcoming Cohorts & Schedules"}
                   </h2>
                   <div className="acad-table-wrap">
                     <table className="acad-table">
@@ -261,13 +294,15 @@ export default async function AcademyCourseDetailPage({
                           <th>Cohort Code</th>
                           <th>Start Date</th>
                           <th>Schedule</th>
-                          <th>Availability</th>
+                          <th>Status</th>
                           <th style={{ textAlign: "right" }}>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {courseCohorts.map((coh) => {
-                          const openSeats = Math.max(0, coh.seatCapacity - coh.seatsTaken);
+                          const actionHref = isBusinessOnly
+                            ? `/academy/tuition?mode=corporate&course=${course.id}`
+                            : `/academy/tuition?course=${course.id}&cohort=${coh.id}`;
                           return (
                             <tr key={coh.id}>
                               <td style={{ fontWeight: 700, color: "var(--navy)" }}>
@@ -275,15 +310,12 @@ export default async function AcademyCourseDetailPage({
                               </td>
                               <td>{coh.startDateText}</td>
                               <td style={{ color: "var(--muted)" }}>{coh.schedule}</td>
-                              <td style={{ fontWeight: 700, color: openSeats > 0 ? "var(--ok-text)" : "var(--danger)" }}>
-                                {openSeats > 0 ? `${openSeats} of ${coh.seatCapacity} Open` : "Cohort Full"}
+                              <td style={{ fontWeight: 700, color: "var(--ok-text)" }}>
+                                {isBusinessOnly ? "Booking Open" : "Admissions Open"}
                               </td>
                               <td style={{ textAlign: "right" }}>
-                                <Link
-                                  href={`/academy/tuition?course=${course.id}&cohort=${coh.id}`}
-                                  className="btn btn-navy btn-sm"
-                                >
-                                  Select
+                                <Link href={actionHref} className="btn btn-navy btn-sm">
+                                  {isBusinessOnly ? "Quote Team" : "Select"}
                                 </Link>
                               </td>
                             </tr>
@@ -295,33 +327,48 @@ export default async function AcademyCourseDetailPage({
                 </div>
               )}
 
-              {/* FAQ Component */}
+              {/* Audience-Matched FAQ Component */}
               <div id="faq" className="acad-anchor-section">
-                <AcademyCourseFAQ />
+                <AcademyCourseFAQ audience={isBusinessOnly ? "business" : "individual"} />
               </div>
             </div>
 
             {/* Right Sticky Enrollment & Tuition Card */}
             <aside className="acad-side-card">
               <div className="acad-overview-label" style={{ marginBottom: "6px" }}>
-                Standard Program Tuition
+                {isBusinessOnly ? "Corporate Team Tuition (Per Seat)" : "Standard Program Tuition"}
               </div>
-              <div className="acad-side-price">{formatCurrencyAmount(course.tuitionUsd, region.currency)}</div>
+              <div className="acad-side-price">
+                {formatCurrencyAmount(course.tuitionUsd, region.currency)}
+              </div>
               <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--muted)", marginBottom: "14px" }}>
-                Regional settlement · {region.currency}
+                {isBusinessOnly
+                  ? `Per-seat corporate tuition · ${region.currency}`
+                  : `Regional settlement · ${region.currency}`}
               </div>
 
               <table className="acad-spec-table">
                 <tbody>
-                  <tr>
-                    <th>Installment Plan</th>
-                    <td style={{ fontWeight: 700 }}>
-                      2 × {formatCurrencyAmount(Math.ceil(course.tuitionUsd / 2), region.currency)}
-                    </td>
-                  </tr>
+                  {isBusinessOnly ? (
+                    <tr>
+                      <th>Team Enrollment</th>
+                      <td style={{ fontWeight: 700 }}>5+ Seats (Shared or Private)</td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <th>Installment Plan</th>
+                      <td style={{ fontWeight: 700 }}>
+                        2 × {formatCurrencyAmount(Math.ceil(course.tuitionUsd / 2), region.currency)}
+                      </td>
+                    </tr>
+                  )}
                   <tr>
                     <th>Duration</th>
                     <td>{course.durationWeeks} Weeks</td>
+                  </tr>
+                  <tr>
+                    <th>Format</th>
+                    <td>{course.deliveryMode}</td>
                   </tr>
                   <tr>
                     <th>Sessions</th>
@@ -331,38 +378,88 @@ export default async function AcademyCourseDetailPage({
                     <th>Credential</th>
                     <td>Verified Capstone Certificate</td>
                   </tr>
-                  <tr>
-                    <th>Team Discount</th>
-                    <td>10% to 22% (5+ Seats)</td>
-                  </tr>
+                  {isBusinessOnly && (
+                    <tr>
+                      <th>Billing Terms</th>
+                      <td>Net-30 Corporate PO / Wire</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }} className="acad-no-print">
-                <Link href={`/academy/tuition?course=${course.id}`} className="btn btn-gold btn-block">
-                  <span>Enroll as Individual</span>
-                  <ArrowRight size={16} />
-                </Link>
-                <Link
-                  href={`/academy/tuition?mode=corporate&course=${course.id}`}
-                  className="btn btn-navy btn-block"
-                >
-                  <Building2 size={16} />
-                  <span>Request Business Team Quote</span>
-                </Link>
-                <SyllabusDownloadModal
-                  course={course}
-                  buttonText="Download Detailed Syllabus"
-                  variant="sidebar"
-                />
-                <Link href="/academy/learn" className="btn btn-outline btn-block btn-sm">
-                  <GraduationCap size={16} />
-                  <span>Open Learner Workspace</span>
-                </Link>
+                {isBusinessOnly ? (
+                  <>
+                    <Link
+                      href={`/academy/tuition?mode=corporate&course=${course.id}`}
+                      className="btn btn-gold btn-block"
+                    >
+                      <Building2 size={16} />
+                      <span>Request Business Team Quote</span>
+                    </Link>
+                    <SyllabusDownloadModal
+                      course={course}
+                      buttonText="Download Corporate Syllabus"
+                      variant="sidebar"
+                    />
+                    <Link
+                      href="/academy/corporate#request-demo"
+                      className="btn btn-outline btn-block btn-sm"
+                    >
+                      <span>Schedule Private Cohort Scoping</span>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href={`/academy/tuition?course=${course.id}`}
+                      className="btn btn-gold btn-block"
+                    >
+                      <span>Enroll as Individual</span>
+                      <ArrowRight size={16} />
+                    </Link>
+                    <SyllabusDownloadModal
+                      course={course}
+                      buttonText="Download Detailed Syllabus"
+                      variant="sidebar"
+                    />
+                    {isSharedTrack && (
+                      <Link
+                        href={`/academy/tuition?mode=corporate&course=${course.id}`}
+                        className="btn btn-navy btn-block btn-sm"
+                      >
+                        <Building2 size={15} />
+                        <span>Enroll a Team (5+ Seats)</span>
+                      </Link>
+                    )}
+                    {isAuthenticated && (
+                      <Link href="/academy/learn" className="btn btn-outline btn-block btn-sm">
+                        <GraduationCap size={16} />
+                        <span>Open Learner Workspace</span>
+                      </Link>
+                    )}
+                  </>
+                )}
               </div>
 
               <p style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "14px", marginBottom: 0 }}>
-                Need employer sponsorship or formal PO documentation? Call {SITE_CONFIG.CONTACT.PHONE_DISPLAY} or select Business Quote above.
+                {isBusinessOnly ? (
+                  <>
+                    Have a corporate admin account?{" "}
+                    <Link href="/academy/corporate/signin" style={{ color: "var(--blue)", fontWeight: 600 }}>
+                      Sign in to Corporate Portal
+                    </Link>
+                    . Or call {SITE_CONFIG.CONTACT.PHONE_DISPLAY}.
+                  </>
+                ) : (
+                  <>
+                    Already enrolled?{" "}
+                    <Link href="/academy/signin" style={{ color: "var(--blue)", fontWeight: 600 }}>
+                      Sign in to your learner workspace
+                    </Link>
+                    . Questions? Call {SITE_CONFIG.CONTACT.PHONE_DISPLAY}.
+                  </>
+                )}
               </p>
             </aside>
           </div>

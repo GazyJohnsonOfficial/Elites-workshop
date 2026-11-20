@@ -23,6 +23,153 @@ export interface AcademyBlogBrief {
 
 const SECTION_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
+export const INDIVIDUAL_CAREER_GUIDES: readonly AcademyBlogBrief[] = [
+  {
+    id: "guide-it-support-entry",
+    category: "Career Starter",
+    publishedLabel: "November 2026",
+    readTime: "4 min read",
+    title: "Breaking Into Tech With IT Support, Networking & Linux",
+    excerpt:
+      "Why TCP/IP troubleshooting, Linux command-line fluency, and structured ticketing remain the most dependable launchpad for first-time IT professionals.",
+    image: "/academy/blog-iac-platform.jpg",
+    imageAlt: "Workstation running terminal diagnostics and networking documentation",
+    courseTitle: "IT Support, Networking & Linux Fundamentals",
+    courseSlug: "it-support-networking-linux",
+    industryContext: [
+      "Many career switchers struggle because they jump straight into advanced cloud architecture without understanding how operating systems, DNS, DHCP, and permissions work underneath. Employers hiring junior IT technicians and systems specialists consistently test practical troubleshooting over memorized acronyms.",
+      "Building fluency in Linux CLI navigation, Bash scripting, network diagnostics, and incident documentation creates an immediate foundation that opens doors to Help Desk, Junior SysAdmin, Cloud Support, and Security Analyst paths.",
+    ],
+    standoutAdvantage:
+      "Every module is structured around real support desk simulations where you diagnose broken network configurations, manage Linux users and permissions, and write clear root-cause documentation.",
+    keyTakeaways: [
+      "Practical TCP/IP, DNS, and subnet troubleshooting labs",
+      "Daily Linux administration and Bash workflow automation",
+      "Portfolio-ready incident documentation and ticket runbooks",
+    ],
+  },
+  {
+    id: "guide-data-bi-portfolio",
+    category: "Data & Analytics",
+    publishedLabel: "November 2026",
+    readTime: "5 min read",
+    title: "Building a Job-Ready SQL, Python & Power BI Portfolio",
+    excerpt:
+      "What hiring managers actually look for in an entry-to-mid Data Analyst portfolio, from clean star schemas and SQL window functions to interactive dashboards.",
+    image: "/academy/blog-bi-modeling.jpg",
+    imageAlt: "Laptop showing interactive analytics metrics and reporting dashboards",
+    courseTitle: "Data Analysis & Business Intelligence Engineering",
+    courseSlug: "data-analysis-bi",
+    industryContext: [
+      "Hiring managers reviewing dozens of analyst resumes quickly skip generic toy datasets. They look for candidates who can clean messy transactional records, write readable SQL CTEs and window functions, and build BI semantic models that answer real business questions.",
+      "Pairing spreadsheet modeling with SQL, Python Pandas cleaning, and Power BI DAX gives individual learners a complete end-to-end skillset applicable across finance, retail, healthcare, and SaaS teams.",
+    ],
+    standoutAdvantage:
+      "You progress from messy multi-table business datasets to a finished executive Power BI and Tableau portfolio project reviewed live by practicing instructors.",
+    keyTakeaways: [
+      "Relational SQL joins, CTEs, and cohort retention window queries",
+      "Reproducible Python Pandas cleaning and Excel/Power Query workflows",
+      "Executive-ready Power BI star schema and DAX portfolio capstone",
+    ],
+  },
+  {
+    id: "guide-applied-ai-workflows",
+    category: "Applied AI",
+    publishedLabel: "November 2026",
+    readTime: "4 min read",
+    title: "Using Applied AI & No-Code Workflows Safely at Work",
+    excerpt:
+      "Move past basic chat prompts by building repeatable AI-assisted research, document synthesis, and spreadsheet automation workflows with data privacy guardrails.",
+    image: "/academy/blog-finops-teams.jpg",
+    imageAlt: "Professionals collaborating around modern analytical workflow dashboards",
+    courseTitle: "Applied AI & Workflow Automation for Professionals",
+    courseSlug: "applied-ai-workflow-automation",
+    industryContext: [
+      "Across operations, marketing, finance, and IT, professionals are expected to use AI tools productively without leaking confidential customer data or shipping unchecked hallucinations. Structured prompt engineering and API-connected automation separate casual users from standout contributors.",
+      "Learning how to connect spreadsheets, webhooks, and lightweight Python scripts with human-in-the-loop review turns hours of repetitive reporting into dependable 15-minute workflows.",
+    ],
+    standoutAdvantage:
+      "Designed for busy working professionals with zero prior coding required, this self-paced track walks you through building three reusable workflow automations you can apply immediately.",
+    keyTakeaways: [
+      "Structured prompt templates and evaluation rubrics for reliable outputs",
+      "Privacy-safe handling of internal documents and operational spreadsheets",
+      "End-to-end automated weekly summary and notification capstone",
+    ],
+  },
+  {
+    id: "guide-format-choice",
+    category: "Study Strategy",
+    publishedLabel: "October 2026",
+    readTime: "3 min read",
+    title: "Live Instructor-Led vs. Self-Paced: Picking Your Learning Rhythm",
+    excerpt:
+      "How to match your weekly calendar, accountability preferences, and career timeline to either live weekend workshops or flexible self-paced tracks.",
+    image: "/academy/blog-dbt-python.jpg",
+    imageAlt: "Developer workspace set up for Python coding and hands-on study",
+    courseTitle: "Python Programming, ETL & Data Automation",
+    courseSlug: "python-data-engineering",
+    industryContext: [
+      "Choosing the wrong study format is the biggest reason working adults stall halfway through online IT courses. If you want fixed live workshop milestones, peer momentum, and live Q&A twice a week, instructor-led cohorts keep you on schedule.",
+      "If your work shifts or travel schedule fluctuate week to week, self-paced courses with guided lab runbooks and weekly mentor office hours give you full control without losing feedback quality.",
+    ],
+    standoutAdvantage:
+      "Both formats include identical graded hands-on labs, recorded walkthroughs, flexible 2-part installments, and the same verifiable Open Badges v2 graduation certificate.",
+    keyTakeaways: [
+      "Live evening and Saturday slots designed for working professionals",
+      "Recorded sessions archived in your Learner Workspace for easy review",
+      "Weekly mentor office hours supporting self-paced lab milestones",
+    ],
+  },
+  {
+    id: "guide-sysadmin-to-cloud",
+    category: "Cloud & DevOps",
+    publishedLabel: "October 2026",
+    readTime: "5 min read",
+    title: "Transitioning From IT Support or SysAdmin Into Cloud & DevOps",
+    excerpt:
+      "A practical roadmap for turning existing Linux, networking, and server skills into AWS, Azure, Terraform, Docker, and CI/CD automation readiness.",
+    image: "/academy/blog-k8s-ai.jpg",
+    imageAlt: "Server infrastructure and cloud network interconnects",
+    courseTitle: "Cloud & DevOps Engineering",
+    courseSlug: "cloud-devops-automation",
+    industryContext: [
+      "IT support engineers and system administrators already understand networking, identity, and uptime better than most beginners. The leap into Cloud and DevOps comes down to replacing manual server configuration with version-controlled Infrastructure-as-Code and automated deployment pipelines.",
+      "Mastering Terraform modules, multi-stage Docker builds, and GitHub Actions CI/CD equips you to demonstrate real infrastructure engineering skills during technical interviews.",
+    ],
+    standoutAdvantage:
+      "You build and deploy a clean multi-environment cloud landing zone using reusable Terraform modules, containerized services, and automated CI checks rather than clicking through static tutorials.",
+    keyTakeaways: [
+      "Multi-AZ AWS and Azure networking built from reusable Terraform code",
+      "Docker containerization and OIDC-secured GitHub Actions pipelines",
+      "Architecture review feedback preparing you for cloud engineering interviews",
+    ],
+  },
+  {
+    id: "guide-cloud-security-start",
+    category: "Cybersecurity",
+    publishedLabel: "October 2026",
+    readTime: "4 min read",
+    title: "Starting a Career in Cloud Security, IAM & Compliance Ops",
+    excerpt:
+      "Why least-privilege identity design, vulnerability scanning, and cloud audit logging are the fastest-growing practical skills for security analysts.",
+    image: "/academy/blog-devsecops.jpg",
+    imageAlt: "Security operations terminal reviewing cloud compliance policies",
+    courseTitle: "Cybersecurity & Compliance Operations",
+    courseSlug: "cybersecurity-cloud-defense",
+    industryContext: [
+      "Modern security teams need practitioners who can inspect cloud IAM policies, flag container vulnerabilities in CI pipelines, and trace suspicious API calls across logs, not just recite textbook definitions.",
+      "Learning practical cloud defense workflows alongside NIST CSF 2.0 controls bridges the gap between entry-level IT awareness and hands-on SOC or Cloud Security Analyst roles.",
+    ],
+    standoutAdvantage:
+      "You audit intentionally misconfigured cloud environments, set up automated Trivy security checks, configure HashiCorp Vault secrets, and complete a full incident containment exercise.",
+    keyTakeaways: [
+      "Least-privilege IAM policy hardening and static key elimination",
+      "Automated container vulnerability gates using Trivy and CI pipelines",
+      "Hands-on CloudTrail log analysis and incident response playbooks",
+    ],
+  },
+] as const;
+
 export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
   {
     id: "blog-k8s-ai-dra",
@@ -41,7 +188,7 @@ export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
       "Because Day-2 failures rarely happen in single-pod tutorials, organizations scrutinizing cloud ROI are prioritizing engineers who can diagnose cascading node exhaustion, lock down east-west pod networking, and tie Prometheus burn-rate alerts directly to customer reliability targets.",
     ],
     standoutAdvantage:
-      "Instead of clicking through synthetic simulators, learners harden multi-namespace clusters against simulated node loss and resolve three live broken-cluster tabletop scenarios before finishing.",
+      "Instead of clicking through synthetic simulators, engineering teams harden multi-namespace clusters against simulated node loss and resolve three live broken-cluster tabletop scenarios before finishing.",
     keyTakeaways: [
       "Hands-on fault isolation using NetworkPolicies and resource quotas",
       "Actionable SLO burn-rate alerting in Prometheus and Grafana",
@@ -58,7 +205,7 @@ export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
       "AI-assisted commits accelerate cloud changes, making remote state locking, composable Terraform modules, and GitOps review gates critical for zero-downtime teams.",
     image: "/academy/blog-iac-platform.jpg",
     imageAlt: "Dual workstation displays showing modular codebase and system docs",
-    courseTitle: "Cloud Systems Architecture & DevOps Automation",
+    courseTitle: "Cloud & DevOps Engineering",
     courseSlug: "cloud-devops-automation",
     industryContext: [
       "Platform engineering teams building Internal Developer Platforms increasingly rely on declarative control planes alongside Terraform and OpenTofu workflows. As code generation speeds up pull requests, unmanaged manual console edits and state drift become the top reliability risk during cutovers.",
@@ -82,7 +229,7 @@ export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
       "With NIST CSF 2.0 elevating governance and supply-chain controls, engineering squads are replacing static keys with Vault leases, Trivy CI gates, and audit automation.",
     image: "/academy/blog-devsecops.jpg",
     imageAlt: "Encrypted telemetry streams and automated security policy terminal",
-    courseTitle: "Cybersecurity Operations, Cloud Defense & Compliance",
+    courseTitle: "Cybersecurity & Compliance Operations",
     courseSlug: "cybersecurity-cloud-defense",
     industryContext: [
       "NIST Cybersecurity Framework 2.0 formalized Govern as a sixth core pillar alongside Identify, Protect, Detect, Respond, and Recover. Regulators and enterprise buyers now expect technical safeguards to be continuously enforced rather than checked annually in spreadsheets.",
@@ -106,14 +253,14 @@ export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
       "Teams tired of silent dashboard breakages are pairing Python API contract validation with incremental dbt transformations packaged inside deterministic containers.",
     image: "/academy/blog-dbt-python.jpg",
     imageAlt: "Multi-monitor engineering IDE desk for Python ETL and pipeline code",
-    courseTitle: "Enterprise Python, ETL & Analytics Automation",
+    courseTitle: "Python Programming, ETL & Data Automation",
     courseSlug: "python-data-engineering",
     industryContext: [
       "As analytics pipelines pull from dozens of SaaS APIs and event streams, ad-hoc cron scripts break silently whenever an upstream payload changes. Production data engineering now hinges on enforcing Pydantic schema validation at ingestion and unit testing staging-to-mart models in dbt.",
       "Organizations hiring analytics engineers specifically evaluate whether candidates can explain idempotent retries, warehouse grain uniqueness, and containerized scheduling rather than one-off notebook scripts.",
     ],
     standoutAdvantage:
-      "Self-paced learners pair weekly architect office hours with real deliverables: building a type-safe Python extractor into PostgreSQL and delivering a 3-layer tested dbt project inside Docker.",
+      "Teams pair weekly architect office hours with real deliverables: building a type-safe Python extractor into PostgreSQL and delivering a 3-layer tested dbt project inside Docker.",
     keyTakeaways: [
       "Type-safe REST API pagination with structured retries and Pydantic validation",
       "Tested incremental dbt models enforcing uniqueness and referential integrity",
@@ -137,7 +284,7 @@ export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
       "Practitioners who combine clean PostgreSQL window functions, reproducible Python cleaning, low-code Alteryx workflows, and disciplined Power BI DAX semantic modeling remain essential across growing enterprises.",
     ],
     standoutAdvantage:
-      "Students progress from real messy 180k-row retail and SaaS schemas to an end-to-end executive dashboard portfolio defended live before practicing architects.",
+      "Teams progress from real messy 180k-row retail and SaaS schemas to an end-to-end executive dashboard portfolio defended live before practicing architects.",
     keyTakeaways: [
       "Relational SQL joins, CTEs, and rolling cohort retention window functions",
       "Automated Pandas cleanup paired with low-code Alteryx ETL blending",
@@ -170,8 +317,15 @@ export const ACADEMY_BLOG_BRIEFS: readonly AcademyBlogBrief[] = [
   },
 ] as const;
 
-export function AcademyInsightsBlogSection() {
+export function AcademyInsightsBlogSection({
+  variant = "individual",
+}: {
+  variant?: "individual" | "business";
+}) {
   const [activePost, setActivePost] = useState<AcademyBlogBrief | null>(null);
+  const posts =
+    variant === "business" ? ACADEMY_BLOG_BRIEFS : INDIVIDUAL_CAREER_GUIDES;
+  const isBusiness = variant === "business";
 
   useEffect(() => {
     if (!activePost) return;
@@ -185,24 +339,46 @@ export function AcademyInsightsBlogSection() {
   }, [activePost]);
 
   return (
-    <section className="acad-section acad-blog-section" id="insights">
+    <section
+      className="acad-section acad-blog-section"
+      id={isBusiness ? "enterprise-insights" : "insights"}
+    >
       <div className="container">
         <div className="acad-section-head">
           <div>
-            <span className="acad-blog-kicker">Industry Briefs &amp; Curriculum Insights</span>
-            <h2>Why Our Programs Stand Out</h2>
+            <span className="acad-blog-kicker">
+              {isBusiness
+                ? "Enterprise Engineering Briefs & Architecture Insights"
+                : "Career Guides & Study Playbooks"}
+            </span>
+            <h2>
+              {isBusiness
+                ? "Why Engineering Leaders Choose Our Bootcamps"
+                : "Practical Guides to Grow Your Tech Career"}
+            </h2>
             <p>
-              Six technical dispatches connecting real cloud, data, and security shifts directly to how our practitioner programs build job-ready engineering depth.
+              {isBusiness
+                ? "Six technical dispatches connecting real cloud, data, FinOps, and security shifts directly to how our corporate programs build production depth."
+                : "Actionable career roadmaps, study format comparisons, and portfolio advice tailored to individual IT, data, AI, and cloud learners."}
             </p>
           </div>
-          <Link href="/academy/courses/data-analysis-bi" className="btn btn-outline btn-sm">
-            <span>Inspect Flagship Syllabus</span>
+          <Link
+            href={
+              isBusiness
+                ? "/academy/tuition?mode=corporate"
+                : "/academy/get-started"
+            }
+            className="btn btn-outline btn-sm"
+          >
+            <span>
+              {isBusiness ? "Request Team Quote" : "Match My Career Track"}
+            </span>
             <ArrowRight size={14} aria-hidden="true" />
           </Link>
         </div>
 
         <div className="acad-blog-flex">
-          {ACADEMY_BLOG_BRIEFS.map((post, idx) => (
+          {posts.map((post, idx) => (
             <motion.article
               key={post.id}
               className="acad-blog-card"
@@ -239,7 +415,7 @@ export function AcademyInsightsBlogSection() {
 
                 <div className="acad-blog-foot">
                   <div className="acad-blog-track-ref">
-                    <span>Aligned Track:</span>{" "}
+                    <span>Aligned Course:</span>{" "}
                     <Link href={`/academy/courses/${post.courseSlug}`}>
                       {post.courseTitle}
                     </Link>
@@ -250,7 +426,7 @@ export function AcademyInsightsBlogSection() {
                     onClick={() => setActivePost(post)}
                     className="acad-blog-read-btn"
                   >
-                    <span>Read Dispatch</span>
+                    <span>{isBusiness ? "Read Dispatch" : "Read Guide"}</span>
                     <ArrowRight size={14} aria-hidden="true" />
                   </button>
                 </div>
@@ -294,7 +470,7 @@ export function AcademyInsightsBlogSection() {
                   type="button"
                   onClick={() => setActivePost(null)}
                   className="acad-blog-modal-close"
-                  aria-label="Close article dispatch"
+                  aria-label="Close article"
                 >
                   <X size={18} />
                 </button>
@@ -313,7 +489,11 @@ export function AcademyInsightsBlogSection() {
               <div className="acad-blog-standout-box">
                 <div className="acad-blog-standout-head">
                   <BookOpen size={16} aria-hidden="true" />
-                  <strong>How Elites Tech Academy Prepares You Differently</strong>
+                  <strong>
+                    {isBusiness
+                      ? "How Our Corporate Bootcamps Deliver Operational Impact"
+                      : "How Elites Tech Academy Prepares You"}
+                  </strong>
                 </div>
                 <p>{activePost.standoutAdvantage}</p>
                 <ul className="acad-blog-takeaways">
@@ -332,7 +512,7 @@ export function AcademyInsightsBlogSection() {
                   className="btn btn-navy btn-sm"
                   onClick={() => setActivePost(null)}
                 >
-                  <span>View Program: {activePost.courseTitle}</span>
+                  <span>View Course: {activePost.courseTitle}</span>
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>
                 <button

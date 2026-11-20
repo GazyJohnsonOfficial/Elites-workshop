@@ -65,10 +65,15 @@ export function Footer({ onOpenCookies }: { onOpenCookies?: () => void }) {
   };
 
   if (
-    pathname?.startsWith("/academy") ||
     pathname?.startsWith("/admin") ||
+    pathname === "/academy/signin" ||
+    pathname === "/academy/register" ||
+    pathname === "/academy/get-started" ||
+    pathname === "/academy/corporate/signin" ||
+    pathname === "/academy/corporate/register" ||
     pathname?.startsWith("/signin") ||
-    pathname?.startsWith("/register")
+    pathname?.startsWith("/register") ||
+    pathname?.startsWith("/get-started")
   ) {
     return null;
   }

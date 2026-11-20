@@ -17,7 +17,7 @@ import type { AcademyCategory } from "@/lib/academyStore";
  * Inline vectors styled for the Elites Tech Academy architectural theme
  * -------------------------------------------------------------------------- */
 
-const BRAND_LOGOS: Array<{ name: string; render: () => React.ReactNode }> = [
+export const BRAND_LOGOS: Array<{ name: string; render: () => React.ReactNode }> = [
   {
     name: "AWS",
     render: () => (
@@ -47,50 +47,25 @@ const BRAND_LOGOS: Array<{ name: string; render: () => React.ReactNode }> = [
     ),
   },
   {
-    name: "Next.js",
+    name: "Microsoft Azure",
     render: () => (
-      <svg
-        className="acad-hero-logo-svg acad-hero-logo-nextjs"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 394 79"
-        aria-label="Next.js"
-      >
-        <path fill="currentColor" d="M261.919 0.0330722H330.547V12.7H303.323V79.339H289.71V12.7H261.919V0.0330722Z" />
-        <path fill="currentColor" d="M149.052 0.0330722V12.7H94.0421V33.0772H138.281V45.7441H94.0421V66.6721H149.052V79.339H80.43V12.7H80.4243V0.0330722H149.052Z" />
-        <path fill="currentColor" d="M183.32 0.0661486H165.506L229.312 79.3721H247.178L215.271 39.7464L247.127 0.126654L229.312 0.154184L206.352 28.6697L183.32 0.0661486Z" />
-        <path fill="currentColor" d="M201.6 56.7148L192.679 45.6229L165.455 79.4326H183.32L201.6 56.7148Z" />
-        <path
-          fill="currentColor"
-          clipRule="evenodd"
-          d="M80.907 79.339L17.0151 0H0V79.3059H13.6121V16.9516L63.8067 79.339H80.907Z"
-          fillRule="evenodd"
-        />
-      </svg>
+      <div className="acad-hero-logo-item">
+        <svg viewBox="0 0 24 24" className="acad-hero-logo-mark" fill="currentColor" aria-hidden="true">
+          <path d="M13.05 3.2L6.2 19.2H2l6.1-12.5 4.95-3.5zm1.4 1.35L22 19.2h-4.6l-3.1-6.5-3.5 6.5H6.9l7.55-14.65z" />
+        </svg>
+        <span>Microsoft Azure</span>
+      </div>
     ),
   },
   {
-    name: "Tailwind CSS",
+    name: "Linux & Docker",
     render: () => (
-      <svg
-        className="acad-hero-logo-svg acad-hero-logo-tailwind"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 262 33"
-        aria-label="Tailwind CSS"
-      >
-        <path
-          fill="#0ea5e9"
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M27 0C19.8 0 15.3 3.6 13.5 10.8C16.2 7.2 19.35 5.85 22.95 6.75C25.004 7.263 26.472 8.754 28.097 10.403C30.744 13.09 33.808 16.2 40.5 16.2C47.7 16.2 52.2 12.6 54 5.4C51.3 9 48.15 10.35 44.55 9.45C42.496 8.937 41.028 7.446 39.403 5.797C36.756 3.11 33.692 0 27 0ZM13.5 16.2C6.3 16.2 1.8 19.8 0 27C2.7 23.4 5.85 22.05 9.45 22.95C11.504 23.464 12.972 24.954 14.597 26.603C17.244 29.29 20.308 32.4 27 32.4C34.2 32.4 38.7 28.8 40.5 21.6C37.8 25.2 34.65 26.55 31.05 25.65C28.996 25.137 27.528 23.646 25.903 21.997C23.256 19.31 20.192 16.2 13.5 16.2Z"
-        />
-        <path
-          fill="currentColor"
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M80.996 13.652H76.284V22.772C76.284 25.204 77.88 25.166 80.996 25.014V28.7C74.688 29.46 72.18 27.712 72.18 22.772V13.652H68.684V9.69996H72.18V4.59596L76.284 3.37996V9.69996H80.996V13.652ZM98.958 9.69996H103.062V28.7H98.958V25.964C97.514 27.978 95.272 29.194 92.308 29.194C87.14 29.194 82.846 24.824 82.846 19.2C82.846 13.538 87.14 9.20596 92.308 9.20596C95.272 9.20596 97.514 10.422 98.958 12.398V9.69996ZM92.954 25.28C96.374 25.28 98.958 22.734 98.958 19.2C98.958 15.666 96.374 13.12 92.954 13.12C89.534 13.12 86.95 15.666 86.95 19.2C86.95 22.734 89.534 25.28 92.954 25.28ZM109.902 6.84996C108.458 6.84996 107.28 5.63396 107.28 4.22796C107.281 3.53297 107.558 2.86682 108.049 2.37539C108.541 1.88395 109.207 1.60728 109.902 1.60596C110.597 1.60728 111.263 1.88395 111.755 2.37539C112.246 2.86682 112.523 3.53297 112.524 4.22796C112.524 5.63396 111.346 6.84996 109.902 6.84996ZM107.85 28.7V9.69996H111.954V28.7H107.85ZM116.704 28.7V0.959961H120.808V28.7H116.704ZM147.446 9.69996H151.778L145.812 28.7H141.784L137.832 15.894L133.842 28.7H129.814L123.848 9.69996H128.18L131.866 22.81L135.856 9.69996H139.77L143.722 22.81L147.446 9.69996ZM156.87 6.84996C155.426 6.84996 154.248 5.63396 154.248 4.22796C154.249 3.53297 154.526 2.86682 155.017 2.37539C155.509 1.88395 156.175 1.60728 156.87 1.60596C157.565 1.60728 158.231 1.88395 158.723 2.37539C159.214 2.86682 159.491 3.53297 159.492 4.22796C159.492 5.63396 158.314 6.84996 156.87 6.84996ZM154.818 28.7V9.69996H158.922V28.7H154.818ZM173.666 9.20596C177.922 9.20596 180.962 12.094 180.962 17.034V28.7H176.858V17.452C176.858 14.564 175.186 13.044 172.602 13.044C169.904 13.044 167.776 14.64 167.776 18.516V28.7H163.672V9.69996H167.776V12.132C169.03 10.156 171.082 9.20596 173.666 9.20596ZM200.418 2.09996H204.522V28.7H200.418V25.964C198.974 27.978 196.732 29.194 193.768 29.194C188.6 29.194 184.306 24.824 184.306 19.2C184.306 13.538 188.6 9.20596 193.768 9.20596C196.732 9.20596 198.974 10.422 200.418 12.398V2.09996ZM194.414 25.28C197.834 25.28 200.418 22.734 200.418 19.2C200.418 15.666 197.834 13.12 194.414 13.12C190.994 13.12 188.41 15.666 188.41 19.2C188.41 22.734 190.994 25.28 194.414 25.28Z"
-        />
-      </svg>
+      <div className="acad-hero-logo-item">
+        <svg viewBox="0 0 24 24" className="acad-hero-logo-mark" fill="currentColor" aria-hidden="true">
+          <path d="M3 5h18v14H3V5zm2 2v10h14V7H5zm2 2h3v2H7V9zm4 0h3v2h-3V9zm4 0h2v2h-2V9zm-8 4h6v2H7v-2z" />
+        </svg>
+        <span>Linux &amp; Docker</span>
+      </div>
     ),
   },
   {
@@ -441,9 +416,10 @@ export const MeshGradient = React.memo(function MeshGradient({
 
 const CAPABILITY_PILLS: Array<{ label: string; category: AcademyCategory }> = [
   { label: "+SQL & Power BI", category: "Data & BI" },
+  { label: "+IT Support & Linux", category: "Cloud & DevOps" },
   { label: "+AWS & Terraform", category: "Cloud & DevOps" },
-  { label: "+Zero-Trust IAM", category: "Cybersecurity" },
-  { label: "+Python ETL", category: "Data & Automation" },
+  { label: "+Cybersecurity", category: "Cybersecurity" },
+  { label: "+Python & AI", category: "Data & Automation" },
 ];
 
 export interface AcademyHeroProps {
@@ -493,7 +469,7 @@ export function AcademyHero({
           >
             {/* Monumental Display Headline with Inline Overlapping Portraits */}
             <h1 id="acad-hero2-title" className="acad-hero2-title">
-              <span className="acad-hero2-title-line">BUILD THE</span>
+              <span className="acad-hero2-title-line">LEARN THE</span>
               <span className="acad-hero2-title-line acad-hero2-title-inline">
                 <span>CLOUD</span>
                 <span className="acad-hero2-avatar-pill" aria-hidden="true">
@@ -506,44 +482,51 @@ export function AcademyHero({
                 </span>
                 <span className="acad-hero2-title-accent">&amp; DATA</span>
               </span>
-              <span className="acad-hero2-title-line">SYSTEMS TEAMS SHIP.</span>
+              <span className="acad-hero2-title-line">SKILLS CAREERS NEED.</span>
             </h1>
 
             {/* Concise System Description */}
             <p className="acad-hero2-lead">
-              Structured practitioner curricula in data analytics, cloud automation, cybersecurity
-              governance, and Python engineering. Complete architecture capstones backed by
-              employer-verifiable credentials.
+              Practical online courses in IT Support, Data Analysis, Cloud &amp; DevOps,
+              Cybersecurity, Python, and Applied AI. Learn through live workshops or self-paced
+              labs, pay in 2 flexible installments, and graduate with verifiable credentials.
             </p>
 
-            {/* Primary Pill/Rounded CTA */}
+            {/* Primary & Secondary CTAs */}
             <div className="acad-hero2-actions">
               <Link
-                href={isAuthenticated ? "#catalog" : "/academy/get-started"}
+                href="#catalog"
                 className="acad-hero2-btn-primary"
               >
-                <span>{isAuthenticated ? "Browse Curricula" : "Get Started"}</span>
+                <span>Explore Courses</span>
                 <span className="acad-hero2-btn-arrow" aria-hidden="true">
                   <ArrowRight size={16} />
                 </span>
               </Link>
+              <Link
+                href={isAuthenticated ? "/academy/learn" : "/academy/get-started"}
+                className="btn btn-outline"
+                style={{ borderRadius: "999px", padding: "12px 22px", fontWeight: 700 }}
+              >
+                <span>{isAuthenticated ? "Open Learner Workspace" : "Find My Career Path"}</span>
+              </Link>
             </div>
 
-            {/* Authentic System Proof Row with Vertical Hairline Dividers (Inspired by Images 1 & 2) */}
-            <div className="acad-hero2-metrics" aria-label="Academy platform specifications">
+            {/* Authentic System Proof Row with Vertical Hairline Dividers */}
+            <div className="acad-hero2-metrics" aria-label="Individual learning benefits">
               <div className="acad-hero2-metric">
                 <strong className="acad-nums">100%</strong>
-                <span>Project-Driven Practice</span>
+                <span>Hands-On Portfolio Labs</span>
               </div>
               <div className="acad-hero2-metric-divider" aria-hidden="true" />
               <div className="acad-hero2-metric">
-                <strong className="acad-nums">Production</strong>
-                <span>System Architectures</span>
+                <strong className="acad-nums">Flexible</strong>
+                <span>Live &amp; Self-Paced Tracks</span>
               </div>
               <div className="acad-hero2-metric-divider" aria-hidden="true" />
               <div className="acad-hero2-metric">
-                <strong className="acad-nums">Verifiable</strong>
-                <span>Digital Credentials</span>
+                <strong className="acad-nums">2-Part</strong>
+                <span>Regional Installments</span>
               </div>
             </div>
           </motion.div>
@@ -584,29 +567,29 @@ export function AcademyHero({
                 <div className="acad-hero2-portrait-scrim" aria-hidden="true" />
               </div>
 
-              {/* Top-Right Stacked Capability Badges (Inspired by Image 2) */}
+              {/* Top-Right Stacked Capability Badges */}
               <div className="acad-hero2-check-stack">
                 <div className="acad-hero2-check-pill">
                   <CheckCircle2 size={15} />
-                  <span>Hands-On Capstone Labs</span>
+                  <span>Hands-On Portfolio Labs</span>
                 </div>
                 <div className="acad-hero2-check-pill">
                   <ShieldCheck size={15} />
-                  <span>Individual &amp; Enterprise Portals</span>
+                  <span>Flexible 2-Part Installments</span>
                 </div>
               </div>
 
-              {/* Floating Blue Accent Card (Inspired by Image 2's 50+ Blue Square) */}
+              {/* Floating Blue Accent Card */}
               <div className="acad-hero2-blue-card">
                 <strong className="acad-nums">{String(courseCount).padStart(2, "0")}</strong>
-                <span>Structured Technical Curricula</span>
+                <span>Individual IT &amp; Tech Courses</span>
               </div>
 
-              {/* Interactive "Focus Your Stack" Card (Inspired by Image 2's "Add your Skills" Card) */}
+              {/* Interactive Focus Your Stack Card */}
               <div className="acad-hero2-skills-card">
                 <div className="acad-hero2-skills-head">
                   <Award size={15} />
-                  <span>Select a Capability Track</span>
+                  <span>Explore by Topic</span>
                 </div>
                 <div className="acad-hero2-skills-list">
                   {CAPABILITY_PILLS.map((pill) => (
@@ -623,7 +606,7 @@ export function AcademyHero({
               </div>
             </div>
 
-            {/* Bottom Dark Architectural Progression Card with Rising Bars (Inspired by Image 3) */}
+            {/* Bottom Dark Architectural Progression Card with Rising Bars */}
             <div className="acad-hero2-telemetry-card">
               <MeshGradient
                 className="acad-hero2-telemetry-mesh"
@@ -638,10 +621,10 @@ export function AcademyHero({
               />
               <div className="acad-hero2-telemetry-copy">
                 <div className="acad-hero2-telemetry-kicker">
-                  <span>Execution Architecture</span>
+                  <span>Your Learning Progression</span>
                 </div>
                 <div className="acad-hero2-telemetry-title">
-                  Applied labs, syllabus milestones &amp; verifiable registry output
+                  Guided labs, portfolio capstone &amp; verifiable career badge
                 </div>
               </div>
 
@@ -652,11 +635,11 @@ export function AcademyHero({
                 </div>
                 <div className="acad-hero2-bar-col">
                   <div className="acad-hero2-bar acad-hero2-bar-2" />
-                  <span>Capstone</span>
+                  <span>Portfolio</span>
                 </div>
                 <div className="acad-hero2-bar-col">
                   <div className="acad-hero2-bar acad-hero2-bar-3" />
-                  <span>Verified</span>
+                  <span>Certified</span>
                 </div>
               </div>
 
@@ -667,10 +650,10 @@ export function AcademyHero({
           </motion.div>
         </div>
 
-        {/* ============ BOTTOM VECTOR TOOLCHAIN MARQUEE BAR (Inspired by Image 3 & Snippet 1) ============ */}
+        {/* ============ BOTTOM VECTOR TOOLCHAIN MARQUEE BAR ============ */}
         <div className="acad-hero2-marquee-row">
           <div className="acad-hero2-marquee-label">
-            <span>Enterprise Toolchains &amp; Cloud Ecosystems</span>
+            <span>Tools &amp; Platforms You Will Master</span>
           </div>
 
           <div className="acad-hero2-marquee-viewport">

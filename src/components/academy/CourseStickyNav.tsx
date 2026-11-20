@@ -7,12 +7,14 @@ import { ArrowRight } from "lucide-react";
 interface CourseStickyNavProps {
   courseTitle: string;
   enrollHref: string;
+  ctaLabel?: string;
   hasCohorts: boolean;
 }
 
 export function CourseStickyNav({
   courseTitle,
   enrollHref,
+  ctaLabel = "Enroll Now",
   hasCohorts,
 }: CourseStickyNavProps) {
   const [activeId, setActiveId] = useState<string>("overview");
@@ -89,7 +91,7 @@ export function CourseStickyNav({
         <div className="acad-course-sticky-right">
           <span className="acad-course-sticky-title">{courseTitle}</span>
           <Link href={enrollHref} className="btn btn-gold btn-sm">
-            <span>Enroll Now</span>
+            <span>{ctaLabel}</span>
             <ArrowRight size={14} />
           </Link>
         </div>

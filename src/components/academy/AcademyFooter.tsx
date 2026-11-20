@@ -26,57 +26,63 @@ export function AcademyFooter() {
           <div>
             <h3>Elites Tech Academy</h3>
             <p className="acad-footer-copy">
-              The workforce enablement and credentialing portal of {SITE_CONFIG.COMPANY}, delivering instructor-led practitioner tracks and corporate cloud bootcamps across North America, EMEA, and West Africa.
+              The online learning and credentialing platform of {SITE_CONFIG.COMPANY}, delivering practical IT, Data, Cloud, AI, and Cybersecurity courses for individual learners alongside private engineering enablement for businesses.
             </p>
           </div>
 
           <div>
-            <h3>Academy Portals</h3>
+            <h3>For Individuals</h3>
             <ul>
               <li>
-                <Link href="/academy">Course Catalog</Link>
+                <Link href="/academy#catalog">Individual Course Catalog</Link>
+              </li>
+              <li>
+                <Link href="/academy/get-started">Career Track Finder</Link>
+              </li>
+              <li>
+                <Link href="/academy/tuition">Tuition &amp; Installment Plans</Link>
               </li>
               <li>
                 <Link href="/academy/learn">Learner Workspace</Link>
               </li>
               <li>
-                <Link href="/academy/corporate">Corporate Team Portal</Link>
-              </li>
-              <li>
-                <Link href="/academy/tuition">Tuition &amp; Seat Quotes</Link>
-              </li>
-              <li>
-                <Link href="/academy/signin">Workspace Sign In</Link>
+                <Link href="/academy/signin">Individual Sign In</Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3>Credentials &amp; Ops</h3>
+            <h3>For Businesses &amp; Credentials</h3>
             <ul>
+              <li>
+                <Link href="/academy/corporate">Corporate Team Training Hub</Link>
+              </li>
+              <li>
+                <Link href="/academy/tuition?mode=corporate">Team Seat Quote Calculator</Link>
+              </li>
+              <li>
+                <Link href="/academy/corporate#request-demo">Schedule Team Consultation</Link>
+              </li>
+              <li>
+                <Link href="/academy/corporate/signin">Corporate Admin Sign In</Link>
+              </li>
               <li>
                 <Link href="/academy/verify">Verify a Certificate</Link>
               </li>
-              <li>
-                <Link href="/academy/get-started">Workspace Setup Guide</Link>
-              </li>
-              <li>
-                <Link href="/academy#paths">Learning Paths</Link>
-              </li>
             </ul>
           </div>
 
           <div>
-            <h3>Corporate Parent</h3>
+            <h3>Elites Tech Solutions</h3>
             <ul>
               <li>
-                <Link href="/">Elites Tech Solutions Home</Link>
+                <Link href="/">Company Home</Link>
               </li>
               <li>
                 <Link href="/services">Cloud &amp; DevOps Consulting</Link>
               </li>
               <li>
-                <Link href="/contact#inquiry">Request Enterprise RFP</Link>
+                <Link href="/contact">Contact Admissions &amp; Support</Link>
               </li>
               <li>
                 <a href={`mailto:${SITE_CONFIG.CONTACT.EMAIL_ACADEMY}`}>

@@ -4,7 +4,13 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Award, Building2, Download, Plus, Printer, Trash2 } from "lucide-react";
-import type { CorporateQuote, Course, Enrollment, Organization } from "@/lib/academyStore";
+import type {
+  CorporateQuote,
+  Course,
+  CurrencyCode,
+  Enrollment,
+  Organization,
+} from "@/lib/academyStore";
 import { CORPORATE_LEARNING_PLANS } from "@/lib/curriculumAssessments";
 import { getClientDetectedRegion } from "@/lib/geoCurrency";
 import { CorporateShowcase } from "./CorporateShowcase";
@@ -18,9 +24,11 @@ interface TeamEnrollment extends Enrollment {
 export function CorporatePortalClient({
   initialCourses = [],
   initialAuthenticated = false,
+  initialCurrency = "USD",
 }: {
   initialCourses?: Course[];
   initialAuthenticated?: boolean;
+  initialCurrency?: CurrencyCode;
 }) {
   const [loading, setLoading] = useState(initialAuthenticated);
   const [authenticated, setAuthenticated] = useState(initialAuthenticated);
@@ -183,7 +191,12 @@ export function CorporatePortalClient({
   }
 
   if (!authenticated) {
-    return <CorporateShowcase courses={initialCourses} />;
+    return (
+      <CorporateShowcase
+        courses={initialCourses}
+        initialCurrency={initialCurrency}
+      />
+    );
   }
 
   if (!org) {
@@ -525,7 +538,6 @@ export function CorporatePortalClient({
                       <th>Quote Ref</th>
                       <th>Program</th>
                       <th>Seats</th>
-                      <th>Discount</th>
                       <th>Total</th>
                       <th>Terms</th>
                       <th>Status</th>
@@ -537,7 +549,6 @@ export function CorporatePortalClient({
                         <td className="acad-mono" style={{ fontWeight: 700 }}>{qt.reference}</td>
                         <td>{qt.courseTitle}</td>
                         <td className="acad-mono">{qt.seatCount}</td>
-                        <td className="acad-mono" style={{ color: "var(--ok-text)" }}>-{qt.discountPercent}%</td>
                         <td className="acad-mono" style={{ fontWeight: 700 }}>{qt.totalLocalFormatted}</td>
                         <td>{qt.billingTerms}</td>
                         <td style={{ fontWeight: 700, textTransform: "capitalize", color: qt.status === "paid" ? "var(--ok-text)" : "var(--blue)" }}>

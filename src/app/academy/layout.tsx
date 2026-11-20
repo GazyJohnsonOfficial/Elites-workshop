@@ -3,13 +3,12 @@ import {
   AcademyHeader,
   type HeaderProgramItem,
 } from "@/components/academy/AcademyHeader";
-import { AcademyFooter } from "@/components/academy/AcademyFooter";
 import { SITE_CONFIG } from "@/lib/config";
 import { getAcademyStore } from "@/lib/academyStore";
 
 export const metadata: Metadata = {
-  title: `Elites Tech Academy | Enterprise Cloud, Data & Cybersecurity Learning Portal`,
-  description: `Role-based engineering tracks, flexible regional tuition plans, corporate team enablement, and verifiable credentials by ${SITE_CONFIG.COMPANY}.`,
+  title: `Elites Tech Academy | IT, Cloud, Data, AI & Cybersecurity Courses`,
+  description: `Practical online IT, Data Analysis, Cloud, Cybersecurity, Python, and Applied AI courses for individuals and corporate engineering teams by ${SITE_CONFIG.COMPANY}.`,
 };
 
 export default function AcademyLayout({
@@ -27,6 +26,8 @@ export default function AcademyLayout({
       category: c.category,
       level: c.level,
       durationWeeks: c.durationWeeks,
+      deliveryMode: c.deliveryMode,
+      audience: c.audience,
       tools: c.tools,
     }));
 
@@ -34,7 +35,6 @@ export default function AcademyLayout({
     <div className="acad-shell">
       <AcademyHeader programs={programs} />
       <div className="acad-main">{children}</div>
-      <AcademyFooter />
     </div>
   );
 }

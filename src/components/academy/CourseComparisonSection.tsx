@@ -121,13 +121,12 @@ export function CourseComparisonSection({
                   {comparedCourses.map((course) => (
                     <td key={course.id}>
                       <div
-                        className="acad-mono"
                         style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--navy)" }}
                       >
                         {formatCurrencyAmount(course.tuitionUsd, currency)}
                       </div>
                       <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: "2px" }}>
-                        50% deposit: {formatCurrencyAmount(Math.ceil(course.tuitionUsd / 2), currency)}
+                        2 × {formatCurrencyAmount(Math.ceil(course.tuitionUsd / 2), currency)} installments
                       </div>
                     </td>
                   ))}
@@ -211,7 +210,7 @@ export function CourseComparisonSection({
                   <th scope="row" className="acad-compare-attr-cell">
                     <span className="acad-compare-attr-label">
                       <Users size={14} aria-hidden="true" />
-                      Next Intake &amp; Open Seats
+                      Next Intake &amp; Schedule
                     </span>
                   </th>
                   {comparedCourses.map((course) => {
@@ -220,18 +219,17 @@ export function CourseComparisonSection({
                     const fallbackCohort = cohorts.find(
                       (c) => c.courseId === course.id && c.status !== "completed"
                     );
-                    const nextSeats = nextOpen
-                      ? Math.max(0, nextOpen.seatCapacity - nextOpen.seatsTaken)
-                      : 0;
                     return (
                       <td key={course.id}>
                         {nextOpen ? (
                           <>
                             <div style={{ fontWeight: 700, color: "var(--ok-text)" }}>
-                              {nextSeats} / {nextOpen.seatCapacity} seats open
+                              {course.deliveryMode === "Self-Paced"
+                                ? "Rolling Intake Open"
+                                : "Admissions Open"}
                             </div>
                             <div style={{ fontSize: "0.79rem", color: "var(--muted)", marginTop: "2px" }}>
-                              <span className="acad-mono">{nextOpen.code}</span> · {nextOpen.startDateText}
+                              {nextOpen.code} · {nextOpen.startDateText}
                             </div>
                           </>
                         ) : (
@@ -241,7 +239,7 @@ export function CourseComparisonSection({
                             </div>
                             {fallbackCohort && (
                               <div style={{ fontSize: "0.79rem", color: "var(--muted)", marginTop: "2px" }}>
-                                <span className="acad-mono">{fallbackCohort.code}</span> · {fallbackCohort.startDateText}
+                                {fallbackCohort.code} · {fallbackCohort.startDateText}
                               </div>
                             )}
                           </>

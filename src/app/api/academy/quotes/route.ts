@@ -4,7 +4,6 @@ import {
   createNewReference,
   formatCurrencyAmount,
   getAcademyStore,
-  getCorporateDiscountPercent,
   type CurrencyCode,
 } from "@/lib/academyStore";
 import { sendCorporateQuoteEmails } from "@/lib/mail";
@@ -47,9 +46,8 @@ export async function POST(req: Request) {
 
     const store = getAcademyStore();
     const course = store.courses.find((c) => c.id === courseId) || store.courses[0];
-    const discountPercent = getCorporateDiscountPercent(seatCount);
-    const grossUsd = course.tuitionUsd * seatCount;
-    const totalUsd = Math.round(grossUsd * (1 - discountPercent / 100));
+    const discountPercent = 0;
+    const totalUsd = course.tuitionUsd * seatCount;
     const totalLocalFormatted = formatCurrencyAmount(totalUsd, currency);
     const nowIso = new Date().toISOString();
 

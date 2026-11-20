@@ -107,9 +107,9 @@ export const SITE_CONFIG: SiteConfig = {
 
   PROGRAMME: {
     NAME: "Data Analysis Program",
-    START_DATE_TEXT: "November 10, 2026",
-    START_DATE_ISO: "2026-11-10T00:00:00Z",
-    START_DATE_ICS: "20261110",
+    START_DATE_TEXT: "January 18, 2027",
+    START_DATE_ISO: "2027-01-18T00:00:00Z",
+    START_DATE_ICS: "20270118",
     DURATION: "3 months (12 weeks)",
     SCHEDULE: "3 live sessions per week, 1 hour each (36 sessions in total)",
     FORMAT: "Online, live on Zoom",

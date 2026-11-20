@@ -37,11 +37,13 @@ export function SyllabusDownloadModal({
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [leadReference, setLeadReference] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    experienceLevel: "Early Practitioner (1–3 yrs)",
+    experienceLevel: "Early Practitioner (1 to 3 yrs)",
     objective: "Career Transition into Engineering",
     requestAdvisorCall: true,
   });
@@ -59,7 +61,10 @@ export function SyllabusDownloadModal({
     const onKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") {
         setIsOpen(false);
-        setTimeout(() => setIsSuccess(false), 300);
+        setTimeout(() => {
+          setIsSuccess(false);
+          setSubmitError("");
+        }, 300);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -74,10 +79,10 @@ export function SyllabusDownloadModal({
     if (!formData.fullName.trim() || !formData.email.trim()) return;
 
     setIsSubmitting(true);
+    setSubmitError("");
 
     try {
-      // Post lead to quote / inquiry endpoint
-      await fetch("/api/academy/quotes", {
+      const res = await fetch("/api/academy/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,22 +97,35 @@ export function SyllabusDownloadModal({
           requestAdvisorCall: formData.requestAdvisorCall,
         }),
       });
-    } catch {
-      // Continue even if logging fails so user receives syllabus
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.error || "Unable to submit your request. Please check your details.");
+      }
+      setLeadReference(data.reference || "");
+      setIsSuccess(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Unable to process your request. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
     }
   };
 
   const handlePrintSyllabus = () => {
-    window.print();
+    setIsOpen(false);
+    setTimeout(() => {
+      window.print();
+    }, 280);
   };
 
   const resetAndClose = () => {
     setIsOpen(false);
     setTimeout(() => {
       setIsSuccess(false);
+      setSubmitError("");
     }, 300);
   };
 
@@ -134,7 +152,7 @@ export function SyllabusDownloadModal({
           <AnimatePresence>
             {isOpen && (
               <div
-                className="acad-syllabus-backdrop"
+                className="acad-syllabus-backdrop acad-no-print"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="syllabus-modal-title"
@@ -177,6 +195,11 @@ export function SyllabusDownloadModal({
                       </div>
 
                       <form onSubmit={handleSubmit} className="acad-syllabus-form">
+                        {submitError && (
+                          <div className="alert-error" role="alert" style={{ padding: "10px 14px", fontSize: "0.85rem", margin: 0 }}>
+                            {submitError}
+                          </div>
+                        )}
                         <div className="acad-syllabus-form-grid">
                           <div className="acad-syllabus-field">
                             <label htmlFor="syl-name">
@@ -238,9 +261,9 @@ export function SyllabusDownloadModal({
                               }
                               className="acad-select"
                             >
-                              <option value="Career Switcher (0–1 yrs)">Career Switcher (0–1 yrs)</option>
-                              <option value="Early Practitioner (1–3 yrs)">Early Practitioner (1–3 yrs)</option>
-                              <option value="Mid-Level Engineer (3–6 yrs)">Mid-Level Engineer (3–6 yrs)</option>
+                              <option value="Career Switcher (0 to 1 yrs)">Career Switcher (0 to 1 yrs)</option>
+                              <option value="Early Practitioner (1 to 3 yrs)">Early Practitioner (1 to 3 yrs)</option>
+                              <option value="Mid-Level Engineer (3 to 6 yrs)">Mid-Level Engineer (3 to 6 yrs)</option>
                               <option value="Senior / Tech Lead (6+ yrs)">Senior / Tech Lead (6+ yrs)</option>
                               <option value="Engineering Manager / Director">Engineering Manager / Director</option>
                             </select>
@@ -319,7 +342,8 @@ export function SyllabusDownloadModal({
                       <h3>Curriculum Package Unlocked</h3>
                       <p className="acad-success-lead">
                         Thank you, <strong>{formData.fullName}</strong>. Your curriculum brief for{" "}
-                        <strong>{course.title}</strong> is ready.
+                        <strong>{course.title}</strong> is ready
+                        {leadReference ? ` (Ref: ${leadReference})` : ""}.
                       </p>
 
                       <div className="acad-success-summary-box">

@@ -5,7 +5,9 @@ import Link from "next/link";
 import { ArrowRight, Building2, CheckCircle2, CreditCard, Landmark, Smartphone } from "lucide-react";
 import {
   formatCurrencyAmount,
-  getCorporateDiscountPercent,
+  getCourseUpcomingCohorts,
+  isBusinessCourse,
+  isIndividualCourse,
   type Cohort,
   type Course,
   type CurrencyCode,
@@ -17,6 +19,24 @@ import {
 } from "@/lib/geoCurrency";
 import { SITE_CONFIG } from "@/lib/config";
 
+const TIER_PRESETS: Record<string, { label: string; courseId: string; seats: number }> = {
+  "tier-fluency": {
+    label: "Tier 01: Cloud, Security & AI Workforce Fluency (Organization-Wide Baseline)",
+    courseId: "course-ai-productivity",
+    seats: 15,
+  },
+  "tier-engineering": {
+    label: "Tier 02: Practitioner Engineering & Production Bootcamps",
+    courseId: "course-cloud-devops",
+    seats: 15,
+  },
+  "tier-leadership": {
+    label: "Tier 03: Platform Architecture, FinOps & Cloud Governance",
+    courseId: "course-exec-literacy",
+    seats: 10,
+  },
+};
+
 export function TuitionEngineClient({
   courses,
   cohorts,
@@ -25,6 +45,8 @@ export function TuitionEngineClient({
   initialMode,
   initialCurrency = "USD",
   initialCountry,
+  initialSeats,
+  initialTier = "",
 }: {
   courses: Course[];
   cohorts: Cohort[];
@@ -33,12 +55,15 @@ export function TuitionEngineClient({
   initialMode: "individual" | "corporate";
   initialCurrency?: CurrencyCode;
   initialCountry?: string;
+  initialSeats?: number;
+  initialTier?: string;
 }) {
   const defaultCountry = initialCountry || mapCurrencyToDefaultCountry(initialCurrency);
+  const tierPreset = initialTier ? TIER_PRESETS[initialTier] : undefined;
   const [mode, setMode] = useState<"individual" | "corporate">(initialMode);
   const [currency, setCurrency] = useState<CurrencyCode>(initialCurrency);
   const [selectedCourseId, setSelectedCourseId] = useState<string>(
-    initialCourseId || courses[0]?.id || ""
+    initialCourseId || tierPreset?.courseId || courses[0]?.id || ""
   );
   const [selectedCohortId, setSelectedCohortId] = useState<string>(initialCohortId || "");
 
@@ -51,14 +76,18 @@ export function TuitionEngineClient({
   const [indCountry, setIndCountry] = useState(defaultCountry);
 
   // Corporate state
-  const [seatCount, setSeatCount] = useState<number>(10);
+  const [seatCount, setSeatCount] = useState<number>(
+    initialSeats || tierPreset?.seats || 10
+  );
   const [billingTerms, setBillingTerms] = useState<"Net-30 Purchase Order" | "Upfront Corporate Invoice">("Net-30 Purchase Order");
   const [orgName, setOrgName] = useState("");
   const [corpContactName, setCorpContactName] = useState("");
   const [corpContactEmail, setCorpContactEmail] = useState("");
   const [corpPhone, setCorpPhone] = useState("");
   const [corpRegion, setCorpRegion] = useState(defaultCountry);
-  const [corpNotes, setCorpNotes] = useState("");
+  const [corpNotes, setCorpNotes] = useState(
+    tierPreset ? `Requested capability tier: ${tierPreset.label}` : ""
+  );
   const hasManualRegionEdit = useRef(false);
 
   useEffect(() => {
@@ -94,6 +123,11 @@ export function TuitionEngineClient({
     setError("");
     const activeTarget = nextMode === "individual" ? indCountry : corpRegion;
     setCurrency(mapCountryNameToCurrency(activeTarget));
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("ets-tuition-mode-changed", { detail: { mode: nextMode } })
+      );
+    }
   };
 
   const handleIndividualCountryChange = (nextCountry: string) => {
@@ -122,24 +156,34 @@ export function TuitionEngineClient({
     detail: string;
   } | null>(null);
 
+  const modeCourses = useMemo(() => {
+    const filtered =
+      mode === "individual"
+        ? courses.filter((c) => isIndividualCourse(c))
+        : courses.filter((c) => isBusinessCourse(c));
+    return filtered.length > 0 ? filtered : courses;
+  }, [courses, mode]);
+
   const selectedCourse = useMemo(
-    () => courses.find((c) => c.id === selectedCourseId) || courses[0],
-    [courses, selectedCourseId]
+    () => modeCourses.find((c) => c.id === selectedCourseId) || modeCourses[0],
+    [modeCourses, selectedCourseId]
   );
 
-  const availableCohorts = useMemo(
-    () => cohorts.filter((c) => c.courseId === selectedCourse?.id),
-    [cohorts, selectedCourse]
-  );
+  const availableCohorts = useMemo(() => {
+    if (!selectedCourse) return [];
+    return getCourseUpcomingCohorts(selectedCourse, cohorts);
+  }, [cohorts, selectedCourse]);
+
+  const effectiveCohortId = availableCohorts.some((c) => c.id === selectedCohortId)
+    ? selectedCohortId
+    : availableCohorts[0]?.id || "";
 
   const unitUsd = selectedCourse?.tuitionUsd || 1000;
   const indDueNowUsd = paymentPlan === "installment_2" ? Math.ceil(unitUsd / 2) : unitUsd;
   const indBalanceLaterUsd = unitUsd - indDueNowUsd;
 
-  const discountPercent = getCorporateDiscountPercent(seatCount);
   const corpGrossUsd = unitUsd * seatCount;
-  const corpNetUsd = Math.round(corpGrossUsd * (1 - discountPercent / 100));
-  const corpSavingsUsd = corpGrossUsd - corpNetUsd;
+  const corpNetUsd = corpGrossUsd;
 
   const handleIndividualSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,7 +199,7 @@ export function TuitionEngineClient({
           phone: indPhone,
           country: indCountry,
           courseId: selectedCourse.id,
-          cohortId: selectedCohortId || availableCohorts[0]?.id || "",
+          cohortId: effectiveCohortId,
           paymentPlan,
           currency,
           channel,
@@ -214,7 +258,7 @@ export function TuitionEngineClient({
         reference: data.reference,
         amountFormatted: data.quote.totalLocalFormatted,
         title: `${orgName} · ${seatCount} Seats (${selectedCourse.title})`,
-        detail: `${billingTerms} generated with ${data.quote.discountPercent}% corporate volume savings. Your Corporate Team Portal is ready for seat assignments.`,
+        detail: `${billingTerms} generated for ${seatCount} team seats. Your Corporate Team Portal is ready for seat assignments.`,
       });
     } catch (err) {
       setError((err as Error).message);
@@ -325,7 +369,7 @@ export function TuitionEngineClient({
                     className={`acad-mode-btn ${mode === "corporate" ? "active" : ""}`}
                   >
                     <strong>Corporate Team Pack (5+ Seats)</strong>
-                    <span>Volume savings up to 22% &amp; Net-30 PO</span>
+                    <span>Centralized seat portal &amp; Net-30 PO</span>
                   </button>
                 </div>
 
@@ -346,7 +390,7 @@ export function TuitionEngineClient({
                         setSelectedCohortId("");
                       }}
                     >
-                      {courses.map((c) => (
+                      {modeCourses.map((c) => (
                         <option key={c.id} value={c.id}>
                           {c.title} · {formatCurrencyAmount(c.tuitionUsd, currency)} ({c.durationWeeks} wks)
                         </option>
@@ -359,7 +403,7 @@ export function TuitionEngineClient({
                       <label htmlFor="tuition-cohort">Preferred Cohort</label>
                       <select
                         id="tuition-cohort"
-                        value={selectedCohortId || availableCohorts[0]?.id || ""}
+                        value={effectiveCohortId}
                         onChange={(e) => setSelectedCohortId(e.target.value)}
                       >
                         {availableCohorts.length === 0 ? (
@@ -407,16 +451,16 @@ export function TuitionEngineClient({
                     />
                     <div className="acad-tier-row">
                       <div className={`acad-tier-step ${seatCount >= 5 && seatCount <= 14 ? "active" : ""}`}>
-                        <span>5–14 Seats</span>
-                        <strong>10% off</strong>
+                        <span>5 to 14 Seats</span>
+                        <strong>Team Pack</strong>
                       </div>
                       <div className={`acad-tier-step ${seatCount >= 15 && seatCount <= 29 ? "active" : ""}`}>
-                        <span>15–29 Seats</span>
-                        <strong>15% off</strong>
+                        <span>15 to 29 Seats</span>
+                        <strong>Private Cohort</strong>
                       </div>
                       <div className={`acad-tier-step ${seatCount >= 30 ? "active" : ""}`}>
                         <span>30+ Seats</span>
-                        <strong>22% off</strong>
+                        <strong>Enterprise Pool</strong>
                       </div>
                     </div>
                   </div>
@@ -447,7 +491,7 @@ export function TuitionEngineClient({
                           )
                         }
                       >
-                        <option value="Bank Transfer">Direct Corporate Bank Transfer</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
                         <option value="Mobile Money (MoMo)">Mobile Money (MTN MoMo / Telecel)</option>
                         <option value="Debit / Credit Card">Debit / Credit Card (Visa / MasterCard)</option>
                       </select>
@@ -471,7 +515,7 @@ export function TuitionEngineClient({
                         id="ind-email"
                         type="email"
                         required
-                        placeholder="akua@company.com"
+                        placeholder="akua.mensah@email.com"
                         value={indEmail}
                         onChange={(e) => setIndEmail(e.target.value)}
                       />
@@ -655,20 +699,14 @@ export function TuitionEngineClient({
                       <strong className="acad-mono">{seatCount} Seats</strong>
                     </div>
                     <div className="acad-summary-row">
-                      <span>Gross Standard Value</span>
-                      <span className="acad-mono">{formatCurrencyAmount(corpGrossUsd, currency)}</span>
-                    </div>
-                    <div className="acad-summary-row">
-                      <span>Corporate Volume Discount</span>
-                      <strong className="acad-mono" style={{ color: "var(--ok-text)" }}>
-                        -{discountPercent}% ({formatCurrencyAmount(corpSavingsUsd, currency)} saved)
-                      </strong>
-                    </div>
-                    <div className="acad-summary-row">
-                      <span>Effective Per-Seat Rate</span>
+                      <span>Per-Seat Tuition ({currency})</span>
                       <span className="acad-mono">
-                        {formatCurrencyAmount(Math.round(corpNetUsd / seatCount), currency)} / seat
+                        {formatCurrencyAmount(unitUsd, currency)} / seat
                       </span>
+                    </div>
+                    <div className="acad-summary-row">
+                      <span>Billing Terms</span>
+                      <strong>{billingTerms}</strong>
                     </div>
                     <div className="acad-summary-total">
                       <span>Quoted Total ({currency})</span>
@@ -696,14 +734,24 @@ export function TuitionEngineClient({
                     )}
                     <li style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <CreditCard size={15} color="var(--blue)" />
-                      <span>Visa, MasterCard &amp; Corporate PO Settlement</span>
+                      <span>
+                        {mode === "corporate"
+                          ? "Visa, MasterCard & Net-30 Corporate PO Settlement"
+                          : "Visa, MasterCard & Regional Bank Settlement"}
+                      </span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="acad-surface-note">
-                  <strong style={{ color: "var(--navy)" }}>Volume Tiers:</strong> 5–14 seats (10% off) · 15–29 seats (15% off) · 30+ seats (22% off).
-                </div>
+                {mode === "corporate" ? (
+                  <div className="acad-surface-note">
+                    <strong style={{ color: "var(--navy)" }}>Team Enrollment:</strong> Start with 5+ seats in shared cohorts, or request private dedicated scheduling for teams of 15 or more.
+                  </div>
+                ) : (
+                  <div className="acad-surface-note">
+                    <strong style={{ color: "var(--navy)" }}>Flexible Tuition:</strong> Start with a 50% deposit today and settle the remaining 50% in Week 5. Itemized receipts are included for employer reimbursement.
+                  </div>
+                )}
               </aside>
             </div>
           )}

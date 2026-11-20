@@ -18,8 +18,16 @@ export interface RoadmapStage {
 
 export interface PathfinderInput {
   background: "none" | "analyst" | "sysadmin" | "developer";
-  targetRole: "bi_analyst" | "cloud_sre" | "security" | "data_eng" | "exec_leader";
+  targetRole:
+    | "bi_analyst"
+    | "cloud_sre"
+    | "security"
+    | "data_eng"
+    | "it_support"
+    | "ai_automation"
+    | "exec_leader";
   pace: "all" | DeliveryMode;
+  audience?: "individual" | "business";
 }
 
 export interface PathfinderResult {
@@ -75,23 +83,49 @@ export function recommendTrackPathway(
     "Start with relational analytics, SQL, and executive BI modeling, then progress into tested dbt/Python data pipelines.";
   let skillGaps = ["Relational SQL Modeling", "Power BI DAX & Storytelling", "Automated Python/dbt ETL"];
 
-  if (input.targetRole === "cloud_sre") {
+  if (input.targetRole === "it_support") {
+    primaryCourseId = "course-it-foundations";
+    secondaryCourseId = "course-cloud-devops";
+    summary =
+      "Build hands-on OS troubleshooting, TCP/IP networking, and Linux command-line fluency first, then advance into cloud engineering and automation.";
+    skillGaps = ["Linux CLI & Bash", "TCP/IP & DNS Troubleshooting", "Help-Desk & Cloud Readiness"];
+  } else if (input.targetRole === "ai_automation") {
+    primaryCourseId = "course-ai-productivity";
+    secondaryCourseId = "course-python-etl";
+    summary =
+      "Master structured prompt engineering, Python AI API automation, and grounded document workflows, then scale into full data pipelines.";
+    skillGaps = ["Structured Prompt Systems", "Python API Automation", "Grounded Document Retrieval (RAG)"];
+  } else if (input.targetRole === "cloud_sre") {
     if (input.background === "developer" || input.background === "sysadmin") {
       primaryCourseId = "course-cloud-devops";
-      secondaryCourseId = "course-k8s-sre";
+      secondaryCourseId =
+        input.audience === "individual" ? "course-cybersecurity" : "course-k8s-sre";
       summary =
-        "Your technical background transitions directly into Terraform Infrastructure-as-Code and AWS/Azure landing zones, followed by production Kubernetes SRE.";
+        input.audience === "individual"
+          ? "Your technical background transitions directly into Terraform Infrastructure-as-Code and AWS/Azure landing zones, followed by zero-trust cloud security."
+          : "Your technical background transitions directly into Terraform Infrastructure-as-Code and AWS/Azure landing zones, followed by production Kubernetes SRE.";
       skillGaps = ["Terraform State & Modules", "CI/CD Container Pipelines", "Kubernetes Ingress & Autoscaling"];
     } else {
-      primaryCourseId = "course-cloud-devops";
-      secondaryCourseId = "course-cybersecurity";
+      primaryCourseId =
+        input.audience === "individual" && input.background === "none"
+          ? "course-it-foundations"
+          : "course-cloud-devops";
+      secondaryCourseId =
+        input.audience === "individual" && input.background === "none"
+          ? "course-cloud-devops"
+          : "course-cybersecurity";
       summary =
-        "Build foundational Linux, networking, and IaC cloud automation before adding zero-trust IAM compliance controls.";
+        input.audience === "individual" && input.background === "none"
+          ? "Start with Linux, networking, and systems troubleshooting foundations before stepping into AWS/Azure cloud automation and Terraform."
+          : "Build foundational Linux, networking, and IaC cloud automation before adding zero-trust IAM compliance controls.";
       skillGaps = ["VPC & Cloud Networking", "Terraform Automation", "Docker & Prometheus Monitoring"];
     }
   } else if (input.targetRole === "security") {
     primaryCourseId = "course-cybersecurity";
-    secondaryCourseId = "course-cloud-devops";
+    secondaryCourseId =
+      input.audience === "individual" && input.background === "none"
+        ? "course-it-foundations"
+        : "course-cloud-devops";
     summary =
       "Establish least-privilege IAM boundaries, HashiCorp Vault secrets hygiene, and Trivy scanning before expanding full cloud automation.";
     skillGaps = ["Zero-Trust IAM Policies", "Container Vulnerability Gates", "CloudTrail Forensics"];

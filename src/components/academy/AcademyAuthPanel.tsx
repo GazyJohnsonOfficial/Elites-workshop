@@ -21,13 +21,18 @@ import {
 import { SITE_CONFIG } from "@/lib/config";
 import type { AcademySessionUser } from "./AcademySignInModal";
 
-const COURSE_OPTIONS = [
-  { id: "course-data-bi", label: "Data Analysis & BI Engineering (12 Weeks)" },
-  { id: "course-cloud-devops", label: "Cloud & DevOps Automation (12 Weeks)" },
+export interface AuthCourseOption {
+  id: string;
+  label: string;
+}
+
+const DEFAULT_INDIVIDUAL_COURSE_OPTIONS: AuthCourseOption[] = [
+  { id: "course-data-bi", label: "Data Analysis & Business Intelligence Engineering (12 Weeks)" },
+  { id: "course-it-foundations", label: "IT Support, Networking & Linux Fundamentals (8 Weeks)" },
+  { id: "course-ai-productivity", label: "Applied AI & Workflow Automation for Professionals (6 Weeks)" },
+  { id: "course-cloud-devops", label: "Cloud & DevOps Engineering (12 Weeks)" },
   { id: "course-cybersecurity", label: "Cybersecurity & Compliance Operations (10 Weeks)" },
-  { id: "course-python-etl", label: "Python & Pipeline Automation (8 Weeks)" },
-  { id: "course-exec-literacy", label: "Executive AI & Data Governance (4 Weeks)" },
-  { id: "course-k8s-sre", label: "Kubernetes & Cloud-Native SRE (10 Weeks)" },
+  { id: "course-python-etl", label: "Python Programming, ETL & Data Automation (8 Weeks)" },
 ];
 
 /**
@@ -125,53 +130,11 @@ export function BauhausThemeArt() {
   );
 }
 
-const SOCIAL_PROVIDERS: ReadonlyArray<{
-  id: "google" | "apple";
-  name: "Google" | "Apple";
-  variantClass: string;
-  icon: React.ReactNode;
-}> = [
-  {
-    id: "google",
-    name: "Google",
-    variantClass: "acad-bauhaus-social-google",
-    icon: (
-      <svg width="21" height="21" viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="#4285F4"
-          d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
-        />
-        <path
-          fill="#34A853"
-          d="M12 24c3.3 0 6.08-1.09 8.1-2.96l-3.88-3.05c-1.08.72-2.46 1.15-4.22 1.15-3.24 0-5.99-2.19-6.97-5.14H1.02v3.14C3.03 21.14 7.18 24 12 24Z"
-        />
-        <path
-          fill="#FBBC05"
-          d="M5.03 14.01c-.25-.72-.39-1.49-.39-2.29s.14-1.57.39-2.29V6.29H1.02A11.97 11.97 0 0 0 0 11.72c0 1.93.46 3.76 1.02 5.43l4.01-3.14Z"
-        />
-        <path
-          fill="#EA4335"
-          d="M12 4.75c1.79 0 3.4.62 4.66 1.83l3.5-3.5C18.07 1.19 15.3 0 12 0 7.18 0 3.03 2.86 1.02 7.29l4.01 3.14C6.01 7.48 8.76 4.75 12 4.75Z"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "apple",
-    name: "Apple",
-    variantClass: "acad-bauhaus-social-apple",
-    icon: (
-      <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43Zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45Z" />
-      </svg>
-    ),
-  },
-];
-
 export function AcademyAuthPanel({
   defaultRole = "learner",
   initialAuthMode = "signin",
   defaultCourseId = "course-data-bi",
+  courses,
   heading,
   subheading,
   variant = "page",
@@ -180,11 +143,14 @@ export function AcademyAuthPanel({
   defaultRole?: "learner" | "org_admin";
   initialAuthMode?: "signin" | "register" | "forgot" | "reset";
   defaultCourseId?: string;
+  courses?: AuthCourseOption[];
   heading?: string;
   subheading?: string;
   variant?: "page" | "modal";
   onAuthenticated?: (user: AcademySessionUser) => void;
 }) {
+  const courseOptions =
+    courses && courses.length > 0 ? courses : DEFAULT_INDIVIDUAL_COURSE_OPTIONS;
   const router = useRouter();
   const pathname = usePathname();
   const isCorporate = defaultRole === "org_admin";
@@ -205,7 +171,6 @@ export function AcademyAuthPanel({
   const [paymentPlan, setPaymentPlan] = useState<"installment_2" | "full">("installment_2");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [socialNotice, setSocialNotice] = useState<"Google" | "Apple" | null>(null);
 
   // Password Recovery States
   const [recoveryEmail, setRecoveryEmail] = useState("");
@@ -242,6 +207,11 @@ export function AcademyAuthPanel({
       const params = new URLSearchParams(window.location.search);
       const urlMode = params.get("mode");
       const urlToken = params.get("token");
+      const urlCourse = params.get("course");
+
+      if (urlCourse && courseOptions.some((c) => c.id === urlCourse)) {
+        setCourseId(urlCourse);
+      }
 
       if (urlToken) {
         setResetToken(urlToken);
@@ -252,11 +222,10 @@ export function AcademyAuthPanel({
         setAuthMode("reset");
       }
     }
-  }, []);
+  }, [courseOptions]);
 
   const switchMode = (targetMode: "signin" | "register" | "forgot" | "reset") => {
     setError("");
-    setSocialNotice(null);
     setRecoverySent(false);
     setResetSuccess(false);
 
@@ -309,7 +278,6 @@ export function AcademyAuthPanel({
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setSocialNotice(null);
 
     if (authMode === "register") {
       if (!registerPassword || registerPassword.length < 6) {
@@ -468,7 +436,11 @@ export function AcademyAuthPanel({
         {/* Top Brand & Nav Bar */}
         {!isModal && (
           <div className="acad-bauhaus-top-nav">
-            <Link href="/academy" className="acad-brand" style={{ textDecoration: "none" }}>
+            <Link
+              href={isCorporate ? "/academy/corporate" : "/academy"}
+              className="acad-brand"
+              style={{ textDecoration: "none" }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo-mark.png"
@@ -482,9 +454,12 @@ export function AcademyAuthPanel({
               </span>
             </Link>
 
-            <Link href="/academy" className="acad-bauhaus-nav-link">
+            <Link
+              href={isCorporate ? "/academy/corporate" : "/academy"}
+              className="acad-bauhaus-nav-link"
+            >
               <ArrowLeft size={15} />
-              <span>Back to Academy</span>
+              <span>{isCorporate ? "Back to For Business" : "Back to Academy"}</span>
             </Link>
           </div>
         )}
@@ -977,7 +952,7 @@ export function AcademyAuthPanel({
                         value={courseId}
                         onChange={(e) => setCourseId(e.target.value)}
                       >
-                        {COURSE_OPTIONS.map((c) => (
+                        {courseOptions.map((c) => (
                           <option key={c.id} value={c.id}>
                             {c.label}
                           </option>
@@ -1019,98 +994,6 @@ export function AcademyAuthPanel({
               </motion.form>
             )}
           </AnimatePresence>
-
-          {(authMode === "signin" || authMode === "register") && (
-            <div className="acad-bauhaus-social-wrap">
-              <div className="acad-bauhaus-or">
-                <span className="acad-bauhaus-or-line" />
-                <span className="acad-bauhaus-or-text">
-                  {authMode === "register" ? "OR SIGN UP WITH" : "OR CONTINUE WITH"}
-                </span>
-                <span className="acad-bauhaus-or-line" />
-              </div>
-
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={`social-${authMode}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="acad-bauhaus-social-row"
-                >
-                  {SOCIAL_PROVIDERS.map((provider, idx) => {
-                    const actionLabel =
-                      authMode === "register"
-                        ? `Sign up with ${provider.name}`
-                        : `Continue with ${provider.name}`;
-                    return (
-                      <motion.button
-                        key={provider.id}
-                        type="button"
-                        onClick={() => {
-                          setError("");
-                          setSocialNotice(provider.name);
-                        }}
-                        initial={{ opacity: 0, y: 8, scale: 0.94 }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                          scale: 1,
-                          transition: {
-                            type: "spring",
-                            stiffness: 380,
-                            damping: 24,
-                            delay: idx * 0.06,
-                          },
-                        }}
-                        whileHover={{ y: -3, scale: 1.06 }}
-                        whileTap={{ y: 1, scale: 0.93 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 460,
-                          damping: 22,
-                        }}
-                        className={`acad-bauhaus-social-btn ${provider.variantClass}`}
-                        aria-label={actionLabel}
-                        title={actionLabel}
-                      >
-                        <span className="acad-bauhaus-social-icon" aria-hidden="true">
-                          {provider.icon}
-                        </span>
-                      </motion.button>
-                    );
-                  })}
-                </motion.div>
-              </AnimatePresence>
-
-              <AnimatePresence>
-                {socialNotice && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -4, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -4, scale: 0.98 }}
-                    transition={{ duration: 0.18 }}
-                    className="acad-bauhaus-social-notice"
-                    role="status"
-                  >
-                    <span>
-                      {socialNotice} single sign-on is not enabled in this local environment yet. Please use email and password above to{" "}
-                      {authMode === "register" ? "register" : "sign in"}.
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setSocialNotice(null)}
-                      className="acad-bauhaus-social-dismiss"
-                      aria-label="Dismiss notice"
-                    >
-                      Dismiss
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
 
           {!isModal && (authMode === "signin" || authMode === "register") && (
             <div className="acad-auth-alt-link">

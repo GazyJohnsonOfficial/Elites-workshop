@@ -690,7 +690,7 @@ export function AdminDashboardClient({
                           </div>
                         </td>
                         <td>{qt.courseTitle}</td>
-                        <td className="acad-mono">{qt.seatCount} (-{qt.discountPercent}%)</td>
+                        <td className="acad-mono">{qt.seatCount}</td>
                         <td className="acad-mono" style={{ fontWeight: 700 }}>{qt.totalLocalFormatted}</td>
                         <td>{qt.billingTerms}</td>
                         <td>

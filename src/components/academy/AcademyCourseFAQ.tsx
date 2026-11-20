@@ -4,68 +4,104 @@ import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, HelpCircle } from "lucide-react";
 
-export type AcademyFaqCategory =
-  | "All"
-  | "Individuals"
-  | "Corporate Teams"
-  | "Billing & Credentials";
+export type FaqAudience = "individual" | "business";
 
 export interface AcademyFaqItem {
   id: string;
-  category: Exclude<AcademyFaqCategory, "All">;
+  category: string;
   q: string;
   a: string;
 }
 
-export const ACADEMY_FAQ_CATEGORIES: readonly AcademyFaqCategory[] = [
+const INDIVIDUAL_FAQ_CATEGORIES = [
   "All",
-  "Individuals",
-  "Corporate Teams",
-  "Billing & Credentials",
+  "Getting Started",
+  "Learning & Labs",
+  "Tuition & Credentials",
 ] as const;
 
-export const ACADEMY_FAQ_ITEMS: readonly AcademyFaqItem[] = [
+const BUSINESS_FAQ_CATEGORIES = [
+  "All",
+  "Team Plans",
+  "Procurement & Billing",
+  "Telemetry & Custom",
+] as const;
+
+export const INDIVIDUAL_FAQ_ITEMS: readonly AcademyFaqItem[] = [
   {
-    id: "faq-currency-settlement",
-    category: "Billing & Credentials",
-    q: "How are tuition currency and payment methods handled?",
-    a: "Tuition is automatically presented in your local regional currency (USD, GHS, or GBP) based on your location or selected enrollment hub. Individual learners can pay in full or choose our 2-monthly installment plan via bank transfer, Mobile Money (MoMo for GHS), or debit/credit card.",
+    id: "ind-faq-beginner",
+    category: "Getting Started",
+    q: "Do I need prior coding or IT experience to enroll?",
+    a: "Not for our beginner-friendly tracks. IT Support, Networking & Linux Fundamentals, Data Analysis & BI Engineering, and Applied AI & Workflow Automation start from practical fundamentals and guide you step by step. Intermediate and advanced tracks list recommended background on each syllabus page.",
   },
   {
-    id: "faq-hardware-reqs",
-    category: "Individuals",
-    q: "What are the computer hardware and software environment requirements?",
-    a: "Students need a modern laptop (macOS, Windows 10/11 Pro/Enterprise, or Linux Ubuntu) with at least 16GB RAM recommended for containers/virtualization labs and a stable internet connection. All required tooling (Docker, VS Code, Terraform, Python, PostgreSQL, or Power BI Desktop) is configured during Module 1 with guided runbooks.",
+    id: "ind-faq-schedules",
+    category: "Learning & Labs",
+    q: "How are live instructor-led classes and self-paced tracks structured?",
+    a: "Instructor-led cohorts meet live twice per week during evening and Saturday slots designed for working professionals across North America, Europe, and West Africa. Every live workshop is recorded and archived inside your Learner Workspace, while self-paced tracks let you progress on your own schedule with weekly mentor office hours.",
   },
   {
-    id: "faq-schedules-recordings",
-    category: "Individuals",
-    q: "How are instructor-led sessions, recordings, and self-paced tracks structured?",
-    a: "Instructor-led cohorts run live interactive workshops twice weekly during evening and Saturday morning slots across North America, Europe, and West Africa time zones. All live sessions are recorded and archived in the Learner Workspace alongside self-paced modules and weekly mentor office hours.",
+    id: "ind-faq-hardware",
+    category: "Learning & Labs",
+    q: "What computer and software setup do I need?",
+    a: "You need a modern macOS, Windows 10/11, or Linux laptop with a reliable internet connection (8GB RAM minimum; 16GB recommended for Cloud, Docker, and Security lab tracks). Module 1 includes step-by-step setup runbooks for every tool used in your course.",
   },
   {
-    id: "faq-corporate-teams",
-    category: "Corporate Teams",
-    q: "How does corporate team enrollment and volume pricing work?",
-    a: "Organizations enrolling 5 or more engineers unlock automatic volume discounts (10% off 5–14 seats, 15% off 15–29 seats, and 22% off 30+ seats), Net-30 Purchase Order or upfront invoice billing, and seat allocation plus completion reporting inside the Corporate Team Portal.",
+    id: "ind-faq-installments",
+    category: "Tuition & Credentials",
+    q: "Can I pay in installments and in my local currency?",
+    a: "Yes. Tuition is presented in USD, GHS, or GBP based on your regional hub. Individual learners can pay in full or split tuition into 2 equal 50% installments via bank transfer, Mobile Money (MoMo for GHS), or debit/credit card.",
   },
   {
-    id: "faq-employer-sponsorship",
-    category: "Corporate Teams",
-    q: "Can employers sponsor individual tuition or request custom departmental cohorts?",
-    a: "Yes. Working professionals receive itemized payment receipts and invoices to support employer L&D reimbursement. Engineering leaders can also scope dedicated corporate bootcamps aligned with internal cloud architectures, security baselines, and toolchains.",
+    id: "ind-faq-sponsorship",
+    category: "Tuition & Credentials",
+    q: "Can my employer reimburse my individual course tuition?",
+    a: "Yes. Every individual enrollment generates an itemized invoice and payment receipt with your course syllabus reference so you can submit it directly to your HR or L&D reimbursement portal.",
   },
   {
-    id: "faq-verified-credentials",
-    category: "Billing & Credentials",
-    q: "Are the graduate certificates employer-verifiable?",
-    a: "Yes. Upon completing all required curriculum modules and submitting your capstone architecture deliverable, you earn a unique credential code (e.g. ETS-CERT-XXXXXX) that hiring managers can verify publicly via our Credential Registry and attach to LinkedIn.",
+    id: "ind-faq-credentials",
+    category: "Tuition & Credentials",
+    q: "Are graduate certificates verifiable by employers?",
+    a: "Yes. After completing your required modules and capstone deliverable, you receive a unique credential code (e.g. ETS-CERT-XXXXXX) backed by Open Badges v2 metadata that recruiters and hiring managers can verify publicly in our Credential Registry and view on LinkedIn.",
+  },
+] as const;
+
+export const BUSINESS_FAQ_ITEMS: readonly AcademyFaqItem[] = [
+  {
+    id: "biz-faq-volume",
+    category: "Team Plans",
+    q: "How does corporate team enrollment and seat pricing work?",
+    a: "Organizations can enroll 5 or more team members at transparent standard per-seat rates across individual courses, corporate bootcamps, or multi-course departmental pathways. Generate an instant itemized quote in USD, GBP, or GHS inside the Seat Quote Calculator.",
   },
   {
-    id: "faq-choosing-program",
-    category: "Individuals",
-    q: "How should I choose between programs or delivery formats before enrolling?",
-    a: "Use the career track matcher at the top of the page or filter courses by program domain (Data & BI, Cloud & DevOps, Cybersecurity, Data & Automation), format, and toolchain in the catalog sidebar. Clicking View Program on any course lets you inspect the full curriculum and preview Module 01 before committing.",
+    id: "biz-faq-billing",
+    category: "Procurement & Billing",
+    q: "Do you support Net-30 Purchase Orders and multi-currency invoicing?",
+    a: "Yes. Finance and procurement teams can generate formal corporate quotes instantly in USD, GBP, or GHS and settle via Net-30 Purchase Order, corporate wire transfer, or upfront invoice settlement.",
+  },
+  {
+    id: "biz-faq-private-cohorts",
+    category: "Telemetry & Custom",
+    q: "Can we run a private dedicated cohort aligned to our internal cloud stack?",
+    a: "Yes. Teams of 15 or more can schedule private dedicated cohorts tailored to your company time zone, cloud provider (AWS or Azure), BI semantic model, and compliance policies. Use the consultation form on this page to scope custom schedules and lab alignment.",
+  },
+  {
+    id: "biz-faq-seats",
+    category: "Team Plans",
+    q: "Can organization administrators assign or reassign seats across employees?",
+    a: "Yes. From the Corporate Team Portal, organization administrators can allocate available seats to individual courses or 2-course departmental pathways and revoke or reassign unused seats whenever team priorities shift.",
+  },
+  {
+    id: "biz-faq-telemetry",
+    category: "Telemetry & Custom",
+    q: "What progress visibility do engineering and L&D managers receive?",
+    a: "Admins see live employee completion percentages, module checkpoint scores, and issued certificate codes inside the Corporate Portal, with one-click CSV telemetry export and printable compliance reports.",
+  },
+  {
+    id: "biz-faq-credentials",
+    category: "Procurement & Billing",
+    q: "How are completed corporate credentials audited for compliance?",
+    a: "Every completing team member receives a publicly verifiable Open Badges v2 credential code logged directly in your organization's telemetry ledger, simplifying internal L&D audits and vendor readiness checks.",
   },
 ] as const;
 
@@ -124,8 +160,13 @@ function FaqAccordionList({
   );
 }
 
-export function AcademyCourseFAQ() {
-  const courseFaqs = ACADEMY_FAQ_ITEMS.slice(0, 6);
+export function AcademyCourseFAQ({
+  audience = "individual",
+}: {
+  audience?: FaqAudience;
+}) {
+  const courseFaqs =
+    audience === "business" ? BUSINESS_FAQ_ITEMS : INDIVIDUAL_FAQ_ITEMS;
   const [openId, setOpenId] = useState<string | null>(courseFaqs[0]?.id ?? null);
 
   return (
@@ -139,7 +180,9 @@ export function AcademyCourseFAQ() {
             Frequently Asked Questions
           </h2>
           <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "2px 0 0 0" }}>
-            Common questions regarding enrollment, hardware requirements, and schedules.
+            {audience === "business"
+              ? "Common questions regarding corporate team seats, Net-30 invoicing, and custom cohorts."
+              : "Common questions regarding prerequisites, lab setup, installments, and schedules."}
           </p>
         </div>
       </div>
@@ -153,21 +196,31 @@ export function AcademyCourseFAQ() {
   );
 }
 
-export function AcademyHomeFaqSection() {
-  const [selectedCategory, setSelectedCategory] = useState<AcademyFaqCategory>("All");
-  const [openId, setOpenId] = useState<string | null>(ACADEMY_FAQ_ITEMS[0]?.id ?? null);
+export function AcademyHomeFaqSection({
+  audience = "individual",
+}: {
+  audience?: FaqAudience;
+}) {
+  const isBusiness = audience === "business";
+  const allItems = isBusiness ? BUSINESS_FAQ_ITEMS : INDIVIDUAL_FAQ_ITEMS;
+  const categories = isBusiness
+    ? BUSINESS_FAQ_CATEGORIES
+    : INDIVIDUAL_FAQ_CATEGORIES;
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [openId, setOpenId] = useState<string | null>(allItems[0]?.id ?? null);
 
   const visibleItems = useMemo(() => {
-    if (selectedCategory === "All") return ACADEMY_FAQ_ITEMS;
-    return ACADEMY_FAQ_ITEMS.filter((item) => item.category === selectedCategory);
-  }, [selectedCategory]);
+    if (selectedCategory === "All") return allItems;
+    return allItems.filter((item) => item.category === selectedCategory);
+  }, [allItems, selectedCategory]);
 
-  const handleSelectCategory = (category: AcademyFaqCategory) => {
+  const handleSelectCategory = (category: string) => {
     setSelectedCategory(category);
     const nextList =
       category === "All"
-        ? ACADEMY_FAQ_ITEMS
-        : ACADEMY_FAQ_ITEMS.filter((item) => item.category === category);
+        ? allItems
+        : allItems.filter((item) => item.category === category);
     setOpenId((current) =>
       current && nextList.some((item) => item.id === current)
         ? current
@@ -176,18 +229,31 @@ export function AcademyHomeFaqSection() {
   };
 
   return (
-    <section className="acad-section acad-section-tint acad-faq-section" id="faq">
+    <section
+      className="acad-section acad-section-tint acad-faq-section"
+      id={isBusiness ? "corporate-faq" : "faq"}
+    >
       <div className="container">
         <div className="acad-faq-shell">
           <div className="acad-faq-intro">
-            <span className="acad-faq-eyebrow">Academy Logistics &amp; Support</span>
-            <h2>Frequently Asked Questions</h2>
+            <span className="acad-faq-eyebrow">
+              {isBusiness
+                ? "Corporate Procurement & Onboarding"
+                : "Learner Support & Admissions"}
+            </span>
+            <h2>
+              {isBusiness
+                ? "Corporate Training FAQ"
+                : "Frequently Asked Questions"}
+            </h2>
             <p>
-              Clear answers on live cohort schedules, hardware prerequisites, localized tuition settlements, and corporate team onboarding.
+              {isBusiness
+                ? "Clear answers on multi-seat enrollment, Net-30 Purchase Orders, private team cohorts, and engineering manager telemetry."
+                : "Clear answers on beginner readiness, live vs. self-paced schedules, flexible 2-part installments, and verified career credentials."}
             </p>
 
             <div className="acad-faq-tabs" role="tablist" aria-label="Filter FAQ by topic">
-              {ACADEMY_FAQ_CATEGORIES.map((category) => {
+              {categories.map((category) => {
                 const active = selectedCategory === category;
                 return (
                   <button
@@ -205,17 +271,31 @@ export function AcademyHomeFaqSection() {
             </div>
 
             <div className="acad-faq-callout">
-              <strong>Need tailored guidance for yourself or a team?</strong>
+              <strong>
+                {isBusiness
+                  ? "Ready to scope training for your team?"
+                  : "Not sure which course fits your goals?"}
+              </strong>
               <p>
-                Model individual installments or bulk corporate seat discounts instantly, or speak with our admissions engineers.
+                {isBusiness
+                  ? "Generate a formal Net-30 seat quote immediately or request a private cohort consultation with our solutions leads."
+                  : "Calculate your local installment plan in seconds or speak directly with our admissions advisors."}
               </p>
               <div className="acad-faq-callout-actions">
-                <Link href="/academy/tuition" className="btn btn-navy btn-sm">
-                  <span>Tuition Calculator</span>
+                <Link
+                  href={isBusiness ? "/academy/tuition?mode=corporate" : "/academy/tuition"}
+                  className="btn btn-navy btn-sm"
+                >
+                  <span>
+                    {isBusiness ? "Seat Quote Calculator" : "Tuition & Installments"}
+                  </span>
                   <ArrowRight size={14} aria-hidden="true" />
                 </Link>
-                <Link href="/contact#inquiry" className="btn btn-outline btn-sm">
-                  Contact Admissions
+                <Link
+                  href={isBusiness ? "#request-demo" : "/contact#inquiry"}
+                  className="btn btn-outline btn-sm"
+                >
+                  {isBusiness ? "Book Scoping Call" : "Contact Admissions"}
                 </Link>
               </div>
             </div>

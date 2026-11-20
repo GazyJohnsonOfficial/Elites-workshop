@@ -28,12 +28,12 @@ const GOAL_OPTIONS: Array<{ id: IndividualGoalId; label: string; desc: string }>
   {
     id: "start",
     label: "Launch a technical career",
-    desc: "Build core engineering workflows with guided labs and capstone proof.",
+    desc: "Build core IT, data, or cloud skills with guided labs and portfolio proof.",
   },
   {
     id: "advance",
     label: "Advance in my current role",
-    desc: "Deepen cloud automation, SQL/dbt modeling, or Kubernetes operations.",
+    desc: "Deepen cloud automation, SQL/Power BI modeling, Python, or applied AI workflows.",
   },
   {
     id: "transition",
@@ -54,19 +54,35 @@ const BACKGROUND_OPTIONS: Array<{ value: PathfinderInput["background"]; label: s
   { value: "developer", label: "Software Developer" },
 ];
 
-const ROLE_OPTIONS: Array<{ value: PathfinderInput["targetRole"]; label: string }> = [
+const INDIVIDUAL_ROLE_OPTIONS: Array<{ value: PathfinderInput["targetRole"]; label: string }> = [
   { value: "bi_analyst", label: "Data & BI Analyst" },
-  { value: "cloud_sre", label: "Cloud & DevOps SRE" },
-  { value: "security", label: "Cybersecurity & IAM" },
-  { value: "data_eng", label: "Python & ETL Engineer" },
-  { value: "exec_leader", label: "Technical Executive" },
+  { value: "it_support", label: "IT Support & Linux" },
+  { value: "cloud_sre", label: "Cloud & DevOps Engineer" },
+  { value: "security", label: "Cybersecurity Analyst" },
+  { value: "data_eng", label: "Python & Data Engineer" },
+  { value: "ai_automation", label: "Applied AI & Automation" },
 ];
 
-const PACE_OPTIONS: Array<{ value: "all" | DeliveryMode; label: string }> = [
+const BUSINESS_ROLE_OPTIONS: Array<{ value: PathfinderInput["targetRole"]; label: string }> = [
+  { value: "cloud_sre", label: "Cloud, DevOps & Kubernetes" },
+  { value: "bi_analyst", label: "Enterprise Data & BI Teams" },
+  { value: "security", label: "Security & Compliance Ops" },
+  { value: "data_eng", label: "Python & Data Engineering" },
+  { value: "ai_automation", label: "Workforce AI Productivity" },
+  { value: "exec_leader", label: "Executive Data Literacy" },
+];
+
+const INDIVIDUAL_PACE_OPTIONS: Array<{ value: "all" | DeliveryMode; label: string }> = [
   { value: "all", label: "Any Format" },
-  { value: "Instructor-Led", label: "Instructor-Led" },
+  { value: "Instructor-Led", label: "Live Instructor-Led" },
   { value: "Self-Paced", label: "Self-Paced" },
+];
+
+const BUSINESS_PACE_OPTIONS: Array<{ value: "all" | DeliveryMode; label: string }> = [
+  { value: "all", label: "Any Format" },
   { value: "Corporate Bootcamp", label: "Corporate Bootcamp" },
+  { value: "Instructor-Led", label: "Instructor-Led Cohort" },
+  { value: "Self-Paced", label: "Self-Paced Licenses" },
 ];
 
 export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
@@ -77,9 +93,28 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
   const [targetRole, setTargetRole] = useState<PathfinderInput["targetRole"]>("bi_analyst");
   const [pace, setPace] = useState<"all" | DeliveryMode>("all");
 
+  const activeRoleOptions =
+    audience === "business" ? BUSINESS_ROLE_OPTIONS : INDIVIDUAL_ROLE_OPTIONS;
+  const activePaceOptions =
+    audience === "business" ? BUSINESS_PACE_OPTIONS : INDIVIDUAL_PACE_OPTIONS;
+
+  const handleAudienceChange = (nextAudience: AudienceType) => {
+    setAudience(nextAudience);
+    if (nextAudience === "individual") {
+      if (targetRole === "exec_leader") setTargetRole("bi_analyst");
+      if (pace === "Corporate Bootcamp") setPace("all");
+    } else {
+      if (targetRole === "it_support") setTargetRole("cloud_sre");
+    }
+  };
+
   const recommendation = useMemo(
-    () => recommendTrackPathway({ background, targetRole, pace }, courses),
-    [background, targetRole, pace, courses]
+    () =>
+      recommendTrackPathway(
+        { background, targetRole, pace, audience },
+        courses
+      ),
+    [background, targetRole, pace, audience, courses]
   );
 
   const primaryCourse = useMemo(
@@ -95,7 +130,18 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
   const selectedGoalLabel =
     GOAL_OPTIONS.find((g) => g.id === goalId)?.label || "Advance your technical skills";
   const selectedRoleLabel =
-    ROLE_OPTIONS.find((r) => r.value === targetRole)?.label || "Engineering Specialist";
+    activeRoleOptions.find((r) => r.value === targetRole)?.label || "Engineering Specialist";
+
+  const registerHref =
+    audience === "business"
+      ? "/academy/corporate/register"
+      : primaryCourse
+        ? `/academy/register?course=${encodeURIComponent(primaryCourse.id)}`
+        : "/academy/register";
+
+  const businessQuoteHref = primaryCourse
+    ? `/academy/tuition?mode=corporate&course=${encodeURIComponent(primaryCourse.id)}`
+    : "/academy/tuition?mode=corporate";
 
   return (
     <div className="acad-bauhaus-frame">
@@ -139,7 +185,7 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
           <div className="acad-onboard-steps" aria-label="Onboarding progress">
             {[
               { num: 1, title: "Audience" },
-              { num: 2, title: "Role & Skills" },
+              { num: 2, title: audience === "business" ? "Team Scope" : "Role & Skills" },
               { num: 3, title: "Pathway" },
             ].map((item) => {
               const active = step === item.num;
@@ -171,7 +217,7 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                 <div className="acad-auth-header">
                   <h1 className="acad-getstarted-title">Your Journey Starts Here</h1>
                   <p className="acad-auth-desc acad-getstarted-desc">
-                    Select how you are joining Elites Tech Academy so we can tailor your track or team workspace setup.
+                    Select how you are joining Elites Tech Academy so we can tailor your course recommendation or corporate team setup.
                   </p>
                 </div>
 
@@ -180,26 +226,26 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                     type="button"
                     role="radio"
                     aria-checked={audience === "individual"}
-                    onClick={() => setAudience("individual")}
+                    onClick={() => handleAudienceChange("individual")}
                     className={`acad-onboard-choice-card ${audience === "individual" ? "selected" : ""}`}
                   >
                     <GraduationCap size={20} />
                     <div>
-                      <strong>Individual Practitioner</strong>
-                      <span>Role-based tracks &amp; personal credentials</span>
+                      <strong>Individual Learner</strong>
+                      <span>IT, Data, Cloud, AI &amp; Security career tracks</span>
                     </div>
                   </button>
                   <button
                     type="button"
                     role="radio"
                     aria-checked={audience === "business"}
-                    onClick={() => setAudience("business")}
+                    onClick={() => handleAudienceChange("business")}
                     className={`acad-onboard-choice-card ${audience === "business" ? "selected" : ""}`}
                   >
                     <Building2 size={20} />
                     <div>
                       <strong>For Business &amp; Teams</strong>
-                      <span>5+ seat volume pricing, Net-30 &amp; team telemetry</span>
+                      <span>5+ seat packs, Net-30 invoicing &amp; team telemetry</span>
                     </div>
                   </button>
                 </div>
@@ -239,7 +285,7 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                     <div className="acad-onboard-biz-card">
                       <strong>Engineering Team &amp; Enterprise Enablement</strong>
                       <p>
-                        Compare Team (5 to 29 seats) and Enterprise (30+ seats) plans, assign departmental role paths, or generate a formal quote.
+                        Compare Team (5 to 29 seats) and Enterprise (30+ seats) plans, explore private corporate bootcamps, or generate a formal procurement quote.
                       </p>
                     </div>
                     <Link
@@ -247,7 +293,7 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                       className="acad-bauhaus-btn-primary"
                       style={{ textDecoration: "none", marginTop: 0 }}
                     >
-                      <span>Explore Business Plans &amp; Dashboard</span>
+                      <span>Explore Business Hub &amp; Bootcamps</span>
                       <ArrowRight size={16} />
                     </Link>
                     <Link
@@ -260,14 +306,14 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                         textDecoration: "none",
                       }}
                     >
-                      Configure 5+ Seat Volume Quote
+                      Configure 5+ Seat Team Quote
                     </Link>
                     <button
                       type="button"
                       onClick={() => setStep(2)}
                       className="acad-onboard-text-btn"
                     >
-                      Or map recommended curriculum tracks first
+                      Or map recommended curriculum tracks for your team first
                     </button>
                   </div>
                 )}
@@ -285,15 +331,23 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
               >
                 <div className="acad-auth-header">
                   <h1 className="acad-getstarted-title" style={{ fontSize: "clamp(1.85rem, 3vw, 2.4rem)" }}>
-                    Tailor Your Role &amp; Track
+                    {audience === "business"
+                      ? "Map Your Team Curriculum"
+                      : "Tailor Your Role & Track"}
                   </h1>
                   <p className="acad-auth-desc acad-getstarted-desc">
-                    Tell us your background and target engineering discipline so we match the highest-impact starting program.
+                    {audience === "business"
+                      ? "Tell us your team's current baseline and priority engineering capability so we recommend the highest-impact training track."
+                      : "Tell us your current background and target IT or engineering role so we match your best starting course."}
                   </p>
                 </div>
 
                 <div className="acad-onboard-group">
-                  <div className="acad-onboard-subhead">1. Current Technical Background</div>
+                  <div className="acad-onboard-subhead">
+                    {audience === "business"
+                      ? "1. Team Technical Baseline"
+                      : "1. Current Technical Background"}
+                  </div>
                   <div className="acad-onboard-chip-grid">
                     {BACKGROUND_OPTIONS.map((opt) => (
                       <button
@@ -309,9 +363,13 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                 </div>
 
                 <div className="acad-onboard-group">
-                  <div className="acad-onboard-subhead">2. Target Career Role</div>
+                  <div className="acad-onboard-subhead">
+                    {audience === "business"
+                      ? "2. Priority Capability Domain"
+                      : "2. Target Career Role"}
+                  </div>
                   <div className="acad-onboard-chip-grid">
-                    {ROLE_OPTIONS.map((opt) => (
+                    {activeRoleOptions.map((opt) => (
                       <button
                         key={opt.value}
                         type="button"
@@ -325,9 +383,9 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                 </div>
 
                 <div className="acad-onboard-group">
-                  <div className="acad-onboard-subhead">3. Preferred Delivery Pace</div>
+                  <div className="acad-onboard-subhead">3. Preferred Delivery Format</div>
                   <div className="acad-onboard-chip-grid">
-                    {PACE_OPTIONS.map((opt) => (
+                    {activePaceOptions.map((opt) => (
                       <button
                         key={opt.value}
                         type="button"
@@ -346,7 +404,9 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                   className="acad-bauhaus-btn-primary"
                   style={{ marginTop: "6px" }}
                 >
-                  <span>Build My Pathway</span>
+                  <span>
+                    {audience === "business" ? "View Team Recommendation" : "Build My Pathway"}
+                  </span>
                   <ArrowRight size={16} />
                 </button>
               </motion.div>
@@ -363,14 +423,27 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
               >
                 <div className="acad-onboard-summary-banner">
                   <Compass size={18} />
-                  <span>
-                    Goal: <strong>{selectedGoalLabel}</strong> · Target Role: <strong>{selectedRoleLabel}</strong> ·{" "}
-                    Est. <strong>{recommendation.estimatedWeeks} Weeks</strong>
-                  </span>
+                  {audience === "business" ? (
+                    <span>
+                      Audience: <strong>Business &amp; Teams</strong> · Capability:{" "}
+                      <strong>{selectedRoleLabel}</strong> · Est.{" "}
+                      <strong>{recommendation.estimatedWeeks} Weeks</strong>
+                    </span>
+                  ) : (
+                    <span>
+                      Goal: <strong>{selectedGoalLabel}</strong> · Target Role:{" "}
+                      <strong>{selectedRoleLabel}</strong> · Est.{" "}
+                      <strong>{recommendation.estimatedWeeks} Weeks</strong>
+                    </span>
+                  )}
                 </div>
 
                 <div className="acad-onboard-rec-card">
-                  <div className="acad-onboard-rec-label">Recommended Starting Program</div>
+                  <div className="acad-onboard-rec-label">
+                    {audience === "business"
+                      ? "Recommended Team Program"
+                      : "Recommended Starting Program"}
+                  </div>
                   {primaryCourse ? (
                     <>
                       <h2>{primaryCourse.title}</h2>
@@ -409,13 +482,13 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
 
                 <div className="acad-getstarted-actions" style={{ marginTop: "4px" }}>
                   <Link
-                    href={audience === "business" ? "/academy/corporate/register" : "/academy/register"}
+                    href={audience === "business" ? businessQuoteHref : registerHref}
                     className="acad-bauhaus-btn-primary"
                     style={{ textDecoration: "none", marginTop: 0 }}
                   >
                     <span>
                       {audience === "business"
-                        ? "Create Business Team Account"
+                        ? "Configure Team Quote for This Track"
                         : "Create Individual Learner Account"}
                     </span>
                     <ArrowRight size={16} />
@@ -438,7 +511,7 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                       </Link>
                     )}
                     <Link
-                      href={audience === "business" ? "/academy/corporate/signin" : "/academy/signin"}
+                      href={audience === "business" ? "/academy/corporate/register" : "/academy/signin"}
                       className="acad-bauhaus-btn-secondary"
                       style={{
                         flex: 1,
@@ -448,7 +521,7 @@ export function AcademyGetStarted({ courses = [] }: { courses?: Course[] }) {
                         textDecoration: "none",
                       }}
                     >
-                      Sign In Instead
+                      {audience === "business" ? "Create Org Account" : "Sign In Instead"}
                     </Link>
                   </div>
                 </div>

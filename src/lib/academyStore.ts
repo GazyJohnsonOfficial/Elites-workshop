@@ -8,9 +8,18 @@ export type AcademyCategory =
   | "Data & Automation";
 
 export type DeliveryMode = "Instructor-Led" | "Self-Paced" | "Corporate Bootcamp";
+export type CourseAudience = "individual" | "business" | "both";
 export type SkillLevel = "Beginner" | "Intermediate" | "Advanced";
 export type CurrencyCode = "USD" | "GHS" | "GBP";
 export type UserRole = "learner" | "org_admin" | "staff_admin";
+
+export function isIndividualCourse(course: Pick<Course, "audience" | "deliveryMode">): boolean {
+  return course.audience === "individual" || course.audience === "both";
+}
+
+export function isBusinessCourse(course: Pick<Course, "audience" | "deliveryMode">): boolean {
+  return course.audience === "business" || course.audience === "both";
+}
 
 export const ACADEMY_CATEGORIES: AcademyCategory[] = [
   "Data & BI",
@@ -88,6 +97,7 @@ export interface Course {
   subtitle: string;
   category: AcademyCategory;
   deliveryMode: DeliveryMode;
+  audience: CourseAudience;
   level: SkillLevel;
   durationWeeks: number;
   sessionCount: number;
@@ -232,6 +242,24 @@ export interface PasswordResetRequest {
   usedAt?: string;
 }
 
+export interface AcademyLead {
+  id: string;
+  reference: string;
+  type: "syllabus_download" | "corporate_consultation";
+  fullName: string;
+  email: string;
+  phone: string;
+  organizationName?: string;
+  teamSize?: string;
+  courseId?: string;
+  courseTitle?: string;
+  experienceLevel?: string;
+  objective?: string;
+  notes?: string;
+  requestAdvisorCall?: boolean;
+  createdAt: string;
+}
+
 export interface AcademyStoreState {
   courses: Course[];
   cohorts: Cohort[];
@@ -242,6 +270,7 @@ export interface AcademyStoreState {
   payments: TuitionPayment[];
   certificates: Certificate[];
   passwordResets: PasswordResetRequest[];
+  leads: AcademyLead[];
 }
 
 export function formatCurrencyAmount(amountUsd: number, currency: CurrencyCode): string {
@@ -250,10 +279,7 @@ export function formatCurrencyAmount(amountUsd: number, currency: CurrencyCode):
   return `${cfg.SYMBOL}${converted.toLocaleString("en-US")}`;
 }
 
-export function getCorporateDiscountPercent(seats: number): number {
-  if (seats >= 30) return 22;
-  if (seats >= 15) return 15;
-  if (seats >= 5) return 10;
+export function getCorporateDiscountPercent(_seats: number): number {
   return 0;
 }
 
@@ -351,6 +377,7 @@ function createSeedState(): AcademyStoreState {
       subtitle: "From raw messy enterprise schemas to automated executive dashboards in 12 weeks",
       category: "Data & BI",
       deliveryMode: "Instructor-Led",
+      audience: "both",
       level: "Beginner",
       durationWeeks: 12,
       sessionCount: 36,
@@ -461,6 +488,7 @@ function createSeedState(): AcademyStoreState {
       subtitle: "Multi-cloud landing zones, immutable Terraform IaC, Docker, and Kubernetes operations",
       category: "Cloud & DevOps",
       deliveryMode: "Instructor-Led",
+      audience: "both",
       level: "Intermediate",
       durationWeeks: 12,
       sessionCount: 36,
@@ -539,6 +567,7 @@ function createSeedState(): AcademyStoreState {
       subtitle: "Zero-trust identity governance, vulnerability scanning, and automated incident response",
       category: "Cybersecurity",
       deliveryMode: "Instructor-Led",
+      audience: "both",
       level: "Intermediate",
       durationWeeks: 12,
       sessionCount: 36,
@@ -613,10 +642,11 @@ function createSeedState(): AcademyStoreState {
     {
       id: "course-python-etl",
       slug: "python-data-engineering",
-      title: "Enterprise Python, ETL & Analytics Automation",
+      title: "Python Programming, ETL & Data Automation",
       subtitle: "Build resilient API extractors, PostgreSQL warehouses, and scheduled transformation pipelines",
       category: "Data & Automation",
       deliveryMode: "Self-Paced",
+      audience: "both",
       level: "Intermediate",
       durationWeeks: 8,
       sessionCount: 24,
@@ -681,6 +711,7 @@ function createSeedState(): AcademyStoreState {
       subtitle: "Equip department leaders and analysts to replace manual reporting with governed KPI systems",
       category: "Data & BI",
       deliveryMode: "Corporate Bootcamp",
+      audience: "business",
       level: "Beginner",
       durationWeeks: 4,
       sessionCount: 12,
@@ -731,6 +762,7 @@ function createSeedState(): AcademyStoreState {
       subtitle: "Hands-on cluster operations, SLO telemetry, and zero-downtime incident recovery",
       category: "Cloud & DevOps",
       deliveryMode: "Corporate Bootcamp",
+      audience: "business",
       level: "Advanced",
       durationWeeks: 6,
       sessionCount: 18,
@@ -774,6 +806,150 @@ function createSeedState(): AcademyStoreState {
         },
       ],
     },
+    {
+      id: "course-it-foundations",
+      slug: "it-support-networking-linux",
+      title: "IT Support, Networking & Linux Systems Foundations",
+      subtitle: "Go from zero technical background to troubleshooting networks, Linux servers, and enterprise help-desk tickets",
+      category: "Cloud & DevOps",
+      deliveryMode: "Instructor-Led",
+      audience: "individual",
+      level: "Beginner",
+      durationWeeks: 8,
+      sessionCount: 24,
+      tuitionUsd: 650,
+      heroImage: "/academy/blog-iac-platform.jpg",
+      tools: ["Linux CLI", "TCP/IP & DNS", "Windows Admin", "Bash Scripting", "Git", "CompTIA A+ / Net+"],
+      roles: ["IT Support Specialist", "Help Desk Analyst", "Junior Systems Administrator", "Network Technician"],
+      description:
+        "Built for career switchers and aspiring IT professionals. Master hardware/OS fundamentals, IP subnetting, DNS/HTTP diagnostics, Linux shell administration, and ticketing workflows that prepare you for entry-level IT roles and CompTIA A+/Network+ exams.",
+      featured: true,
+      status: "active",
+      createdAt: "2026-10-02T09:00:00Z",
+      modules: [
+        {
+          id: "mod-it-1",
+          order: 1,
+          weekLabel: "Weeks 1 to 2",
+          title: "Operating Systems, Hardware Diagnostics & Help-Desk Triage",
+          summary: "Understand CPU/memory/storage diagnostics, Windows & macOS administration, and structured ITIL incident triage.",
+          durationHours: 6,
+          objectives: [
+            "Diagnose workstation boot, storage, and driver failures methodically",
+            "Manage user accounts, permissions, and group policies across endpoints",
+          ],
+          labTask: "Document and resolve 10 realistic Tier-1/Tier-2 help-desk tickets with root-cause notes.",
+          resourceNote: "Endpoint Troubleshooting Handbook + Virtual Lab Guide",
+        },
+        {
+          id: "mod-it-2",
+          order: 2,
+          weekLabel: "Weeks 3 to 4",
+          title: "TCP/IP Networking, Subnetting, DNS & Firewall Basics",
+          summary: "Trace packet flow across LANs, routers, DHCP, DNS records, VPNs, and firewall rules.",
+          durationHours: 6,
+          objectives: [
+            "Calculate CIDR subnets and diagnose routing, DNS, and TLS errors",
+            "Use ping, traceroute, dig, nslookup, and curl for live network diagnostics",
+          ],
+          labTask: "Configure a segmented office network topology and debug broken DNS and firewall rules.",
+          resourceNote: "Networking Diagnostics Cheat Sheet + Lab Topology",
+        },
+        {
+          id: "mod-it-3",
+          order: 3,
+          weekLabel: "Weeks 5 to 6",
+          title: "Linux Command Line, Permissions & Bash Automation",
+          summary: "Operate Ubuntu Linux servers over SSH, manage systemd services, inspect logs, and automate repetitive tasks.",
+          durationHours: 6,
+          objectives: [
+            "Manage Linux file permissions, processes, cron jobs, and SSH keys",
+            "Write repeatable Bash scripts for log rotation and server health checks",
+          ],
+          labTask: "Harden a fresh Ubuntu server over SSH and deploy an automated disk/service monitor script.",
+          resourceNote: "Linux SysAdmin Playbook + Bash Exercises",
+        },
+        {
+          id: "mod-it-4",
+          order: 4,
+          weekLabel: "Weeks 7 to 8",
+          title: "Cloud Readiness, Git Workflows & Career Capstone",
+          summary: "Connect on-premises IT concepts to cloud virtual machines, Git version control, and technical interview labs.",
+          durationHours: 6,
+          objectives: [
+            "Provision a Linux web server in the cloud with SSH key authentication",
+            "Track runbooks and scripts cleanly in GitHub for your hiring portfolio",
+          ],
+          labTask: "Publish your IT Systems Runbook repository and pass a timed live troubleshooting assessment.",
+          resourceNote: "CompTIA A+ / Network+ Readiness Checklist + Portfolio Guide",
+        },
+      ],
+    },
+    {
+      id: "course-ai-productivity",
+      slug: "applied-ai-workflow-automation",
+      title: "Applied AI, Prompt Engineering & Workflow Automation",
+      subtitle: "Use modern AI assistants, structured prompts, and lightweight Python scripts to automate daily work",
+      category: "Data & Automation",
+      deliveryMode: "Self-Paced",
+      audience: "both",
+      level: "Beginner",
+      durationWeeks: 6,
+      sessionCount: 18,
+      tuitionUsd: 550,
+      heroImage: "/academy/blog-bi-modeling.jpg",
+      tools: ["Prompt Engineering", "Python Automation", "REST APIs", "RAG Basics", "Excel & Docs AI", "GitHub Copilot"],
+      roles: ["AI Productivity Specialist", "Operations Analyst", "Junior Automation Developer", "Business Systems Analyst"],
+      description:
+        "Practical, beginner-accessible course showing working professionals and aspiring technologists how to build reliable prompt systems, summarize structured documents, connect AI APIs with Python, and automate repetitive workflows safely.",
+      featured: true,
+      status: "active",
+      createdAt: "2026-10-12T09:00:00Z",
+      modules: [
+        {
+          id: "mod-ai-1",
+          order: 1,
+          weekLabel: "Weeks 1 to 2",
+          title: "Structured Prompt Engineering & Verification Frameworks",
+          summary: "Replace ad-hoc prompts with repeatable templates, output schemas, and hallucination checks.",
+          durationHours: 6,
+          objectives: [
+            "Design system instructions, few-shot templates, and structured JSON outputs",
+            "Audit AI outputs for factual grounding, privacy hygiene, and edge cases",
+          ],
+          labTask: "Build a reusable 10-template prompt playbook for reporting, research, and technical docs.",
+          resourceNote: "Prompt Engineering Pattern Library",
+        },
+        {
+          id: "mod-ai-2",
+          order: 2,
+          weekLabel: "Weeks 3 to 4",
+          title: "No-Code & Python API Workflow Automation",
+          summary: "Connect spreadsheets, email digests, and structured CSV exports to modern LLM APIs with Python.",
+          durationHours: 6,
+          objectives: [
+            "Call REST AI APIs safely with rate limits, retries, and environment variables",
+            "Automate meeting notes, ticket triage, and structured table extraction",
+          ],
+          labTask: "Ship a Python CLI script that classifies incoming support CSV records into structured reports.",
+          resourceNote: "Starter Python API Repo + Sample Datasets",
+        },
+        {
+          id: "mod-ai-3",
+          order: 3,
+          weekLabel: "Weeks 5 to 6",
+          title: "Document Retrieval (RAG) Basics & Portfolio Capstone",
+          summary: "Ground AI assistants in your own PDFs and knowledge bases using chunking and citation checks.",
+          durationHours: 6,
+          objectives: [
+            "Build a cited Q&A assistant over policy or technical documentation",
+            "Evaluate retrieval accuracy and package a shareable capstone demo",
+          ],
+          labTask: "Deliver an end-to-end grounded document workflow with evaluation checklist and GitHub README.",
+          resourceNote: "RAG Architecture Starter Kit + Capstone Rubric",
+        },
+      ],
+    },
   ];
 
   const cohorts: Cohort[] = [
@@ -781,8 +957,8 @@ function createSeedState(): AcademyStoreState {
       id: "cohort-da-nov26",
       courseId: "course-data-bi",
       code: "DA-2026-Q4",
-      startDateText: SITE_CONFIG.PROGRAMME.START_DATE_TEXT,
-      startDateIso: SITE_CONFIG.PROGRAMME.START_DATE_ISO,
+      startDateText: "November 10, 2026",
+      startDateIso: "2026-11-10T00:00:00Z",
       schedule: "3 guided sessions per week, 1 hour each (36 total)",
       format: "Instructor-Led Online · Academy Sandbox",
       seatCapacity: 30,
@@ -793,8 +969,8 @@ function createSeedState(): AcademyStoreState {
       id: "cohort-da-jan27",
       courseId: "course-data-bi",
       code: "DA-2027-Q1",
-      startDateText: "January 18, 2027",
-      startDateIso: "2027-01-18T00:00:00Z",
+      startDateText: SITE_CONFIG.PROGRAMME.START_DATE_TEXT,
+      startDateIso: SITE_CONFIG.PROGRAMME.START_DATE_ISO,
       schedule: "3 guided sessions per week, 1 hour each (36 total)",
       format: "Instructor-Led Online · Academy Sandbox",
       seatCapacity: 30,
@@ -873,6 +1049,30 @@ function createSeedState(): AcademyStoreState {
       seatsTaken: 8,
       status: "open",
     },
+    {
+      id: "cohort-it-jan27",
+      courseId: "course-it-foundations",
+      code: "IT-2027-Q1",
+      startDateText: "January 25, 2027",
+      startDateIso: "2027-01-25T00:00:00Z",
+      schedule: "Mon, Wed evenings + Sat Troubleshooting Lab (24 sessions)",
+      format: "Instructor-Led Online · Virtual Lab Sandbox",
+      seatCapacity: 30,
+      seatsTaken: 9,
+      status: "open",
+    },
+    {
+      id: "cohort-ai-rolling",
+      courseId: "course-ai-productivity",
+      code: "AI-FLEX-01",
+      startDateText: "Rolling Enrollment (Immediate Access)",
+      startDateIso: "2026-11-15T00:00:00Z",
+      schedule: "Self-paced modules + Weekly Live Automation Office Hours",
+      format: "On-Demand Portal + Weekly Mentor Q&A",
+      seatCapacity: 60,
+      seatsTaken: 14,
+      status: "open",
+    },
   ];
 
   const orgId = "org-meridian-01";
@@ -926,9 +1126,9 @@ function createSeedState(): AcademyStoreState {
       seatCount: 15,
       currency: "USD",
       unitPriceUsd: 1000,
-      discountPercent: 15,
-      totalUsd: 12750,
-      totalLocalFormatted: "$12,750",
+      discountPercent: 0,
+      totalUsd: 15000,
+      totalLocalFormatted: "$15,000",
       billingTerms: "Net-30 Purchase Order",
       status: "paid",
       notes: "Q4 Analytics & Finance Operations departmental upskilling cohort.",
@@ -1150,8 +1350,8 @@ function createSeedState(): AcademyStoreState {
       description: "Corporate 15-Seat Pack · Net-30 PO Settlement",
       installmentNumber: 1,
       currency: "USD",
-      amountUsd: 12750,
-      amountLocalFormatted: "$12,750",
+      amountUsd: 15000,
+      amountLocalFormatted: "$15,000",
       channel: "Net-30 Corporate PO",
       status: "verified",
       verifiedBy: "director@elitestechsolutions.com",
@@ -1166,7 +1366,7 @@ function createSeedState(): AcademyStoreState {
       enrollmentId: "enr-demo-learner-2",
       learnerName: "Akua Mensah",
       learnerEmail: "learner@elitestech-demo.com",
-      courseTitle: "Enterprise Python, ETL & Analytics Automation",
+      courseTitle: "Python Programming, ETL & Data Automation",
       category: "Data & Automation",
       durationWeeks: 8,
       issuedAt: "2026-11-10T14:30:00Z",
@@ -1195,6 +1395,7 @@ function createSeedState(): AcademyStoreState {
     payments,
     certificates,
     passwordResets: [],
+    leads: [],
   };
 }
 
@@ -1208,6 +1409,9 @@ export function getAcademyStore(): AcademyStoreState {
   }
   if (!globalForAcademy.__etsAcademyStore.passwordResets) {
     globalForAcademy.__etsAcademyStore.passwordResets = [];
+  }
+  if (!globalForAcademy.__etsAcademyStore.leads) {
+    globalForAcademy.__etsAcademyStore.leads = [];
   }
   return globalForAcademy.__etsAcademyStore;
 }

@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import type {
-  AcademyCategory,
-  Cohort,
-  Course,
-  CourseCompletionSummary,
-  CurrencyCode,
+import {
+  isIndividualCourse,
+  type AcademyCategory,
+  type Cohort,
+  type Course,
+  type CourseCompletionSummary,
+  type CurrencyCode,
 } from "@/lib/academyStore";
 import { AcademyHero } from "./AcademyHero";
 import { LearningPathsSection } from "./LearningPathsSection";
@@ -15,10 +16,10 @@ import {
   CompareDock,
   CourseComparisonSection,
 } from "./CourseComparisonSection";
-import { CorporateEnablementCtaSection } from "./CorporateEnablementCtaSection";
+import { IndividualLearningFlowSection } from "./IndividualLearningFlowSection";
 import { AcademyInsightsBlogSection } from "./AcademyInsightsBlogSection";
-import { CloudAdvisorPanel } from "./CloudAdvisorPanel";
 import { AcademyHomeFaqSection } from "./AcademyCourseFAQ";
+import { CorporateEnablementCtaSection } from "./CorporateEnablementCtaSection";
 
 export function AcademyCatalogClient({
   courses,
@@ -33,6 +34,11 @@ export function AcademyCatalogClient({
   isAuthenticated?: boolean;
   initialCurrency?: CurrencyCode;
 }) {
+  const individualCourses = useMemo(
+    () => courses.filter((c) => isIndividualCourse(c)),
+    [courses]
+  );
+
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currency, setCurrency] = useState<CurrencyCode>(initialCurrency);
   const [compareIds, setCompareIds] = useState<string[]>([]);
@@ -56,7 +62,6 @@ export function AcademyCatalogClient({
     };
   }, []);
 
-  // Store-backed course completion summaries (hydrated from SSR + refreshed on session change)
   const [courseProgressList, setCourseProgressList] =
     useState<CourseCompletionSummary[]>(courseProgress);
 
@@ -117,9 +122,9 @@ export function AcademyCatalogClient({
   const comparedCourses = useMemo(
     () =>
       compareIds
-        .map((id) => courses.find((c) => c.id === id))
+        .map((id) => individualCourses.find((c) => c.id === id))
         .filter((c): c is Course => Boolean(c)),
-    [compareIds, courses]
+    [compareIds, individualCourses]
   );
 
   const toggleCompareCourse = (courseId: string) => {
@@ -167,25 +172,26 @@ export function AcademyCatalogClient({
 
   return (
     <main id="main">
-      {/* ============ ARCHITECTURAL HERO SECTION ============ */}
+      {/* ============ INDIVIDUAL LEARNER HERO SECTION ============ */}
       <AcademyHero
-        courseCount={courses.length}
+        courseCount={individualCourses.length}
         isAuthenticated={isAuthenticated}
         onSelectTrack={handleSelectPath}
       />
 
-      {/* ============ ROLE-BASED LEARNING PATHS ============ */}
+      {/* ============ INDIVIDUAL CAREER TRACKS ============ */}
       <LearningPathsSection
-        courses={courses}
+        courses={individualCourses}
         selectedCategory={selectedCategory}
         onSelectPath={handleSelectPath}
         onResetCategory={() => setSelectedCategory("all")}
       />
 
-      {/* ============ ENGINEERING PROGRAMS & CURRICULUM CATALOG ============ */}
+      {/* ============ INDIVIDUAL COURSE CATALOG ============ */}
       <CourseCatalogSection
-        courses={courses}
+        courses={individualCourses}
         cohorts={cohorts}
+        currency={currency}
         progressByCourseId={progressByCourseId}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
@@ -214,17 +220,17 @@ export function AcademyCatalogClient({
         onToggleTable={toggleComparisonTable}
       />
 
-      {/* ============ FULL-WIDTH CORPORATE / BUSINESS CTA SECTION ============ */}
-      <CorporateEnablementCtaSection />
+      {/* ============ HOW INDIVIDUAL LEARNING WORKS ============ */}
+      <IndividualLearningFlowSection />
 
-      {/* ============ BLOG / TECH NEWS BRIEFS (WHY OUR PROGRAMS STAND OUT) ============ */}
-      <AcademyInsightsBlogSection />
+      {/* ============ INDIVIDUAL CAREER GUIDES & STUDY PLAYBOOKS ============ */}
+      <AcademyInsightsBlogSection variant="individual" />
 
-      {/* ============ TECHNICAL DOCUMENTATION ADVISOR ============ */}
-      <CloudAdvisorPanel selectedCategory={selectedCategory} />
+      {/* ============ INDIVIDUAL FAQ ============ */}
+      <AcademyHomeFaqSection audience="individual" />
 
-      {/* ============ FREQUENTLY ASKED QUESTIONS ============ */}
-      <AcademyHomeFaqSection />
+      {/* ============ LIGHTWEIGHT CROSS-LINK TO FOR BUSINESSES ============ */}
+      <CorporateEnablementCtaSection compact />
     </main>
   );
 }

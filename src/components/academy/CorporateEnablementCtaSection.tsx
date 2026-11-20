@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight, BarChart3, Layers, ReceiptText } from "lucide-react";
+import { ArrowRight, BarChart3, Building2, Layers, ReceiptText } from "lucide-react";
 
 const SECTION_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -15,8 +15,8 @@ const TEAM_ADVANTAGES = [
   },
   {
     icon: ReceiptText,
-    title: "Volume Pricing & Net-30 Invoicing",
-    desc: "Automatic 10% to 22% multi-seat savings on 5+ seats with streamlined procurement.",
+    title: "Unified Billing & Net-30 Invoicing",
+    desc: "Streamlined multi-seat invoicing for 5+ learners with Net-30 Purchase Order procurement.",
   },
   {
     icon: BarChart3,
@@ -25,7 +25,50 @@ const TEAM_ADVANTAGES = [
   },
 ] as const;
 
-export function CorporateEnablementCtaSection() {
+export function CorporateEnablementCtaSection({
+  compact = false,
+}: {
+  compact?: boolean;
+}) {
+  if (compact) {
+    return (
+      <section
+        className="acad-biz-crosslink-band"
+        aria-labelledby="acad-biz-crosslink-heading"
+      >
+        <div className="container">
+          <div className="acad-biz-crosslink-card">
+            <div className="acad-biz-crosslink-copy">
+              <div className="acad-biz-crosslink-icon" aria-hidden="true">
+                <Building2 size={20} />
+              </div>
+              <div>
+                <h2 id="acad-biz-crosslink-heading">
+                  Training a team of 5 or more?
+                </h2>
+                <p>
+                  Explore corporate bootcamps, multi-seat team cohorts, Net-30 PO billing, and engineering lead telemetry in our dedicated Business Hub.
+                </p>
+              </div>
+            </div>
+            <div className="acad-biz-crosslink-actions">
+              <Link href="/academy/corporate" className="btn btn-gold btn-sm">
+                <span>Explore For Businesses</span>
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+              <Link
+                href="/academy/tuition?mode=corporate"
+                className="btn btn-outline-light btn-sm"
+              >
+                <span>Estimate Team Seats</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       className="acad-corp-cta-band"
@@ -51,7 +94,7 @@ export function CorporateEnablementCtaSection() {
               Practical Technical Training Built for Growing Teams
             </h2>
             <p>
-              Equip your organization with instructor-led cohorts aligned to your real cloud, data, and security workflows. Enroll 5 or more team members with automatic volume pricing, Net-30 corporate invoicing, and shared progress visibility for engineering leads.
+              Equip your organization with instructor-led cohorts aligned to your real cloud, data, and security workflows. Enroll 5 or more team members with centralized seat provisioning, Net-30 corporate invoicing, and shared progress visibility for engineering leads.
             </p>
 
             <motion.div

@@ -23,20 +23,29 @@ import {
 } from "lucide-react";
 import {
   ACADEMY_CATEGORIES,
-  DELIVERY_MODES,
+  formatCurrencyAmount,
   getCourseUpcomingCohorts,
   getTodayUtcIsoKey,
   type AcademyCategory,
   type Cohort,
   type Course,
   type CourseCompletionSummary,
+  type CurrencyCode,
 } from "@/lib/academyStore";
 
-export type CourseSortOption = "newest" | "duration" | "alphabetical";
+export type CourseSortOption = "recommended" | "newest" | "duration" | "alphabetical";
 export type CatalogViewMode = "cards" | "list";
 
-const DELIVERY_FORMATS = ["all", ...DELIVERY_MODES] as const;
+const DELIVERY_FORMATS = ["all", "Instructor-Led", "Self-Paced"] as const;
 const SKILL_LEVELS = ["Beginner", "Intermediate", "Advanced"] as const;
+const RECOMMENDED_ORDER: Record<string, number> = {
+  "course-data-bi": 1,
+  "course-it-foundations": 2,
+  "course-ai-productivity": 3,
+  "course-cloud-devops": 4,
+  "course-cybersecurity": 5,
+  "course-python-etl": 6,
+};
 
 interface FilterPredicateOptions {
   category: string;
@@ -224,6 +233,7 @@ function CourseActionFooter({
 export function CourseCatalogSection({
   courses,
   cohorts,
+  currency = "USD",
   progressByCourseId,
   selectedCategory,
   onSelectCategory,
@@ -234,6 +244,7 @@ export function CourseCatalogSection({
 }: {
   courses: Course[];
   cohorts: Cohort[];
+  currency?: CurrencyCode;
   progressByCourseId: Record<string, CourseCompletionSummary>;
   selectedCategory: string;
   onSelectCategory: (category: "all" | AcademyCategory) => void;
@@ -246,7 +257,7 @@ export function CourseCatalogSection({
   const [selectedMode, setSelectedMode] = useState<string>("all");
   const [selectedDifficulties, setSelectedDifficulties] = useState<string[]>([]);
   const [selectedToolchains, setSelectedToolchains] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState<CourseSortOption>("newest");
+  const [sortBy, setSortBy] = useState<CourseSortOption>("recommended");
   const [query, setQuery] = useState("");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<CatalogViewMode>("cards");
@@ -338,6 +349,12 @@ export function CourseCatalogSection({
     };
 
     return [...matched].sort((a, b) => {
+      if (sortBy === "recommended") {
+        const rankA = RECOMMENDED_ORDER[a.id] ?? 99;
+        const rankB = RECOMMENDED_ORDER[b.id] ?? 99;
+        if (rankA !== rankB) return rankA - rankB;
+        return a.title.localeCompare(b.title);
+      }
       if (sortBy === "alphabetical") {
         return a.title.localeCompare(b.title);
       }
@@ -383,7 +400,7 @@ export function CourseCatalogSection({
     setSelectedMode("all");
     setSelectedDifficulties([]);
     setSelectedToolchains([]);
-    setSortBy("newest");
+    setSortBy("recommended");
     setQuery("");
   };
 
@@ -417,10 +434,10 @@ export function CourseCatalogSection({
         {/* ============ ARCHITECTURAL CATALOG HEADER ============ */}
         <div className="acad-cat-header">
           <div className="acad-cat-header-copy">
-            <span className="acad-cat-eyebrow">Curriculum Index · Practitioner Tracks</span>
-            <h2>Engineering Programs &amp; Curriculum Catalog</h2>
+            <span className="acad-cat-eyebrow">Individual Course Catalog · Live &amp; Self-Paced</span>
+            <h2>IT, Cloud, Data &amp; Cybersecurity Courses</h2>
             <p>
-              Browse courses grouped into their respective engineering programs, filter by delivery mode or skill level, compare tracks side-by-side, and start enrollment.
+              Explore practical courses built for individual career growth. Filter by subject, study format, skill level, or tools, compare tracks side-by-side, and enroll with 2-part installments.
             </p>
           </div>
         </div>
@@ -638,6 +655,7 @@ export function CourseCatalogSection({
                       onChange={(e) => setSortBy(e.target.value as CourseSortOption)}
                       aria-label="Sort courses by"
                     >
+                      <option value="recommended">Recommended</option>
                       <option value="newest">Newest</option>
                       <option value="duration">Duration</option>
                       <option value="alphabetical">Alphabetical</option>
@@ -845,16 +863,21 @@ export function CourseCatalogSection({
 
                           <div className="acad-prog-specs acad-prog-specs-row">
                             <div className="acad-prog-spec">
-                              <small>Curriculum</small>
+                              <small>Duration &amp; Format</small>
                               <strong>
-                                {course.durationWeeks} Weeks · {course.modules.length} Modules
+                                {course.durationWeeks} Wks · {course.deliveryMode}
                               </strong>
                             </div>
                             <div className="acad-prog-spec-div" aria-hidden="true" />
                             <div className="acad-prog-spec">
-                              <small>Format &amp; Tier</small>
+                              <small>Level</small>
+                              <strong>{course.level}</strong>
+                            </div>
+                            <div className="acad-prog-spec-div" aria-hidden="true" />
+                            <div className="acad-prog-spec">
+                              <small>Tuition ({currency})</small>
                               <strong>
-                                {course.level} · {course.deliveryMode}
+                                {formatCurrencyAmount(course.tuitionUsd, currency)}
                               </strong>
                             </div>
                           </div>
@@ -1018,17 +1041,24 @@ export function CourseCatalogSection({
                             />
                           )}
 
-                          {/* 2-Column Flexbox Specification Strip with Vertical Hairline */}
+                          {/* Specification Strip with Transparent Localized Tuition */}
                           <div className="acad-prog-specs">
                             <div className="acad-prog-spec">
-                              <small>Duration</small>
-                              <strong>{course.durationWeeks} Weeks</strong>
+                              <small>Duration &amp; Format</small>
+                              <strong>
+                                {course.durationWeeks} Wks · {course.deliveryMode}
+                              </strong>
                             </div>
                             <div className="acad-prog-spec-div" aria-hidden="true" />
                             <div className="acad-prog-spec">
-                              <small>Level &amp; Mode</small>
+                              <small>Level</small>
+                              <strong>{course.level}</strong>
+                            </div>
+                            <div className="acad-prog-spec-div" aria-hidden="true" />
+                            <div className="acad-prog-spec">
+                              <small>Tuition ({currency})</small>
                               <strong>
-                                {course.level} · {course.deliveryMode}
+                                {formatCurrencyAmount(course.tuitionUsd, currency)}
                               </strong>
                             </div>
                           </div>

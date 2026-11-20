@@ -90,13 +90,15 @@ export async function POST(req: Request) {
       : slugBase;
 
     const courseId = `course-${Date.now()}`;
+    const normalizedMode = normalizeDeliveryMode(deliveryMode);
     const newCourse: Course = {
       id: courseId,
       slug,
       title,
       subtitle,
       category: normalizeAcademyCategory(category),
-      deliveryMode: normalizeDeliveryMode(deliveryMode),
+      deliveryMode: normalizedMode,
+      audience: normalizedMode === "Corporate Bootcamp" ? "business" : "both",
       level: ["Beginner", "Intermediate", "Advanced"].includes(level) ? level : "Intermediate",
       durationWeeks: Math.max(1, Math.min(52, durationWeeks)),
       sessionCount: Math.max(1, Math.min(200, sessionCount)),
